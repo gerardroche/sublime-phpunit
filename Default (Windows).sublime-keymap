@@ -1,0 +1,6 @@
+[
+  { "keys": ["ctrl+shift+t"], "command": "phpunit_run_all_tests" },
+  { "keys": ["ctrl+shift+r"], "command": "phpunit_run_single_test" },
+  { "keys": ["ctrl+shift+e"], "command": "phpunit_run_last_test" },
+  { "keys": ["ctrl+shift+."], "command": "phpunit_switch_file"}
+]
