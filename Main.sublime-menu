@@ -1,0 +1,50 @@
+[
+    {
+        "caption": "Preferences",
+        "id": "preferences",
+        "children": [
+            {
+                "caption": "Package Settings",
+                "id": "package-settings",
+                "children": [
+                    {
+                        "caption": "PHPUnit",
+                        "children": [
+                            {
+                                "command": "open_file",
+                                "args": { "file": "${packages}/phpunit/README.md" },
+                                "caption": "README"
+                            },
+                            {
+                                "caption": "-"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": { "file": "${packages}/phpunit/phpunit.sublime-settings" },
+                                "caption": "Settings – Default"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": { "file": "${packages}/User/phpunit.sublime-settings" },
+                                "caption": "Settings – User"
+                            },
+                            {
+                                "caption": "-"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": { "file": "${packages}/phpunit/Default (${platform}).sublime-keymap" },
+                                "caption": "Key Bindings – Default"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": { "file": "${packages}/User/Default (${platform}).sublime-keymap" },
+                                "caption": "Key Bindings – User"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
