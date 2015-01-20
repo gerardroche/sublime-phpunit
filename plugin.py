@@ -15,10 +15,6 @@ else:
     def debug_message(message):
         pass
 
-def debug_get_view_info(view):
-    return 'view=[ id=%d, buffer_id=%d, file=%s window=[ id=%d, active_view_id=%d, active_group=%s ]]'\
-    % (view.id(), view.buffer_id(), view.file_name(), view.window().id(), view.window().active_view().id(), view.window().active_group())
-
 def findup_phpunit_working_directory(file_name, folders):
     """
     Find the first PHPUnit configuration file directory,
@@ -67,7 +63,7 @@ def find_php_classes(view):
         if is_valid_php_identifier(class_name):
             classes.append(class_name)
 
-    debug_message('[PHPUnit] Found %d class definition(s) %s in view: %s' % (len(classes), classes, debug_get_view_info(view)))
+    debug_message('[find_php_classes] Found %d class definition(s) %s in view: id=%s, file_name=%s' % (len(classes), classes, view.id(), view.file_name()))
 
     return classes
 
