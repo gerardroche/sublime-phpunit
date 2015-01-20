@@ -19,6 +19,7 @@ class Config():
 
     def __init__(self):
         self.loaded = False
+        self.last_run_phpunit_command_args = None
 
     def load(self):
 
@@ -71,11 +72,26 @@ class Config():
             "save_all_on_run": self.plugin_settings.get('save_all_on_run')
         }
 
+    def get_last_run_phpunit_command_args(self):
+        return self.last_run_phpunit_command_args
+
+    def set_last_run_phpunit_command_args(self, working_dir, unit_test_or_directory=None, options = {}):
+        self.last_run_phpunit_command_args = {
+            'working_dir': working_dir,
+            'unit_test_or_directory': unit_test_or_directory,
+            'options': options
+        }
+
 config = Config()
 
 def plugin_loaded():
     debug_message('[plugin_loaded] Loading...')
     config.load()
+
+    # last-run file is no longer used
+    old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
+    if os.path.isfile(old_phpunit_last_run_file):
+        os.remove(old_phpunit_last_run_file)
 
 class PHPUnitXmlFinder():
 
@@ -187,24 +203,6 @@ def find_first_switchable_file(view):
 
         debug_message("No switchable found for class: %s" % class_name)
 
-def load_settings():
-    return sublime.load_settings("phpunit.last-run")
-
-def load_last_run():
-    settings = load_settings()
-    return (
-        settings.get("phpunit_last_test_run_working_dir"),
-        settings.get("phpunit_last_test_run_unit_test_or_directory"),
-        settings.get("phpunit_last_test_run_options")
-    )
-
-def save_last_run(working_dir, unit_test_or_directory=None, options = {}):
-    settings = load_settings()
-    settings.set("phpunit_last_test_run_working_dir", working_dir)
-    settings.set("phpunit_last_test_run_unit_test_or_directory", unit_test_or_directory)
-    settings.set("phpunit_last_test_run_options", options)
-    sublime.save_settings("phpunit.last-run")
-
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
     def run(self, working_dir, unit_test_or_directory=None, options = {}):
@@ -221,12 +219,6 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         if config.get('save_all_on_run'):
             debug_message('[phpunit_command] "save_all_on_run" is enabled, saving...')
             self.window.run_command('save_all')
-
-        active_view = self.window.active_view()
-        if active_view:
-            view_settings = active_view.settings()
-            if view_settings.get("phpunit_option_testdox") != None:
-                options['testdox'] = view_settings.get("phpunit_option_testdox")
 
         cmd = 'phpunit'
 
@@ -250,7 +242,11 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
             'quiet': not DEBUG_MODE
         })
 
-        save_last_run(working_dir, unit_test_or_directory, options)
+        config.set_last_run_phpunit_command_args(
+            working_dir,
+            unit_test_or_directory,
+            options
+        )
 
         panel = self.window.get_output_panel("exec")
         panel.settings().set('syntax','Packages/phpunit/result.hidden-tmLanguage')
@@ -323,13 +319,9 @@ class PhpunitRunLastTestCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         debug_message('command: phpunit_run_last_test')
 
-        working_dir, unit_test_or_directory, options = load_last_run()
-
-        sublime.active_window().run_command("phpunit", {
-            "working_dir": working_dir ,
-            "unit_test_or_directory": unit_test_or_directory,
-            "options": options
-        })
+        phpunit_args = config.get_last_run_phpunit_command_args()
+        if phpunit_args:
+            self.view.window().run_command('phpunit', phpunit_args)
 
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
