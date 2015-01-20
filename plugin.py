@@ -115,18 +115,6 @@ def get_selection_phpunit_test_method(view):
             if word[:4] == "test":
                 return word
 
-def file_exists(view):
-    return (view.file_name() is not None and len(view.file_name()) > 0)
-
-def is_multiple_selection(view):
-    return (len(view.sel()) != 1)
-
-def is_selection_php_scope(view):
-    for region in view.sel():
-        if view.score_selector(region.begin(), 'source.php') > 0:
-            return True
-    return False
-
 def load_settings():
     return sublime.load_settings("phpunit.last-run")
 
