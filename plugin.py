@@ -148,7 +148,7 @@ def save_last_run(working_dir, unit_test_or_directory=None, options = {}):
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
     def run(self, working_dir, unit_test_or_directory=None, options = {}):
-        debug_message("[PhpunitCommand] working_dir=%s, unit_test_or_directory=%s, options=%s" % (working_dir, unit_test_or_directory, options))
+        debug_message('command: phpunit_command {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
         if not working_dir or not os.path.isdir(working_dir):
             debug_message("Working directory does not exist or is not a directory: %s" % (working_dir))
@@ -203,7 +203,7 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
 class PhpunitRunAllTests(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        debug_message("[TextCommand] phpunit_run_all_tests *** run")
+        debug_message('command: phpunit_run_all_tests')
 
         working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
@@ -215,7 +215,7 @@ class PhpunitRunAllTests(sublime_plugin.TextCommand):
 class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        debug_message("[TextCommand] phpunit_run_single_test *** run")
+        debug_message('command: phpunit_run_single_test')
 
         working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
@@ -248,7 +248,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
 class PhpunitRunLastTestCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        debug_message("[TextCommand] phpunit_run_last_test *** run")
+        debug_message('command: phpunit_run_last_test')
 
         working_dir, unit_test_or_directory, options = load_last_run()
 
@@ -261,12 +261,12 @@ class PhpunitRunLastTestCommand(sublime_plugin.TextCommand):
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
     def run(self, edit, split_below=False, split_right=False):
-        debug_message("[TextCommand] phpunit_switch_file *** run")
+        debug_message('command: phpunit_switch_file { "split_below": %s, "split_right": %s }')
 
         file_name = find_first_switchable_file(self.view)
         if not file_name:
             return
 
-        debug_message("Switching to %s from %s" % (file_name, self.view.file_name()))
+        debug_message('Switching to %s from %s' % (file_name, self.view.file_name()))
 
         self.view.window().open_file(file_name)
