@@ -102,19 +102,6 @@ def find_first_switchable_file(view):
 
         debug_message("No switchable found for class: %s" % class_name)
 
-def contains_phpunit_test_case(view):
-    for class_name in find_php_classes(view):
-        if class_name[-4:] == 'Test':
-            return True
-    return False
-
-def get_selection_phpunit_test_method(view):
-    for region in view.sel():
-        word = view.substr(view.word(region))
-        if is_valid_php_identifier(word):
-            if word[:4] == "test":
-                return word
-
 def load_settings():
     return sublime.load_settings("phpunit.last-run")
 
@@ -205,33 +192,43 @@ class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         debug_message('command: phpunit_run_single_test')
 
-        working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
-        if not working_dir:
-            debug_message("Could not find a PHPUnit working directory")
-            return
-
         options = {}
 
-        if not contains_phpunit_test_case(self.view):
-            switchable_file = find_first_switchable_file(self.view)
-            if not switchable_file:
-                debug_message("Could not find a PHPUnit test case or a switchable file")
-                return
-            # @todo should verify that the file switched-to contains a testcase
-            unit_test = switchable_file
-        else:
-
-            test_method = get_selection_phpunit_test_method(self.view)
+        if self.contains_test_case():
+            unit_test = self.view.file_name()
+            test_method = self.get_selection_test_name()
             if test_method:
                 options['filter'] = test_method
+        else:
+            unit_test = find_first_switchable_file(self.view)
+            if not unit_test: # @todo check that the switchable contains a testcase
+                debug_message('Could not find a test-case or a switchable test-case')
+                return
 
-            unit_test = self.view.file_name()
+        working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
+        if not working_dir:
+            debug_message('Could not find a PHPUnit working directory')
+            return
 
         sublime.active_window().run_command("phpunit", {
             "working_dir": working_dir ,
             "unit_test_or_directory": unit_test,
             "options": options
         })
+
+    def contains_test_case(self):
+        for class_name in find_php_classes(self.view):
+            if class_name[-4:] == 'Test':
+                return True
+        return False
+
+    def get_selection_test_name(self):
+        # todo should be a scoped selection i.e. is the selection an entity.name.function
+        for region in self.view.sel():
+            word = self.view.substr(self.view.word(region))
+            if is_valid_php_identifier(word):
+                if word[:4] == 'test':
+                    return word
 
 class PhpunitRunLastTestCommand(sublime_plugin.TextCommand):
 
