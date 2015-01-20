@@ -15,45 +15,72 @@ else:
     def debug_message(message):
         pass
 
-def findup_phpunit_working_directory(file_name, folders):
+class PHPUnitXmlFinder():
+
     """
-    Find the first PHPUnit configuration file directory,
-    either phpunit.xml or phpunit.xml.dist, in the
-    file_name directory or the nearest common ancestor
-    directory in folders.
+    Find the first PHPUnit configuration file, either
+    phpunit.xml or phpunit.xml.dist, in the file_name
+    directory or the nearest common ancestor directory
+    in folders.
     """
 
-    if file_name == None or not len(file_name) > 0:
-        # @todo should probably throw a logic error
+    def find(self, file_name, folders):
+        """
+        Finds the PHPUnit configuration file.
+        """
+
+        debug_message('[PHPUnitXmlFinder] Find the configuration for "%s" in folders: %s' % (file_name, folders))
+
+        if file_name == None:
+            debug_message('[PHPUnitXmlFinder] Invalid argument: file is None')
+            return None
+
+        if not isinstance(file_name, str):
+            debug_message('[PHPUnitXmlFinder] Invalid argument: file not instance')
+            return None
+
+        if not len(file_name) > 0:
+            debug_message('[PHPUnitXmlFinder] Invalid argument: file len not > 0')
+            return None
+
+        if folders == None:
+            debug_message('[PHPUnitXmlFinder] Invalid argument: folders is None')
+            return None
+
+        if not isinstance(folders, list):
+            debug_message('[PHPUnitXmlFinder] Invalid argument: folders not instance')
+            return None
+
+        if not len(folders) > 0:
+            debug_message('[PHPUnitXmlFinder] Invalid argument: folder len not > 0')
+            return None
+
+        ancestor_folders = []
+        common_prefix = os.path.commonprefix(folders)
+        parent = os.path.dirname(file_name)
+        while parent not in ancestor_folders and parent.startswith(common_prefix):
+            ancestor_folders.append(parent)
+            parent = os.path.dirname(parent)
+        ancestor_folders.sort(reverse=True)
+
+        debug_message('[PHPUnitXmlFinder] File has %s common ancestor project folder(s): %s' % (len(ancestor_folders), ancestor_folders))
+
+        for ancestor in ancestor_folders:
+            for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
+                configuration_file = os.path.join(ancestor, file_name)
+                if os.path.isfile(configuration_file):
+                    debug_message('[PHPUnitXmlFinder] Found configuration: %s' % configuration_file)
+                    return configuration_file
+
+        debug_message('[PHPUnitXmlFinder] Configuration file not found')
         return None
 
-    if not len(folders) > 0:
-        # @todo should probably throw a logic error
-        return None
-
-    debug_message("findup_phpunit_working_directory() file_name=%s folders=%s" % (file_name, folders))
-
-    possible_folders = []
-    folders_common_prefix = os.path.commonprefix(folders)
-    file_name_dir = os.path.dirname(file_name)
-    while file_name_dir not in possible_folders and file_name_dir.startswith(folders_common_prefix):
-        possible_folders.append(file_name_dir)
-        file_name_dir = os.path.dirname(file_name_dir)
-
-    possible_folders.sort(reverse=True)
-
-    debug_message("There are %d possible PHPUnit working directory locations: %s" % (len(possible_folders), possible_folders))
-
-    for possible_folder in possible_folders:
-        for file_name in ["phpunit.xml", "phpunit.xml.dist"]:
-            phpunit_config_file = os.path.join(possible_folder, file_name)
-            debug_message("  Looking for a PHPUnit working directory at %s..." % phpunit_config_file)
-            if os.path.isfile(phpunit_config_file):
-                working_dir = os.path.dirname(phpunit_config_file)
-                debug_message("Found PHPUnit working directory at %s" % working_dir)
-                return working_dir
-
-    debug_message("Could not find a PHPUnit working directory.")
+def findup_phpunit_xml_directory(file_name, folders):
+    finder = PHPUnitXmlFinder()
+    configuration = finder.find(file_name, folders)
+    if configuration:
+        return os.path.dirname(configuration)
+    return None
 
 def find_php_classes(view):
     class_definitions = view.find_by_selector('source.php entity.name.type.class')
@@ -177,7 +204,7 @@ class PhpunitRunAllTests(sublime_plugin.TextCommand):
     def run(self, edit):
         debug_message('command: phpunit_run_all_tests')
 
-        working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
+        working_dir = findup_phpunit_xml_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
             debug_message("Could not find a PHPUnit working directory")
             return
@@ -202,7 +229,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
                 debug_message('Could not find a test-case or a switchable test-case')
                 return
 
-        working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
+        working_dir = findup_phpunit_xml_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
             debug_message('Could not find a PHPUnit working directory')
             return
