@@ -3,14 +3,17 @@ import sublime_plugin
 import re
 import os
 
-LOG_LEVEL_DEBUG = True
+DEBUG_MODE=bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
-def debug_message(message):
-    """
-    Prints a debug level messages.
-    """
-    if LOG_LEVEL_DEBUG:
-        print("[phpunit] [DEBUG] %s" % (str(message)))
+if DEBUG_MODE:
+    def debug_message(message):
+        """
+        Prints a debug level message.
+        """
+        print('[phpunit] %s' % str(message))
+else:
+    def debug_message(message):
+        pass
 
 def debug_get_view_info(view):
     return 'view=[ id=%d, buffer_id=%d, file=%s window=[ id=%d, active_view_id=%d, active_group=%s ]]'\
@@ -181,7 +184,7 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
             'working_dir': working_dir,
             'file_regex': '([a-zA-Z0-9\\/_-]+\.php)(?:\:| on line )([0-9]+)$',
             'shell': True,
-            'quiet': True
+            'quiet': not DEBUG_MODE
         })
 
         save_last_run(working_dir, unit_test_or_directory, options)
