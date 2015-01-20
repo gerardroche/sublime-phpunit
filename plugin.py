@@ -178,30 +178,30 @@ def is_valid_php_identifier(string):
 def find_first_switchable_file(view):
     for class_name in find_php_classes(view):
 
-        debug_message("Trying to find switchable for class '%s'" % (class_name))
+        debug_message('[find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
 
         if class_name[-4:] == "Test":
             lookup_symbol = class_name[:-4]
         else:
             lookup_symbol = class_name + "Test"
 
-        debug_message("Trying to find switchable class '%s'" % (lookup_symbol))
+        debug_message('[find_first_switchable_file] Trying to find switchable class "%s"' % (lookup_symbol))
 
         switchables_in_open_files = view.window().lookup_symbol_in_open_files(lookup_symbol)
-        debug_message("Found (%d) possible switchables for %s in open files: %s" % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+        debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in open files: %s' % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
 
         for open_file in switchables_in_open_files:
-            debug_message("Found switchable %s for %s in open files (%s): %s" % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
+            debug_message('[find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
             return open_file[0]
 
         switchables_in_index = view.window().lookup_symbol_in_index(lookup_symbol)
-        debug_message("Found (%d) possible switchables for %s in index: %s" % (len(switchables_in_index), class_name, switchables_in_index))
+        debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
 
         for index in switchables_in_index:
-            debug_message("Found switchable %s for %s in indexes (%d): %s" % (index, class_name, len(switchables_in_index), switchables_in_index))
+            debug_message('[find_first_switchable_file] Found switchable %s for %s in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
             return index[0]
 
-        debug_message("No switchable found for class: %s" % class_name)
+        debug_message('[find_first_switchable_file] No switchable found for class: %s' % class_name)
 
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
@@ -209,11 +209,11 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         debug_message('command: phpunit_command {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
         if not working_dir or not os.path.isdir(working_dir):
-            debug_message("Working directory does not exist or is not a directory: %s" % (working_dir))
+            debug_message('[phpunit_command] Working directory does not exist or is not a directory: %s' % (working_dir))
             return
 
         if unit_test_or_directory and not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-            debug_message("Unit test or directory is invalid: %s" % (unit_test_or_directory))
+            debug_message('[phpunit_command] Unit test or directory is invalid: %s' % (unit_test_or_directory))
             return
 
         if config.get('save_all_on_run'):
@@ -266,7 +266,7 @@ class PhpunitRunAllTests(sublime_plugin.TextCommand):
 
         working_dir = findup_phpunit_xml_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
-            debug_message("Could not find a PHPUnit working directory")
+            debug_message('[phpunit_run_all_tests_command] Could not find a PHPUnit working directory')
             return
 
         sublime.active_window().run_command('phpunit', { "working_dir": working_dir })
@@ -286,12 +286,12 @@ class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
         else:
             unit_test = find_first_switchable_file(self.view)
             if not unit_test: # @todo check that the switchable contains a testcase
-                debug_message('Could not find a test-case or a switchable test-case')
+                debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
                 return
 
         working_dir = findup_phpunit_xml_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
-            debug_message('Could not find a PHPUnit working directory')
+            debug_message('[phpunit_run_single_test_command] Could not find a PHPUnit working directory')
             return
 
         sublime.active_window().run_command("phpunit", {
@@ -332,6 +332,6 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
         if not switchable_file_name:
             return
 
-        debug_message('Switching to %s from %s' % (switchable_file_name, self.view.file_name()))
+        debug_message('[phpunit_switch_file_command] Switching to %s from %s' % (switchable_file_name, self.view.file_name()))
 
         self.view.window().open_file(switchable_file_name)
