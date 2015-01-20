@@ -248,10 +248,10 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
     def run(self, edit, split_below=False, split_right=False):
         debug_message('command: phpunit_switch_file { "split_below": %s, "split_right": %s }')
 
-        file_name = find_first_switchable_file(self.view)
-        if not file_name:
+        switchable_file_name = find_first_switchable_file(self.view)
+        if not switchable_file_name:
             return
 
-        debug_message('Switching to %s from %s' % (file_name, self.view.file_name()))
+        debug_message('Switching to %s from %s' % (switchable_file_name, self.view.file_name()))
 
-        self.view.window().open_file(file_name)
+        self.view.window().open_file(switchable_file_name)
