@@ -152,7 +152,8 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory
 
-        debug_message("[Command]: %s" % cmd)
+        debug_message('[phpunit_command] cmd: %s' % cmd)
+        debug_message('[phpunit_command] working_dir: %s' % working_dir)
 
         self.window.run_command('exec', {
             'cmd': cmd,
