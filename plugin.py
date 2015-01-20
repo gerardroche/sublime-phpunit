@@ -220,7 +220,12 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
             debug_message('[phpunit_command] "save_all_on_run" is enabled, saving...')
             self.window.run_command('save_all')
 
-        cmd = 'phpunit'
+        if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
+            debug_message('[phpunit_command] Found Composer PHPUnit: vendor/bin/phpunit')
+            cmd = 'vendor/bin/phpunit'
+        else:
+            debug_message('[phpunit_command] Composer PHPUnit "vendor/bin/phpunit" not found, using fallback: "phpunit"')
+            cmd = 'phpunit'
 
         for k, v in options.items():
             if not v == False:
