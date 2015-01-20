@@ -5,7 +5,7 @@ import os
 
 LOG_LEVEL_DEBUG = True
 
-def log_debug(message):
+def debug_message(message):
     """
     Prints a debug level messages.
     """
@@ -32,7 +32,7 @@ def findup_phpunit_working_directory(file_name, folders):
         # @todo should probably throw a logic error
         return None
 
-    log_debug("findup_phpunit_working_directory() file_name=%s folders=%s" % (file_name, folders))
+    debug_message("findup_phpunit_working_directory() file_name=%s folders=%s" % (file_name, folders))
 
     possible_folders = []
     folders_common_prefix = os.path.commonprefix(folders)
@@ -43,18 +43,18 @@ def findup_phpunit_working_directory(file_name, folders):
 
     possible_folders.sort(reverse=True)
 
-    log_debug("There are %d possible PHPUnit working directory locations: %s" % (len(possible_folders), possible_folders))
+    debug_message("There are %d possible PHPUnit working directory locations: %s" % (len(possible_folders), possible_folders))
 
     for possible_folder in possible_folders:
         for file_name in ["phpunit.xml", "phpunit.xml.dist"]:
             phpunit_config_file = os.path.join(possible_folder, file_name)
-            log_debug("  Looking for a PHPUnit working directory at %s..." % phpunit_config_file)
+            debug_message("  Looking for a PHPUnit working directory at %s..." % phpunit_config_file)
             if os.path.isfile(phpunit_config_file):
                 working_dir = os.path.dirname(phpunit_config_file)
-                log_debug("Found PHPUnit working directory at %s" % working_dir)
+                debug_message("Found PHPUnit working directory at %s" % working_dir)
                 return working_dir
 
-    log_debug("Could not find a PHPUnit working directory.")
+    debug_message("Could not find a PHPUnit working directory.")
 
 def find_php_classes(view):
     class_definitions = view.find_by_selector('source.php entity.name.type.class')
@@ -64,7 +64,7 @@ def find_php_classes(view):
         if is_valid_php_identifier(class_name):
             classes.append(class_name)
 
-    log_debug('[PHPUnit] Found %d class definition(s) %s in view: %s' % (len(classes), classes, debug_get_view_info(view)))
+    debug_message('[PHPUnit] Found %d class definition(s) %s in view: %s' % (len(classes), classes, debug_get_view_info(view)))
 
     return classes
 
@@ -74,30 +74,30 @@ def is_valid_php_identifier(string):
 def find_first_switchable_file(view):
     for class_name in find_php_classes(view):
 
-        log_debug("Trying to find switchable for class '%s'" % (class_name))
+        debug_message("Trying to find switchable for class '%s'" % (class_name))
 
         if class_name[-4:] == "Test":
             lookup_symbol = class_name[:-4]
         else:
             lookup_symbol = class_name + "Test"
 
-        log_debug("Trying to find switchable class '%s'" % (lookup_symbol))
+        debug_message("Trying to find switchable class '%s'" % (lookup_symbol))
 
         switchables_in_open_files = view.window().lookup_symbol_in_open_files(lookup_symbol)
-        log_debug("Found (%d) possible switchables for %s in open files: %s" % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+        debug_message("Found (%d) possible switchables for %s in open files: %s" % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
 
         for open_file in switchables_in_open_files:
-            log_debug("Found switchable %s for %s in open files (%s): %s" % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
+            debug_message("Found switchable %s for %s in open files (%s): %s" % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
             return open_file[0]
 
         switchables_in_index = view.window().lookup_symbol_in_index(lookup_symbol)
-        log_debug("Found (%d) possible switchables for %s in index: %s" % (len(switchables_in_index), class_name, switchables_in_index))
+        debug_message("Found (%d) possible switchables for %s in index: %s" % (len(switchables_in_index), class_name, switchables_in_index))
 
         for index in switchables_in_index:
-            log_debug("Found switchable %s for %s in indexes (%d): %s" % (index, class_name, len(switchables_in_index), switchables_in_index))
+            debug_message("Found switchable %s for %s in indexes (%d): %s" % (index, class_name, len(switchables_in_index), switchables_in_index))
             return index[0]
 
-        log_debug("No switchable found for class: %s" % class_name)
+        debug_message("No switchable found for class: %s" % class_name)
 
 def contains_phpunit_test_case(view):
     for class_name in find_php_classes(view):
@@ -145,14 +145,14 @@ def save_last_run(working_dir, unit_test_or_directory=None, options = {}):
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
     def run(self, working_dir, unit_test_or_directory=None, options = {}):
-        log_debug("[PhpunitCommand] working_dir=%s, unit_test_or_directory=%s, options=%s" % (working_dir, unit_test_or_directory, options))
+        debug_message("[PhpunitCommand] working_dir=%s, unit_test_or_directory=%s, options=%s" % (working_dir, unit_test_or_directory, options))
 
         if not working_dir or not os.path.isdir(working_dir):
-            log_debug("Working directory does not exist or is not a directory: %s" % (working_dir))
+            debug_message("Working directory does not exist or is not a directory: %s" % (working_dir))
             return
 
         if unit_test_or_directory and not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-            log_debug("Unit test or directory is invalid: %s" % (unit_test_or_directory))
+            debug_message("Unit test or directory is invalid: %s" % (unit_test_or_directory))
             return
 
         self.window.run_command("save_all")
@@ -174,7 +174,7 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory
 
-        log_debug("[Command]: %s" % cmd)
+        debug_message("[Command]: %s" % cmd)
 
         self.window.run_command('exec', {
             'cmd': cmd,
@@ -200,11 +200,11 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
 class PhpunitRunAllTests(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        log_debug("[TextCommand] phpunit_run_all_tests *** run")
+        debug_message("[TextCommand] phpunit_run_all_tests *** run")
 
         working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
-            log_debug("Could not find a PHPUnit working directory")
+            debug_message("Could not find a PHPUnit working directory")
             return
 
         sublime.active_window().run_command('phpunit', { "working_dir": working_dir })
@@ -212,11 +212,11 @@ class PhpunitRunAllTests(sublime_plugin.TextCommand):
 class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        log_debug("[TextCommand] phpunit_run_single_test *** run")
+        debug_message("[TextCommand] phpunit_run_single_test *** run")
 
         working_dir = findup_phpunit_working_directory(self.view.file_name(), self.view.window().folders())
         if not working_dir:
-            log_debug("Could not find a PHPUnit working directory")
+            debug_message("Could not find a PHPUnit working directory")
             return
 
         options = {}
@@ -224,7 +224,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
         if not contains_phpunit_test_case(self.view):
             switchable_file = find_first_switchable_file(self.view)
             if not switchable_file:
-                log_debug("Could not find a PHPUnit test case or a switchable file")
+                debug_message("Could not find a PHPUnit test case or a switchable file")
                 return
             # @todo should verify that the file switched-to contains a testcase
             unit_test = switchable_file
@@ -245,7 +245,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.TextCommand):
 class PhpunitRunLastTestCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        log_debug("[TextCommand] phpunit_run_last_test *** run")
+        debug_message("[TextCommand] phpunit_run_last_test *** run")
 
         working_dir, unit_test_or_directory, options = load_last_run()
 
@@ -258,12 +258,12 @@ class PhpunitRunLastTestCommand(sublime_plugin.TextCommand):
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
     def run(self, edit, split_below=False, split_right=False):
-        log_debug("[TextCommand] phpunit_switch_file *** run")
+        debug_message("[TextCommand] phpunit_switch_file *** run")
 
         file_name = find_first_switchable_file(self.view)
         if not file_name:
             return
 
-        log_debug("Switching to %s from %s" % (file_name, self.view.file_name()))
+        debug_message("Switching to %s from %s" % (file_name, self.view.file_name()))
 
         self.view.window().open_file(file_name)
