@@ -15,6 +15,68 @@ else:
     def debug_message(message):
         pass
 
+class Config():
+
+    def __init__(self):
+        self.loaded = False
+
+    def load(self):
+
+        debug_message('[Config] Load plugin settings...')
+        self.plugin_settings = sublime.load_settings('phpunit.sublime-settings')
+
+        if DEBUG_MODE:
+            debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
+
+        self.loaded = True
+
+    def get(self, key):
+
+        debug_message('[Config] get: %s' % key)
+
+        # @todo should raise not loaded exception if not loaded
+        if self.loaded:
+
+            if sublime.active_window() is not None:
+
+                debug_message('[Config] Window is active, load project settings...')
+                project_settings = sublime.active_window().active_view().settings()
+
+                if project_settings.has('phpunit'):
+                    project_phpunit_settings = project_settings.get('phpunit')
+                    debug_message('[Config] Found project settings: %s' % project_phpunit_settings)
+
+                    if key in project_phpunit_settings:
+                        value = project_phpunit_settings.get(key)
+                        debug_message('[Config] Found project setting: %s' % ({key: value}))
+                        return value
+                else:
+                    debug_message('[Config] No project settings')
+
+            if DEBUG_MODE:
+                debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
+
+            if self.plugin_settings.has(key):
+                value = self.plugin_settings.get(key)
+                debug_message('[Config] Found plugin setting: %s' % ({key: value}))
+                return value
+
+        # @todo should use special ConfigError class exception
+        raise AttributeError('Unknown config key "%s"' % key)
+
+    # @todo how to simplify dumping the settings?
+    # @todo if not loaded raise not loaded exception
+    def plugin_settings_as_dict(self):
+        return {
+            "save_all_on_run": self.plugin_settings.get('save_all_on_run')
+        }
+
+config = Config()
+
+def plugin_loaded():
+    debug_message('[plugin_loaded] Loading...')
+    config.load()
+
 class PHPUnitXmlFinder():
 
     """
@@ -156,7 +218,9 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
             debug_message("Unit test or directory is invalid: %s" % (unit_test_or_directory))
             return
 
-        self.window.run_command("save_all")
+        if config.get('save_all_on_run'):
+            debug_message('[phpunit_command] "save_all_on_run" is enabled, saving...')
+            self.window.run_command('save_all')
 
         active_view = self.window.active_view()
         if active_view:
