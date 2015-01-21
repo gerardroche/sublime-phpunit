@@ -6,6 +6,8 @@ phpunit plugin for Sublime Text. Provides decent PHPUnit support.
 
 [1.0.0 Roadmap](https://github.com/gerardroche/sublime-phpunit/issues/1)
 
+![Screenshot](screenshot.png)
+
 ## Overview
 
 * [Features](#features)
