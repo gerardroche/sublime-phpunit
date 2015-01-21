@@ -114,7 +114,7 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 
 		<dict>
 			<key>match</key>
-			<string>^(?:\e\[[0-9;]+m)?FAILURES\!\s*(?:\e\[[0-9;]+m\s*)?$</string>
+			<string>^(?:\e\[[0-9;]+m)?FAILURES\!(?:\e\[[0-9;]+m\s*)?$</string>
 			<key>name</key>
 			<string>test.footer.fail.phpunit-result</string>
 		</dict>
