@@ -107,7 +107,7 @@ class PHPUnitXmlFinder():
         Finds the PHPUnit configuration file.
         """
 
-        debug_message('[PHPUnitXmlFinder] Find the configuration for "%s" in folders: %s' % (file_name, folders))
+        debug_message('[PHPUnitXmlFinder] Find for "%s" in folders: %s' % (file_name, folders))
 
         if file_name == None:
             debug_message('[PHPUnitXmlFinder] Invalid argument: file is None')
@@ -176,6 +176,7 @@ def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z][a-zA-Z0-9_]*$', string)
 
 def find_first_switchable_file(view):
+    debug_message('[find_first_switchable_file] Find in view: id=%s, file_name:%s' % (view.id(), view.file_name()))
     for class_name in find_php_classes(view):
 
         debug_message('[find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
@@ -198,7 +199,7 @@ def find_first_switchable_file(view):
         debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
 
         for index in switchables_in_index:
-            debug_message('[find_first_switchable_file] Found switchable %s for %s in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
+            debug_message('[find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
             return index[0]
 
         debug_message('[find_first_switchable_file] No switchable found for class: %s' % class_name)
@@ -217,14 +218,14 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
             return
 
         if config.get('save_all_on_run'):
-            debug_message('[phpunit_command] "save_all_on_run" is enabled, saving...')
+            debug_message('[phpunit_command] Configuration "save_all_on_run" is enabled, saving active window view files...')
             self.window.run_command('save_all')
 
         if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
-            debug_message('[phpunit_command] Found Composer PHPUnit: vendor/bin/phpunit')
+            debug_message('[phpunit_command] Found Composer installed PHPUnit: vendor/bin/phpunit')
             cmd = 'vendor/bin/phpunit'
         else:
-            debug_message('[phpunit_command] Composer PHPUnit "vendor/bin/phpunit" not found, using fallback: "phpunit"')
+            debug_message('[phpunit_command] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
         for k, v in options.items():
@@ -308,6 +309,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
     def contains_test_case(self):
         for class_name in find_php_classes(self.window.active_view()):
             if class_name[-4:] == 'Test':
+                debug_message('[phpunit_run_single_test::contains_test_case] Active view contains a test-case: %s' % class_name)
                 return True
         return False
 
