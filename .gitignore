@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 /tmp/
+*.py[co]
 
 # VIM
 [._]*.s[a-w][a-z]

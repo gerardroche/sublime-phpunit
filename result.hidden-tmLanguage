@@ -26,44 +26,44 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 
 		<dict>
 			<key>begin</key>
-			<string>^Configuration read from</string>
+			<string>^Configuration read from.*$</string>
 			<key>end</key>
-			<string>^[^\s\.EFIRS]</string>
+			<string>^Time</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\.+</string>
+					<string>\.</string>
 					<key>name</key>
 					<string>test.progress.success.phpunit-result</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>E+</string>
+					<string>E</string>
 					<key>name</key>
 					<string>test.progress.error.phpunit-result</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>F+</string>
+					<string>F</string>
 					<key>name</key>
 					<string>test.progress.failure.phpunit-result</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>I+</string>
+					<string>I</string>
 					<key>name</key>
 					<string>test.progress.incomplete.phpunit-result</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>R+</string>
+					<string>R</string>
 					<key>name</key>
 					<string>test.progress.risky.phpunit-result</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>S+</string>
+					<string>S</string>
 					<key>name</key>
 					<string>test.progress.skipped.phpunit-result</string>
 				</dict>
@@ -114,7 +114,7 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 
 		<dict>
 			<key>match</key>
-			<string>^(?:\e\[[0-9;]+m)?FAILURES\!\s*(?:\e\[[0-9;]+m\s*)?$</string>
+			<string>^(?:\e\[[0-9;]+m)?FAILURES\!(?:\e\[[0-9;]+m\s*)?$</string>
 			<key>name</key>
 			<string>test.footer.fail.phpunit-result</string>
 		</dict>
