@@ -174,49 +174,62 @@ def findup_phpunit_xml_directory(file_name, folders):
         return os.path.dirname(configuration)
     return None
 
-def find_php_classes(view):
-    class_definitions = view.find_by_selector('source.php entity.name.type.class')
-    classes = []
-    for class_definition in class_definitions:
-        class_name = view.substr(class_definition)
-        if is_valid_php_identifier(class_name):
-            classes.append(class_name)
-
-    debug_message('[find_php_classes] Found %d class definition(s) %s in view: id=%s, file_name=%s' % (len(classes), classes, view.id(), view.file_name()))
-
-    return classes
-
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
 
-def find_first_switchable_file(view):
-    debug_message('[find_first_switchable_file] Find in view: id=%s, file_name:%s' % (view.id(), view.file_name()))
-    for class_name in find_php_classes(view):
+class ViewHelpers():
 
-        debug_message('[find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
+    def __init__(self, view):
+        self.view = view
 
-        if class_name[-4:] == "Test":
-            lookup_symbol = class_name[:-4]
-        else:
-            lookup_symbol = class_name + "Test"
+    def contains_test_case(self):
+        for class_name in self.find_php_classes():
+            if class_name[-4:] == 'Test':
+                debug_message('[ViewHelpers::contains_test_case] Found test-case "%s" in view: %s' % (class_name, {"id": self.view.id(), "file_name": self.view.file_name()}))
+                return True
+        return False
 
-        debug_message('[find_first_switchable_file] Trying to find switchable class "%s"' % (lookup_symbol))
+    def find_php_classes(self):
+        class_definitions = self.view.find_by_selector('source.php entity.name.type.class')
+        classes = []
+        for class_definition in class_definitions:
+            class_name = self.view.substr(class_definition)
+            if is_valid_php_identifier(class_name):
+                classes.append(class_name)
 
-        switchables_in_open_files = view.window().lookup_symbol_in_open_files(lookup_symbol)
-        debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in open files: %s' % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+        debug_message('[ViewHelpers::find_php_classes] Found %d class definition(s) %s in view: %s' % (len(classes), classes, {"id": self.view.id(), "file_name": self.view.file_name()}))
 
-        for open_file in switchables_in_open_files:
-            debug_message('[find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
-            return open_file[0]
+        return classes
 
-        switchables_in_index = view.window().lookup_symbol_in_index(lookup_symbol)
-        debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
+    def find_first_switchable_file(self):
+        debug_message('[ViewHelpers::find_first_switchable_file] Find in view: %s' % ({"id": self.view.id(), "file_name": self.view.file_name()}))
 
-        for index in switchables_in_index:
-            debug_message('[find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
-            return index[0]
+        for class_name in self.find_php_classes():
 
-        debug_message('[find_first_switchable_file] No switchable found for class: %s' % class_name)
+            debug_message('[ViewHelpers::find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
+
+            if class_name[-4:] == "Test":
+                lookup_symbol = class_name[:-4]
+            else:
+                lookup_symbol = class_name + "Test"
+
+            debug_message('[ViewHelpers::find_first_switchable_file] Trying to find switchable class "%s"' % (lookup_symbol))
+
+            switchables_in_open_files = self.view.window().lookup_symbol_in_open_files(lookup_symbol)
+            debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in open files: %s' % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+
+            for open_file in switchables_in_open_files:
+                debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
+                return open_file[0]
+
+            switchables_in_index = self.view.window().lookup_symbol_in_index(lookup_symbol)
+            debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
+
+            for index in switchables_in_index:
+                debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
+                return index[0]
+
+            debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
@@ -307,16 +320,19 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
         options = {}
 
-        if self.contains_test_case():
+        active_view_helpers = ViewHelpers(self.window.active_view())
+
+        if active_view_helpers.contains_test_case():
             unit_test = self.window.active_view().file_name()
             test_method = self.get_selection_test_name()
             if test_method:
                 options['filter'] = '::' + test_method + '(?: with data set .+)?$'
         else:
-            unit_test = find_first_switchable_file(self.window.active_view())
-            if not unit_test: # @todo check that the switchable contains a testcase
+            unit_test = active_view_helpers.find_first_switchable_file()
+            if not unit_test:
                 debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
                 return
+            # else @todo ensure that the switchable contains a testcase
 
         working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
         if not working_dir:
