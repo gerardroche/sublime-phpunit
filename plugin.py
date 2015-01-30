@@ -324,9 +324,10 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
         if active_view_helpers.contains_test_case():
             unit_test = self.window.active_view().file_name()
-            test_method = self.get_selection_test_name()
-            if test_method:
-                options['filter'] = '::' + test_method + '(?: with data set .+)?$'
+            test_methods = self.selection_test_method_names()
+            if test_methods:
+                # @todo optimise filter regex; possibly limit the size of the regex too
+                options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
         else:
             unit_test = active_view_helpers.find_first_switchable_file()
             if not unit_test:
@@ -345,21 +346,16 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             "options": options
         })
 
-    def contains_test_case(self):
-        for class_name in find_php_classes(self.window.active_view()):
-            if class_name[-4:] == 'Test':
-                debug_message('[phpunit_run_single_test::contains_test_case] Active view contains a test-case: %s' % class_name)
-                return True
-        return False
-
-    def get_selection_test_name(self):
-        # todo should be a scoped selection i.e. is the selection an entity.name.function
+    def selection_test_method_names(self):
+        # @todo should be a scoped selection i.e. is the selection a source.php entity.name.function
         view = self.window.active_view()
+        test_method_names = []
         for region in view.sel():
             word = view.substr(view.word(region))
-            if is_valid_php_identifier(word):
-                if word[:4] == 'test':
-                    return word
+            if not is_valid_php_identifier(word) or word[:4] != 'test':
+                return None
+            test_method_names.append(word)
+        return test_method_names
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
