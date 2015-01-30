@@ -66,7 +66,14 @@ The PHPUnit command used to run the tests first looks for a Composer installed P
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file/line-number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file/line-number |
 
-Example Vintage/Vintageous keymaps can be found in the default key bindings: `Preferences > Package Settings > PHPUnit > Key Bindings - Default`
+Vintage/Vintageous keymaps are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+
+| OS X / Windows / Linux | Description |
+|------------------------|--------------|
+| <kbd>,</kbd><kbd>t</kbd> | Run all tests |
+| <kbd>,</kbd><kbd>r</kbd> | Run single test-case or single test |
+| <kbd>,</kbd><kbd>e</kbd> | Run last test command |
+| <kbd>,</kbd><kbd>.</kbd> | Switch class-under-test/test-case |
 
 ## Installation
 
