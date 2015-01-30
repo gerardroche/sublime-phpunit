@@ -31,9 +31,7 @@ phpunit plugin for Sublime Text. Provides decent PHPUnit support.
 * Goto to test failure file/line-number
 * Composer installed PHPUnit support
 
-The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit.xml.dist` in the active view file directory or the nearest common ancestor directory in the current open folders.
-
-If the project has a Composer installed PHPUnit then the Composer installed PHPUnit is used to run the tests.
+The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit.xml.dist` in the active view file directory or the nearest common ancestor directory in the current open folders. If the project has a Composer installed PHPUnit then the Composer installed PHPUnit is used to run the tests.
 
 Example:
 
@@ -65,7 +63,8 @@ The PHPUnit command used to run the tests first looks for a Composer installed P
 | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run single test-case or single test |
 | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Run last test command |
 | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch class-under-test/test-case |
-| <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to test failure file/line-number |
+| <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file/line-number |
+| <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file/line-number |
 
 Example Vintage/Vintageous keymaps can be found in the default key bindings: `Preferences > Package Settings > PHPUnit > Key Bindings - Default`
 
@@ -109,9 +108,9 @@ To set per-project settings use a "phpunit" key in the project definition settin
 
 ### Debug messages
 
-Debug messages are disabled by default. To enable debug messages set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=yes`. To disable, set it to a blank value: `SUBLIME_PHPUNI_DEBUG=` 
+Debug messages are disabled by default. To enable debug messages set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=yes`. To disable, set it to a blank value: `SUBLIME_PHPUNIT_DEBUG=`
 
-On Linux, for example, Sublime Text can be opened at the Terminal with an exported environment variable set:
+On Linux, for example, Sublime Text can be opened at the Terminal with an exported environment variable:
 
 ```sh
 export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
@@ -123,7 +122,7 @@ TODO: Similar Plugins
 
 ## Known Bugs
 
-* [F4 navigates to symlinked file out of sync with project](https://github.com/SublimeTextIssues/Core/issues/611)
+* ST3 Bug: [F4 navigates to symlinked file out of sync with project](https://github.com/SublimeTextIssues/Core/issues/611)
 
 ## Contributing
 

@@ -1,4 +1,4 @@
-# phpunit Changelog
+# phpunit changelog
 
 ## 0.2.0
 
