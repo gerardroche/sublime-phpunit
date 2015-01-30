@@ -311,7 +311,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             unit_test = self.window.active_view().file_name()
             test_method = self.get_selection_test_name()
             if test_method:
-                options['filter'] = test_method
+                options['filter'] = '::' + test_method + '(?: with data set .+)?$'
         else:
             unit_test = find_first_switchable_file(self.window.active_view())
             if not unit_test: # @todo check that the switchable contains a testcase
