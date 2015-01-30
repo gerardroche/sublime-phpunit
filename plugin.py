@@ -173,7 +173,7 @@ def find_php_classes(view):
     return classes
 
 def is_valid_php_identifier(string):
-    return re.match('^[a-zA-Z][a-zA-Z0-9_]*$', string)
+    return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
 
 def find_first_switchable_file(view):
     debug_message('[find_first_switchable_file] Find in view: id=%s, file_name:%s' % (view.id(), view.file_name()))
