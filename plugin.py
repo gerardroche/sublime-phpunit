@@ -20,6 +20,7 @@ class Config():
     def __init__(self):
         self.loaded = False
         self.last_run_phpunit_command_args = None
+        self.testdox_format = False
 
     def load(self):
 
@@ -81,6 +82,12 @@ class Config():
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
         }
+
+    def set_testdox_format(self, flag):
+        self.testdox_format = bool(flag)
+
+    def is_testdox_format_enabled(self):
+        return self.testdox_format
 
 config = Config()
 
@@ -206,8 +213,11 @@ def find_first_switchable_file(view):
 
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
-    def run(self, working_dir, unit_test_or_directory=None, options = {}):
+    def run(self, working_dir, unit_test_or_directory=None, options = None):
         debug_message('command: phpunit_command {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+
+        if options is None:
+            options = {}
 
         if not working_dir or not os.path.isdir(working_dir):
             debug_message('[phpunit_command] Working directory does not exist or is not a directory: %s' % (working_dir))
@@ -227,6 +237,9 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         else:
             debug_message('[phpunit_command] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
+
+        if 'testdox' not in options and config.is_testdox_format_enabled():
+            options['testdox'] = True
 
         for k, v in options.items():
             if not v == False:
@@ -330,6 +343,13 @@ class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
         phpunit_args = config.get_last_run_phpunit_command_args()
         if phpunit_args:
             self.window.run_command('phpunit', phpunit_args)
+
+class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_toggle_testdox_format')
+
+        config.set_testdox_format(not config.is_testdox_format_enabled())
 
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
