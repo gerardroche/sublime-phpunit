@@ -26,9 +26,9 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 
 		<dict>
 			<key>begin</key>
-			<string>^Configuration read from.*$</string>
+			<string>^(?=(\.|E|F|I|R|S)+\s+)</string>
 			<key>end</key>
-			<string>^Time</string>
+			<string>\s+(\d+\s+\/\s+\d+\s+\(\s*\d+\%\))?$</string>
 			<key>patterns</key>
 			<array>
 				<dict>
