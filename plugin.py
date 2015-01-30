@@ -313,6 +313,15 @@ class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
         self.window.run_command('phpunit', { "working_dir": working_dir })
 
+class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_run_last_test')
+
+        phpunit_args = config.get_last_run_phpunit_command_args()
+        if phpunit_args:
+            self.window.run_command('phpunit', phpunit_args)
+
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
@@ -357,29 +366,6 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             test_method_names.append(word)
         return test_method_names
 
-class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        debug_message('command: phpunit_run_last_test')
-
-        phpunit_args = config.get_last_run_phpunit_command_args()
-        if phpunit_args:
-            self.window.run_command('phpunit', phpunit_args)
-
-class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
-
-    def run(self):
-        debug_message('command: phpunit_toggle_testdox_format')
-
-        config.set_testdox_format(not config.is_testdox_format_enabled())
-
-class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
-
-    def run(self):
-        debug_message('command: phpunit_toggle_tap_format')
-
-        config.set_tap_format(not config.is_tap_format_enabled())
-
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
     def run(self, edit, split_below=False, split_right=False):
@@ -392,3 +378,17 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
         debug_message('[phpunit_switch_file_command] Switching to %s from %s' % (switchable_file_name, self.view.file_name()))
 
         self.view.window().open_file(switchable_file_name)
+
+class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_toggle_tap_format')
+
+        config.set_tap_format(not config.is_tap_format_enabled())
+
+class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_toggle_testdox_format')
+
+        config.set_testdox_format(not config.is_testdox_format_enabled())
