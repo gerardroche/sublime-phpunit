@@ -3,5 +3,6 @@
     { "command": "phpunit_run_single_test", "caption": "PHPUnit - Run single test" },
     { "command": "phpunit_run_last_test", "caption": "PHPUnit - Run last test" },
     { "command": "phpunit_switch_file", "caption": "PHPUnit - Switch Test-Case/Implementation" },
-    { "command": "phpunit_toggle_testdox_format", "caption": "PHPUnit - Toggle TestDox format" }
+    { "command": "phpunit_toggle_testdox_format", "caption": "PHPUnit - Toggle TestDox format" },
+    { "command": "phpunit_toggle_tap_format", "caption": "PHPUnit - Toggle TAP format" }
 ]

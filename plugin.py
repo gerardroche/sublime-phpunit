@@ -21,6 +21,7 @@ class Config():
         self.loaded = False
         self.last_run_phpunit_command_args = None
         self.testdox_format = False
+        self.tap_format = False
 
     def load(self):
 
@@ -82,6 +83,12 @@ class Config():
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
         }
+
+    def set_tap_format(self, flag):
+        self.tap_format = bool(flag)
+
+    def is_tap_format_enabled(self):
+        return self.tap_format
 
     def set_testdox_format(self, flag):
         self.testdox_format = bool(flag)
@@ -241,6 +248,9 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         if 'testdox' not in options and config.is_testdox_format_enabled():
             options['testdox'] = True
 
+        if 'tap' not in options and config.is_tap_format_enabled():
+            options['tap'] = True
+
         for k, v in options.items():
             if not v == False:
                 cmd += " --" + k
@@ -350,6 +360,13 @@ class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
         debug_message('command: phpunit_toggle_testdox_format')
 
         config.set_testdox_format(not config.is_testdox_format_enabled())
+
+class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_toggle_tap_format')
+
+        config.set_tap_format(not config.is_tap_format_enabled())
 
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
