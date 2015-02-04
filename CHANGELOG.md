@@ -1,5 +1,26 @@
 # phpunit changelog
 
+## 0.3.0
+
+### Bug Fixes
+
+* Can't switch classes beginning with an underscore #22
+* Running single test runs all tests with the same prefix #25
+* Some minor test result progress syntax highlighting bugs
+
+### New Features
+
+* Added run multiple tests using multiple selection #5
+* Added report test execution progress command palette toggles #24
+    - TestDox format #2
+    - TAP format #28
+* Switching class-under-test/test-case now splits window into two views with both side-by-side *if* the current window only has one group.
+* Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+
+### Changes
+
+* Minor refactorings
+
 ## 0.2.0
 
 ### Bug Fixes
