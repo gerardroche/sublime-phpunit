@@ -20,6 +20,8 @@ class Config():
     def __init__(self):
         self.loaded = False
         self.last_run_phpunit_command_args = None
+        self.testdox_format = False
+        self.tap_format = False
 
     def load(self):
 
@@ -81,6 +83,18 @@ class Config():
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
         }
+
+    def set_tap_format(self, flag):
+        self.tap_format = bool(flag)
+
+    def is_tap_format_enabled(self):
+        return self.tap_format
+
+    def set_testdox_format(self, flag):
+        self.testdox_format = bool(flag)
+
+    def is_testdox_format_enabled(self):
+        return self.testdox_format
 
 config = Config()
 
@@ -160,54 +174,70 @@ def findup_phpunit_xml_directory(file_name, folders):
         return os.path.dirname(configuration)
     return None
 
-def find_php_classes(view):
-    class_definitions = view.find_by_selector('source.php entity.name.type.class')
-    classes = []
-    for class_definition in class_definitions:
-        class_name = view.substr(class_definition)
-        if is_valid_php_identifier(class_name):
-            classes.append(class_name)
-
-    debug_message('[find_php_classes] Found %d class definition(s) %s in view: id=%s, file_name=%s' % (len(classes), classes, view.id(), view.file_name()))
-
-    return classes
-
 def is_valid_php_identifier(string):
-    return re.match('^[a-zA-Z][a-zA-Z0-9_]*$', string)
+    return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
 
-def find_first_switchable_file(view):
-    debug_message('[find_first_switchable_file] Find in view: id=%s, file_name:%s' % (view.id(), view.file_name()))
-    for class_name in find_php_classes(view):
+class ViewHelpers():
 
-        debug_message('[find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
+    def __init__(self, view):
+        self.view = view
 
-        if class_name[-4:] == "Test":
-            lookup_symbol = class_name[:-4]
-        else:
-            lookup_symbol = class_name + "Test"
+    def contains_test_case(self):
+        for class_name in self.find_php_classes():
+            if class_name[-4:] == 'Test':
+                debug_message('[ViewHelpers::contains_test_case] Found test-case "%s" in view: %s' % (class_name, {"id": self.view.id(), "file_name": self.view.file_name()}))
+                return True
+        return False
 
-        debug_message('[find_first_switchable_file] Trying to find switchable class "%s"' % (lookup_symbol))
+    def find_php_classes(self):
+        class_definitions = self.view.find_by_selector('source.php entity.name.type.class')
+        classes = []
+        for class_definition in class_definitions:
+            class_name = self.view.substr(class_definition)
+            if is_valid_php_identifier(class_name):
+                classes.append(class_name)
 
-        switchables_in_open_files = view.window().lookup_symbol_in_open_files(lookup_symbol)
-        debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in open files: %s' % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+        debug_message('[ViewHelpers::find_php_classes] Found %d class definition(s) %s in view: %s' % (len(classes), classes, {"id": self.view.id(), "file_name": self.view.file_name()}))
 
-        for open_file in switchables_in_open_files:
-            debug_message('[find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
-            return open_file[0]
+        return classes
 
-        switchables_in_index = view.window().lookup_symbol_in_index(lookup_symbol)
-        debug_message('[find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
+    def find_first_switchable_file(self):
+        debug_message('[ViewHelpers::find_first_switchable_file] Find in view: %s' % ({"id": self.view.id(), "file_name": self.view.file_name()}))
 
-        for index in switchables_in_index:
-            debug_message('[find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
-            return index[0]
+        for class_name in self.find_php_classes():
 
-        debug_message('[find_first_switchable_file] No switchable found for class: %s' % class_name)
+            debug_message('[ViewHelpers::find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
+
+            if class_name[-4:] == "Test":
+                lookup_symbol = class_name[:-4]
+            else:
+                lookup_symbol = class_name + "Test"
+
+            debug_message('[ViewHelpers::find_first_switchable_file] Trying to find switchable class "%s"' % (lookup_symbol))
+
+            switchables_in_open_files = self.view.window().lookup_symbol_in_open_files(lookup_symbol)
+            debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in open files: %s' % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+
+            for open_file in switchables_in_open_files:
+                debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
+                return open_file[0]
+
+            switchables_in_index = self.view.window().lookup_symbol_in_index(lookup_symbol)
+            debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
+
+            for index in switchables_in_index:
+                debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
+                return index[0]
+
+            debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
 class PhpunitCommand(sublime_plugin.WindowCommand):
 
-    def run(self, working_dir, unit_test_or_directory=None, options = {}):
+    def run(self, working_dir, unit_test_or_directory=None, options = None):
         debug_message('command: phpunit_command {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+
+        if options is None:
+            options = {}
 
         if not working_dir or not os.path.isdir(working_dir):
             debug_message('[phpunit_command] Working directory does not exist or is not a directory: %s' % (working_dir))
@@ -227,6 +257,12 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         else:
             debug_message('[phpunit_command] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
+
+        if 'testdox' not in options and config.is_testdox_format_enabled():
+            options['testdox'] = True
+
+        if 'tap' not in options and config.is_tap_format_enabled():
+            options['tap'] = True
 
         for k, v in options.items():
             if not v == False:
@@ -277,6 +313,15 @@ class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
         self.window.run_command('phpunit', { "working_dir": working_dir })
 
+class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_run_last_test')
+
+        phpunit_args = config.get_last_run_phpunit_command_args()
+        if phpunit_args:
+            self.window.run_command('phpunit', phpunit_args)
+
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
@@ -284,16 +329,20 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
         options = {}
 
-        if self.contains_test_case():
+        active_view_helpers = ViewHelpers(self.window.active_view())
+
+        if active_view_helpers.contains_test_case():
             unit_test = self.window.active_view().file_name()
-            test_method = self.get_selection_test_name()
-            if test_method:
-                options['filter'] = test_method
+            test_methods = self.selection_test_method_names()
+            if test_methods:
+                # @todo optimise filter regex; possibly limit the size of the regex too
+                options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
         else:
-            unit_test = find_first_switchable_file(self.window.active_view())
-            if not unit_test: # @todo check that the switchable contains a testcase
+            unit_test = active_view_helpers.find_first_switchable_file()
+            if not unit_test:
                 debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
                 return
+            # else @todo ensure that the switchable contains a testcase
 
         working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
         if not working_dir:
@@ -306,40 +355,57 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             "options": options
         })
 
-    def contains_test_case(self):
-        for class_name in find_php_classes(self.window.active_view()):
-            if class_name[-4:] == 'Test':
-                debug_message('[phpunit_run_single_test::contains_test_case] Active view contains a test-case: %s' % class_name)
-                return True
-        return False
-
-    def get_selection_test_name(self):
-        # todo should be a scoped selection i.e. is the selection an entity.name.function
+    def selection_test_method_names(self):
+        # @todo should be a scoped selection i.e. is the selection a source.php entity.name.function
         view = self.window.active_view()
+        test_method_names = []
         for region in view.sel():
             word = view.substr(view.word(region))
-            if is_valid_php_identifier(word):
-                if word[:4] == 'test':
-                    return word
-
-class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        debug_message('command: phpunit_run_last_test')
-
-        phpunit_args = config.get_last_run_phpunit_command_args()
-        if phpunit_args:
-            self.window.run_command('phpunit', phpunit_args)
+            if not is_valid_php_identifier(word) or word[:4] != 'test':
+                return None
+            test_method_names.append(word)
+        return test_method_names
 
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
-    def run(self, edit, split_below=False, split_right=False):
-        debug_message('command: phpunit_switch_file { "split_below": %s, "split_right": %s }')
+    def run(self, edit):
+        debug_message('command: phpunit_switch_file')
 
-        switchable_file_name = find_first_switchable_file(self.view)
+        view_helpers = ViewHelpers(self.view)
+        switchable_file_name = view_helpers.find_first_switchable_file()
         if not switchable_file_name:
             return
 
-        debug_message('[phpunit_switch_file_command] Switching to %s from %s' % (switchable_file_name, self.view.file_name()))
+        debug_message('[phpunit_switch_file_command] Switching from "%s" to "%s"' % (self.view.file_name(), switchable_file_name))
+
+        split_from_1_group = False
+        if self.view.window().num_groups() == 1:
+            # The most basic case. If only one group is open then split window for switchable
+            self.view.window().run_command('set_layout', {
+                "cols": [0.0, 0.5, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+            })
+            self.view.window().focus_group(1)
+            split_from_1_group = True
 
         self.view.window().open_file(switchable_file_name)
+
+        if split_from_1_group == True:
+            # if opened switchable is already opened and in group 0 then move it to the group 1 split
+            if self.view.window().active_group() == 0:
+                self.view.window().set_view_index(self.view, 1, 0)
+
+class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_toggle_tap_format')
+
+        config.set_tap_format(not config.is_tap_format_enabled())
+
+class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
+
+    def run(self):
+        debug_message('command: phpunit_toggle_testdox_format')
+
+        config.set_testdox_format(not config.is_testdox_format_enabled())

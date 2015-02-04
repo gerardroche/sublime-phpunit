@@ -11,24 +11,24 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 	<key>patterns</key>
 	<array>
 
-        <!--
-        	Failure diffs
-    	-->
+		<!--
+			Failure diffs
+		-->
 
 		<dict>
 			<key>include</key>
 			<string>source.diff</string>
 		</dict>
 
-        <!--
-        	Progress
-    	-->
+		<!--
+			Progress
+		-->
 
 		<dict>
 			<key>begin</key>
-			<string>^Configuration read from.*$</string>
+			<string>^(?=(\.|E|F|I|R|S)+\s+)</string>
 			<key>end</key>
-			<string>^Time</string>
+			<string>\s+(\d+\s+\/\s+\d+\s+\(\s*\d+\%\))?$</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -70,9 +70,9 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 			</array>
 		</dict>
 
-        <!--
-        	No tests executed!
-    	-->
+		<!--
+			No tests executed!
+		-->
 
 		<dict>
 			<key>match</key>
@@ -81,9 +81,9 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 			<string>test.footer.none-executed.phpunit-result</string>
 		</dict>
 
-        <!--
-        	OK
-    	-->
+		<!--
+			OK
+		-->
 
 		<dict>
 			<key>match</key>
@@ -92,25 +92,25 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 			<string>test.footer.ok.phpunit-result</string>
 		</dict>
 
-        <!--
-        	OK, but incomplete, skipped, or risky tests!
-    	-->
+		<!--
+			OK, but incomplete, skipped, or risky tests!
+		-->
 		<dict>
 			<key>match</key>
 			<string>^(?:\e\[[0-9;]+m)?OK, but incomplete, skipped, or risky tests\!(?:\e\[[0-9;]+m)?$</string>
 			<key>name</key>
 			<string>test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result</string>
-        </dict>
+		</dict>
 		<dict>
 			<key>match</key>
 			<string>^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Incomplete|Skipped|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$</string>
 			<key>name</key>
 			<string>test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result</string>
-        </dict>
+		</dict>
 
-        <!--
-        	FAILURES!
-    	-->
+		<!--
+			FAILURES!
+		-->
 
 		<dict>
 			<key>match</key>
