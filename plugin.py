@@ -368,17 +368,33 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
-    def run(self, edit, split_below=False, split_right=False):
-        debug_message('command: phpunit_switch_file { "split_below": %s, "split_right": %s }')
+    def run(self, edit):
+        debug_message('command: phpunit_switch_file')
 
         view_helpers = ViewHelpers(self.view)
         switchable_file_name = view_helpers.find_first_switchable_file()
         if not switchable_file_name:
             return
 
-        debug_message('[phpunit_switch_file_command] Switching to %s from %s' % (switchable_file_name, self.view.file_name()))
+        debug_message('[phpunit_switch_file_command] Switching from "%s" to "%s"' % (self.view.file_name(), switchable_file_name))
+
+        split_from_1_group = False
+        if self.view.window().num_groups() == 1:
+            # The most basic case. If only one group is open then split window for switchable
+            self.view.window().run_command('set_layout', {
+                "cols": [0.0, 0.5, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+            })
+            self.view.window().focus_group(1)
+            split_from_1_group = True
 
         self.view.window().open_file(switchable_file_name)
+
+        if split_from_1_group == True:
+            # if opened switchable is already opened and in group 0 then move it to the group 1 split
+            if self.view.window().active_group() == 0:
+                self.view.window().set_view_index(self.view, 1, 0)
 
 class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
 
