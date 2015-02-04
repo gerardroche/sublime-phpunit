@@ -30,8 +30,8 @@ phpunit plugin for Sublime Text. Provides decent PHPUnit support.
     - Run multiple tests with a multiple selection of test methods
 * Run test-case for the current class-under-test
 * Run last test 
-* Switch (and split) test-case and implementation class
-* Goto to test failure file/line-number
+* Switch (and split) test-case and class-under-test
+* Goto to next/previous test failure file/line-number
 * Toggle test report execution format
     - TestDox
     - TAP
@@ -56,7 +56,7 @@ With `ListCommandTest.php` open in the current active view, the following locati
 * `/path/to/code/phpunit.xml`
 * `/path/to/code/phpunit.xml.dist`
 
-The `ListCommandTest.php` test-case can be run from the `ListCommand.php` file using the *Run single test-case* command: <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd>.
+The `ListCommandTest.php` test-case can be run from the `ListCommand.php` file using the *Run single test-case* command: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd>.
 
 The PHPUnit command used to run the tests first looks for a Composer installed PHPUnit i.e. `vendor/bin/phpunit` relative to the directory where the configuration file is found. If no Composer installed PHPUnit is found the command `phpunit` is used.
 
@@ -65,13 +65,13 @@ The PHPUnit command used to run the tests first looks for a Composer installed P
 | OS X | Windows / Linux | Description |
 |------|-----------------|--------------|
 | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests |
-| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run single test-case or single test |
-| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Run last test command |
+| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run single test-case or single test(s) |
+| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test |
 | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch class-under-test/test-case |
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file/line-number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file/line-number |
 
-Vintage/Vintageous keymaps are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Menu > Preferences > Settings - User` menu item.
 
 | OS X / Windows / Linux | Description |
 |------------------------|--------------|
