@@ -23,13 +23,18 @@ phpunit plugin for Sublime Text. Provides decent PHPUnit support.
 
 ## Features
 
-* Run all tests
-* Run single test-case or single test *(put cursor on test method)*
-* Run last test 
-* Run test-case for the current implementation class
-* Switch between test-case and implementation class
-* Goto to test failure file/line-number
 * Composer installed PHPUnit support
+* Run all tests
+* Run single test-case or single test(s)
+    - Run a single test by putting cursor on test method
+    - Run multiple tests with a multiple selection of test methods
+* Run test-case for the current class-under-test
+* Run last test 
+* Switch (and split) test-case and implementation class
+* Goto to test failure file/line-number
+* Toggle test report execution format
+    - TestDox
+    - TAP
 
 The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit.xml.dist` in the active view file directory or the nearest common ancestor directory in the current open folders. If the project has a Composer installed PHPUnit then the Composer installed PHPUnit is used to run the tests.
 
