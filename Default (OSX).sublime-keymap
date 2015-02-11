@@ -1,8 +1,8 @@
 [
-    { "keys": ["super+shift+."], "command": "phpunit_switch_file"},
-    { "keys": ["super+shift+e"], "command": "phpunit_run_last_test" },
-    { "keys": ["super+shift+r"], "command": "phpunit_run_single_test" },
-    { "keys": ["super+shift+t"], "command": "phpunit_run_all_tests" },
+    { "keys": ["super+shift+."], "command": "phpunit_switch_file", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
+    { "keys": ["super+shift+e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
+    { "keys": ["super+shift+r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
+    { "keys": ["super+shift+t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
 
     ////////////////////////
     // Vintage/Vintageous //
