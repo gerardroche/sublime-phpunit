@@ -71,7 +71,9 @@ The PHPUnit command used to run the tests first looks for a Composer installed P
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file/line-number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file/line-number |
 
-Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Menu > Preferences > Settings - User` menu item.
+To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item.
+
+Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
 | OS X / Windows / Linux | Description |
 |------------------------|--------------|
