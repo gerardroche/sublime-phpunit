@@ -3,7 +3,8 @@
 * text=auto
 
 # Files to ignore on export
-.gitattributes              export-ignore
-.gitignore                  export-ignore
-.gitmodules                 export-ignore
-tests/                      export-ignore
+/.gitattributes             export-ignore
+/.gitignore                 export-ignore
+/.gitmodules                export-ignore
+/tests/                     export-ignore
+/screenshot.png             export-ignore

@@ -299,6 +299,7 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         panel.settings().set('draw_centered', False)
         panel.settings().set('line_numbers', False)
         panel.settings().set('spell_check', False)
+        panel.settings().set('word_wrap', True)
         self.window.run_command("show_panel", {"panel": "output.exec"})
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
