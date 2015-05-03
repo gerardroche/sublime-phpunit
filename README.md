@@ -165,7 +165,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Credits
 
-TODO: Credits
+sublime-phpunit is based initially on [Sublime Text Ruby Tests](https://github.com/maltize/sublime-text-2-ruby-tests).
 
 ## License
 
