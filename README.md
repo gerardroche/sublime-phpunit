@@ -1,4 +1,4 @@
-# phpunit
+# sublime-phpunit
 
 phpunit plugin for Sublime Text. Provides decent PHPUnit support.
 
@@ -169,7 +169,7 @@ sublime-phpunit is based initially on [Sublime Text Ruby Tests](https://github.c
 
 ## License
 
-phpunit is released under the [BSD 3-Clause License][license].
+sublime-phpunit is released under the [BSD 3-Clause License][license].
 
 [license]: LICENSE
 [Package Control]: https://packagecontrol.io
