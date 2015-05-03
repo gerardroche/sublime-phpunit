@@ -1,14 +1,10 @@
 # phpunit changelog
 
-## next
-
-### Bug Fixes
+## 0.4.0
 
 ### New Features
 
 * Added option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item. #30
-
-### Changes
 
 ## 0.3.0
 
