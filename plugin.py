@@ -209,31 +209,52 @@ class ViewHelpers():
 
             debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
-class PhpunitCommand(sublime_plugin.WindowCommand):
+class PHPUnitTextUITestRunner():
 
-    def run(self, working_dir, unit_test_or_directory=None, options = None):
-        debug_message('command: phpunit_command {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+    def __init__(self, window):
+        self.window = window
+
+    def run(self, args=None):
+        if args:
+            self._run(**args)
+        else:
+            self._run()
+
+    def runLast(self):
+        args = config.get_last_run_phpunit_command_args()
+        if args:
+            self.run(args)
+
+    def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
+        debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
         if options is None:
             options = {}
 
-        if not working_dir or not os.path.isdir(working_dir):
-            debug_message('[phpunit_command] Working directory does not exist or is not a directory: %s' % (working_dir))
+        if working_dir is None:
+            working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
+
+        if not working_dir:
+            debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
+            return
+
+        if not os.path.isdir(working_dir):
+            debug_message('[PHPUnitTextUITestRunner] Working directory does not exist or is not a directory: %s' % (working_dir))
             return
 
         if unit_test_or_directory and not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-            debug_message('[phpunit_command] Unit test or directory is invalid: %s' % (unit_test_or_directory))
+            debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
             return
 
         if config.get('save_all_on_run'):
-            debug_message('[phpunit_command] Configuration "save_all_on_run" is enabled, saving active window view files...')
+            debug_message('[PHPUnitTextUITestRunner] Configuration "save_all_on_run" is enabled, saving active window view files...')
             self.window.run_command('save_all')
 
         if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
-            debug_message('[phpunit_command] Found Composer installed PHPUnit: vendor/bin/phpunit')
+            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: vendor/bin/phpunit')
             cmd = 'vendor/bin/phpunit'
         else:
-            debug_message('[phpunit_command] Composer installed PHPUnit not found, using default command: "phpunit"')
+            debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
         if 'testdox' not in options and config.is_testdox_format_enabled():
@@ -251,8 +272,8 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory
 
-        debug_message('[phpunit_command] cmd: %s' % cmd)
-        debug_message('[phpunit_command] working_dir: %s' % working_dir)
+        debug_message('[PHPUnitTextUITestRunner] cmd: %s' % cmd)
+        debug_message('[PHPUnitTextUITestRunner] working_dir: %s' % working_dir)
 
         self.window.run_command('exec', {
             'cmd': cmd,
@@ -285,21 +306,16 @@ class PhpunitRunAllTests(sublime_plugin.WindowCommand):
     def run(self):
         debug_message('command: phpunit_run_all_tests')
 
-        working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
-        if not working_dir:
-            debug_message('[phpunit_run_all_tests_command] Could not find a PHPUnit working directory')
-            return
-
-        self.window.run_command('phpunit', { "working_dir": working_dir })
+        testRunner = PHPUnitTextUITestRunner(self.window)
+        testRunner.run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         debug_message('command: phpunit_run_last_test')
 
-        phpunit_args = config.get_last_run_phpunit_command_args()
-        if phpunit_args:
-            self.window.run_command('phpunit', phpunit_args)
+        testRunner = PHPUnitTextUITestRunner(self.window)
+        testRunner.runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
@@ -307,29 +323,23 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
         debug_message('command: phpunit_run_single_test')
 
         options = {}
+        view_helpers = ViewHelpers(self.window.active_view())
 
-        active_view_helpers = ViewHelpers(self.window.active_view())
-
-        if active_view_helpers.contains_test_case():
+        if view_helpers.contains_test_case():
             unit_test = self.window.active_view().file_name()
             test_methods = self.selection_test_method_names()
             if test_methods:
                 # @todo optimise filter regex; possibly limit the size of the regex too
                 options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
         else:
-            unit_test = active_view_helpers.find_first_switchable_file()
+            unit_test = view_helpers.find_first_switchable_file()
             if not unit_test:
                 debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
                 return
             # else @todo ensure that the switchable contains a testcase
 
-        working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
-        if not working_dir:
-            debug_message('[phpunit_run_single_test_command] Could not find a PHPUnit working directory')
-            return
-
-        self.window.run_command("phpunit", {
-            "working_dir": working_dir ,
+        testRunner = PHPUnitTextUITestRunner(self.window)
+        testRunner.run({
             "unit_test_or_directory": unit_test,
             "options": options
         })

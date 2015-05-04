@@ -130,10 +130,6 @@ On Linux, for example, Sublime Text can be opened at the Terminal with an export
 export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 ```
 
-## Similar Plugins
-
-TODO: Similar Plugins
-
 ## Known Bugs
 
 * ST3 Bug: [F4 navigates to symlinked file out of sync with project](https://github.com/SublimeTextIssues/Core/issues/611)
