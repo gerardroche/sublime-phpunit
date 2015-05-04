@@ -37,32 +37,32 @@ class Config():
 
         debug_message('[Config] get: %s' % key)
 
-        # @todo should raise not loaded exception if not loaded
-        if self.loaded:
+        if not self.loaded:
+            raise RuntimeError('Configuration not loaded')
 
-            if sublime.active_window() is not None:
+        if sublime.active_window() is not None:
 
-                debug_message('[Config] Window is active, load project settings...')
-                project_settings = sublime.active_window().active_view().settings()
+            debug_message('[Config] Window is active, load project settings...')
+            project_settings = sublime.active_window().active_view().settings()
 
-                if project_settings.has('phpunit'):
-                    project_phpunit_settings = project_settings.get('phpunit')
-                    debug_message('[Config] Found project settings: %s' % project_phpunit_settings)
+            if project_settings.has('phpunit'):
+                project_phpunit_settings = project_settings.get('phpunit')
+                debug_message('[Config] Found project settings: %s' % project_phpunit_settings)
 
-                    if key in project_phpunit_settings:
-                        value = project_phpunit_settings.get(key)
-                        debug_message('[Config] Found project setting: %s' % ({key: value}))
-                        return value
-                else:
-                    debug_message('[Config] No project settings')
+                if key in project_phpunit_settings:
+                    value = project_phpunit_settings.get(key)
+                    debug_message('[Config] Found project setting: %s' % ({key: value}))
+                    return value
+            else:
+                debug_message('[Config] No project settings')
 
-            if DEBUG_MODE:
-                debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
+        if DEBUG_MODE:
+            debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
 
-            if self.plugin_settings.has(key):
-                value = self.plugin_settings.get(key)
-                debug_message('[Config] Found plugin setting: %s' % ({key: value}))
-                return value
+        if self.plugin_settings.has(key):
+            value = self.plugin_settings.get(key)
+            debug_message('[Config] Found plugin setting: %s' % ({key: value}))
+            return value
 
         # @todo should use special ConfigError class exception
         raise AttributeError('Unknown config key "%s"' % key)
