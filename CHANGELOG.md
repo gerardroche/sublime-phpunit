@@ -1,5 +1,11 @@
 # phpunit changelog
 
+## 0.5.0-next
+
+### Enhancements
+
+* Running last test command is now saved per window #19
+
 ## 0.4.0
 
 ### New Features

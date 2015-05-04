@@ -19,7 +19,7 @@ class Config():
 
     def __init__(self):
         self.loaded = False
-        self.last_run_phpunit_command_args = None
+        self.last_run_phpunit_command_args = {}
         self.testdox_format = False
         self.tap_format = False
 
@@ -49,10 +49,15 @@ class Config():
         raise RuntimeError('Unknown configuration key "%s"' % key)
 
     def get_last_run_phpunit_command_args(self):
-        return self.last_run_phpunit_command_args
+        window_id = sublime.active_window().id()
+
+        if window_id in self.last_run_phpunit_command_args:
+            return self.last_run_phpunit_command_args[window_id]
+
+        return None
 
     def set_last_run_phpunit_command_args(self, working_dir, unit_test_or_directory=None, options = {}):
-        self.last_run_phpunit_command_args = {
+        self.last_run_phpunit_command_args[sublime.active_window().id()] = {
             'working_dir': working_dir,
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
