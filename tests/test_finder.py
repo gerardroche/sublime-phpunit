@@ -4,12 +4,12 @@ from unittest.mock import patch
 from phpunit.tests.sublime_mock import sublime
 from phpunit.tests.sublime_mock import sublime_plugin
 with patch.dict('sys.modules', sublime=sublime, sublime_plugin=sublime_plugin):
-    from phpunit.plugin import PHPUnitXmlFinder
+    from phpunit.plugin import PHPUnitConfigurationFileFinder
 
-class ConfigurationFinderTest(unittest.TestCase):
+class PHPUnitConfigurationFileFinderTest(unittest.TestCase):
 
     def setUp(self):
-        self.finder = PHPUnitXmlFinder()
+        self.finder = PHPUnitConfigurationFileFinder()
         self.fixtures_path = os.path.join(os.path.dirname(__file__), 'fixtures')
         self.file_name = os.path.join(self.fixtures_path, 'common_prefix_parent', 'valid', 'file.php')
         self.configuration_file = os.path.join(self.fixtures_path, 'common_prefix_parent', 'phpunit.xml.dist')

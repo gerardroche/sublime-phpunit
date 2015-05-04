@@ -15,7 +15,7 @@ else:
     def debug_message(message):
         pass
 
-class Config():
+class Configuration():
 
     def __init__(self):
         self.loaded = False
@@ -75,17 +75,17 @@ class Config():
     def is_testdox_format_enabled(self):
         return self.testdox_format
 
-config = Config()
+configuration = Configuration()
 
 def plugin_loaded():
-    config.load()
+    configuration.load()
 
     # @deprecated since 0.2.0 BC fix: last-run file is no longer used
     old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
     if os.path.isfile(old_phpunit_last_run_file):
         os.remove(old_phpunit_last_run_file)
 
-class PHPUnitXmlFinder():
+class PHPUnitConfigurationFileFinder():
 
     """
     Find the first PHPUnit configuration file, either
@@ -99,30 +99,30 @@ class PHPUnitXmlFinder():
         Finds the PHPUnit configuration file.
         """
 
-        debug_message('[PHPUnitXmlFinder] Find for "%s" in folders: %s' % (file_name, folders))
+        debug_message('[PHPUnitConfigurationFileFinder] Find for "%s" in folders: %s' % (file_name, folders))
 
         if file_name == None:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: file is None')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file is None')
             return None
 
         if not isinstance(file_name, str):
-            debug_message('[PHPUnitXmlFinder] Invalid argument: file not instance')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file not instance')
             return None
 
         if not len(file_name) > 0:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: file len not > 0')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file len not > 0')
             return None
 
         if folders == None:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: folders is None')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folders is None')
             return None
 
         if not isinstance(folders, list):
-            debug_message('[PHPUnitXmlFinder] Invalid argument: folders not instance')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folders not instance')
             return None
 
         if not len(folders) > 0:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: folder len not > 0')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folder len not > 0')
             return None
 
         ancestor_folders = []
@@ -133,23 +133,23 @@ class PHPUnitXmlFinder():
             parent = os.path.dirname(parent)
         ancestor_folders.sort(reverse=True)
 
-        debug_message('[PHPUnitXmlFinder] File has %s common ancestor project folder(s): %s' % (len(ancestor_folders), ancestor_folders))
+        debug_message('[PHPUnitConfigurationFileFinder] File has %s common ancestor project folder(s): %s' % (len(ancestor_folders), ancestor_folders))
 
         for ancestor in ancestor_folders:
             for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
-                configuration_file = os.path.join(ancestor, file_name)
-                if os.path.isfile(configuration_file):
-                    debug_message('[PHPUnitXmlFinder] Found configuration: %s' % configuration_file)
-                    return configuration_file
+                phpunit_configuration_file = os.path.join(ancestor, file_name)
+                if os.path.isfile(phpunit_configuration_file):
+                    debug_message('[PHPUnitConfigurationFileFinder] Found phpunit configuration file: %s' % phpunit_configuration_file)
+                    return phpunit_configuration_file
 
-        debug_message('[PHPUnitXmlFinder] Configuration file not found')
+        debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
         return None
 
 def findup_phpunit_xml_directory(file_name, folders):
-    finder = PHPUnitXmlFinder()
-    configuration = finder.find(file_name, folders)
-    if configuration:
-        return os.path.dirname(configuration)
+    finder = PHPUnitConfigurationFileFinder()
+    phpunit_configuration_file = finder.find(file_name, folders)
+    if phpunit_configuration_file:
+        return os.path.dirname(phpunit_configuration_file)
     return None
 
 def is_valid_php_identifier(string):
@@ -221,7 +221,7 @@ class PHPUnitTextUITestRunner():
             self._run()
 
     def runLast(self):
-        args = config.get_last_run_phpunit_command_args()
+        args = configuration.get_last_run_phpunit_command_args()
         if args:
             self.run(args)
 
@@ -246,7 +246,7 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
             return
 
-        if config.get('save_all_on_run'):
+        if configuration.get('save_all_on_run'):
             debug_message('[PHPUnitTextUITestRunner] Configuration "save_all_on_run" is enabled, saving active window view files...')
             self.window.run_command('save_all')
 
@@ -257,10 +257,10 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
-        if 'testdox' not in options and config.is_testdox_format_enabled():
+        if 'testdox' not in options and configuration.is_testdox_format_enabled():
             options['testdox'] = True
 
-        if 'tap' not in options and config.is_tap_format_enabled():
+        if 'tap' not in options and configuration.is_tap_format_enabled():
             options['tap'] = True
 
         for k, v in options.items():
@@ -283,7 +283,7 @@ class PHPUnitTextUITestRunner():
             'quiet': not DEBUG_MODE
         })
 
-        config.set_last_run_phpunit_command_args(
+        configuration.set_last_run_phpunit_command_args(
             working_dir,
             unit_test_or_directory,
             options
@@ -380,9 +380,9 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
 class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        config.set_tap_format(not config.is_tap_format_enabled())
+        configuration.set_tap_format(not configuration.is_tap_format_enabled())
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        config.set_testdox_format(not config.is_testdox_format_enabled())
+        configuration.set_testdox_format(not configuration.is_testdox_format_enabled())
