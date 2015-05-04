@@ -64,8 +64,7 @@ class Config():
             debug_message('[Config] Found plugin setting: %s' % ({key: value}))
             return value
 
-        # @todo should use special ConfigError class exception
-        raise AttributeError('Unknown config key "%s"' % key)
+        raise RuntimeError('Unknown configuration key "%s"' % key)
 
     # @todo how to simplify dumping the settings?
     # @todo if not loaded raise not loaded exception
