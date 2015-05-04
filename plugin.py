@@ -24,54 +24,26 @@ class Config():
         self.tap_format = False
 
     def load(self):
-
-        debug_message('[Config] Load plugin settings...')
         self.plugin_settings = sublime.load_settings('phpunit.sublime-settings')
-
-        if DEBUG_MODE:
-            debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
-
         self.loaded = True
 
     def get(self, key):
-
-        debug_message('[Config] get: %s' % key)
-
         if not self.loaded:
             raise RuntimeError('Configuration not loaded')
 
         if sublime.active_window() is not None:
-
-            debug_message('[Config] Window is active, load project settings...')
             project_settings = sublime.active_window().active_view().settings()
 
             if project_settings.has('phpunit'):
                 project_phpunit_settings = project_settings.get('phpunit')
-                debug_message('[Config] Found project settings: %s' % project_phpunit_settings)
 
                 if key in project_phpunit_settings:
-                    value = project_phpunit_settings.get(key)
-                    debug_message('[Config] Found project setting: %s' % ({key: value}))
-                    return value
-            else:
-                debug_message('[Config] No project settings')
-
-        if DEBUG_MODE:
-            debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
+                    return project_phpunit_settings.get(key)
 
         if self.plugin_settings.has(key):
-            value = self.plugin_settings.get(key)
-            debug_message('[Config] Found plugin setting: %s' % ({key: value}))
-            return value
+            return self.plugin_settings.get(key)
 
         raise RuntimeError('Unknown configuration key "%s"' % key)
-
-    # @todo how to simplify dumping the settings?
-    # @todo if not loaded raise not loaded exception
-    def plugin_settings_as_dict(self):
-        return {
-            "save_all_on_run": self.plugin_settings.get('save_all_on_run')
-        }
 
     def get_last_run_phpunit_command_args(self):
         return self.last_run_phpunit_command_args
@@ -98,10 +70,9 @@ class Config():
 config = Config()
 
 def plugin_loaded():
-    debug_message('[plugin_loaded] Loading...')
     config.load()
 
-    # last-run file is no longer used
+    # @deprecated since 0.2.0 BC fix: last-run file is no longer used
     old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
     if os.path.isfile(old_phpunit_last_run_file):
         os.remove(old_phpunit_last_run_file)
@@ -110,7 +81,7 @@ class PHPUnitXmlFinder():
 
     """
     Find the first PHPUnit configuration file, either
-    phpunit.xml or phpunit.xml.dist, in the file_name
+    phpunit.xml or phpunit.xml.dist, in file_name
     directory or the nearest common ancestor directory
     in folders.
     """
