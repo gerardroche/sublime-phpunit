@@ -304,24 +304,18 @@ class PHPUnitTextUITestRunner():
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_run_all_tests')
-
         testRunner = PHPUnitTextUITestRunner(self.window)
         testRunner.run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_run_last_test')
-
         testRunner = PHPUnitTextUITestRunner(self.window)
         testRunner.runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_run_single_test')
-
         options = {}
         view_helpers = ViewHelpers(self.window.active_view())
 
@@ -358,8 +352,6 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        debug_message('command: phpunit_switch_file')
-
         view_helpers = ViewHelpers(self.view)
         switchable_file_name = view_helpers.find_first_switchable_file()
         if not switchable_file_name:
@@ -388,13 +380,9 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
 class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_toggle_tap_format')
-
         config.set_tap_format(not config.is_tap_format_enabled())
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_toggle_testdox_format')
-
         config.set_testdox_format(not config.is_testdox_format_enabled())
