@@ -24,6 +24,9 @@ class Config():
         self.tap_format = False
 
     def load(self):
+        if self.loaded:
+            return
+
         self.plugin_settings = sublime.load_settings('phpunit.sublime-settings')
         self.loaded = True
 
