@@ -13,6 +13,16 @@
 ### Changes
 
 * Removed command `phpunit_command` #31
+* Per-project settings are now accessed via prefix `phpunit.` in the project definition settings: `Project > Edit Project`. Example:
+
+    ```json
+    {
+        "folders": [ { "path": "." } ],
+        "settings": {
+            "phpunit.save_all_on_run": false
+        }
+    }
+    ```
 
 ## 0.4.0
 

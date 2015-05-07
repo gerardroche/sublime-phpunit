@@ -37,6 +37,10 @@ class Configuration():
         if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
             project_settings = sublime.active_window().active_view().settings()
 
+            if project_settings.has('phpunit.' + key):
+                return project_settings.get('phpunit.' + key)
+
+            # @deprecated since 0.4.0 project settings should be accessed with "phpunit." prefix
             if project_settings.has('phpunit'):
                 project_phpunit_settings = project_settings.get('phpunit')
 

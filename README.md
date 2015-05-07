@@ -1,6 +1,6 @@
 # sublime-phpunit
 
-phpunit plugin for Sublime Text. Provides decent PHPUnit support.
+sublime-phpunit plugin for Sublime Text. Provides decent PHPUnit support.
 
 **Sublime Text 3 only**
 
@@ -97,37 +97,21 @@ Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit
 
 | Setting | Type | Default | Description |
 |---------|------|---------|-------------|
-| save_all_on_run | bool | true | Saves all files before running tests |
+| `save_all_on_run` | `bool` | `true` | Saves all files before running tests |
 
 Put user settings in a `phpunit.sublime-settings` file. Access this file from the `Preferences > Package Settings > PHPUnit > Settings - User` menu item.
 
 ### Per-project settings
 
-To set per-project settings use a "phpunit" key in the project definition settings: `Project > Edit Project`
+To set per-project settings prefix settings with `phpunit.` in the project definition settings: `Project > Edit Project`
 
 ```json
 {
-    "folders": [
-        {
-            "path": "."
-        }
-    ],
+    "folders": [ { "path": "." } ],
     "settings": {
-        "phpunit": {
-            "save_all_on_run": false
-        }
+        "phpunit.save_all_on_run": false
     }
 }
-```
-
-### Debug messages
-
-Debug messages are disabled by default. To enable debug messages set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=yes`. To disable, set it to a blank value: `SUBLIME_PHPUNIT_DEBUG=`
-
-On Linux, for example, Sublime Text can be opened at the Terminal with an exported environment variable:
-
-```sh
-export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 ```
 
 ## Known Bugs
@@ -137,6 +121,16 @@ export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 ## Contributing
 
 Issue reports and pull requests are always welcome.
+
+### Debug messages
+
+Debug messages are disabled by default. To enable debug messages set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=yes`. To disable set it to a blank value e.g. `SUBLIME_PHPUNIT_DEBUG=`.
+
+On Linux, for example, Sublime Text can be opened at a Terminal with an exported environment variable:
+
+```sh
+export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
+```
 
 ### Running the tests
 
