@@ -2,6 +2,10 @@
 
 ## 0.5.0-next
 
+### Bug Fixes
+
+* Fixed error when there is no active window and/or view
+
 ### Enhancements
 
 * Running last test command is now saved per window #19

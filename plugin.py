@@ -34,7 +34,7 @@ class Configuration():
         if not self.loaded:
             raise RuntimeError('Configuration not loaded')
 
-        if sublime.active_window() is not None:
+        if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
             project_settings = sublime.active_window().active_view().settings()
 
             if project_settings.has('phpunit'):
@@ -227,6 +227,10 @@ class PHPUnitTextUITestRunner():
 
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
         debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+
+        if self.window.active_view() is None:
+            debug_message('[PHPUnitTextUITestRunner] Could not find an active view')
+            return
 
         if options is None:
             options = {}
