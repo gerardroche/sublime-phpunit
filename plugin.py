@@ -20,9 +20,8 @@ class PluginSettings():
     def __init__(self, name):
         self.name = name
         self.loaded = False
+        self.transient_data = {}
         self.last_run_phpunit_command_args = {}
-        self.testdox_format = False
-        self.tap_format = False
 
     def on_load(self):
         if self.loaded:
@@ -52,6 +51,14 @@ class PluginSettings():
 
         raise RuntimeError('Unknown plugin setting key "%s"' % key)
 
+    def get_transient(self, key, default):
+        if key in self.transient_data:
+            return self.transient_data[key]
+        return default
+
+    def set_transient(self, key, value):
+        self.transient_data[key] = value
+
     def get_last_run_phpunit_command_args(self):
         window_id = sublime.active_window().id()
 
@@ -68,16 +75,16 @@ class PluginSettings():
         }
 
     def set_tap_format(self, flag):
-        self.tap_format = bool(flag)
+        self.set_transient('tap_format', bool(flag))
 
     def is_tap_format_enabled(self):
-        return self.tap_format
+        return self.get_transient('tap_format', False)
 
     def set_testdox_format(self, flag):
-        self.testdox_format = bool(flag)
+        self.set_transient('testdox_format', bool(flag))
 
     def is_testdox_format_enabled(self):
-        return self.testdox_format
+        return self.get_transient('testdox_format', False)
 
 plugin_settings = PluginSettings('phpunit')
 
