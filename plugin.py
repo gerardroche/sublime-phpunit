@@ -15,42 +15,42 @@ else:
     def debug_message(message):
         pass
 
-class Configuration():
+class PluginSettings():
 
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.loaded = False
         self.last_run_phpunit_command_args = {}
         self.testdox_format = False
         self.tap_format = False
 
-    def load(self):
+    def on_load(self):
         if self.loaded:
             return
 
-        self.plugin_settings = sublime.load_settings('phpunit.sublime-settings')
+        self.data = sublime.load_settings(self.name + '.sublime-settings')
         self.loaded = True
 
     def get(self, key):
         if not self.loaded:
-            raise RuntimeError('Configuration not loaded')
+            raise RuntimeError('Plugin settings not loaded')
 
         if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
             project_settings = sublime.active_window().active_view().settings()
 
-            if project_settings.has('phpunit.' + key):
-                return project_settings.get('phpunit.' + key)
+            if project_settings.has(self.name + '.' + key):
+                return project_settings.get(self.name + '.' + key)
 
-            # @deprecated since 0.4.0 project settings should be accessed with "phpunit." prefix
-            if project_settings.has('phpunit'):
-                project_phpunit_settings = project_settings.get('phpunit')
+            # @deprecated since 0.4.0 project settings should be accessed with "{NAME}." prefix
+            if project_settings.has(self.name):
+                project_name_settings = project_settings.get(self.name)
+                if key in project_name_settings:
+                    return project_name_settings.get(key)
 
-                if key in project_phpunit_settings:
-                    return project_phpunit_settings.get(key)
+        if self.data.has(key):
+            return self.data.get(key)
 
-        if self.plugin_settings.has(key):
-            return self.plugin_settings.get(key)
-
-        raise RuntimeError('Unknown configuration key "%s"' % key)
+        raise RuntimeError('Unknown plugin setting key "%s"' % key)
 
     def get_last_run_phpunit_command_args(self):
         window_id = sublime.active_window().id()
@@ -79,10 +79,10 @@ class Configuration():
     def is_testdox_format_enabled(self):
         return self.testdox_format
 
-configuration = Configuration()
+plugin_settings = PluginSettings('phpunit')
 
 def plugin_loaded():
-    configuration.load()
+    plugin_settings.on_load()
 
     # @deprecated since 0.2.0 BC fix: last-run file is no longer used
     old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
@@ -225,7 +225,7 @@ class PHPUnitTextUITestRunner():
             self._run()
 
     def runLast(self):
-        args = configuration.get_last_run_phpunit_command_args()
+        args = plugin_settings.get_last_run_phpunit_command_args()
         if args:
             self.run(args)
 
@@ -254,7 +254,7 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
             return
 
-        if configuration.get('save_all_on_run'):
+        if plugin_settings.get('save_all_on_run'):
             debug_message('[PHPUnitTextUITestRunner] Configuration "save_all_on_run" is enabled, saving active window view files...')
             self.window.run_command('save_all')
 
@@ -265,10 +265,10 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
-        if 'testdox' not in options and configuration.is_testdox_format_enabled():
+        if 'testdox' not in options and plugin_settings.is_testdox_format_enabled():
             options['testdox'] = True
 
-        if 'tap' not in options and configuration.is_tap_format_enabled():
+        if 'tap' not in options and plugin_settings.is_tap_format_enabled():
             options['tap'] = True
 
         for k, v in options.items():
@@ -291,7 +291,7 @@ class PHPUnitTextUITestRunner():
             'quiet': not DEBUG_MODE
         })
 
-        configuration.set_last_run_phpunit_command_args(
+        plugin_settings.set_last_run_phpunit_command_args(
             working_dir,
             unit_test_or_directory,
             options
@@ -388,9 +388,9 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
 class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        configuration.set_tap_format(not configuration.is_tap_format_enabled())
+        plugin_settings.set_tap_format(not plugin_settings.is_tap_format_enabled())
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        configuration.set_testdox_format(not configuration.is_testdox_format_enabled())
+        plugin_settings.set_testdox_format(not plugin_settings.is_testdox_format_enabled())
