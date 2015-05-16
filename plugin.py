@@ -15,103 +15,92 @@ else:
     def debug_message(message):
         pass
 
-class Config():
+class PluginSettings():
 
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.loaded = False
-        self.last_run_phpunit_command_args = None
-        self.testdox_format = False
-        self.tap_format = False
+        self.transient_data = {}
+        self.last_run_phpunit_command_args = {}
 
-    def load(self):
+    def on_load(self):
+        if self.loaded:
+            return
 
-        debug_message('[Config] Load plugin settings...')
-        self.plugin_settings = sublime.load_settings('phpunit.sublime-settings')
-
-        if DEBUG_MODE:
-            debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
-
+        self.data = sublime.load_settings(self.name + '.sublime-settings')
         self.loaded = True
 
     def get(self, key):
+        if not self.loaded:
+            raise RuntimeError('Plugin settings not loaded')
 
-        debug_message('[Config] get: %s' % key)
+        if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
+            project_settings = sublime.active_window().active_view().settings()
 
-        # @todo should raise not loaded exception if not loaded
-        if self.loaded:
+            if project_settings.has(self.name + '.' + key):
+                return project_settings.get(self.name + '.' + key)
 
-            if sublime.active_window() is not None:
+            # @deprecated since 0.4.0 project settings should be accessed with "{NAME}." prefix
+            if project_settings.has(self.name):
+                project_name_settings = project_settings.get(self.name)
+                if key in project_name_settings:
+                    return project_name_settings.get(key)
 
-                debug_message('[Config] Window is active, load project settings...')
-                project_settings = sublime.active_window().active_view().settings()
+        if self.data.has(key):
+            return self.data.get(key)
 
-                if project_settings.has('phpunit'):
-                    project_phpunit_settings = project_settings.get('phpunit')
-                    debug_message('[Config] Found project settings: %s' % project_phpunit_settings)
+        raise RuntimeError('Unknown plugin setting key "%s"' % key)
 
-                    if key in project_phpunit_settings:
-                        value = project_phpunit_settings.get(key)
-                        debug_message('[Config] Found project setting: %s' % ({key: value}))
-                        return value
-                else:
-                    debug_message('[Config] No project settings')
+    def get_transient(self, key, default):
+        if key in self.transient_data:
+            return self.transient_data[key]
+        return default
 
-            if DEBUG_MODE:
-                debug_message('[Config] Found plugin settings: %s' % self.plugin_settings_as_dict())
-
-            if self.plugin_settings.has(key):
-                value = self.plugin_settings.get(key)
-                debug_message('[Config] Found plugin setting: %s' % ({key: value}))
-                return value
-
-        # @todo should use special ConfigError class exception
-        raise AttributeError('Unknown config key "%s"' % key)
-
-    # @todo how to simplify dumping the settings?
-    # @todo if not loaded raise not loaded exception
-    def plugin_settings_as_dict(self):
-        return {
-            "save_all_on_run": self.plugin_settings.get('save_all_on_run')
-        }
+    def set_transient(self, key, value):
+        self.transient_data[key] = value
 
     def get_last_run_phpunit_command_args(self):
-        return self.last_run_phpunit_command_args
+        window_id = sublime.active_window().id()
+
+        if window_id in self.last_run_phpunit_command_args:
+            return self.last_run_phpunit_command_args[window_id]
+
+        return None
 
     def set_last_run_phpunit_command_args(self, working_dir, unit_test_or_directory=None, options = {}):
-        self.last_run_phpunit_command_args = {
+        self.last_run_phpunit_command_args[sublime.active_window().id()] = {
             'working_dir': working_dir,
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
         }
 
     def set_tap_format(self, flag):
-        self.tap_format = bool(flag)
+        self.set_transient('tap_format', bool(flag))
 
     def is_tap_format_enabled(self):
-        return self.tap_format
+        return self.get_transient('tap_format', False)
 
     def set_testdox_format(self, flag):
-        self.testdox_format = bool(flag)
+        self.set_transient('testdox_format', bool(flag))
 
     def is_testdox_format_enabled(self):
-        return self.testdox_format
+        return self.get_transient('testdox_format', False)
 
-config = Config()
+plugin_settings = PluginSettings('phpunit')
 
 def plugin_loaded():
-    debug_message('[plugin_loaded] Loading...')
-    config.load()
+    plugin_settings.on_load()
 
-    # last-run file is no longer used
+    # @deprecated since 0.2.0 BC fix: last-run file is no longer used
     old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
     if os.path.isfile(old_phpunit_last_run_file):
         os.remove(old_phpunit_last_run_file)
 
-class PHPUnitXmlFinder():
+class PHPUnitConfigurationFileFinder():
 
     """
     Find the first PHPUnit configuration file, either
-    phpunit.xml or phpunit.xml.dist, in the file_name
+    phpunit.xml or phpunit.xml.dist, in file_name
     directory or the nearest common ancestor directory
     in folders.
     """
@@ -121,30 +110,30 @@ class PHPUnitXmlFinder():
         Finds the PHPUnit configuration file.
         """
 
-        debug_message('[PHPUnitXmlFinder] Find for "%s" in folders: %s' % (file_name, folders))
+        debug_message('[PHPUnitConfigurationFileFinder] Find for "%s" in folders: %s' % (file_name, folders))
 
         if file_name == None:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: file is None')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file is None')
             return None
 
         if not isinstance(file_name, str):
-            debug_message('[PHPUnitXmlFinder] Invalid argument: file not instance')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file not instance')
             return None
 
         if not len(file_name) > 0:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: file len not > 0')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file len not > 0')
             return None
 
         if folders == None:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: folders is None')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folders is None')
             return None
 
         if not isinstance(folders, list):
-            debug_message('[PHPUnitXmlFinder] Invalid argument: folders not instance')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folders not instance')
             return None
 
         if not len(folders) > 0:
-            debug_message('[PHPUnitXmlFinder] Invalid argument: folder len not > 0')
+            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folder len not > 0')
             return None
 
         ancestor_folders = []
@@ -155,23 +144,23 @@ class PHPUnitXmlFinder():
             parent = os.path.dirname(parent)
         ancestor_folders.sort(reverse=True)
 
-        debug_message('[PHPUnitXmlFinder] File has %s common ancestor project folder(s): %s' % (len(ancestor_folders), ancestor_folders))
+        debug_message('[PHPUnitConfigurationFileFinder] File has %s common ancestor project folder(s): %s' % (len(ancestor_folders), ancestor_folders))
 
         for ancestor in ancestor_folders:
             for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
-                configuration_file = os.path.join(ancestor, file_name)
-                if os.path.isfile(configuration_file):
-                    debug_message('[PHPUnitXmlFinder] Found configuration: %s' % configuration_file)
-                    return configuration_file
+                phpunit_configuration_file = os.path.join(ancestor, file_name)
+                if os.path.isfile(phpunit_configuration_file):
+                    debug_message('[PHPUnitConfigurationFileFinder] Found phpunit configuration file: %s' % phpunit_configuration_file)
+                    return phpunit_configuration_file
 
-        debug_message('[PHPUnitXmlFinder] Configuration file not found')
+        debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
         return None
 
 def findup_phpunit_xml_directory(file_name, folders):
-    finder = PHPUnitXmlFinder()
-    configuration = finder.find(file_name, folders)
-    if configuration:
-        return os.path.dirname(configuration)
+    finder = PHPUnitConfigurationFileFinder()
+    phpunit_configuration_file = finder.find(file_name, folders)
+    if phpunit_configuration_file:
+        return os.path.dirname(phpunit_configuration_file)
     return None
 
 def is_valid_php_identifier(string):
@@ -231,37 +220,62 @@ class ViewHelpers():
 
             debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
-class PhpunitCommand(sublime_plugin.WindowCommand):
+class PHPUnitTextUITestRunner():
 
-    def run(self, working_dir, unit_test_or_directory=None, options = None):
-        debug_message('command: phpunit_command {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+    def __init__(self, window):
+        self.window = window
+
+    def run(self, args=None):
+        if args:
+            self._run(**args)
+        else:
+            self._run()
+
+    def runLast(self):
+        args = plugin_settings.get_last_run_phpunit_command_args()
+        if args:
+            self.run(args)
+
+    def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
+        debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+
+        if self.window.active_view() is None:
+            debug_message('[PHPUnitTextUITestRunner] Could not find an active view')
+            return
 
         if options is None:
             options = {}
 
-        if not working_dir or not os.path.isdir(working_dir):
-            debug_message('[phpunit_command] Working directory does not exist or is not a directory: %s' % (working_dir))
+        if working_dir is None:
+            working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
+
+        if not working_dir:
+            debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
+            return
+
+        if not os.path.isdir(working_dir):
+            debug_message('[PHPUnitTextUITestRunner] Working directory does not exist or is not a directory: %s' % (working_dir))
             return
 
         if unit_test_or_directory and not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-            debug_message('[phpunit_command] Unit test or directory is invalid: %s' % (unit_test_or_directory))
+            debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
             return
 
-        if config.get('save_all_on_run'):
-            debug_message('[phpunit_command] Configuration "save_all_on_run" is enabled, saving active window view files...')
+        if plugin_settings.get('save_all_on_run'):
+            debug_message('[PHPUnitTextUITestRunner] Configuration "save_all_on_run" is enabled, saving active window view files...')
             self.window.run_command('save_all')
 
         if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
-            debug_message('[phpunit_command] Found Composer installed PHPUnit: vendor/bin/phpunit')
+            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: vendor/bin/phpunit')
             cmd = 'vendor/bin/phpunit'
         else:
-            debug_message('[phpunit_command] Composer installed PHPUnit not found, using default command: "phpunit"')
+            debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
-        if 'testdox' not in options and config.is_testdox_format_enabled():
+        if 'testdox' not in options and plugin_settings.is_testdox_format_enabled():
             options['testdox'] = True
 
-        if 'tap' not in options and config.is_tap_format_enabled():
+        if 'tap' not in options and plugin_settings.is_tap_format_enabled():
             options['tap'] = True
 
         for k, v in options.items():
@@ -273,8 +287,8 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory
 
-        debug_message('[phpunit_command] cmd: %s' % cmd)
-        debug_message('[phpunit_command] working_dir: %s' % working_dir)
+        debug_message('[PHPUnitTextUITestRunner] cmd: %s' % cmd)
+        debug_message('[PHPUnitTextUITestRunner] working_dir: %s' % working_dir)
 
         self.window.run_command('exec', {
             'cmd': cmd,
@@ -284,15 +298,15 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
             'quiet': not DEBUG_MODE
         })
 
-        config.set_last_run_phpunit_command_args(
+        plugin_settings.set_last_run_phpunit_command_args(
             working_dir,
             unit_test_or_directory,
             options
         )
 
         panel = self.window.get_output_panel("exec")
-        panel.settings().set('syntax','Packages/phpunit/result.hidden-tmLanguage')
-        panel.settings().set('color_scheme', 'Packages/phpunit/result.hidden-tmTheme')
+        panel.settings().set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
+        panel.settings().set('color_scheme', 'Packages/phpunit/test-results.hidden-tmTheme')
         panel.settings().set('rulers', [])
         panel.settings().set('gutter', False)
         panel.settings().set('scroll_past_end', False)
@@ -305,53 +319,36 @@ class PhpunitCommand(sublime_plugin.WindowCommand):
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_run_all_tests')
-
-        working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
-        if not working_dir:
-            debug_message('[phpunit_run_all_tests_command] Could not find a PHPUnit working directory')
-            return
-
-        self.window.run_command('phpunit', { "working_dir": working_dir })
+        testRunner = PHPUnitTextUITestRunner(self.window)
+        testRunner.run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_run_last_test')
-
-        phpunit_args = config.get_last_run_phpunit_command_args()
-        if phpunit_args:
-            self.window.run_command('phpunit', phpunit_args)
+        testRunner = PHPUnitTextUITestRunner(self.window)
+        testRunner.runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_run_single_test')
-
         options = {}
+        view_helpers = ViewHelpers(self.window.active_view())
 
-        active_view_helpers = ViewHelpers(self.window.active_view())
-
-        if active_view_helpers.contains_test_case():
+        if view_helpers.contains_test_case():
             unit_test = self.window.active_view().file_name()
             test_methods = self.selection_test_method_names()
             if test_methods:
                 # @todo optimise filter regex; possibly limit the size of the regex too
                 options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
         else:
-            unit_test = active_view_helpers.find_first_switchable_file()
+            unit_test = view_helpers.find_first_switchable_file()
             if not unit_test:
                 debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
                 return
             # else @todo ensure that the switchable contains a testcase
 
-        working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
-        if not working_dir:
-            debug_message('[phpunit_run_single_test_command] Could not find a PHPUnit working directory')
-            return
-
-        self.window.run_command("phpunit", {
-            "working_dir": working_dir ,
+        testRunner = PHPUnitTextUITestRunner(self.window)
+        testRunner.run({
             "unit_test_or_directory": unit_test,
             "options": options
         })
@@ -370,8 +367,6 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 class PhpunitSwitchFile(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        debug_message('command: phpunit_switch_file')
-
         view_helpers = ViewHelpers(self.view)
         switchable_file_name = view_helpers.find_first_switchable_file()
         if not switchable_file_name:
@@ -400,13 +395,9 @@ class PhpunitSwitchFile(sublime_plugin.TextCommand):
 class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_toggle_tap_format')
-
-        config.set_tap_format(not config.is_tap_format_enabled())
+        plugin_settings.set_tap_format(not plugin_settings.is_tap_format_enabled())
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
     def run(self):
-        debug_message('command: phpunit_toggle_testdox_format')
-
-        config.set_testdox_format(not config.is_testdox_format_enabled())
+        plugin_settings.set_testdox_format(not plugin_settings.is_testdox_format_enabled())

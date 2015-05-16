@@ -1,8 +1,40 @@
-# phpunit changelog
+# sublime-phpunit changelog
+
+## 0.5.0
+
+### Bug Fixes
+
+* Fixed error when there is no active window and/or view
+* Fixed test results not displaying colour when there are risky tests
+* Keymaps now display the default "ctrl+..." keymaps in command palette. Previously they displayed the Vintage/Vintageous keymaps.
+
+### New Features / Enhancements
+
+* Running the last test command is now saved per window #19
+* Added PHPUnit to the Tools Menu #15 #16
+* New in command palette:
+    - Added "PHPUnit: Show Test Results"
+    - Added open "Preferences: PHPunit Settings - Default"
+    - Added open "Preferences: PHPunit Settings - User"
+
+### Changes
+
+* Removed command `phpunit_command` #31
+* Per-project settings are now accessed via prefix `phpunit.` in project definition settings. The old behaviour is deprecated and will be removed before the 1.0.0 beta releases.
+
+`Project > Edit Project`
+
+    ```json
+    {
+        "settings": {
+            "phpunit.save_all_on_run": false
+        }
+    }
+    ```
 
 ## 0.4.0
 
-### New Features
+### New Features / Enhancements
 
 * Added option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item. #30
 
@@ -14,7 +46,7 @@
 * Running single test runs all tests with the same prefix #25
 * Some minor test result progress syntax highlighting bugs
 
-### New Features
+### New Features / Enhancements
 
 * Added run multiple tests using multiple selection #5
 * Added report test execution progress command palette toggles #24
@@ -23,10 +55,6 @@
 * Switching class-under-test/test-case now splits window into two views with both side-by-side *if* the current window only has one group.
 * Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
-### Changes
-
-* Minor refactorings
-
 ## 0.2.0
 
 ### Bug Fixes
@@ -34,7 +62,7 @@
 * Test result progress highlighting was not displayed properly
 * Test result failures red background no longer matches trailing whitespace, previously the red background stretched the full width of the screen.
 
-### New Features
+### New Features / Enhancements
 
 * Composer installed PHPUnit support #13
 * Saving all files on run can now be disabled. It can also be set on a per-project basis #12
@@ -51,4 +79,4 @@
 
 ## 0.1.0
 
-* Initial import
+* Initial import; PHPUnit support

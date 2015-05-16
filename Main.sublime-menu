@@ -1,6 +1,19 @@
 [
     {
-        "caption": "Preferences",
+        "id": "tools",
+        "children": [
+            {
+                "caption": "PHPUnit...",
+                "mnemonic": "t",
+                "command": "show_overlay",
+                "args": {
+                    "overlay": "command_palette",
+                    "text": "PHPUnit: "
+                }
+            }
+        ]
+    },
+    {
         "id": "preferences",
         "children": [
             {
@@ -12,7 +25,9 @@
                         "children": [
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/phpunit/README.md" },
+                                "args": {
+                                    "file": "${packages}/phpunit/README.md"
+                                },
                                 "caption": "README"
                             },
                             {
@@ -20,12 +35,16 @@
                             },
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/phpunit/phpunit.sublime-settings" },
+                                "args": {
+                                    "file": "${packages}/phpunit/phpunit.sublime-settings"
+                                },
                                 "caption": "Settings – Default"
                             },
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/User/phpunit.sublime-settings" },
+                                "args": {
+                                    "file": "${packages}/User/phpunit.sublime-settings"
+                                },
                                 "caption": "Settings – User"
                             },
                             {
@@ -33,12 +52,16 @@
                             },
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/phpunit/Default (${platform}).sublime-keymap" },
+                                "args": {
+                                    "file": "${packages}/phpunit/Default (${platform}).sublime-keymap"
+                                },
                                 "caption": "Key Bindings – Default"
                             },
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/User/Default (${platform}).sublime-keymap" },
+                                "args": {
+                                    "file": "${packages}/User/Default (${platform}).sublime-keymap"
+                                },
                                 "caption": "Key Bindings – User"
                             }
                         ]

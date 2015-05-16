@@ -120,7 +120,7 @@ See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c3535928
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Failures|Errors|Incomplete|Skipped)\: \d+)+\.(?:\e\[[0-9;]+m)?$</string>
+			<string>^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$</string>
 			<key>name</key>
 			<string>test.footer.fail.phpunit-result</string>
 		</dict>

@@ -1,8 +1,47 @@
 [
-    { "command": "phpunit_run_all_tests", "caption": "PHPUnit - Run all tests" },
-    { "command": "phpunit_run_last_test", "caption": "PHPUnit - Run last test" },
-    { "command": "phpunit_run_single_test", "caption": "PHPUnit - Run single test" },
-    { "command": "phpunit_switch_file", "caption": "PHPUnit - Switch Test-Case/Implementation" },
-    { "command": "phpunit_toggle_tap_format", "caption": "PHPUnit - Toggle TAP format" },
-    { "command": "phpunit_toggle_testdox_format", "caption": "PHPUnit - Toggle TestDox format" }
+    {
+        "caption": "PHPUnit: Run all tests",
+        "command": "phpunit_run_all_tests"
+    },
+    {
+        "caption": "PHPUnit: Run last test",
+        "command": "phpunit_run_last_test"
+    },
+    {
+        "caption": "PHPUnit: Run single test",
+        "command": "phpunit_run_single_test"
+    },
+    {
+        "caption": "PHPUnit: Show Test Results",
+        "command": "show_panel",
+        "args": {
+            "panel": "output.exec"
+        }
+    },
+    {
+        "caption": "PHPUnit: Switch Test/Implementation",
+        "command": "phpunit_switch_file"
+    },
+    {
+        "caption": "PHPUnit: Toggle TAP format",
+        "command": "phpunit_toggle_tap_format"
+    },
+    {
+        "caption": "PHPUnit: Toggle TestDox format",
+        "command": "phpunit_toggle_testdox_format"
+    },
+    {
+        "caption": "Preferences: PHPUnit Settings – Default",
+        "command": "open_file",
+        "args": {
+            "file": "${packages}/phpunit/phpunit.sublime-settings"
+        }
+    },
+    {
+        "caption": "Preferences: PHPUnit Settings – User",
+        "command": "open_file",
+        "args": {
+            "file": "${packages}/User/phpunit.sublime-settings"
+        }
+    }
 ]
