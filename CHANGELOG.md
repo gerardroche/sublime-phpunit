@@ -6,10 +6,11 @@
 
 * Fixed error when there is no active window and/or view
 
-### Enhancements
+### New Features
 
 * Running last test command is now saved per window #19
 * New in command palette:
+    - Added "PHPUnit: Show Test Results"
     - Added open "Preferences: PHPunit Settings - Default"
     - Added open "Preferences: PHPunit Settings - User"
 
