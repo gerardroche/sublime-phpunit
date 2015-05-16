@@ -1,6 +1,19 @@
 [
     {
-        "caption": "Preferences",
+        "id": "tools",
+        "children": [
+            {
+                "caption": "PHPUnit...",
+                "mnemonic": "t",
+                "command": "show_overlay",
+                "args": {
+                    "overlay": "command_palette",
+                    "text": "PHPUnit: "
+                }
+            }
+        ]
+    },
+    {
         "id": "preferences",
         "children": [
             {

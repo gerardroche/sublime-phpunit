@@ -10,6 +10,7 @@
 ### New Features
 
 * Running last test command is now saved per window #19
+* Added PHPUnit to the Tools Menu #15 #16
 * New in command palette:
     - Added "PHPUnit: Show Test Results"
     - Added open "Preferences: PHPunit Settings - Default"
