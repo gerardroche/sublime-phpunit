@@ -9,6 +9,9 @@
 ### Enhancements
 
 * Running last test command is now saved per window #19
+* New in command palette:
+    - Added open "Preferences: PHPunit Settings - Default"
+    - Added open "Preferences: PHPunit Settings - User"
 
 ### Changes
 
