@@ -12,7 +12,7 @@
         "command": "phpunit_run_single_test"
     },
     {
-        "caption": "PHPUnit: Switch Test-Case/Implementation",
+        "caption": "PHPUnit: Switch Test/Implementation",
         "command": "phpunit_switch_file"
     },
     {
