@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 * Fixed error when there is no active window and/or view
+* Keymaps now display the default "ctrl+..." keymaps in command palette
 
 ### New Features
 
