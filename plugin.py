@@ -305,8 +305,8 @@ class PHPUnitTextUITestRunner():
         )
 
         panel = self.window.get_output_panel("exec")
-        panel.settings().set('syntax','Packages/phpunit/result.hidden-tmLanguage')
-        panel.settings().set('color_scheme', 'Packages/phpunit/result.hidden-tmTheme')
+        panel.settings().set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
+        panel.settings().set('color_scheme', 'Packages/phpunit/test-results.hidden-tmTheme')
         panel.settings().set('rulers', [])
         panel.settings().set('gutter', False)
         panel.settings().set('scroll_past_end', False)
