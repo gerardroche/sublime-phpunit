@@ -5,7 +5,8 @@
 ### Bug Fixes
 
 * Fixed error when there is no active window and/or view
-* Keymaps now display the default "ctrl+..." keymaps in command palette
+* Fixed test results not displaying colour when there are risky tests
+* Keymaps now display the default "ctrl+..." keymaps in command palette. Previously they displayed the Vintage/Vintageous keymaps.
 
 ### New Features
 
