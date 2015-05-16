@@ -1,6 +1,6 @@
 # sublime-phpunit changelog
 
-## 0.5.0-next
+## 0.5.0
 
 ### Bug Fixes
 
