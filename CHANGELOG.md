@@ -2,7 +2,10 @@
 
 ## next
 
-* Raises exception if not Sublime Text 3
+**New Features & Enhancements**
+
+* Added "PHPUnit: Cancel Test Run" to command palette
+* Now raises a runtime exception if trying to load in Sublime Text version < 3
 
 ## 0.5.0
 
