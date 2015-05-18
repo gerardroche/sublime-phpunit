@@ -2,6 +2,10 @@ import sublime
 import sublime_plugin
 import re
 import os
+import sys
+
+if sys.version_info < (3,):
+    raise RuntimeError('gerardroche/sublime-phpunit plugin requires Sublime Text 3')
 
 DEBUG_MODE=bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 

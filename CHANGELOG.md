@@ -1,5 +1,9 @@
 # sublime-phpunit changelog
 
+## next
+
+* Raises exception if not Sublime Text 3
+
 ## 0.5.0
 
 ### Bug Fixes
