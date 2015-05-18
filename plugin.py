@@ -21,7 +21,6 @@ class PluginSettings():
         self.name = name
         self.loaded = False
         self.transient_data = {}
-        self.last_run_phpunit_command_args = {}
 
     def on_load(self):
         if self.loaded:
@@ -35,14 +34,14 @@ class PluginSettings():
             raise RuntimeError('Plugin settings not loaded')
 
         if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
-            project_settings = sublime.active_window().active_view().settings()
+            settings = sublime.active_window().active_view().settings()
 
-            if project_settings.has(self.name + '.' + key):
-                return project_settings.get(self.name + '.' + key)
+            if settings.has(self.name + '.' + key):
+                return settings.get(self.name + '.' + key)
 
             # @deprecated since 0.4.0 project settings should be accessed with "{NAME}." prefix
-            if project_settings.has(self.name):
-                project_name_settings = project_settings.get(self.name)
+            if settings.has(self.name):
+                project_name_settings = settings.get(self.name)
                 if key in project_name_settings:
                     return project_name_settings.get(key)
 
@@ -59,20 +58,15 @@ class PluginSettings():
     def set_transient(self, key, value):
         self.transient_data[key] = value
 
-    def get_last_run_phpunit_command_args(self):
-        window_id = sublime.active_window().id()
+    def get_last_run_args_for_active_window(self):
+        return self.get_transient('window_' + str(sublime.active_window().id()) + '_last_run_args', None)
 
-        if window_id in self.last_run_phpunit_command_args:
-            return self.last_run_phpunit_command_args[window_id]
-
-        return None
-
-    def set_last_run_phpunit_command_args(self, working_dir, unit_test_or_directory=None, options = {}):
-        self.last_run_phpunit_command_args[sublime.active_window().id()] = {
+    def set_last_run_args_for_active_window(self, working_dir, unit_test_or_directory=None, options = {}):
+        self.set_transient('window_' + str(sublime.active_window().id()) + '_last_run_args', {
             'working_dir': working_dir,
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
-        }
+        })
 
     def set_tap_format(self, flag):
         self.set_transient('tap_format', bool(flag))
@@ -232,7 +226,7 @@ class PHPUnitTextUITestRunner():
             self._run()
 
     def runLast(self):
-        args = plugin_settings.get_last_run_phpunit_command_args()
+        args = plugin_settings.get_last_run_args_for_active_window()
         if args:
             self.run(args)
 
@@ -298,23 +292,23 @@ class PHPUnitTextUITestRunner():
             'quiet': not DEBUG_MODE
         })
 
-        plugin_settings.set_last_run_phpunit_command_args(
+        plugin_settings.set_last_run_args_for_active_window(
             working_dir,
             unit_test_or_directory,
             options
         )
 
-        panel = self.window.get_output_panel("exec")
-        panel.settings().set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
-        panel.settings().set('color_scheme', 'Packages/phpunit/test-results.hidden-tmTheme')
-        panel.settings().set('rulers', [])
-        panel.settings().set('gutter', False)
-        panel.settings().set('scroll_past_end', False)
-        panel.settings().set('draw_centered', False)
-        panel.settings().set('line_numbers', False)
-        panel.settings().set('spell_check', False)
-        panel.settings().set('word_wrap', True)
-        self.window.run_command("show_panel", {"panel": "output.exec"})
+        panel = self.window.create_output_panel('exec')
+        panel_settings = panel.settings()
+        panel_settings.set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
+        panel_settings.set('color_scheme', 'Packages/phpunit/test-results.hidden-tmTheme')
+        panel_settings.set('rulers', [])
+        panel_settings.set('gutter', False)
+        panel_settings.set('scroll_past_end', False)
+        panel_settings.set('draw_centered', False)
+        panel_settings.set('line_numbers', False)
+        panel_settings.set('spell_check', False)
+        panel_settings.set('word_wrap', True)
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
