@@ -23,7 +23,7 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 * Run single test-case
 * Run single test method
 * Run multiple test methods
-* Run the test for the current class
+* Run the test for current class
 * Rerun last test
 * Switch *(and split)* test / implementation
 * Goto to next/previous test failure file line number
@@ -44,7 +44,7 @@ The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number |
 
-To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item.
+To disable the keymaps set `"phpunit.enable_keymaps": false` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
 Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
@@ -52,14 +52,14 @@ Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit
 |------------------------|--------------|
 | <kbd>,</kbd><kbd>t</kbd> | Run all tests |
 | <kbd>,</kbd><kbd>r</kbd> | Run single test-case / test method(s) |
-| <kbd>,</kbd><kbd>e</kbd> | Run last test |
+| <kbd>,</kbd><kbd>e</kbd> | Rerun last test |
 | <kbd>,</kbd><kbd>.</kbd> | Switch test / implementation |
 
 ## Installation
 
 ### Manual installation
 
-1. Download or clone this repository to a directory `phpunit` in the Sublime Text Packages directory for your platform:
+1. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
     * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
     * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`

@@ -19,6 +19,13 @@
         }
     },
     {
+        "caption": "PHPUnit: Cancel Test Run",
+        "command": "exec",
+        "args": {
+            "kill": true
+        }
+    },
+    {
         "caption": "PHPUnit: Switch Test/Implementation",
         "command": "phpunit_switch_file"
     },
