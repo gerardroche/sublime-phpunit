@@ -89,11 +89,6 @@ plugin_settings = PluginSettings('phpunit')
 def plugin_loaded():
     plugin_settings.on_load()
 
-    # @deprecated since 0.2.0 BC fix: last-run file is no longer used
-    old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
-    if os.path.isfile(old_phpunit_last_run_file):
-        os.remove(old_phpunit_last_run_file)
-
 class PHPUnitConfigurationFileFinder():
 
     """
