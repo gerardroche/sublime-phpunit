@@ -43,12 +43,6 @@ class PluginSettings():
             if settings.has(self.name + '.' + key):
                 return settings.get(self.name + '.' + key)
 
-            # @deprecated since 0.4.0 project settings should be accessed with "{NAME}." prefix
-            if settings.has(self.name):
-                project_name_settings = settings.get(self.name)
-                if key in project_name_settings:
-                    return project_name_settings.get(key)
-
         if self.data.has(key):
             return self.data.get(key)
 
