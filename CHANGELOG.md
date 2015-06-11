@@ -1,5 +1,10 @@
 # sublime-phpunit changelog
 
+## 0.7.0
+
+* Removed: several deprecated behaviours
+* Added: license link to package settings menu
+
 ## 0.6.0
 
 * Added: "PHPUnit: Cancel Test Run" to command palette
