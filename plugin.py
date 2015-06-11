@@ -43,12 +43,6 @@ class PluginSettings():
             if settings.has(self.name + '.' + key):
                 return settings.get(self.name + '.' + key)
 
-            # @deprecated since 0.4.0 project settings should be accessed with "{NAME}." prefix
-            if settings.has(self.name):
-                project_name_settings = settings.get(self.name)
-                if key in project_name_settings:
-                    return project_name_settings.get(key)
-
         if self.data.has(key):
             return self.data.get(key)
 
@@ -88,11 +82,6 @@ plugin_settings = PluginSettings('phpunit')
 
 def plugin_loaded():
     plugin_settings.on_load()
-
-    # @deprecated since 0.2.0 BC fix: last-run file is no longer used
-    old_phpunit_last_run_file = os.path.join(sublime.packages_path(), 'User', 'phpunit.last-run')
-    if os.path.isfile(old_phpunit_last_run_file):
-        os.remove(old_phpunit_last_run_file)
 
 class PHPUnitConfigurationFileFinder():
 
