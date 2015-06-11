@@ -1,5 +1,9 @@
 # sublime-phpunit changelog
 
+## 0.9.0
+
+* Added: "Open HTML Code Coverage in Browser" command #23
+
 ## 0.8.0
 
 * Added: Configurable color schemes #7

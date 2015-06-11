@@ -392,3 +392,26 @@ class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
     def run(self):
         plugin_settings.set_testdox_format(not plugin_settings.is_testdox_format_enabled())
+
+class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
+
+    """
+    Open HTML code coverage in browser
+    """
+
+    def run(self):
+
+        working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
+
+        if not working_dir:
+            sublime.status_message('PHPUnit: Could not find a working directory')
+            return
+
+        coverage_html_index_file = os.path.join(working_dir, 'build/coverage/index.html')
+
+        if not os.path.exists(coverage_html_index_file):
+            sublime.status_message('PHPUnit: Could not find HTML code coverage at "%s"' % coverage_html_index_file)
+            return
+
+        import webbrowser
+        webbrowser.open_new_tab('file://' + coverage_html_index_file)
