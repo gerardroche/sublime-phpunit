@@ -279,7 +279,7 @@ class PHPUnitTextUITestRunner():
         self.window.run_command('exec', {
             'cmd': cmd,
             'working_dir': working_dir,
-            'file_regex': '([a-zA-Z0-9\\/_-]+\.php)(?:\:| on line )([0-9]+)$',
+            'file_regex': '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$',
             'shell': True,
             'quiet': not DEBUG_MODE
         })

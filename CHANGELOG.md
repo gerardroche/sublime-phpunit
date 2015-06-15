@@ -6,6 +6,7 @@
 * Added colour scheme: `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * Added colour scheme: `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 * Fixed: Command palette captions are now capitalised
+* Fixed: Goto next/last failure now matches all files/line-numbers in stack traces
 
 ## 0.7.0
 
