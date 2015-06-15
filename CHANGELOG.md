@@ -5,6 +5,7 @@
 * Added: Configurable color schemes
 * Added colour scheme: `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * Added colour scheme: `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
+* Fixed: Command palette captions are now capitalised
 
 ## 0.7.0
 

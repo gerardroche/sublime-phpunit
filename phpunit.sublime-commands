@@ -1,14 +1,14 @@
 [
     {
-        "caption": "PHPUnit: Run all tests",
+        "caption": "PHPUnit: Run All Tests",
         "command": "phpunit_run_all_tests"
     },
     {
-        "caption": "PHPUnit: Run last test",
+        "caption": "PHPUnit: Run Last Test",
         "command": "phpunit_run_last_test"
     },
     {
-        "caption": "PHPUnit: Run single test",
+        "caption": "PHPUnit: Run Single Test",
         "command": "phpunit_run_single_test"
     },
     {
