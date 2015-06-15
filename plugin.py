@@ -143,12 +143,11 @@ class PHPUnitConfigurationFileFinder():
         debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
         return None
 
-def findup_phpunit_xml_directory(file_name, folders):
-    finder = PHPUnitConfigurationFileFinder()
-    phpunit_configuration_file = finder.find(file_name, folders)
-    if phpunit_configuration_file:
-        return os.path.dirname(phpunit_configuration_file)
-    return None
+    def find_dirname(self, file_name, folders):
+        phpunit_configuration_file = self.find(file_name, folders)
+        if phpunit_configuration_file:
+            return os.path.dirname(phpunit_configuration_file)
+        return None
 
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
@@ -234,7 +233,7 @@ class PHPUnitTextUITestRunner():
             options = {}
 
         if working_dir is None:
-            working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
+            working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
 
         if not working_dir:
             debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
