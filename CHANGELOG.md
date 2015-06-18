@@ -1,5 +1,9 @@
 # sublime-phpunit changelog
 
+## 0.8.0 (upcoming)
+
+* Added: Configurable color schemes
+
 ## 0.7.0
 
 * Removed: several deprecated behaviours

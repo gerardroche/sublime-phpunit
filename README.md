@@ -107,6 +107,16 @@ Set per-project settings in the project definition. Access this file from the me
 
 ### Settings
 
+#### `phpunit.color_scheme`
+
+`<string|null>`
+
+The colour scheme to use for test results.
+
+Default is `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`.
+
+* `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
+
 #### `phpunit.enable_keymaps`
 
 `<bool>`

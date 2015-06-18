@@ -293,7 +293,6 @@ class PHPUnitTextUITestRunner():
         panel = self.window.create_output_panel('exec')
         panel_settings = panel.settings()
         panel_settings.set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
-        panel_settings.set('color_scheme', 'Packages/phpunit/test-results.hidden-tmTheme')
         panel_settings.set('rulers', [])
         panel_settings.set('gutter', False)
         panel_settings.set('scroll_past_end', False)
@@ -301,6 +300,12 @@ class PHPUnitTextUITestRunner():
         panel_settings.set('line_numbers', False)
         panel_settings.set('spell_check', False)
         panel_settings.set('word_wrap', True)
+
+        view_settings = self.window.active_view().settings()
+        if view_settings.get('phpunit.color_scheme'):
+            panel_settings.set('color_scheme', view_settings.get('phpunit.color_scheme'))
+        else:
+            panel_settings.set('color_scheme', view_settings.get('color_scheme'))
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
