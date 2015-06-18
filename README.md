@@ -116,6 +116,8 @@ The colour scheme to use for test results.
 Default is `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`.
 
 * `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
+* `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
+* `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
 #### `phpunit.enable_keymaps`
 

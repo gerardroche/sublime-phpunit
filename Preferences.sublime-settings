@@ -5,6 +5,8 @@
     // Colour scheme to use for test results.
     //
     // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme
+    // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
+    // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
     //
     // Set to false or null for none.
     //
