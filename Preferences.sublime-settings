@@ -10,5 +10,7 @@
     //
     // Set to false or null for none.
     //
-    "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme"
+    "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
+
+    // "save_all_on_run": true
 }

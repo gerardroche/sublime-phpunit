@@ -36,7 +36,7 @@
                                 "caption": "Settings – Default",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/phpunit/phpunit.sublime-settings"
+                                    "file": "${packages}/phpunit/Preferences.sublime-settings"
                                 }
                             },
                             {
