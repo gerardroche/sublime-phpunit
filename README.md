@@ -83,6 +83,7 @@ Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit
 Access the user settings file from the menu.
 
 `Preferences > Settings - User`
+
 `Preferences > Package Settings > PHPUnit > Settings - User`
 
 ```json
