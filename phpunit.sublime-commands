@@ -1,14 +1,14 @@
 [
     {
-        "caption": "PHPUnit: Run all tests",
+        "caption": "PHPUnit: Run All Tests",
         "command": "phpunit_run_all_tests"
     },
     {
-        "caption": "PHPUnit: Run last test",
+        "caption": "PHPUnit: Run Last Test",
         "command": "phpunit_run_last_test"
     },
     {
-        "caption": "PHPUnit: Run single test",
+        "caption": "PHPUnit: Run Single Test",
         "command": "phpunit_run_single_test"
     },
     {
@@ -41,7 +41,7 @@
         "caption": "Preferences: PHPUnit Settings – Default",
         "command": "open_file",
         "args": {
-            "file": "${packages}/phpunit/phpunit.sublime-settings"
+            "file": "${packages}/phpunit/Preferences.sublime-settings"
         }
     },
     {

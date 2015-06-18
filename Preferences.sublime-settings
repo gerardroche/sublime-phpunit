@@ -1,4 +1,16 @@
 {
-	"phpunit.enable_keymaps": true,
-	"phpunit.enable_vi_keymaps": false
+    "phpunit.enable_keymaps": true,
+    "phpunit.enable_vi_keymaps": false,
+
+    // Colour scheme to use for test results.
+    //
+    // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme
+    // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
+    // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
+    //
+    // Set to false or null for none.
+    //
+    "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
+
+    // "save_all_on_run": true
 }

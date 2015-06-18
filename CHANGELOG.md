@@ -1,5 +1,15 @@
 # sublime-phpunit changelog
 
+## 0.8.0
+
+* Added: Configurable color schemes #7
+* Added colour scheme:
+    `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme` #21
+* Added colour scheme:
+    `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme` #21
+* Fixed: Command palette captions are now capitalised
+* Fixed: Goto next/last failure now matches all files/line-numbers in stack traces
+
 ## 0.7.0
 
 * Removed: several deprecated behaviours

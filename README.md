@@ -7,12 +7,14 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 ## Overview
 
 * [Features](#features)
-* [Key Bindings](#key-bindings)
 * [Installation](#installation)
+* [Commands](#commands)
+* [Key Bindings](#key-bindings)
 * [Configuration](#configuration)
 * [Contributing](#contributing)
-* [Changelog](#changelog)
+* [Known Issues](#known-issues)
 * [Roadmap](https://github.com/gerardroche/sublime-phpunit/issues/1)
+* [Changelog](#changelog)
 * [Complementary Plugins](#complementary-plugins)
 * [Credits](#credits)
 * [License](#license)
@@ -32,6 +34,25 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 * Composer installed PHPUnit support
 
 The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit.xml.dist` in the active view file directory or the nearest common ancestor directory in the current open folders. If the project has a Composer installed PHPUnit then the Composer installed PHPUnit is used to run the tests.
+
+## Installation
+
+### Manual installation
+
+1. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
+    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
+    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
+    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
+2. Restart Sublime Text to complete installation. The features listed above should now be available.
+
+## Commands
+
+* `PHPUnit: Run All Tests`
+* `PHPUnit: Run Single Test`
+* `PHPUnit: Run Last Test`
+* `PHPUnit: Toggle TAP format`
+* `PHPUnit: Toggle Textdox format`
+* `PHPUnit: Switch Test/Implementation`
 
 ## Key Bindings
 
@@ -55,37 +76,24 @@ Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit
 | <kbd>,</kbd><kbd>e</kbd> | Rerun last test |
 | <kbd>,</kbd><kbd>.</kbd> | Switch test / implementation |
 
-## Installation
-
-### Manual installation
-
-1. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
-2. Restart Sublime Text to complete installation. The features listed above should now be available.
-
 ## Configuration
-
-| Setting | Type | Default | Description |
-|---------|------|---------|-------------|
-| `save_all_on_run` | `bool` | `true` | Saves all files before running tests |
 
 ### User settings
 
-Put user settings in a `phpunit.sublime-settings` file. Access this file from the menu:
+Access the user settings file from the menu.
 
+`Preferences > Settings - User`
 `Preferences > Package Settings > PHPUnit > Settings - User`
 
 ```json
 {
-    "save_all_on_run": false
+    "phpunit.save_all_on_run": false
 }
 ```
 
 ### Per-project settings
 
-Set per-project settings by prefixing settings with `phpunit.` in the project definition. Access this file from the menu:
+Set per-project settings in the project definition. Access this file from the menu.
 
 `Project > Edit Project`
 
@@ -97,16 +105,53 @@ Set per-project settings by prefixing settings with `phpunit.` in the project de
 }
 ```
 
-## Known Bugs
+### Settings
 
-* Sublime Text
-    - [F4 navigates to symlinked file out of sync with project](https://github.com/SublimeTextIssues/Core/issues/611)
+#### `phpunit.color_scheme`
+
+`<string|null>`
+
+The colour scheme to use for test results.
+
+Default is `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`.
+
+* `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
+* `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
+* `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
+
+#### `phpunit.enable_keymaps`
+
+`<bool>`
+
+Default is true.
+
+#### `phpunit.enable_vi_keymaps`
+
+`<bool>`
+
+Default is false.
+
+#### `phpunit.save_all_on_run`
+
+`<bool>`
+
+Saves all files before running tests.
+
+Default is true.
 
 ## Contributing
 
 Issue reports and pull requests are always welcome.
 
-### Debug messages
+**Running the tests**
+
+On Linux, for example, from the root of the project:
+
+```sh
+export SUBLIME_PHPUNIT_DEBUG=; python3 -m unittest discover -t ../ -s tests/ --verbose
+```
+
+**Debug messages**
 
 Debug messages are disabled by default. To enable debug messages set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=yes`. To disable set it to a blank value e.g. `SUBLIME_PHPUNIT_DEBUG=`.
 
@@ -116,13 +161,9 @@ On Linux, for example, Sublime Text can be opened at a Terminal with an exported
 export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 ```
 
-### Running the tests
+## Known Issues
 
-On Linux, for example, from the root of the project:
-
-```sh
-export SUBLIME_PHPUNIT_DEBUG=; python3 -m unittest discover -t ../ -s tests/ --verbose
-```
+* Goto to next/previous test failure file line number (<kbd>F4</kbd>/<kbd>Shift+F4</kbd>) navigates to symlinked file out of sync with project root directory. See https://github.com/SublimeTextIssues/Core/issues/611
 
 ## Changelog
 

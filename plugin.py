@@ -143,12 +143,11 @@ class PHPUnitConfigurationFileFinder():
         debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
         return None
 
-def findup_phpunit_xml_directory(file_name, folders):
-    finder = PHPUnitConfigurationFileFinder()
-    phpunit_configuration_file = finder.find(file_name, folders)
-    if phpunit_configuration_file:
-        return os.path.dirname(phpunit_configuration_file)
-    return None
+    def find_dirname(self, file_name, folders):
+        phpunit_configuration_file = self.find(file_name, folders)
+        if phpunit_configuration_file:
+            return os.path.dirname(phpunit_configuration_file)
+        return None
 
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
@@ -234,7 +233,7 @@ class PHPUnitTextUITestRunner():
             options = {}
 
         if working_dir is None:
-            working_dir = findup_phpunit_xml_directory(self.window.active_view().file_name(), self.window.folders())
+            working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
 
         if not working_dir:
             debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
@@ -280,7 +279,7 @@ class PHPUnitTextUITestRunner():
         self.window.run_command('exec', {
             'cmd': cmd,
             'working_dir': working_dir,
-            'file_regex': '([a-zA-Z0-9\\/_-]+\.php)(?:\:| on line )([0-9]+)$',
+            'file_regex': '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$',
             'shell': True,
             'quiet': not DEBUG_MODE
         })
@@ -294,7 +293,6 @@ class PHPUnitTextUITestRunner():
         panel = self.window.create_output_panel('exec')
         panel_settings = panel.settings()
         panel_settings.set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
-        panel_settings.set('color_scheme', 'Packages/phpunit/test-results.hidden-tmTheme')
         panel_settings.set('rulers', [])
         panel_settings.set('gutter', False)
         panel_settings.set('scroll_past_end', False)
@@ -302,6 +300,12 @@ class PHPUnitTextUITestRunner():
         panel_settings.set('line_numbers', False)
         panel_settings.set('spell_check', False)
         panel_settings.set('word_wrap', True)
+
+        view_settings = self.window.active_view().settings()
+        if view_settings.get('phpunit.color_scheme'):
+            panel_settings.set('color_scheme', view_settings.get('phpunit.color_scheme'))
+        else:
+            panel_settings.set('color_scheme', view_settings.get('color_scheme'))
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
