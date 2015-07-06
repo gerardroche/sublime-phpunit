@@ -1,6 +1,6 @@
 # sublime-phpunit changelog
 
-## 0.9.0 (upcoming)
+## 0.9.0
 
 * Added: "Open HTML Code Coverage in Browser" command #23
 * Added: Switch and put class and test-case side-by-side #8
