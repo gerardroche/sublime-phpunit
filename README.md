@@ -11,7 +11,6 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 * [Key Bindings](#key-bindings)
 * [Configuration](#configuration)
 * [Contributing](#contributing)
-* [Known Issues](#known-issues)
 * [Installation](#installation)
 * [Changelog](#changelog)
 * [Complementary Plugins](#complementary-plugins)
@@ -126,10 +125,6 @@ On Linux, for example, Sublime Text can be opened at a Terminal with an exported
 ```sh
 export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 ```
-
-## Known Issues
-
-* Goto to next/previous test failure file line number (<kbd>F4</kbd>/<kbd>Shift+F4</kbd>) navigates to symlinked file out of sync with project root directory. See https://github.com/SublimeTextIssues/Core/issues/611
 
 ## Installation
 
