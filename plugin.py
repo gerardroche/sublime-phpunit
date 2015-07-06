@@ -176,7 +176,7 @@ class ViewHelpers():
 
         return classes
 
-    def find_first_switchable_file(self):
+    def find_first_switchable(self):
         debug_message('[ViewHelpers::find_first_switchable_file] Find in view: %s' % ({"id": self.view.id(), "file_name": self.view.file_name()}))
 
         for class_name in self.find_php_classes():
@@ -195,18 +195,29 @@ class ViewHelpers():
 
             for open_file in switchables_in_open_files:
                 debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
-                return open_file[0]
+                return open_file
 
             switchables_in_index = self.view.window().lookup_symbol_in_index(lookup_symbol)
             debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
 
             for index in switchables_in_index:
                 debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
-                return index[0]
+                return index
 
             debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
+    def find_first_switchable_file(self):
+        first_switchable = self.find_first_switchable()
+        if not first_switchable:
+            return None
+
+        return first_switchable[0]
+
 class PHPUnitTextUITestRunner():
+
+    """
+    PHPUnit test runner
+    """
 
     def __init__(self, window):
         self.window = window
@@ -309,17 +320,29 @@ class PHPUnitTextUITestRunner():
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
+    """
+    Runs all tests
+    """
+
     def run(self):
         testRunner = PHPUnitTextUITestRunner(self.window)
         testRunner.run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
+    """
+    Run last test
+    """
+
     def run(self):
         testRunner = PHPUnitTextUITestRunner(self.window)
         testRunner.runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
+
+    """
+    Run single test
+    """
 
     def run(self):
         options = {}
@@ -355,40 +378,69 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             test_method_names.append(word)
         return test_method_names
 
-class PhpunitSwitchFile(sublime_plugin.TextCommand):
+class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
-    def run(self, edit):
-        view_helpers = ViewHelpers(self.view)
-        switchable_file_name = view_helpers.find_first_switchable_file()
-        if not switchable_file_name:
+    """
+    Switch file
+    """
+
+    def run(self):
+
+        current_view = self.window.active_view()
+        if not current_view:
             return
 
-        debug_message('[phpunit_switch_file_command] Switching from "%s" to "%s"' % (self.view.file_name(), switchable_file_name))
+        first_switchable = ViewHelpers(current_view).find_first_switchable()
+        if not first_switchable:
+            return
 
-        split_from_1_group = False
-        if self.view.window().num_groups() == 1:
-            # The most basic case. If only one group is open then split window for switchable
-            self.view.window().run_command('set_layout', {
+        debug_message('[phpunit_switch_file_command] Switching from "%s" to %s' % (current_view.file_name(), first_switchable))
+
+        self.window.open_file(first_switchable[0])
+
+        switched_view = self.window.active_view()
+
+        current_view_index = self.window.get_view_index(current_view)
+        switched_view_index = self.window.get_view_index(switched_view)
+
+        if current_view == switched_view:
+            # looks like the class and test-case are in the same view
+            return
+
+        # split in two with class and test-case side-by-side
+
+        if self.window.num_groups() == 1:
+            self.window.run_command('set_layout', {
                 "cols": [0.0, 0.5, 1.0],
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
             })
-            self.view.window().focus_group(1)
-            split_from_1_group = True
 
-        self.view.window().open_file(switchable_file_name)
+        if self.window.num_groups() <= 2 and current_view_index[0] == switched_view_index[0]:
 
-        if split_from_1_group == True:
-            # if opened switchable is already opened and in group 0 then move it to the group 1 split
-            if self.view.window().active_group() == 0:
-                self.view.window().set_view_index(self.view, 1, 0)
+            if current_view_index[0] == 0:
+                self.window.set_view_index(switched_view, 1, 0)
+            else:
+                self.window.set_view_index(switched_view, 0, 0)
+
+            # ensure focus is not lost from either views
+            self.window.focus_view(current_view)
+            self.window.focus_view(switched_view)
 
 class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
+
+    """
+    Toggle tap format
+    """
 
     def run(self):
         plugin_settings.set_tap_format(not plugin_settings.is_tap_format_enabled())
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
+
+    """
+    Toggle testdox format
+    """
 
     def run(self):
         plugin_settings.set_testdox_format(not plugin_settings.is_testdox_format_enabled())
