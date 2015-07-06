@@ -26,6 +26,10 @@
         }
     },
     {
+        "caption": "PHPUnit: Open HTML Code Coverage in Browser",
+        "command": "phpunit_open_html_code_coverage_in_browser"
+    },
+    {
         "caption": "PHPUnit: Switch Test/Implementation",
         "command": "phpunit_switch_file"
     },

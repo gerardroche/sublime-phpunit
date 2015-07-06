@@ -7,13 +7,12 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 ## Overview
 
 * [Features](#features)
-* [Installation](#installation)
 * [Commands](#commands)
 * [Key Bindings](#key-bindings)
 * [Configuration](#configuration)
 * [Contributing](#contributing)
 * [Known Issues](#known-issues)
-* [Roadmap](https://github.com/gerardroche/sublime-phpunit/issues/1)
+* [Installation](#installation)
 * [Changelog](#changelog)
 * [Complementary Plugins](#complementary-plugins)
 * [Credits](#credits)
@@ -24,26 +23,13 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 * Run all tests
 * Run single test-case
 * Run single test method
-* Run multiple test methods
-* Run the test for current class
+* Run multiple test methods *(using multiple selection)*
+* Run the test-case for current class
 * Rerun last test
-* Switch *(and split)* test / implementation
-* Goto to next/previous test failure file line number
-* Test results formatted in colour including failure diffs
-* Toggle TestDox and TAP test results format
-* Composer installed PHPUnit support
-
-The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit.xml.dist` in the active view file directory or the nearest common ancestor directory in the current open folders. If the project has a Composer installed PHPUnit then the Composer installed PHPUnit is used to run the tests.
-
-## Installation
-
-### Manual installation
-
-1. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
-2. Restart Sublime Text to complete installation. The features listed above should now be available.
+* Jump to next and previous failure file linenumber
+* Switch, split, and focus on class and test-case
+* Composer support
+* Test results in colour including failure diffs
 
 ## Commands
 
@@ -53,6 +39,7 @@ The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit
 * `PHPUnit: Toggle TAP format`
 * `PHPUnit: Toggle Textdox format`
 * `PHPUnit: Switch Test/Implementation`
+* `PHPUnit: Open HTML Code Coverage in Browser`
 
 ## Key Bindings
 
@@ -65,7 +52,7 @@ The PHPUnit configuration file is found by looking for `phpunit.xml` or `phpunit
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number |
 
-To disable the keymaps set `"phpunit.enable_keymaps": false` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+Keymaps are enabled by default. To disable them set `"phpunit.enable_keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
 
 Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
@@ -80,11 +67,7 @@ Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit
 
 ### User settings
 
-Access the user settings file from the menu.
-
 `Preferences > Settings - User`
-
-`Preferences > Package Settings > PHPUnit > Settings - User`
 
 ```json
 {
@@ -94,7 +77,7 @@ Access the user settings file from the menu.
 
 ### Per-project settings
 
-Set per-project settings in the project definition. Access this file from the menu.
+Set per-project settings in the project definition.
 
 `Project > Edit Project`
 
@@ -108,37 +91,19 @@ Set per-project settings in the project definition. Access this file from the me
 
 ### Settings
 
-#### `phpunit.color_scheme`
+**`phpunit.color_scheme`** `<string|null>` Default is monokai
 
-`<string|null>`
+The colour scheme to use for test results. To set no colour scheme set to null. The bundled schemes are:
 
-The colour scheme to use for test results.
-
-Default is `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`.
-
-* `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
+* `Packages/phpunit/color-schemes/monokai.hidden-tmTheme` (default)
 * `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
-#### `phpunit.enable_keymaps`
+**`phpunit.enable_keymaps`** `<bool>` Default is true
 
-`<bool>`
+**`phpunit.enable_vi_keymaps`** `<bool>` Default is false
 
-Default is true.
-
-#### `phpunit.enable_vi_keymaps`
-
-`<bool>`
-
-Default is false.
-
-#### `phpunit.save_all_on_run`
-
-`<bool>`
-
-Saves all files before running tests.
-
-Default is true.
+**`phpunit.save_all_on_run`** `<bool>` Default is true
 
 ## Contributing
 
@@ -166,18 +131,26 @@ export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 
 * Goto to next/previous test failure file line number (<kbd>F4</kbd>/<kbd>Shift+F4</kbd>) navigates to symlinked file out of sync with project root directory. See https://github.com/SublimeTextIssues/Core/issues/611
 
+## Installation
+
+1. Close Sublime Text
+2. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for the platform:
+    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
+    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
+    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
+3. Done. The features listed above should now be available.
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).
 
 ## Complementary Plugins
 
-* [php-completions]
-* [php-grammar]
-* [php-snippets]
-* [phpunit-completions]
-* [phpunit-snippets]
-* [phpunit]
+* [PHPUnit Completions](https://github.com/gerardroche/sublime-phpunitck)
+* [PHPUnit Snippets](https://github.com/gerardroche/sublime-phpunit-snippets)
+* [PHP Grammar](https://github.com/gerardroche/sublime-php-grammar)
+* [PHP Completions](https://github.com/gerardroche/sublime-phpck)
+* [PHP Snippets](https://github.com/gerardroche/sublime-php-snippets)
 
 ## Credits
 
@@ -185,15 +158,4 @@ sublime-phpunit is based initially on [Sublime Text Ruby Tests](https://github.c
 
 ## License
 
-sublime-phpunit is released under the [BSD 3-Clause License][license].
-
-[license]: LICENSE
-[Package Control]: https://packagecontrol.io
-[php-completions]: https://github.com/gerardroche/sublime-phpck
-[php-fig]: http://www.php-fig.org
-[php-grammar]: https://github.com/gerardroche/sublime-php-grammar
-[php-snippets]: https://github.com/gerardroche/sublime-php-snippets
-[phpunit-completions]: https://github.com/gerardroche/sublime-phpunitck
-[phpunit-snippets]: https://github.com/gerardroche/sublime-phpunit-snippets
-[phpunit]: https://github.com/gerardroche/sublime-phpunit
-[semver]: http://semver.org
+sublime-phpunit is released under the [BSD 3-Clause License](LICENSE).
