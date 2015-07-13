@@ -37,46 +37,32 @@ class PluginSettings():
         if not self.loaded:
             raise RuntimeError('Plugin settings not loaded')
 
-        if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
-            settings = sublime.active_window().active_view().settings()
+        window = sublime.active_window()
+        if window is not None:
 
-            if settings.has(self.name + '.' + key):
-                return settings.get(self.name + '.' + key)
+            view = window.active_view()
+            if view is not None:
+
+                settings = view.settings()
+                if settings.has(self.name + '.' + key):
+                    return settings.get(self.name + '.' + key)
 
         if self.data.has(key):
             return self.data.get(key)
 
-        raise RuntimeError('Unknown plugin setting key "%s"' % key)
+        raise RuntimeError('Unknown plugin setting "%s"' % key)
 
-    def get_transient(self, key, default):
+    def get_transient(self, key):
         if key in self.transient_data:
             return self.transient_data[key]
-        return default
+
+        try:
+            return self.get(key)
+        except:
+            return None
 
     def set_transient(self, key, value):
         self.transient_data[key] = value
-
-    def get_last_run_args_for_active_window(self):
-        return self.get_transient('window_' + str(sublime.active_window().id()) + '_last_run_args', None)
-
-    def set_last_run_args_for_active_window(self, working_dir, unit_test_or_directory=None, options = {}):
-        self.set_transient('window_' + str(sublime.active_window().id()) + '_last_run_args', {
-            'working_dir': working_dir,
-            'unit_test_or_directory': unit_test_or_directory,
-            'options': options
-        })
-
-    def set_tap_format(self, flag):
-        self.set_transient('tap_format', bool(flag))
-
-    def is_tap_format_enabled(self):
-        return self.get_transient('tap_format', False)
-
-    def set_testdox_format(self, flag):
-        self.set_transient('testdox_format', bool(flag))
-
-    def is_testdox_format_enabled(self):
-        return self.get_transient('testdox_format', False)
 
 plugin_settings = PluginSettings('phpunit')
 
@@ -239,11 +225,6 @@ class PHPUnitTextUITestRunner():
         else:
             self._run()
 
-    def runLast(self):
-        args = plugin_settings.get_last_run_args_for_active_window()
-        if args:
-            self.run(args)
-
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
         debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
@@ -280,10 +261,10 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
-        if 'testdox' not in options and plugin_settings.is_testdox_format_enabled():
+        if 'testdox' not in options and plugin_settings.get_transient('testdox_format'):
             options['testdox'] = True
 
-        if 'tap' not in options and plugin_settings.is_tap_format_enabled():
+        if 'tap' not in options and plugin_settings.get_transient('tap_format'):
             options['tap'] = True
 
         for k, v in options.items():
@@ -306,7 +287,7 @@ class PHPUnitTextUITestRunner():
             'quiet': not DEBUG_MODE
         })
 
-        plugin_settings.set_last_run_args_for_active_window(
+        self._set_last_run_args(
             working_dir,
             unit_test_or_directory,
             options
@@ -328,6 +309,21 @@ class PHPUnitTextUITestRunner():
             panel_settings.set('color_scheme', view_settings.get('phpunit.color_scheme'))
         else:
             panel_settings.set('color_scheme', view_settings.get('color_scheme'))
+
+    def runLast(self):
+        args = self._get_last_run_args()
+        if args:
+            self.run(args)
+
+    def _set_last_run_args(self, working_dir, unit_test_or_directory=None, options = {}):
+        plugin_settings.set_transient('window_' + str(self.window.id()) + '_last_run_args', {
+            'working_dir': working_dir,
+            'unit_test_or_directory': unit_test_or_directory,
+            'options': options
+        })
+
+    def _get_last_run_args(self):
+        return plugin_settings.get_transient('window_' + str(self.window.id()) + '_last_run_args')
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
@@ -445,7 +441,7 @@ class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        plugin_settings.set_tap_format(not plugin_settings.is_tap_format_enabled())
+        plugin_settings.set_transient('tap_format', not bool(plugin_settings.get_transient('tap_format')))
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
@@ -454,7 +450,7 @@ class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        plugin_settings.set_testdox_format(not plugin_settings.is_testdox_format_enabled())
+        plugin_settings.set_transient('testdox_format', not bool(plugin_settings.get_transient('testdox_format')))
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 
