@@ -37,8 +37,13 @@ class PhpunitRunAllPluginTests(sublime_plugin.WindowCommand):
         test_loader = unittest.TestLoader()
         test_suite = unittest.TestSuite()
 
+        # @todo autoload all tests from tests/ directory rather than hardcoded imports
+
         from phpunit.tests.test_finder import PHPUnitConfigurationFileFinderTest
         test_suite.addTest(test_loader.loadTestsFromTestCase(PHPUnitConfigurationFileFinderTest))
+
+        from phpunit.tests.test_view_helpers import ViewHelpersTest
+        test_suite.addTest(test_loader.loadTestsFromTestCase(ViewHelpersTest))
 
         runner = unittest.TextTestRunner(stream=display, verbosity=2)
 
@@ -49,3 +54,9 @@ class PhpunitRunAllPluginTests(sublime_plugin.WindowCommand):
 
     def is_enabled(self):
         return bool(self.window.active_view().settings().get('phpunit.development_mode'))
+
+# @todo is there is an ST command that replaces view content?
+class __phpunit_test_view_replace(sublime_plugin.TextCommand):
+
+    def run(self, edit, text):
+        self.view.replace(edit, sublime.Region(0, self.view.size()), text)

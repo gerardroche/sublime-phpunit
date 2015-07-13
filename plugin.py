@@ -157,26 +157,33 @@ class ViewHelpers():
     def __init__(self, view):
         self.view = view
 
-    def contains_test_case(self):
-        for class_name in self.find_php_classes():
-            if class_name[-4:] == 'Test':
-                debug_message('[ViewHelpers::contains_test_case] Found test-case "%s" in view: %s' % (class_name, {"id": self.view.id(), "file_name": self.view.file_name()}))
+    def contains_phpunit_test_case(self):
+        """
+        Returns true if view contains a PHPUnit test-case; otherwise false
+        """
+
+        for php_class in self.find_php_classes():
+            if php_class[-4:] == 'Test':
                 return True
         return False
 
     def find_php_classes(self):
-        class_definitions = self.view.find_by_selector('source.php entity.name.type.class')
+        """
+        Returns an array of classes (class names) defined in the view
+        """
+
         classes = []
-        for class_definition in class_definitions:
-            class_name = self.view.substr(class_definition)
-            if is_valid_php_identifier(class_name):
-                classes.append(class_name)
-
-        debug_message('[ViewHelpers::find_php_classes] Found %d class definition(s) %s in view: %s' % (len(classes), classes, {"id": self.view.id(), "file_name": self.view.file_name()}))
-
+        for class_as_region in self.view.find_by_selector('source.php entity.name.type.class'):
+            class_as_string = self.view.substr(class_as_region)
+            if is_valid_php_identifier(class_as_string):
+                classes.append(class_as_string)
         return classes
 
     def find_first_switchable(self):
+        """
+        Returns the first switchable; otherwise None
+        """
+
         debug_message('[ViewHelpers::find_first_switchable_file] Find in view: %s' % ({"id": self.view.id(), "file_name": self.view.file_name()}))
 
         for class_name in self.find_php_classes():
@@ -207,6 +214,10 @@ class ViewHelpers():
             debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
     def find_first_switchable_file(self):
+        """
+        Returns the first switchable file; otherwise None
+        """
+
         first_switchable = self.find_first_switchable()
         if not first_switchable:
             return None
@@ -348,7 +359,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
         options = {}
         view_helpers = ViewHelpers(self.window.active_view())
 
-        if view_helpers.contains_test_case():
+        if view_helpers.contains_phpunit_test_case():
             unit_test = self.window.active_view().file_name()
             test_methods = self.selection_test_method_names()
             if test_methods:
