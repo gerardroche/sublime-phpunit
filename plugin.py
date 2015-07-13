@@ -304,11 +304,10 @@ class PHPUnitTextUITestRunner():
         panel_settings.set('spell_check', False)
         panel_settings.set('word_wrap', True)
 
-        view_settings = self.window.active_view().settings()
-        if view_settings.get('phpunit.color_scheme'):
-            panel_settings.set('color_scheme', view_settings.get('phpunit.color_scheme'))
+        if plugin_settings.get('color_scheme'):
+            panel_settings.set('color_scheme', plugin_settings.get('color_scheme'))
         else:
-            panel_settings.set('color_scheme', view_settings.get('color_scheme'))
+            panel_settings.set('color_scheme', self.window.active_view().settings().get('color_scheme'))
 
     def runLast(self):
         args = self._get_last_run_args()
