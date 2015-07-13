@@ -53,7 +53,7 @@ class PhpunitRunAllPluginTests(sublime_plugin.WindowCommand):
         Thread(target=run_and_display).start()
 
     def is_enabled(self):
-        return bool(self.window.active_view().settings().get('phpunit.development_mode'))
+        return bool(self.window.active_view().settings().get('phpunit.development'))
 
 # @todo is there is an ST command that replaces view content?
 class __phpunit_test_view_replace(sublime_plugin.TextCommand):

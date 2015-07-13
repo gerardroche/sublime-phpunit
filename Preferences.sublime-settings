@@ -10,11 +10,11 @@
     // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
-    "phpunit.development_mode": false,
+    "phpunit.development": false,
 
-    "phpunit.enable_keymaps": true,
+    "phpunit.keymaps": true,
 
-    "phpunit.enable_vi_keymaps": false
+    "phpunit.vi_keymaps": false
 
     // "phpunit.save_all_on_run": true
 }

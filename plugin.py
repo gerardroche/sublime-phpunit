@@ -73,9 +73,9 @@ class PHPUnitConfigurationFileFinder():
 
     """
     Find the first PHPUnit configuration file, either
-    phpunit.xml or phpunit.xml.dist, in file_name
+    phpunit.xml or phpunit.xml.dist, in {file_name}
     directory or the nearest common ancestor directory
-    in folders.
+    in {folders}.
     """
 
     def find(self, file_name, folders):

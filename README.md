@@ -51,9 +51,9 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number |
 
-Keymaps are enabled by default. To disable them set `"phpunit.enable_keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
+Keymaps are enabled by default. To disable them set `"phpunit.keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
 
-Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
 | OS X / Windows / Linux | Description |
 |------------------------|--------------|
@@ -98,13 +98,13 @@ The colour scheme to use for test results. To set no colour scheme set to null. 
 * `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
-**`phpunit.enable_keymaps`** `<bool>` Default is true
+**`phpunit.keymaps`** `<bool>` Default is true
 
-**`phpunit.enable_vi_keymaps`** `<bool>` Default is false
+**`phpunit.vi_keymaps`** `<bool>` Default is false
 
 **`phpunit.save_all_on_run`** `<bool>` Default is true
 
-**`phpunit.development_mode`** `<bool>` Default is false
+**`phpunit.development`** `<bool>` Default is false
 
 ## Contributing
 

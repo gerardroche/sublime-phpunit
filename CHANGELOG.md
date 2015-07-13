@@ -1,5 +1,12 @@
 # sublime-phpunit changelog
 
+## 0.10.0
+
+* Changed settings key "phpunit.enable_keymaps" to "phpunit.keymaps"
+* Changed settings key "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
+* Added settings key "phpunit.development"
+* Other minor refactoring
+
 ## 0.9.0
 
 * Added: "Open HTML Code Coverage in Browser" command #23
