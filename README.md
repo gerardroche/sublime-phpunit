@@ -104,17 +104,15 @@ The colour scheme to use for test results. To set no colour scheme set to null. 
 
 **`phpunit.save_all_on_run`** `<bool>` Default is true
 
+**`phpunit.development_mode`** `<bool>` Default is false
+
 ## Contributing
 
 Issue reports and pull requests are always welcome.
 
 **Running the tests**
 
-On Linux, for example, from the root of the project:
-
-```sh
-export SUBLIME_PHPUNIT_DEBUG=; python3 -m unittest discover -t ../ -s tests/ --verbose
-```
+Enable development mode (see the configuration section) and run "PHPUnit: Run all Plugin Tests" from the command palette.
 
 **Debug messages**
 

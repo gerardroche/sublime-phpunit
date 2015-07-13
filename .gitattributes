@@ -7,4 +7,5 @@
 /.gitignore                 export-ignore
 /.gitmodules                export-ignore
 /tests/                     export-ignore
+/plugin_tests.py            export-ignore
 /screenshot.png             export-ignore

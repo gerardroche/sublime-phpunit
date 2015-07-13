@@ -10,6 +10,8 @@
     // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
+    "phpunit.development_mode": false,
+
     "phpunit.enable_keymaps": true,
 
     "phpunit.enable_vi_keymaps": false
