@@ -362,10 +362,11 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
                 options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
         else:
             unit_test = view_helpers.find_first_switchable_file()
-            if not unit_test:
-                debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
-                return
             # else @todo ensure that the switchable contains a testcase
+
+        if not unit_test:
+            debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
+            return
 
         testRunner = PHPUnitTextUITestRunner(self.window)
         testRunner.run({
