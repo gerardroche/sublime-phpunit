@@ -356,38 +356,42 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             return
 
         options = {}
-        view_helpers = ViewHelpers(self.window.active_view())
+        view_helpers = ViewHelpers(view)
 
         if view_helpers.contains_phpunit_test_case():
-            unit_test = self.window.active_view().file_name()
-            test_methods = self.selection_test_method_names()
-            if test_methods:
+            unit_test_file = view.file_name()
+            unit_test_method_names = self.selected_unit_test_method_names(view)
+            if unit_test_method_names:
                 # @todo optimise filter regex; possibly limit the size of the regex too
-                options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
+                options['filter'] = '::(' + '|'.join(unit_test_method_names) + ')( with data set .+)?$'
         else:
-            unit_test = view_helpers.find_first_switchable_file()
-            # else @todo ensure that the switchable contains a testcase
+            unit_test_file = view_helpers.find_first_switchable_file()
+            # @todo how to check that the switchable contains a testcase?
 
-        if not unit_test:
+        if not unit_test_file:
             debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
             return
 
         testRunner = PHPUnitTextUITestRunner(self.window)
         testRunner.run({
-            "unit_test_or_directory": unit_test,
+            "unit_test_or_directory": unit_test_file,
             "options": options
         })
 
-    def selection_test_method_names(self):
+    def selected_unit_test_method_names(self, view):
+        """
+        If all selections are test methods returns an array of all selected
+        test method names; otherwise None
+        """
+
         # @todo should be a scoped selection i.e. is the selection a source.php entity.name.function
-        view = self.window.active_view()
-        test_method_names = []
+        method_names = []
         for region in view.sel():
             word = view.substr(view.word(region))
             if not is_valid_php_identifier(word) or word[:4] != 'test':
                 return None
-            test_method_names.append(word)
-        return test_method_names
+            method_names.append(word)
+        return method_names
 
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
