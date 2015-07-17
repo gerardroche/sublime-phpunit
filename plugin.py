@@ -351,6 +351,10 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
     """
 
     def run(self):
+        view = self.window.active_view()
+        if not view:
+            return
+
         options = {}
         view_helpers = ViewHelpers(self.window.active_view())
 
