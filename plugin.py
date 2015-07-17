@@ -331,8 +331,8 @@ class PhpunitRunAllTests(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        testRunner = PHPUnitTextUITestRunner(self.window)
-        testRunner.run()
+        test_runner = PHPUnitTextUITestRunner(self.window)
+        test_runner.run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
@@ -341,8 +341,8 @@ class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        testRunner = PHPUnitTextUITestRunner(self.window)
-        testRunner.runLast()
+        test_runner = PHPUnitTextUITestRunner(self.window)
+        test_runner.runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
@@ -372,8 +372,8 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
             return
 
-        testRunner = PHPUnitTextUITestRunner(self.window)
-        testRunner.run({
+        test_runner = PHPUnitTextUITestRunner(self.window)
+        test_runner.run({
             "unit_test_or_directory": unit_test_file,
             "options": options
         })
