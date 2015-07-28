@@ -228,15 +228,15 @@ class PHPUnitTextUITestRunner():
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
         debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
-        if self.window.active_view() is None:
-            debug_message('[PHPUnitTextUITestRunner] Could not find an active view')
+        view = self.window.active_view()
+        if not view:
             return
 
         if options is None:
             options = {}
 
         if working_dir is None:
-            working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
+            working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
 
         if not working_dir:
             debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
@@ -307,7 +307,7 @@ class PHPUnitTextUITestRunner():
         if plugin_settings.get('color_scheme'):
             panel_settings.set('color_scheme', plugin_settings.get('color_scheme'))
         else:
-            panel_settings.set('color_scheme', self.window.active_view().settings().get('color_scheme'))
+            panel_settings.set('color_scheme', view.settings().get('color_scheme'))
 
     def runLast(self):
         args = self._get_last_run_args()
@@ -412,15 +412,10 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
         debug_message('[phpunit_switch_file_command] Switching from "%s" to %s' % (current_view.file_name(), first_switchable))
 
         self.window.open_file(first_switchable[0])
-
         switched_view = self.window.active_view()
 
-        current_view_index = self.window.get_view_index(current_view)
-        switched_view_index = self.window.get_view_index(switched_view)
-
         if current_view == switched_view:
-            # looks like the class and test-case are in the same view
-            return
+            return # looks like the class and test-case are in the same view
 
         # split in two with class and test-case side-by-side
 
@@ -430,6 +425,9 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
             })
+
+        current_view_index = self.window.get_view_index(current_view)
+        switched_view_index = self.window.get_view_index(switched_view)
 
         if self.window.num_groups() <= 2 and current_view_index[0] == switched_view_index[0]:
 

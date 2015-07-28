@@ -131,7 +131,6 @@ export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
     * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
     * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
-3. Done. The features listed above should now be available.
 
 ## Changelog
 
