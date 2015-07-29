@@ -251,8 +251,9 @@ class PHPUnitTextUITestRunner():
             return
 
         if plugin_settings.get('save_all_on_run'):
-            debug_message('[PHPUnitTextUITestRunner] Configuration "save_all_on_run" is enabled, saving active window view files...')
-            self.window.run_command('save_all')
+            for view in self.window.views():
+                if view.is_dirty() and view.file_name():
+                    view.run_command('save')
 
         if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
             debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: vendor/bin/phpunit')
