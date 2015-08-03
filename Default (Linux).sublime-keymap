@@ -1,11 +1,11 @@
 [
-    { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.enable_vi_keymaps" }] },
-    { "keys": [",", "e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.enable_vi_keymaps" }] },
-    { "keys": [",", "r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.enable_vi_keymaps" }] },
-    { "keys": [",", "t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.enable_vi_keymaps" } ] },
+    { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps"}, { "key": "setting.phpunit.vi_keymaps" } ] },
 
-    { "keys": ["ctrl+shift+."], "command": "phpunit_switch_file", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
-    { "keys": ["ctrl+shift+e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
-    { "keys": ["ctrl+shift+r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.phpunit.enable_keymaps" }] },
-    { "keys": ["ctrl+shift+t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.phpunit.enable_keymaps" }] }
+    { "keys": ["ctrl+shift+."], "command": "phpunit_switch_file", "context": [{ "key": "setting.phpunit.keymaps" }] },
+    { "keys": ["ctrl+shift+e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.phpunit.keymaps" }] },
+    { "keys": ["ctrl+shift+r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.phpunit.keymaps" }] },
+    { "keys": ["ctrl+shift+t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.phpunit.keymaps" }] }
 ]

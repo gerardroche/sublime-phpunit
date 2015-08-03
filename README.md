@@ -51,9 +51,9 @@ sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 | <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number |
 | <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number |
 
-Keymaps are enabled by default. To disable them set `"phpunit.enable_keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
+Keymaps are enabled by default. To disable them set `"phpunit.keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
 
-Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
 | OS X / Windows / Linux | Description |
 |------------------------|--------------|
@@ -98,11 +98,13 @@ The colour scheme to use for test results. To set no colour scheme set to null. 
 * `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
-**`phpunit.enable_keymaps`** `<bool>` Default is true
+**`phpunit.keymaps`** `<bool>` Default is true
 
-**`phpunit.enable_vi_keymaps`** `<bool>` Default is false
+**`phpunit.vi_keymaps`** `<bool>` Default is false
 
 **`phpunit.save_all_on_run`** `<bool>` Default is true
+
+**`phpunit.development`** `<bool>` Default is false
 
 ## Contributing
 
@@ -110,11 +112,7 @@ Issue reports and pull requests are always welcome.
 
 **Running the tests**
 
-On Linux, for example, from the root of the project:
-
-```sh
-export SUBLIME_PHPUNIT_DEBUG=; python3 -m unittest discover -t ../ -s tests/ --verbose
-```
+Enable development mode (see the configuration section) and run "PHPUnit: Run all Plugin Tests" from the command palette.
 
 **Debug messages**
 
@@ -133,7 +131,6 @@ export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
     * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
     * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
-3. Done. The features listed above should now be available.
 
 ## Changelog
 

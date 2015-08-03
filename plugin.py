@@ -37,46 +37,32 @@ class PluginSettings():
         if not self.loaded:
             raise RuntimeError('Plugin settings not loaded')
 
-        if sublime.active_window() is not None and sublime.active_window().active_view() is not None:
-            settings = sublime.active_window().active_view().settings()
+        window = sublime.active_window()
+        if window is not None:
 
-            if settings.has(self.name + '.' + key):
-                return settings.get(self.name + '.' + key)
+            view = window.active_view()
+            if view is not None:
+
+                settings = view.settings()
+                if settings.has(self.name + '.' + key):
+                    return settings.get(self.name + '.' + key)
 
         if self.data.has(key):
             return self.data.get(key)
 
-        raise RuntimeError('Unknown plugin setting key "%s"' % key)
+        raise RuntimeError('Unknown plugin setting "%s"' % key)
 
-    def get_transient(self, key, default):
+    def get_transient(self, key):
         if key in self.transient_data:
             return self.transient_data[key]
-        return default
+
+        try:
+            return self.get(key)
+        except:
+            return None
 
     def set_transient(self, key, value):
         self.transient_data[key] = value
-
-    def get_last_run_args_for_active_window(self):
-        return self.get_transient('window_' + str(sublime.active_window().id()) + '_last_run_args', None)
-
-    def set_last_run_args_for_active_window(self, working_dir, unit_test_or_directory=None, options = {}):
-        self.set_transient('window_' + str(sublime.active_window().id()) + '_last_run_args', {
-            'working_dir': working_dir,
-            'unit_test_or_directory': unit_test_or_directory,
-            'options': options
-        })
-
-    def set_tap_format(self, flag):
-        self.set_transient('tap_format', bool(flag))
-
-    def is_tap_format_enabled(self):
-        return self.get_transient('tap_format', False)
-
-    def set_testdox_format(self, flag):
-        self.set_transient('testdox_format', bool(flag))
-
-    def is_testdox_format_enabled(self):
-        return self.get_transient('testdox_format', False)
 
 plugin_settings = PluginSettings('phpunit')
 
@@ -87,9 +73,9 @@ class PHPUnitConfigurationFileFinder():
 
     """
     Find the first PHPUnit configuration file, either
-    phpunit.xml or phpunit.xml.dist, in file_name
+    phpunit.xml or phpunit.xml.dist, in {file_name}
     directory or the nearest common ancestor directory
-    in folders.
+    in {folders}.
     """
 
     def find(self, file_name, folders):
@@ -157,26 +143,33 @@ class ViewHelpers():
     def __init__(self, view):
         self.view = view
 
-    def contains_test_case(self):
-        for class_name in self.find_php_classes():
-            if class_name[-4:] == 'Test':
-                debug_message('[ViewHelpers::contains_test_case] Found test-case "%s" in view: %s' % (class_name, {"id": self.view.id(), "file_name": self.view.file_name()}))
+    def contains_phpunit_test_case(self):
+        """
+        Returns true if view contains a PHPUnit test-case; otherwise false
+        """
+
+        for php_class in self.find_php_classes():
+            if php_class[-4:] == 'Test':
                 return True
         return False
 
     def find_php_classes(self):
-        class_definitions = self.view.find_by_selector('source.php entity.name.type.class')
+        """
+        Returns an array of classes (class names) defined in the view
+        """
+
         classes = []
-        for class_definition in class_definitions:
-            class_name = self.view.substr(class_definition)
-            if is_valid_php_identifier(class_name):
-                classes.append(class_name)
-
-        debug_message('[ViewHelpers::find_php_classes] Found %d class definition(s) %s in view: %s' % (len(classes), classes, {"id": self.view.id(), "file_name": self.view.file_name()}))
-
+        for class_as_region in self.view.find_by_selector('source.php entity.name.type.class'):
+            class_as_string = self.view.substr(class_as_region)
+            if is_valid_php_identifier(class_as_string):
+                classes.append(class_as_string)
         return classes
 
     def find_first_switchable(self):
+        """
+        Returns the first switchable; otherwise None
+        """
+
         debug_message('[ViewHelpers::find_first_switchable_file] Find in view: %s' % ({"id": self.view.id(), "file_name": self.view.file_name()}))
 
         for class_name in self.find_php_classes():
@@ -207,6 +200,10 @@ class ViewHelpers():
             debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
     def find_first_switchable_file(self):
+        """
+        Returns the first switchable file; otherwise None
+        """
+
         first_switchable = self.find_first_switchable()
         if not first_switchable:
             return None
@@ -228,23 +225,18 @@ class PHPUnitTextUITestRunner():
         else:
             self._run()
 
-    def runLast(self):
-        args = plugin_settings.get_last_run_args_for_active_window()
-        if args:
-            self.run(args)
-
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
         debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
-        if self.window.active_view() is None:
-            debug_message('[PHPUnitTextUITestRunner] Could not find an active view')
+        view = self.window.active_view()
+        if not view:
             return
 
         if options is None:
             options = {}
 
         if working_dir is None:
-            working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
+            working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
 
         if not working_dir:
             debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
@@ -259,8 +251,9 @@ class PHPUnitTextUITestRunner():
             return
 
         if plugin_settings.get('save_all_on_run'):
-            debug_message('[PHPUnitTextUITestRunner] Configuration "save_all_on_run" is enabled, saving active window view files...')
-            self.window.run_command('save_all')
+            for view in self.window.views():
+                if view.is_dirty() and view.file_name():
+                    view.run_command('save')
 
         if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
             debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: vendor/bin/phpunit')
@@ -269,10 +262,10 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
-        if 'testdox' not in options and plugin_settings.is_testdox_format_enabled():
+        if 'testdox' not in options and plugin_settings.get_transient('testdox_format'):
             options['testdox'] = True
 
-        if 'tap' not in options and plugin_settings.is_tap_format_enabled():
+        if 'tap' not in options and plugin_settings.get_transient('tap_format'):
             options['tap'] = True
 
         for k, v in options.items():
@@ -295,7 +288,7 @@ class PHPUnitTextUITestRunner():
             'quiet': not DEBUG_MODE
         })
 
-        plugin_settings.set_last_run_args_for_active_window(
+        self._set_last_run_args(
             working_dir,
             unit_test_or_directory,
             options
@@ -312,11 +305,25 @@ class PHPUnitTextUITestRunner():
         panel_settings.set('spell_check', False)
         panel_settings.set('word_wrap', True)
 
-        view_settings = self.window.active_view().settings()
-        if view_settings.get('phpunit.color_scheme'):
-            panel_settings.set('color_scheme', view_settings.get('phpunit.color_scheme'))
+        if plugin_settings.get('color_scheme'):
+            panel_settings.set('color_scheme', plugin_settings.get('color_scheme'))
         else:
-            panel_settings.set('color_scheme', view_settings.get('color_scheme'))
+            panel_settings.set('color_scheme', view.settings().get('color_scheme'))
+
+    def runLast(self):
+        args = self._get_last_run_args()
+        if args:
+            self.run(args)
+
+    def _set_last_run_args(self, working_dir, unit_test_or_directory=None, options = {}):
+        plugin_settings.set_transient('window_' + str(self.window.id()) + '_last_run_args', {
+            'working_dir': working_dir,
+            'unit_test_or_directory': unit_test_or_directory,
+            'options': options
+        })
+
+    def _get_last_run_args(self):
+        return plugin_settings.get_transient('window_' + str(self.window.id()) + '_last_run_args')
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
@@ -325,8 +332,8 @@ class PhpunitRunAllTests(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        testRunner = PHPUnitTextUITestRunner(self.window)
-        testRunner.run()
+        test_runner = PHPUnitTextUITestRunner(self.window)
+        test_runner.run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
@@ -335,8 +342,8 @@ class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        testRunner = PHPUnitTextUITestRunner(self.window)
-        testRunner.runLast()
+        test_runner = PHPUnitTextUITestRunner(self.window)
+        test_runner.runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
@@ -345,38 +352,47 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
     """
 
     def run(self):
+        view = self.window.active_view()
+        if not view:
+            return
+
         options = {}
-        view_helpers = ViewHelpers(self.window.active_view())
+        view_helpers = ViewHelpers(view)
 
-        if view_helpers.contains_test_case():
-            unit_test = self.window.active_view().file_name()
-            test_methods = self.selection_test_method_names()
-            if test_methods:
+        if view_helpers.contains_phpunit_test_case():
+            unit_test_file = view.file_name()
+            unit_test_method_names = self.selected_unit_test_method_names(view)
+            if unit_test_method_names:
                 # @todo optimise filter regex; possibly limit the size of the regex too
-                options['filter'] = '::(' + '|'.join(test_methods) + ')( with data set .+)?$'
+                options['filter'] = '::(' + '|'.join(unit_test_method_names) + ')( with data set .+)?$'
         else:
-            unit_test = view_helpers.find_first_switchable_file()
-            if not unit_test:
-                debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
-                return
-            # else @todo ensure that the switchable contains a testcase
+            unit_test_file = view_helpers.find_first_switchable_file()
+            # @todo how to check that the switchable contains a testcase?
 
-        testRunner = PHPUnitTextUITestRunner(self.window)
-        testRunner.run({
-            "unit_test_or_directory": unit_test,
+        if not unit_test_file:
+            debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
+            return
+
+        test_runner = PHPUnitTextUITestRunner(self.window)
+        test_runner.run({
+            "unit_test_or_directory": unit_test_file,
             "options": options
         })
 
-    def selection_test_method_names(self):
+    def selected_unit_test_method_names(self, view):
+        """
+        If all selections are test methods returns an array of all selected
+        test method names; otherwise None
+        """
+
         # @todo should be a scoped selection i.e. is the selection a source.php entity.name.function
-        view = self.window.active_view()
-        test_method_names = []
+        method_names = []
         for region in view.sel():
             word = view.substr(view.word(region))
             if not is_valid_php_identifier(word) or word[:4] != 'test':
                 return None
-            test_method_names.append(word)
-        return test_method_names
+            method_names.append(word)
+        return method_names
 
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
@@ -397,15 +413,10 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
         debug_message('[phpunit_switch_file_command] Switching from "%s" to %s' % (current_view.file_name(), first_switchable))
 
         self.window.open_file(first_switchable[0])
-
         switched_view = self.window.active_view()
 
-        current_view_index = self.window.get_view_index(current_view)
-        switched_view_index = self.window.get_view_index(switched_view)
-
         if current_view == switched_view:
-            # looks like the class and test-case are in the same view
-            return
+            return # looks like the class and test-case are in the same view
 
         # split in two with class and test-case side-by-side
 
@@ -415,6 +426,9 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
             })
+
+        current_view_index = self.window.get_view_index(current_view)
+        switched_view_index = self.window.get_view_index(switched_view)
 
         if self.window.num_groups() <= 2 and current_view_index[0] == switched_view_index[0]:
 
@@ -434,7 +448,7 @@ class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        plugin_settings.set_tap_format(not plugin_settings.is_tap_format_enabled())
+        plugin_settings.set_transient('tap_format', not bool(plugin_settings.get_transient('tap_format')))
 
 class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
@@ -443,7 +457,7 @@ class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        plugin_settings.set_testdox_format(not plugin_settings.is_testdox_format_enabled())
+        plugin_settings.set_transient('testdox_format', not bool(plugin_settings.get_transient('testdox_format')))
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 

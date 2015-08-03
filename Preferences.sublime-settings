@@ -1,16 +1,20 @@
 {
-    "phpunit.enable_keymaps": true,
-    "phpunit.enable_vi_keymaps": false,
-
-    // Colour scheme to use for test results.
-    //
-    // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme
-    // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
-    // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
+    // Test results colour scheme
     //
     // Set to false or null for none.
     //
+    // Options:
+    //
+    // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme (default)
+    // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
+    // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
-    // "save_all_on_run": true
+    "phpunit.development": false,
+
+    "phpunit.keymaps": true,
+
+    "phpunit.vi_keymaps": false
+
+    // "phpunit.save_all_on_run": true
 }
