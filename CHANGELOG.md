@@ -2,11 +2,12 @@
 
 ## 0.10.0-dev
 
-* Added settings key "phpunit.development"
-* Changed settings key "phpunit.enable_keymaps" to "phpunit.keymaps"
-* Changed settings key "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
-* Chanhed vi keymaps now requires both "keymaps" and "vi_keymaps" settings to be enabled
-* Minor refactoring
+* Added: "phpunit.development" setting
+* Changed: "save_all_on_run" now only save files that exist on disk and have dirty buffers
+* Changed: renamed setting "phpunit.enable_keymaps" to "phpunit.keymaps"
+* Changed: renamed "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
+* Changed: To enable vi keymaps both "keymaps" and "vi_keymaps" need to be set to true, previously only vi_keymaps needed to be set to true
+* Minor refactorings
 * Minor fixes
 
 ## 0.9.0
