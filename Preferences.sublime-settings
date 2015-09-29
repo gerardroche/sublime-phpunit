@@ -1,15 +1,19 @@
 {
-    // Test results colour scheme
+    // Test results output colour scheme
     //
-    // Set to false or null for none.
+    // Set to false to disable the colour scheme.
     //
-    // Options:
+    // Bundled colour schemes:
     //
     // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme (default)
     // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
     // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
+    //
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
+    // Enable/disable plugin development helper utilities. This setting does
+    // nothing when installed from Package Control e.g. adds command
+    // "PHPUnit: Run All Plugin Tests" to command palette.
     "phpunit.development": false,
 
     "phpunit.keymaps": true,
