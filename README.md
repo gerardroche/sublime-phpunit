@@ -106,6 +106,10 @@ The colour scheme to use for test results. To set no colour scheme set to null. 
 
 **`phpunit.development`** `<bool>` Default is false
 
+Enable/disable plugin development helper utilities.
+
+This setting does nothing when installed from Package Control e.g. adds command "PHPUnit: Run All Plugin Tests" to command palette.
+
 ## Contributing
 
 Issue reports and pull requests are always welcome.
@@ -138,7 +142,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Complementary Plugins
 
-* [PHPUnit Completions](https://github.com/gerardroche/sublime-phpunitck)
+* [PHPUnit Completions](https://github.com/gerardroche/sublime-phpunit-completions)
 * [PHPUnit Snippets](https://github.com/gerardroche/sublime-phpunit-snippets)
 * [PHP Grammar](https://github.com/gerardroche/sublime-php-grammar)
 * [PHP Completions](https://github.com/gerardroche/sublime-phpck)
