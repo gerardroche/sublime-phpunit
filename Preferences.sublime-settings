@@ -18,7 +18,7 @@
 
     "phpunit.keymaps": true,
 
-    "phpunit.vi_keymaps": false
+    "phpunit.save_all_on_run": true,
 
-    // "phpunit.save_all_on_run": true
+    "phpunit.vi_keymaps": false
 }

@@ -30,7 +30,6 @@ class PluginSettings():
         if self.loaded:
             return
 
-        self.data = sublime.load_settings(self.name + '.sublime-settings')
         self.loaded = True
 
     def get(self, key):
@@ -46,9 +45,6 @@ class PluginSettings():
                 settings = view.settings()
                 if settings.has(self.name + '.' + key):
                     return settings.get(self.name + '.' + key)
-
-        if self.data.has(key):
-            return self.data.get(key)
 
         raise RuntimeError('Unknown plugin setting "%s"' % key)
 
