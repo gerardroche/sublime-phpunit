@@ -1,5 +1,9 @@
 # sublime-phpunit changelog
 
+## 0.10.1
+
+* Fixed incorrect file path to settings when opening from the command palette
+
 ## 0.10.0
 
 * Added: "phpunit.development" setting to enable/disable plugin development utilities
