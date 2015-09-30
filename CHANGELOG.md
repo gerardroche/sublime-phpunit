@@ -1,12 +1,46 @@
 # sublime-phpunit changelog
 
-## 0.10.0-dev
+## 0.10.0
 
-* Added: "phpunit.development" setting
+* Added: "phpunit.development" setting to enable/disable plugin development utilities
+* Changed: settings are no longer loaded from a plugin specific settings file i.e. phpunit.sublime-settings
+
+    There is, in my opinion, a bad practice of each and every plugin having its
+    own settings file. This plugin no longer does this. All plugin settings are prefixed with the name of the plugin followed by a period i.e. "phpunit.".
+
+    Settings are loaded in this order:
+
+    1) Project Specific
+
+    Example: Menu > Project > Edit Project
+
+    ```
+    {
+        "settings": {
+            "phpunit.save_all_on_run": true
+        }
+    }
+    ```
+
+    2) User
+
+    Example: Menu > Preferences > Settings - User
+
+    ```
+    {
+        "phpunit.save_all_on_run": true
+    }
+    ```
+
 * Changed: "save_all_on_run" now only save files that exist on disk and have dirty buffers
+
+    The reason for this change:
+
+    When saving a file that doesn't exist on disk Sublime Text prompts with a "Save file" dialog, meanwhile the tests would run in the background anyways. We could prevent the tests from running until the user finishes handling the dialogs. If there is a desire for this please open an issue.
+
 * Changed: renamed setting "phpunit.enable_keymaps" to "phpunit.keymaps"
-* Changed: renamed "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
-* Changed: To enable vi keymaps both "keymaps" and "vi_keymaps" need to be set to true, previously only vi_keymaps needed to be set to true
+* Changed: renamed setting "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
+* Changed: To enable vi keymaps both "phpunit.keymaps" and "phpunit.vi_keymaps" need to be set to true, previously only the vi_keymaps needed to be set to true
 * Minor refactorings
 * Minor fixes
 
