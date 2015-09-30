@@ -106,9 +106,9 @@ The colour scheme to use for test results. To set no colour scheme set to null. 
 
 **`phpunit.development`** `<bool>` Default is false
 
-Enable/disable plugin development helper utilities.
+Enable/disable plugin development helper utilities e.g. adds a command to the command palette for running the plugin tests: "PHPUnit: Run All Plugin Tests"
 
-This setting does nothing when installed from Package Control e.g. adds command "PHPUnit: Run All Plugin Tests" to command palette.
+*Note: This setting does nothing when installed from Package Control because Package Control installations do not anything that is only useful for plugin development e.g. the plugin tests.*
 
 ## Contributing
 
