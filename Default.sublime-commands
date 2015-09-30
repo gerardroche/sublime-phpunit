@@ -52,7 +52,7 @@
         "caption": "Preferences: PHPUnit Settings – User",
         "command": "open_file",
         "args": {
-            "file": "${packages}/User/phpunit.sublime-settings"
+            "file": "${packages}/User/Preferences.sublime-settings"
         }
     }
 ]
