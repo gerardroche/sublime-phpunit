@@ -1,4 +1,4 @@
-# sublime-phpunit
+# gerardroche/sublime-phpunit
 
 sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
 
@@ -142,11 +142,11 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Complementary Plugins
 
-* [PHPUnit Completions](https://github.com/gerardroche/sublime-phpunit-completions)
-* [PHPUnit Snippets](https://github.com/gerardroche/sublime-phpunit-snippets)
 * [PHP Grammar](https://github.com/gerardroche/sublime-php-grammar)
 * [PHP Completions](https://github.com/gerardroche/sublime-phpck)
 * [PHP Snippets](https://github.com/gerardroche/sublime-php-snippets)
+* [PHPUnit Completions](https://github.com/gerardroche/sublime-phpunit-completions)
+* [PHPUnit Snippets](https://github.com/gerardroche/sublime-phpunit-snippets)
 
 ## Credits
 
@@ -154,4 +154,4 @@ sublime-phpunit is based initially on [Sublime Text Ruby Tests](https://github.c
 
 ## License
 
-sublime-phpunit is released under the [BSD 3-Clause License](LICENSE).
+Released under the [BSD 3-Clause License](LICENSE).
