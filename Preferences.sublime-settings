@@ -11,9 +11,11 @@
     //
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
-    // Enable/disable plugin development helper utilities. This setting does
-    // nothing when installed from Package Control e.g. adds command
-    // "PHPUnit: Run All Plugin Tests" to command palette.
+    // This is only for development. It does nothing when installed from
+    // Package Control because tests and development related utilities are
+    // excluded from the package when installed via Package Control.
+    // Enable/disable plugin development helper utilities. e.g. adds
+    // command "PHPUnit: Run All Plugin Tests" to command palette.
     "phpunit.development": false,
 
     "phpunit.keymaps": true,
