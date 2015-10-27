@@ -79,7 +79,7 @@ class PHPUnitConfigurationFileFinder():
         Finds the PHPUnit configuration file.
         """
 
-        debug_message('[PHPUnitConfigurationFileFinder] Find for "%s" in folders: %s' % (file_name, folders))
+        debug_message('[PHPUnitConfigurationFileFinder] Find PHPUnit configuration file for "%s" in folders %s' % (file_name, folders))
 
         if file_name == None:
             debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file is None')
@@ -113,13 +113,13 @@ class PHPUnitConfigurationFileFinder():
             parent = os.path.dirname(parent)
         ancestor_folders.sort(reverse=True)
 
-        debug_message('[PHPUnitConfigurationFileFinder] File has %s common ancestor project folder(s): %s' % (len(ancestor_folders), ancestor_folders))
+        debug_message('[PHPUnitConfigurationFileFinder] Look for PHPUnit configuration file in common ancestor folder(s) (%s) %s' % (len(ancestor_folders), ancestor_folders))
 
         for ancestor in ancestor_folders:
             for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
                 phpunit_configuration_file = os.path.join(ancestor, file_name)
                 if os.path.isfile(phpunit_configuration_file):
-                    debug_message('[PHPUnitConfigurationFileFinder] Found phpunit configuration file: %s' % phpunit_configuration_file)
+                    debug_message('[PHPUnitConfigurationFileFinder] PHPUnit configuration file found at %s' % phpunit_configuration_file)
                     return phpunit_configuration_file
 
         debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
@@ -222,7 +222,7 @@ class PHPUnitTextUITestRunner():
             self._run()
 
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
-        debug_message('command: PHPUnitTextUITestRunner {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
+        debug_message('PHPUnitTextUITestRunner::run() {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
         view = self.window.active_view()
         if not view:
