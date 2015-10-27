@@ -299,7 +299,9 @@ class PHPUnitTextUITestRunner():
         panel_settings.set('draw_centered', False)
         panel_settings.set('line_numbers', False)
         panel_settings.set('spell_check', False)
-        panel_settings.set('word_wrap', True)
+
+        # @todo results output should wrap to size of window
+        panel_settings.set('word_wrap', False)
 
         if plugin_settings.get('color_scheme'):
             panel_settings.set('color_scheme', plugin_settings.get('color_scheme'))
