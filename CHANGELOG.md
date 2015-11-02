@@ -1,8 +1,12 @@
 # gerardroche/sublime-phpunit changelog
 
+## 0.11.0-dev
+
+* Added: CHANGELOG link to package settings menu
+
 ## 0.10.1
 
-* Fixed incorrect file path to settings when opening from the command palette
+* Fixed: incorrect file path to settings when opening from the command palette
 
 ## 0.10.0
 

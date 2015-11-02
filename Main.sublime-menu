@@ -30,6 +30,13 @@
                                 }
                             },
                             {
+                                "caption": "CHANGELOG",
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/phpunit/CHANGELOG.md"
+                                }
+                            },
+                            {
                                 "caption": "-"
                             },
                             {
