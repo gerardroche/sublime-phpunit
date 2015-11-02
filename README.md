@@ -1,6 +1,10 @@
 # gerardroche/sublime-phpunit
 
-sublime-phpunit plugin for Sublime Text 3. Provides decent PHPUnit support.
+A plugin for Sublime Text.
+
+Provides decent PHPUnit support.
+
+**Sublime Text 3 only**
 
 ![Screenshot](screenshot.png)
 
@@ -112,7 +116,7 @@ Enable/disable plugin development helper utilities e.g. adds a command to the co
 
 ## Contributing
 
-Issue reports and pull requests are always welcome.
+Your issue reports and pull requests are always welcome.
 
 **Running the tests**
 
@@ -130,11 +134,14 @@ export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
 
 ## Installation
 
-1. Close Sublime Text
-2. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for the platform:
+### Manual installation
+
+1. Close Sublime Text.
+2. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
     * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
     * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
+3. Restart Sublime Text to complete installation. The features listed above should now be available.
 
 ## Changelog
 
@@ -150,7 +157,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Credits
 
-sublime-phpunit is based initially on [Sublime Text Ruby Tests](https://github.com/maltize/sublime-text-2-ruby-tests).
+Based initially on [Sublime Text Ruby Tests](https://github.com/maltize/sublime-text-2-ruby-tests).
 
 ## License
 

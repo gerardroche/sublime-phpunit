@@ -1,4 +1,4 @@
-# sublime-phpunit changelog
+# gerardroche/sublime-phpunit changelog
 
 ## 0.10.1
 
