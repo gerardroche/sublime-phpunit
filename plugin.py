@@ -320,10 +320,10 @@ class PHPUnitTextUITestRunner():
         # @todo results output should wrap to size of window
         panel_settings.set('word_wrap', False)
 
-        if plugin_settings.get('color_scheme'):
-            panel_settings.set('color_scheme', plugin_settings.get('color_scheme'))
-        else:
-            panel_settings.set('color_scheme', view.settings().get('color_scheme'))
+        panel_settings.set('color_scheme',
+            plugin_settings.get('color_scheme')
+                if plugin_settings.get('color_scheme')
+                    else view.settings().get('color_scheme'))
 
     def runLast(self):
         args = self._get_last_run_args()
