@@ -228,9 +228,6 @@ class PHPUnitTextUITestRunner():
         if not view:
             return
 
-        if options is None:
-            options = {}
-
         if working_dir is None:
             working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
 
@@ -258,6 +255,18 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
+        # Options
+        #
+        # Order of Precedence
+        #
+        # * User specific "phpunit.default_options" setting
+        # * Project specific "phpunit.default_options" setting
+        # * toggled transient settings
+        # * command arguments
+
+        if options is None:
+            options = {}
+
         if 'testdox' not in options and plugin_settings.get_transient('testdox_format'):
             options['testdox'] = True
 
@@ -281,6 +290,7 @@ class PHPUnitTextUITestRunner():
             cmd += " " + unit_test_or_directory
 
         debug_message('[PHPUnitTextUITestRunner] cmd: %s' % cmd)
+        debug_message('[PHPUnitTextUITestRunner] options: %s' % options)
         debug_message('[PHPUnitTextUITestRunner] working_dir: %s' % working_dir)
 
         self.window.run_command('exec', {
