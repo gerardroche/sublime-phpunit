@@ -94,25 +94,59 @@ Set per-project settings in the project definition.
 
 ### Settings
 
-**`phpunit.color_scheme`** `<string|null>` Default is monokai
+**phpunit.color_scheme**
 
-The colour scheme to use for test results. To set no colour scheme set to null. The bundled schemes are:
+Type: `string|null`
+Default: `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
 
-* `Packages/phpunit/color-schemes/monokai.hidden-tmTheme` (default)
+The colour scheme to use for test results.
+
+Set to null for no colour scheme.
+
+The bundled schemes are:
+
+* `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
-**`phpunit.keymaps`** `<bool>` Default is true
+**phpunit.development**
 
-**`phpunit.vi_keymaps`** `<bool>` Default is false
+Type: `bool`
+Default: `false`
 
-**`phpunit.save_all_on_run`** `<bool>` Default is true
+Enables/disables plugin development helper utilities. For example, when enabled a "PHPUnit: Run All Plugin Tests" command is added to the command palette.
 
-**`phpunit.development`** `<bool>` Default is false
+*Note: This setting does nothing when installed with Package Control.*
 
-Enable/disable plugin development helper utilities e.g. adds a command to the command palette for running the plugin tests: "PHPUnit: Run All Plugin Tests"
+**phpunit.keymaps**
 
-*Note: This setting does nothing when installed from Package Control because Package Control installations do not anything that is only useful for plugin development e.g. the plugin tests.*
+Type: `bool`
+Default: `true`
+
+**phpunit.options**
+
+Type: `dict`
+Default: `{}`
+
+A default list of options to pass to PHPUnit.
+
+```
+    "phpunit.options": {
+        "no-coverage": true,
+        "testdox": true,
+        "verbose": true
+    }
+```
+
+**phpunit.save_all_on_run**
+
+Type: `bool`
+Default: `true`
+
+**phpunit.vi_keymaps**
+
+Type: `bool`
+Default: `false`
 
 ## Contributing
 
