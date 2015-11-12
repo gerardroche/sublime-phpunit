@@ -267,6 +267,10 @@ class PHPUnitTextUITestRunner():
         if 'no-coverage' not in options and plugin_settings.get_transient('no-coverage'):
             options['no-coverage'] = True
 
+        for k, v in plugin_settings.get('default_options').items():
+            if k not in options and plugin_settings.get_transient(k) is None:
+                options[k] = v
+
         for k, v in options.items():
             if not v == False:
                 cmd += " --" + k
