@@ -249,7 +249,7 @@ class PHPUnitTextUITestRunner():
                     view.run_command('save')
 
         if os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
-            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: vendor/bin/phpunit')
+            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: "vendor/bin/phpunit"')
             cmd = 'vendor/bin/phpunit'
         else:
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
