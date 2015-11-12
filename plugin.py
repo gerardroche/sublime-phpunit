@@ -48,14 +48,14 @@ class PluginSettings():
 
         raise RuntimeError('Unknown plugin setting "%s"' % key)
 
-    def get_transient(self, key):
+    def get_transient(self, key, default = None):
         if key in self.transient_data:
             return self.transient_data[key]
 
         try:
             return self.get(key)
         except:
-            return None
+            return default
 
     def set_transient(self, key, value):
         self.transient_data[key] = value
@@ -261,23 +261,18 @@ class PHPUnitTextUITestRunner():
         #
         # * User specific "phpunit.default_options" setting
         # * Project specific "phpunit.default_options" setting
-        # * toggled transient settings
+        # * toggled "transient/session" settings
         # * command arguments
 
         if options is None:
             options = {}
 
-        if 'testdox' not in options and plugin_settings.get_transient('testdox_format'):
-            options['testdox'] = True
-
-        if 'tap' not in options and plugin_settings.get_transient('tap_format'):
-            options['tap'] = True
-
-        if 'no-coverage' not in options and plugin_settings.get_transient('no-coverage'):
-            options['no-coverage'] = True
+        for k, v in plugin_settings.get_transient('options', {}).items():
+            if k not in options:
+                options[k] = v
 
         for k, v in plugin_settings.get('default_options').items():
-            if k not in options and plugin_settings.get_transient(k) is None:
+            if k not in options:
                 options[k] = v
 
         for k, v in options.items():
@@ -456,32 +451,39 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
             self.window.focus_view(current_view)
             self.window.focus_view(switched_view)
 
-class PhpunitToggleTapFormat(sublime_plugin.WindowCommand):
+def toggle_option(name):
+    options = plugin_settings.get_transient('options', {})
+
+    options[name] = not bool(options[name]) if name in options else True
+
+    plugin_settings.set_transient('options', options)
+
+class PhpunitToggleTapOption(sublime_plugin.WindowCommand):
 
     """
-    Toggle tap format
-    """
-
-    def run(self):
-        plugin_settings.set_transient('tap_format', not bool(plugin_settings.get_transient('tap_format')))
-
-class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
-
-    """
-    Toggle testdox format
+    Toggle --tap option
     """
 
     def run(self):
-        plugin_settings.set_transient('testdox_format', not bool(plugin_settings.get_transient('testdox_format')))
+        toggle_option('tap')
 
-class PhpunitToggleNoCoverage(sublime_plugin.WindowCommand):
+class PhpunitToggleTestdoxOption(sublime_plugin.WindowCommand):
 
     """
-    Toggle no coverage
+    Toggle --testdox option
     """
 
     def run(self):
-        plugin_settings.set_transient('no-coverage', not bool(plugin_settings.get_transient('no-coverage')))
+        toggle_option('testdox')
+
+class PhpunitToggleNoCoverageOption(sublime_plugin.WindowCommand):
+
+    """
+    Toggle --no-coverage option
+    """
+
+    def run(self):
+        toggle_option('no-coverage')
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 

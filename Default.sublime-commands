@@ -34,16 +34,16 @@
         "command": "phpunit_switch_file"
     },
     {
-        "caption": "PHPUnit: Toggle No Coverage",
-        "command": "phpunit_toggle_no_coverage"
+        "caption": "PHPUnit: Toggle --no-coverage Option",
+        "command": "phpunit_toggle_no_coverage_option"
     },
     {
-        "caption": "PHPUnit: Toggle TAP format",
-        "command": "phpunit_toggle_tap_format"
+        "caption": "PHPUnit: Toggle --tap Option",
+        "command": "phpunit_toggle_tap_option"
     },
     {
-        "caption": "PHPUnit: Toggle TestDox format",
-        "command": "phpunit_toggle_testdox_format"
+        "caption": "PHPUnit: Toggle --testdox Option",
+        "command": "phpunit_toggle_testdox_option"
     },
     {
         "caption": "Preferences: PHPUnit Settings – Default",
