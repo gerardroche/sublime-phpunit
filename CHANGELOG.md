@@ -3,6 +3,7 @@
 ## 0.11.0-dev
 
 * Added: CHANGELOG link to package settings menu
+* Added: Toggle No Coverage "--no-coverage" command
 
 ## 0.10.1
 

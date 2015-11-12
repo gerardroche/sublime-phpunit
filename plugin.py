@@ -264,6 +264,9 @@ class PHPUnitTextUITestRunner():
         if 'tap' not in options and plugin_settings.get_transient('tap_format'):
             options['tap'] = True
 
+        if 'no-coverage' not in options and plugin_settings.get_transient('no-coverage'):
+            options['no-coverage'] = True
+
         for k, v in options.items():
             if not v == False:
                 cmd += " --" + k
@@ -456,6 +459,15 @@ class PhpunitToggleTestdoxFormat(sublime_plugin.WindowCommand):
 
     def run(self):
         plugin_settings.set_transient('testdox_format', not bool(plugin_settings.get_transient('testdox_format')))
+
+class PhpunitToggleNoCoverage(sublime_plugin.WindowCommand):
+
+    """
+    Toggle no coverage
+    """
+
+    def run(self):
+        plugin_settings.set_transient('no-coverage', not bool(plugin_settings.get_transient('no-coverage')))
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 

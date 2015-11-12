@@ -34,6 +34,10 @@
         "command": "phpunit_switch_file"
     },
     {
+        "caption": "PHPUnit: Toggle No Coverage",
+        "command": "phpunit_toggle_no_coverage"
+    },
+    {
         "caption": "PHPUnit: Toggle TAP format",
         "command": "phpunit_toggle_tap_format"
     },
