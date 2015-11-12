@@ -8,11 +8,12 @@
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
     // Configure PHPunit with a default set of options
-    // "phpunit.default_options": {
+    // "phpunit.options": {
     //     "no-coverage": true,
+    //     "testdox": true,
     //     "verbose": true
     // }
-    "phpunit.default_options": {},
+    "phpunit.options": {},
 
     // This is only for development. It does nothing when installed from
     // Package Control because tests and development related utilities are

@@ -259,8 +259,8 @@ class PHPUnitTextUITestRunner():
         #
         # Order of Precedence
         #
-        # * User specific "phpunit.default_options" setting
-        # * Project specific "phpunit.default_options" setting
+        # * User specific "phpunit.options" setting
+        # * Project specific "phpunit.options" setting
         # * toggled "transient/session" settings
         # * command arguments
 
@@ -271,7 +271,7 @@ class PHPUnitTextUITestRunner():
             if k not in options:
                 options[k] = v
 
-        for k, v in plugin_settings.get('default_options').items():
+        for k, v in plugin_settings.get('options').items():
             if k not in options:
                 options[k] = v
 
@@ -311,9 +311,7 @@ class PHPUnitTextUITestRunner():
         panel_settings.set('draw_centered', False)
         panel_settings.set('line_numbers', False)
         panel_settings.set('spell_check', False)
-
-        # @todo results output should wrap to size of window
-        panel_settings.set('word_wrap', False)
+        panel_settings.set('word_wrap', False) # @todo results output should wrap to size of window
 
         panel_settings.set('color_scheme',
             plugin_settings.get('color_scheme')

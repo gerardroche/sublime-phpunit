@@ -4,7 +4,7 @@
 
 * Added: CHANGELOG link to package settings menu
 * Added: Toggle No Coverage "--no-coverage" command
-* Added: "phpunit.default_options" setting to allow configuring a default list of options for PHPUnit to use
+* Added: "phpunit.options" setting to allow configuring a default list of options for PHPUnit to use
 
 ## 0.10.1
 
