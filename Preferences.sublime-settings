@@ -1,13 +1,22 @@
 {
-    // Test results output colour scheme
-    // Set to false to disable the colour scheme
-    // Bundled colour schemes:
-    // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme (default)
+    // The colour scheme to use for test results.
+    // Set to null for no colour scheme.
+    // The Bundled schemes are:
+    // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme
     // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
     // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
-    // Configure PHPunit with a default set of options
+    // Enables/disables plugin development helper utilities. For example, when
+    // enabled a "PHPUnit: Run All Plugin Tests" command is added to the
+    // command palette.
+    // *Note: This setting does nothing when installed with Package Control.*
+    "phpunit.development": false,
+
+    // Enable/disable the default keymaps.
+    "phpunit.keymaps": true,
+
+    // Default list of options to pass to PHPUnit.
     // "phpunit.options": {
     //     "no-coverage": true,
     //     "testdox": true,
@@ -15,16 +24,9 @@
     // }
     "phpunit.options": {},
 
-    // This is only for development. It does nothing when installed from
-    // Package Control because tests and development related utilities are
-    // excluded from the package when installed via Package Control.
-    // Enable/disable plugin development helper utilities. e.g. adds
-    // command "PHPUnit: Run All Plugin Tests" to command palette.
-    "phpunit.development": false,
-
-    "phpunit.keymaps": true,
-
+    // Enable/disable saving all dirty views before running tests.
     "phpunit.save_all_on_run": true,
 
+    // Enable/disable the default vintage/vintageous keymaps.
     "phpunit.vi_keymaps": false
 }
