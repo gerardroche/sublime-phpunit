@@ -1,6 +1,6 @@
 # gerardroche/sublime-phpunit changelog
 
-## 0.11.0-dev
+## 0.11.0
 
 * Added: CHANGELOG link to package settings menu
 * Added: Toggle No Coverage "--no-coverage" command
