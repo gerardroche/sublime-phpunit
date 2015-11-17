@@ -262,7 +262,7 @@ class PHPUnitTextUITestRunner():
         # * User specific "phpunit.options" setting
         # * Project specific "phpunit.options" setting
         # * toggled "transient/session" settings
-        # * command arguments
+        # * this command's argument
 
         if options is None:
             options = {}
@@ -340,8 +340,7 @@ class PhpunitRunAllTests(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        test_runner = PHPUnitTextUITestRunner(self.window)
-        test_runner.run()
+        PHPUnitTextUITestRunner(self.window).run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
@@ -350,8 +349,7 @@ class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        test_runner = PHPUnitTextUITestRunner(self.window)
-        test_runner.runLast()
+        PHPUnitTextUITestRunner(self.window).runLast()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
@@ -416,7 +414,7 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
         first_switchable = ViewHelpers(current_view).find_first_switchable()
         if not first_switchable:
-            return
+            return sublime.status_message('No PHPUnit switchable found for "%s"' % current_view.file_name())
 
         debug_message('[phpunit_switch_file_command] Switching from "%s" to %s' % (current_view.file_name(), first_switchable))
 
@@ -492,16 +490,12 @@ class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
     def run(self):
 
         working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
-
         if not working_dir:
-            sublime.status_message('PHPUnit: Could not find a working directory')
-            return
+            return sublime.status_message('PHPUnit: Could not find a working directory')
 
         coverage_html_index_file = os.path.join(working_dir, 'build/coverage/index.html')
-
         if not os.path.exists(coverage_html_index_file):
-            sublime.status_message('PHPUnit: Could not find HTML code coverage at "%s"' % coverage_html_index_file)
-            return
+            return sublime.status_message('PHPUnit: Could not find HTML code coverage at "%s"' % coverage_html_index_file)
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_file)
