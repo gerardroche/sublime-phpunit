@@ -106,6 +106,7 @@ OS X / Windows / Linux | Description
 **phpunit.color_scheme**
 
 Type: `string|null`
+
 Default: `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
 
 The colour scheme to use for test results.
@@ -121,6 +122,7 @@ The bundled schemes are:
 **phpunit.development**
 
 Type: `bool`
+
 Default: `false`
 
 Enables/disables plugin development helper utilities. For example, when enabled a "PHPUnit: Run All Plugin Tests" command is added to the command palette.
@@ -130,11 +132,13 @@ Enables/disables plugin development helper utilities. For example, when enabled 
 **phpunit.keymaps**
 
 Type: `bool`
+
 Default: `true`
 
 **phpunit.options**
 
 Type: `dict`
+
 Default: `{}`
 
 A default list of options to pass to PHPUnit.
@@ -150,11 +154,13 @@ A default list of options to pass to PHPUnit.
 **phpunit.save_all_on_run**
 
 Type: `bool`
+
 Default: `true`
 
 **phpunit.vi_keymaps**
 
 Type: `bool`
+
 Default: `false`
 
 ## Contributing
