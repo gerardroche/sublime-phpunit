@@ -1,4 +1,4 @@
-# gerardroche/sublime-phpunit
+# gerardroche/sublime-phpunit-test-runner
 
 A plugin for Sublime Text.
 
@@ -11,60 +11,71 @@ Provides decent PHPUnit support.
 ## Overview
 
 * [Features](#features)
+* [Installation](#installation)
 * [Commands](#commands)
 * [Key Bindings](#key-bindings)
 * [Configuration](#configuration)
 * [Contributing](#contributing)
-* [Installation](#installation)
 * [Changelog](#changelog)
-* [Complementary Plugins](#complementary-plugins)
 * [Credits](#credits)
 * [License](#license)
 
 ## Features
 
 * Run all tests
-* Run single test-case
-* Run single test method
-* Run multiple test methods *(using multiple selection)*
-* Run the test-case for current class
-* Rerun last test
+* Run a single test case
+* Run a single test method
+* Run a specific test methods
+* Run the test case for current class under test
+* Rerun the last tests run
 * Jump to next and previous failure file linenumber
-* Switch, split, and focus on class and test-case
-* Composer support
+* Switch, split, and focus on test case and class under test
 * Test results in colour including failure diffs
+* Composer installed PHPUnit aware
+
+## Installation
+
+### Manual installation
+
+1. Close Sublime Text.
+2. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
+    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
+    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
+    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
+3. Restart Sublime Text to complete installation. The features listed above should now be available.
 
 ## Commands
 
 * `PHPUnit: Run All Tests`
-* `PHPUnit: Run Single Test`
+* `PHPUnit: Run Single Test` *(context depdendent)*
 * `PHPUnit: Run Last Test`
-* `PHPUnit: Toggle TAP format`
-* `PHPUnit: Toggle Textdox format`
 * `PHPUnit: Switch Test/Implementation`
+* `PHPUnit: Toggle --tap option`
+* `PHPUnit: Toggle --testdox option`
+* `PHPUnit: Toggle --no-coverage option`
 * `PHPUnit: Open HTML Code Coverage in Browser`
 
 ## Key Bindings
 
-| OS X | Windows / Linux | Description |
-|------|-----------------|--------------|
-| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests |
-| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run single test-case / test method(s) |
-| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test |
-| <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch test / implementation |
-| <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number |
-| <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number |
+OS X | Windows / Linux | Description
+-----|-----------------|------------
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run tests *(context dependent)*
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last tests run
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch test case / class under test
+<kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number
+<kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number
 
 Keymaps are enabled by default. To disable them set `"phpunit.keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
 
 Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
-| OS X / Windows / Linux | Description |
-|------------------------|--------------|
-| <kbd>,</kbd><kbd>t</kbd> | Run all tests |
-| <kbd>,</kbd><kbd>r</kbd> | Run single test-case / test method(s) |
-| <kbd>,</kbd><kbd>e</kbd> | Rerun last test |
-| <kbd>,</kbd><kbd>.</kbd> | Switch test / implementation |
+OS X / Windows / Linux | Description
+-----------------------|------------
+<kbd>,</kbd><kbd>t</kbd> | Run all tests
+<kbd>,</kbd><kbd>r</kbd> | Run tests *(context dependent)*
+<kbd>,</kbd><kbd>e</kbd> | Rerun last tests run
+<kbd>,</kbd><kbd>.</kbd> | Switch test case / class under test
 
 ## Configuration
 
@@ -79,8 +90,6 @@ Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit
 ```
 
 ### Per-project settings
-
-Set per-project settings in the project definition.
 
 `Project > Edit Project`
 
@@ -152,42 +161,23 @@ Default: `false`
 
 Your issue reports and pull requests are always welcome.
 
-**Running the tests**
-
-Enable development mode (see the configuration section) and run "PHPUnit: Run all Plugin Tests" from the command palette.
-
 **Debug messages**
 
-Debug messages are disabled by default. To enable debug messages set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=yes`. To disable set it to a blank value e.g. `SUBLIME_PHPUNIT_DEBUG=`.
+Debug messages are disabled by default. To enable them set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=y`. To disable them set unset it or set it to a blank value e.g. `SUBLIME_PHPUNIT_DEBUG=`.
 
-On Linux, for example, Sublime Text can be opened at a Terminal with an exported environment variable:
+On Linux, for example, Sublime Text can be started at the Terminal with an exported environment variable.
 
-```sh
-export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text
+```
+$ export SUBLIME_PHPUNIT_DEBUG=y; ~/sublime_text_3/sublime_text
 ```
 
-## Installation
+**Running the tests**
 
-### Manual installation
-
-1. Close Sublime Text.
-2. Download or clone this repository to a directory named `phpunit` in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunit`
-3. Restart Sublime Text to complete installation. The features listed above should now be available.
+Enable plugin development mode. Set `phpunit.development` to `true` and run the command "PHPUnit: Run all Plugin Tests" using the command palette. See the configuration section for more details on configurations.
 
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).
-
-## Complementary Plugins
-
-* [PHP Grammar](https://github.com/gerardroche/sublime-php-grammar)
-* [PHP Completions](https://github.com/gerardroche/sublime-phpck)
-* [PHP Snippets](https://github.com/gerardroche/sublime-php-snippets)
-* [PHPUnit Completions](https://github.com/gerardroche/sublime-phpunit-completions)
-* [PHPUnit Snippets](https://github.com/gerardroche/sublime-phpunit-snippets)
 
 ## Credits
 
