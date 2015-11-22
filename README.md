@@ -25,7 +25,7 @@ Provides decent PHPUnit support.
 * Run all tests
 * Run a single test case
 * Run a single test case method
-* Run a specific test case methods
+* Run specific test case methods
 * Run the test case for current class under test
 * Rerun the last test run
 * Jump to next and previous failure file linenumber
