@@ -66,9 +66,7 @@ OS X | Windows / Linux | Description
 <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number
 
-Keymaps are enabled by default. To disable them set `"phpunit.keymaps": false` in User Settings. Access this file from `Preferences > Settings - User` menu item.
-
-Vintage/Vintageous keymaps are disabled by default. To enable them set `"phpunit.vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+**Vintage/Vintageous** key bindings are disabled by default. See the configuration for details on how to enable them.
 
 OS X / Windows / Linux | Description
 -----------------------|------------
