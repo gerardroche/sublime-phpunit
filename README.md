@@ -28,9 +28,9 @@ Provides decent PHPUnit support.
 * Run specific test case methods
 * Run the test case for current class under test
 * Rerun the last test run
-* Jump to next and previous failure file linenumber
+* Jump to next or previous failure file line number
 * Switch, split, and focus on test case and class under test
-* Test results in colour including failure diffs
+* Test result output in colour (including failure diffs)
 * Composer installed PHPUnit aware
 
 ## Installation
@@ -47,9 +47,9 @@ Provides decent PHPUnit support.
 ## Commands
 
 * `PHPUnit: Run All Tests`
-* `PHPUnit: Run Single Test` *(context depdendent)*
+* `PHPUnit: Run Single Test` *(context dependent)*
 * `PHPUnit: Run Last Test`
-* `PHPUnit: Switch Test/Implementation`
+* `PHPUnit: Switch Test Case / Class Under Test`
 * `PHPUnit: Toggle --tap option`
 * `PHPUnit: Toggle --testdox option`
 * `PHPUnit: Toggle --no-coverage option`
