@@ -24,10 +24,10 @@ Provides decent PHPUnit support.
 
 * Run all tests
 * Run a single test case
-* Run a single test method
-* Run a specific test methods
+* Run a single test case method
+* Run a specific test case methods
 * Run the test case for current class under test
-* Rerun the last tests run
+* Rerun the last test run
 * Jump to next and previous failure file linenumber
 * Switch, split, and focus on test case and class under test
 * Test results in colour including failure diffs
@@ -61,7 +61,7 @@ OS X | Windows / Linux | Description
 -----|-----------------|------------
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run tests *(context dependent)*
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last tests run
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test run
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch test case / class under test
 <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number
@@ -74,7 +74,7 @@ OS X / Windows / Linux | Description
 -----------------------|------------
 <kbd>,</kbd><kbd>t</kbd> | Run all tests
 <kbd>,</kbd><kbd>r</kbd> | Run tests *(context dependent)*
-<kbd>,</kbd><kbd>e</kbd> | Rerun last tests run
+<kbd>,</kbd><kbd>e</kbd> | Rerun last test run
 <kbd>,</kbd><kbd>.</kbd> | Switch test case / class under test
 
 ## Configuration
