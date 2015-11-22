@@ -1,4 +1,4 @@
-# gerardroche/sublime-phpunit-test-runner
+# gerardroche/sublime-phpunit-sdk
 
 A plugin for Sublime Text.
 
