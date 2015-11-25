@@ -298,11 +298,12 @@ class PHPUnitTextUITestRunner():
             'quiet': not DEBUG_MODE
         })
 
-        self._set_last_run_args(
-            working_dir,
-            unit_test_or_directory,
-            options
-        )
+        # save last run arguments (for current window)
+        plugin_settings.set_transient('__window__' + str(self.window.id()) + '__run_last_test_args', {
+            'working_dir': working_dir,
+            'unit_test_or_directory': unit_test_or_directory,
+            'options': options
+        })
 
         panel_settings = self.window.create_output_panel('exec').settings()
         panel_settings.set('syntax','Packages/phpunit/test-results.hidden-tmLanguage')
@@ -319,20 +320,11 @@ class PHPUnitTextUITestRunner():
                 if plugin_settings.get('color_scheme')
                     else view.settings().get('color_scheme'))
 
-    def runLast(self):
-        args = self._get_last_run_args()
+    def run_last_test(self):
+        # save last run arguments (for current window)
+        args = plugin_settings.get_transient('__window__' + str(self.window.id()) + '__run_last_test_args')
         if args:
             self.run(args)
-
-    def _set_last_run_args(self, working_dir, unit_test_or_directory=None, options = {}):
-        plugin_settings.set_transient('window_' + str(self.window.id()) + '_last_run_args', {
-            'working_dir': working_dir,
-            'unit_test_or_directory': unit_test_or_directory,
-            'options': options
-        })
-
-    def _get_last_run_args(self):
-        return plugin_settings.get_transient('window_' + str(self.window.id()) + '_last_run_args')
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
@@ -350,7 +342,7 @@ class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
     """
 
     def run(self):
-        PHPUnitTextUITestRunner(self.window).runLast()
+        PHPUnitTextUITestRunner(self.window).run_last_test()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
