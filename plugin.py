@@ -123,12 +123,14 @@ class PHPUnitConfigurationFileFinder():
                     return phpunit_configuration_file
 
         debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
+
         return None
 
     def find_dirname(self, file_name, folders):
         phpunit_configuration_file = self.find(file_name, folders)
         if phpunit_configuration_file:
             return os.path.dirname(phpunit_configuration_file)
+
         return None
 
 def is_valid_php_identifier(string):
@@ -147,6 +149,7 @@ class ViewHelpers():
         for php_class in self.find_php_classes():
             if php_class[-4:] == 'Test':
                 return True
+
         return False
 
     def find_php_classes(self):
@@ -159,6 +162,7 @@ class ViewHelpers():
             class_as_string = self.view.substr(class_as_region)
             if is_valid_php_identifier(class_as_string):
                 classes.append(class_as_string)
+
         return classes
 
     def find_first_switchable(self):
@@ -397,7 +401,9 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             word = view.substr(view.word(region))
             if not is_valid_php_identifier(word) or word[:4] != 'test':
                 return None
+
             method_names.append(word)
+
         return method_names
 
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
