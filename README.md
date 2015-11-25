@@ -1,4 +1,4 @@
-# gerardroche/sublime-phpunit-sdk
+# gerardroche/sublime-phpunit
 
 A plugin for Sublime Text.
 
