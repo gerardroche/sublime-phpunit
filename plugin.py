@@ -427,10 +427,10 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
         self.window.open_file(first_switchable[0])
         switched_view = self.window.active_view()
 
-        if current_view == switched_view:
-            return # looks like the class and test-case are in the same view
+        if current_view == switched_view: # looks like the class and test-case are in the same view
+            return
 
-        # split in two with class and test-case side-by-side
+        # split in two with test case and class under test side-by-side
 
         if self.window.num_groups() == 1:
             self.window.run_command('set_layout', {
@@ -449,7 +449,7 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
             else:
                 self.window.set_view_index(switched_view, 0, 0)
 
-            # ensure focus is not lost from either views
+            # ensure focus is not lost from either view
             self.window.focus_view(current_view)
             self.window.focus_view(switched_view)
 
