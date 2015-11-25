@@ -221,12 +221,13 @@ class PHPUnitTextUITestRunner():
 
     def run(self, args=None):
         if args:
+            debug_message('PHPUnitTextUITestRunner %s' % (args))
             self._run(**args)
         else:
+            debug_message('PHPUnitTextUITestRunner')
             self._run()
 
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
-        debug_message('PHPUnitTextUITestRunner::run() {"working_dir": "%s", "unit_test_or_directory": "%s", "options": "%s"}' % (working_dir, unit_test_or_directory, options))
 
         view = self.window.active_view()
         if not view:
