@@ -380,8 +380,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
             return
 
-        test_runner = PHPUnitTextUITestRunner(self.window)
-        test_runner.run({
+        PHPUnitTextUITestRunner(self.window).run({
             "unit_test_or_directory": unit_test_file,
             "options": options
         })
