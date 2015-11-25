@@ -237,16 +237,13 @@ class PHPUnitTextUITestRunner():
             working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
 
         if not working_dir:
-            debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
-            return
+            return debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
 
         if not os.path.isdir(working_dir):
-            debug_message('[PHPUnitTextUITestRunner] Working directory does not exist or is not a directory: %s' % (working_dir))
-            return
+            return debug_message('[PHPUnitTextUITestRunner] Working directory does not exist or is not a directory: %s' % (working_dir))
 
         if unit_test_or_directory and not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-            debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
-            return
+            return debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
 
         if plugin_settings.get('save_all_on_run'):
             for view in self.window.views():
