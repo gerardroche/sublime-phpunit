@@ -4,9 +4,9 @@ A plugin for Sublime Text.
 
 Provides decent PHPUnit support.
 
-**Sublime Text 3 only**
-
 ![Screenshot](screenshot.png)
+
+**Sublime Text 3 only**
 
 ## Overview
 
