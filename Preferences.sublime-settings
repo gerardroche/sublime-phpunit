@@ -1,22 +1,32 @@
 {
     // The colour scheme to use for test results.
-    // Set to null for no colour scheme.
+    //
     // The Bundled schemes are:
+    //
     // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme
     // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
     // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
+    //
+    // Set to null for no colour scheme.
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
-    // Enables/disables plugin development helper utilities. For example, when
-    // enabled a "PHPUnit: Run All Plugin Tests" command is added to the
-    // command palette.
-    // *Note: This setting does nothing when installed with Package Control.*
+    // Enable/disable plugin development helpers.
+    //
+    // For example, when enabled a "PHPUnit: Run All Plugin Tests" command is
+    // added to the command palette.
+    //
+    // *Note: This setting does nothing when installed using Package Control
+    // because plugin development helpers are excluded from the production
+    // build of the plugin.*
     "phpunit.development": false,
 
     // Enable/disable the default keymaps.
     "phpunit.keymaps": true,
 
-    // Default list of options to pass to PHPUnit.
+    // Default options to pass to PHPUnit.
+    //
+    // ## Example
+    //
     // "phpunit.options": {
     //     "no-coverage": true,
     //     "testdox": true,
@@ -27,6 +37,6 @@
     // Enable/disable saving all dirty views before running tests.
     "phpunit.save_all_on_run": true,
 
-    // Enable/disable the default vintage/vintageous keymaps.
+    // Enable/disable the default vi keymaps.
     "phpunit.vi_keymaps": false
 }

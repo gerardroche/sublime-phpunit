@@ -1,5 +1,10 @@
 # gerardroche/sublime-phpunit changelog
 
+## 0.12.0
+
+* Changed: switch file command caption is now "PHPUnit: Switch Test Case / Class Under Test"
+* Refactorings
+
 ## 0.11.0
 
 * Added: CHANGELOG link to package settings menu

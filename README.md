@@ -103,13 +103,11 @@ OS X / Windows / Linux | Description
 
 **phpunit.color_scheme**
 
+The colour scheme to use for test results.
+
 Type: `string|null`
 
 Default: `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
-
-The colour scheme to use for test results.
-
-Set to null for no colour scheme.
 
 The bundled schemes are:
 
@@ -117,17 +115,23 @@ The bundled schemes are:
 * `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
+Set to null for no colour scheme.
+
 **phpunit.development**
+
+Enable/disable the plugin development helpers.
 
 Type: `bool`
 
 Default: `false`
 
-Enables/disables plugin development helper utilities. For example, when enabled a "PHPUnit: Run All Plugin Tests" command is added to the command palette.
+For example, when enabled a "PHPUnit: Run All Plugin Tests" command is added to the command palette.
 
-*Note: This setting does nothing when installed with Package Control.*
+*Note: This setting does nothing when installed using Package Control because plugin development helpers are excluded from the production build of the plugin.*
 
 **phpunit.keymaps**
+
+Enable/disable the default keymaps.
 
 Type: `bool`
 
@@ -135,27 +139,33 @@ Default: `true`
 
 **phpunit.options**
 
+Default options to pass to PHPUnit.
+
 Type: `dict`
 
 Default: `{}`
 
-A default list of options to pass to PHPUnit.
+Example
 
 ```
-    "phpunit.options": {
-        "no-coverage": true,
-        "testdox": true,
-        "verbose": true
-    }
+"phpunit.options": {
+    "no-coverage": true,
+    "testdox": true,
+    "verbose": true
+}
 ```
 
 **phpunit.save_all_on_run**
+
+Enable/disable saving all dirty views before running tests.
 
 Type: `bool`
 
 Default: `true`
 
 **phpunit.vi_keymaps**
+
+Enable/disable the default vi keymaps.
 
 Type: `bool`
 
@@ -177,7 +187,7 @@ $ export SUBLIME_PHPUNIT_DEBUG=y; ~/sublime_text_3/sublime_text
 
 **Running the tests**
 
-Enable plugin development mode. Set `phpunit.development` to `true` and run the command "PHPUnit: Run all Plugin Tests" using the command palette. See the configuration section for more details on configurations.
+Enable plugin development mode (set `phpunit.development` to `true`) and run the "PHPUnit: Run all Plugin Tests" command from the command palette. See the configuration section for more details on configurations.
 
 ## Changelog
 
