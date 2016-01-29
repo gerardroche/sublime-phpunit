@@ -110,12 +110,21 @@ Type: `string|null`
 Default: `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
 
 The bundled schemes are:
-
 * `Packages/phpunit/color-schemes/monokai.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
 * `Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme`
 
 Set to null for no colour scheme.
+
+**phpunit.composer**
+
+Enable/disable composer installed PHPUnit support.
+
+Type: `bool`
+
+Default: `true`
+
+For example, if composer installed PHPUnit exists then it used as the command to run PHPUnit, otherwise defaults to the command "phpunit".
 
 **phpunit.development**
 

@@ -1,5 +1,9 @@
 # gerardroche/sublime-phpunit changelog
 
+## 0.13.0
+
+* Added: #34 an option to disable composer support: phpunit.composer a boolean which defaults to true.
+
 ## 0.12.0
 
 * Changed: switch file command caption is now "PHPUnit: Switch Test Case / Class Under Test"

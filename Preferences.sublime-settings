@@ -10,6 +10,12 @@
     // Set to null for no colour scheme.
     "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
 
+    // Enable/disable composer installed PHPUnit support.
+    //
+    // For example, if composer installed PHPUnit exists then it is used as the
+    // command to run PHPUnit, otherwise defaults to the command "phpunit".
+    "phpunit.composer": true,
+
     // Enable/disable plugin development helpers.
     //
     // For example, when enabled a "PHPUnit: Run All Plugin Tests" command is
