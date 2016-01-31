@@ -317,7 +317,7 @@ class PHPUnitTextUITestRunner():
                     else view.settings().get('color_scheme'))
 
     def run_last_test(self):
-        # save last run arguments (for current window)
+        # get last run arguments (for current window)
         args = plugin_settings.get_transient('__window__' + str(self.window.id()) + '__run_last_test_args')
         if args:
             self.run(args)
