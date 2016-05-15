@@ -6,7 +6,7 @@ Provides decent PHPUnit support.
 
 ![Screenshot](screenshot.png)
 
-**The plugin was recently renamed to "php_phpunit" and is now available on Package Control. So if you are having issues, then either remove your existing installtion and install via Package Control, making sure to install the phpunit package by me *PHP PHPUnit (gerardroche/sublime-phpunit)*, or rename your existing installation to "php_phpunit".**
+**The plugin was recently renamed to "php_phpunit" and is now available on Package Control. So if you are having issues, then either remove your existing installation and install via Package Control, making sure to install the "php_phpunit" package by me *(gerardroche/sublime-phpunit)*, or rename your existing installation to "php_phpunit".**
 
 For best results use with [PHP Grammar](https://github.com/gerardroche/sublime-php-grammar), [PHP Completions](https://packagecontrol.io/packages/PHP%20Completions%20Kit), and [PHP Snippets](https://packagecontrol.io/packages/php-snippets).
 
