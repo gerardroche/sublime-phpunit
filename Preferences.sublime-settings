@@ -3,12 +3,12 @@
     //
     // The Bundled schemes are:
     //
-    // * Packages/phpunit/color-schemes/monokai.hidden-tmTheme
-    // * Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
-    // * Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme
+    // * Packages/php_phpunit/color-schemes/monokai.hidden-tmTheme
+    // * Packages/php_phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme
+    // * Packages/php_phpunit/color-schemes/solarized-dark.hidden-tmTheme
     //
     // Set to null for no colour scheme.
-    "phpunit.color_scheme": "Packages/phpunit/color-schemes/monokai.hidden-tmTheme",
+    "phpunit.color_scheme": "Packages/php_phpunit/color-schemes/monokai.hidden-tmTheme",
 
     // Enable/disable composer installed PHPUnit support.
     //

@@ -1,10 +1,10 @@
 import os
 import unittest
 from unittest.mock import patch
-from phpunit.tests.sublime_mock import sublime
-from phpunit.tests.sublime_mock import sublime_plugin
+from php_phpunit.tests.sublime_mock import sublime
+from php_phpunit.tests.sublime_mock import sublime_plugin
 with patch.dict('sys.modules', sublime=sublime, sublime_plugin=sublime_plugin):
-    from phpunit.plugin import PHPUnitConfigurationFileFinder
+    from php_phpunit.plugin import PHPUnitConfigurationFileFinder
 
 class PHPUnitConfigurationFileFinderTest(unittest.TestCase):
 

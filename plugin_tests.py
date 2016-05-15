@@ -39,10 +39,10 @@ class PhpunitRunAllPluginTests(sublime_plugin.WindowCommand):
 
         # @todo autoload all tests from tests/ directory rather than hardcoded imports
 
-        from phpunit.tests.test_finder import PHPUnitConfigurationFileFinderTest
+        from php_phpunit.tests.test_finder import PHPUnitConfigurationFileFinderTest
         test_suite.addTest(test_loader.loadTestsFromTestCase(PHPUnitConfigurationFileFinderTest))
 
-        from phpunit.tests.test_view_helpers import ViewHelpersTest
+        from php_phpunit.tests.test_view_helpers import ViewHelpersTest
         test_suite.addTest(test_loader.loadTestsFromTestCase(ViewHelpersTest))
 
         runner = unittest.TextTestRunner(stream=display, verbosity=2)

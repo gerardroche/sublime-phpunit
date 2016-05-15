@@ -1,6 +1,6 @@
 import unittest
-from phpunit.tests.test_case import ViewTestCase
-from phpunit.plugin import ViewHelpers
+from php_phpunit.tests.test_case import ViewTestCase
+from php_phpunit.plugin import ViewHelpers
 
 class ViewHelpersTest(ViewTestCase):
 

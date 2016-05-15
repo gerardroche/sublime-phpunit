@@ -1,5 +1,10 @@
 # gerardroche/sublime-phpunit changelog
 
+## Next Release
+
+* Added: Now available on Package Control
+* Changed: Renamed package from "phpunit" to "php_phpunit". This was needed in order to provide the plugin via Package Control. If you are having issues then either remove your existing plugin installation and install via Package Control, making sure to install the plugin by me, PHP PHPUnit (gerardroche), or rename your existing installation to "phpunit".
+
 ## 0.13.0
 
 * Added: #34 an option to disable composer support: phpunit.composer a boolean which defaults to true.
