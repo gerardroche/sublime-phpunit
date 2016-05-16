@@ -159,6 +159,14 @@ class ViewHelpers():
             if is_valid_php_identifier(class_as_string):
                 classes.append(class_as_string)
 
+        # Quick fix for ST build >= 3114 because the default PHP package
+        # changed the scope on class entities.
+        if not classes:
+            for class_as_region in self.view.find_by_selector('source.php entity.name.class'):
+                class_as_string = self.view.substr(class_as_region)
+                if is_valid_php_identifier(class_as_string):
+                    classes.append(class_as_string)
+
         return classes
 
     def find_first_switchable(self):

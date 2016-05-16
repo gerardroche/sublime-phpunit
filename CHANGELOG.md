@@ -1,5 +1,9 @@
 # gerardroche/sublime-phpunit changelog
 
+## 0.14.1
+
+* Fixed: #35 Cannot run 'Run Single Test' with the latest build of Sublime Text (3114)
+
 ## 0.14.0
 
 * Added: Now available on Package Control
