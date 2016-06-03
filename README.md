@@ -8,7 +8,9 @@ Provides decent PHPUnit support.
 
 Works best with [PHP Grammar], [PHP Completions], and [PHP Snippets]. Also see [PHPUnit Completions], and [PHPUnit Snippets].
 
-**The plugin was recently renamed to "php_phpunit" and is now available on Package Control. So if you are having issues, then either remove your existing installation and install via Package Control, making sure to install the "php_phpunit" package by me *(gerardroche/sublime-phpunit)*, or rename your existing installation to "php_phpunit".**
+**Now available in Package Control. Search for "phpunitkit".**
+
+**The plugin was recently renamed to "phpunitkit", so if you are having issues, either remove your existing installation and install via Package Control, or rename your existing installation to "phpunitkit".**
 
 ## Overview
 
@@ -41,15 +43,15 @@ Works best with [PHP Grammar], [PHP Completions], and [PHP Snippets]. Also see [
 
 This is the preferred method of installation is via [Package Control](https://packagecontrol.io).
 
-Search for "PHP PHPUnit" by me (gerardroche/sublime-phpunit).
+Search for "phpunitkit".
 
 ### Manual installation
 
 1. Close Sublime Text.
-2. Download or clone this repository to a directory named `php_phpunit` in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/php_phpunit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/php_phpunit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/php_phpunit`
+2. Download or clone this repository to a directory named `phpunitkit` in the Sublime Text Packages directory for your platform:
+    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
+    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
+    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
 3. The features listed above will be available the next time Sublime Text is started.
 
 ## Commands
@@ -115,12 +117,12 @@ The colour scheme to use for test results.
 
 Type: `string|null`
 
-Default: `Packages/php_phpunit/color-schemes/monokai.hidden-tmTheme`
+Default: `Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme`
 
 The bundled schemes are:
-* `Packages/php_phpunit/color-schemes/monokai.hidden-tmTheme`
-* `Packages/php_phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme`
-* `Packages/php_phpunit/color-schemes/solarized-dark.hidden-tmTheme`
+* `Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme`
+* `Packages/phpunitkit/color-schemes/monokai-extended-seti.hidden-tmTheme`
+* `Packages/phpunitkit/color-schemes/solarized-dark.hidden-tmTheme`
 
 Set to null for no colour scheme.
 

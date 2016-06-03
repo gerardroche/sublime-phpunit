@@ -26,14 +26,14 @@
                                 "caption": "README",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/php_phpunit/README.md"
+                                    "file": "${packages}/phpunitkit/README.md"
                                 }
                             },
                             {
                                 "caption": "CHANGELOG",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/php_phpunit/CHANGELOG.md"
+                                    "file": "${packages}/phpunitkit/CHANGELOG.md"
                                 }
                             },
                             {
@@ -43,7 +43,7 @@
                                 "caption": "Settings – Default",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/php_phpunit/Preferences.sublime-settings"
+                                    "file": "${packages}/phpunitkit/Preferences.sublime-settings"
                                 }
                             },
                             {
@@ -60,7 +60,7 @@
                                 "caption": "Key Bindings – Default",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/php_phpunit/Default (${platform}).sublime-keymap"
+                                    "file": "${packages}/phpunitkit/Default (${platform}).sublime-keymap"
                                 }
                             },
                             {
@@ -77,7 +77,7 @@
                                 "caption": "LICENSE",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/php_phpunit/LICENSE"
+                                    "file": "${packages}/phpunitkit/LICENSE"
                                 }
                             }
                         ]

@@ -1,5 +1,11 @@
 # gerardroche/sublime-phpunit changelog
 
+## 0.15.0
+
+* Changed: plugin name from "php_phpunit" to "phpunitkit". The plugin was renamed because the last name was rejected by the Package Control channel.
+  - If you previously installed manually then remove the installation and install via Package Control. Search for phpunitkit.
+  - If you prefer to keep your manual installation then rename or move your installation to "phpunitkit".
+
 ## 0.14.1
 
 * Fixed: #35 Cannot run 'Run Single Test' with the latest build of Sublime Text (3114)

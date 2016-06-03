@@ -310,7 +310,7 @@ class PHPUnitTextUITestRunner():
         })
 
         panel_settings = self.window.create_output_panel('exec').settings()
-        panel_settings.set('syntax','Packages/php_phpunit/test-results.hidden-tmLanguage')
+        panel_settings.set('syntax','Packages/phpunitkit/test-results.hidden-tmLanguage')
         panel_settings.set('rulers', [])
         panel_settings.set('gutter', False)
         panel_settings.set('scroll_past_end', False)
