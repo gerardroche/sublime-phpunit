@@ -1,8 +1,6 @@
 # gerardroche/sublime-phpunit
 
-A plugin for Sublime Text 3.
-
-Provides decent PHPUnit support.
+PHPUnit support for Sublime Text 3.
 
 ![Screenshot](screenshot.png)
 
