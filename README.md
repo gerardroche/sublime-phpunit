@@ -2,13 +2,13 @@
 
 PHPUnit support for Sublime Text 3.
 
+Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
+
 ![Screenshot](screenshot.png)
 
-Works best with [PHP Grammar], [PHP Completions], and [PHP Snippets]. Also see [PHPUnit Completions], and [PHPUnit Snippets].
+**Now available in [Package Control]. Search for "phpunitkit".**
 
-**Now available in Package Control. Search for "phpunitkit".**
-
-**The plugin was recently renamed to "phpunitkit", so if you are having issues, either remove your existing installation and install via Package Control, or rename your existing installation to "phpunitkit".**
+**The plugin was recently renamed. The new name is "phpunitkit". To update your installation, remove the installation and install via [Package Control] or rename the installation "phpunitkit".**
 
 ## Overview
 
@@ -37,11 +37,9 @@ Works best with [PHP Grammar], [PHP Completions], and [PHP Snippets]. Also see [
 
 ## Installation
 
-### Package Control installation
+### [Package Control]
 
-This is the preferred method of installation is via [Package Control](https://packagecontrol.io).
-
-Search for "phpunitkit".
+This is the preferred method of installation. Search for "phpunitkit".
 
 ### Manual installation
 
@@ -55,7 +53,7 @@ Search for "phpunitkit".
 ## Commands
 
 * `PHPUnit: Run All Tests`
-* `PHPUnit: Run Single Test` *(context dependent)*
+* `PHPUnit: Run Single Test`
 * `PHPUnit: Run Last Test`
 * `PHPUnit: Switch Test Case / Class Under Test`
 * `PHPUnit: Toggle --tap option`
@@ -68,125 +66,75 @@ Search for "phpunitkit".
 OS X | Windows / Linux | Description
 -----|-----------------|------------
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run tests *(context dependent)*
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run tests
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test run
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch test case / class under test
 <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number
 
-**Vintage/Vintageous** key bindings are disabled by default. See the configuration for details on how to enable them.
+**Vintage/Vintageous** key bindings are disabled by default. See the [configuration](#configuration) section for how to enable them.
 
 OS X / Windows / Linux | Description
 -----------------------|------------
 <kbd>,</kbd><kbd>t</kbd> | Run all tests
-<kbd>,</kbd><kbd>r</kbd> | Run tests *(context dependent)*
+<kbd>,</kbd><kbd>r</kbd> | Run tests
 <kbd>,</kbd><kbd>e</kbd> | Rerun last test run
 <kbd>,</kbd><kbd>.</kbd> | Switch test case / class under test
 
 ## Configuration
 
-### User settings
+Key | Description | Type | Default
+----|-------------|------|--------
+`phpunit.color_scheme` | *Colour scheme to use for test results.* | `string|null` | `monokai`
+`phpunit.composer` | *Enable/disable composer installed PHPUnit support. If a composer installed PHPUnit exists then it will be used command to run tests, otherwise assumes phpunit is available on the system path.* | `boolean` | `true`
+`phpunit.keymaps` | *Enable/disable the default keymaps.* | `boolean` | `true`
+`phpunit.options` | *Options to pass to PHPUnit when running tests.* | `dict` | `{}`
+`phpunit.save_all_on_run` | *Enable/disable saving all dirty views before running tests.* | `boolean` | `true`
+`phpunit.vi_keymaps` | *Enable/disable the default vi keymaps.* | `boolean` | `false`
 
-`Preferences > Settings - User`
+The bundled `phpunit.color_scheme`'s are:
 
-```json
-{
-    "phpunit.save_all_on_run": false
-}
+* `Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme`
+* `Packages/phpunitkit/color-schemes/monokai-extended-seti.hidden-tmTheme`
+* `Packages/phpunitkit/color-schemes/solarized-dark.hidden-tmTheme`
+
+**Example `phpunit.options`**
+
+```
+    "phpunit.options": {
+        "no-coverage": true,
+        "testdox": true,
+        "verbose": true
+    }
 ```
 
-### Per-project settings
+**Per-project settings**
 
 `Project > Edit Project`
 
 ```json
 {
     "settings": {
+        "phpunit.options": {
+            "no-coverage": true
+        },
         "phpunit.save_all_on_run": false
     }
 }
 ```
 
-### Settings
+**User settings**
 
-**phpunit.color_scheme**
+`Preferences > Settings - User`
 
-The colour scheme to use for test results.
-
-Type: `string|null`
-
-Default: `Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme`
-
-The bundled schemes are:
-* `Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme`
-* `Packages/phpunitkit/color-schemes/monokai-extended-seti.hidden-tmTheme`
-* `Packages/phpunitkit/color-schemes/solarized-dark.hidden-tmTheme`
-
-Set to null for no colour scheme.
-
-**phpunit.composer**
-
-Enable/disable composer installed PHPUnit support.
-
-Type: `bool`
-
-Default: `true`
-
-For example, if composer installed PHPUnit exists then it used as the command to run PHPUnit, otherwise defaults to the command "phpunit".
-
-**phpunit.development**
-
-Enable/disable the plugin development helpers.
-
-Type: `bool`
-
-Default: `false`
-
-For example, when enabled a "PHPUnit: Run All Plugin Tests" command is added to the command palette.
-
-*Note: This setting does nothing when installed using Package Control because plugin development helpers are excluded from the production build of the plugin.*
-
-**phpunit.keymaps**
-
-Enable/disable the default keymaps.
-
-Type: `bool`
-
-Default: `true`
-
-**phpunit.options**
-
-Default options to pass to PHPUnit.
-
-Type: `dict`
-
-Default: `{}`
-
-Example
-
-```
-"phpunit.options": {
-    "no-coverage": true,
-    "testdox": true,
-    "verbose": true
+```json
+{
+    "phpunit.options": {
+        "no-coverage": true
+    },
+    "phpunit.save_all_on_run": false
 }
 ```
-
-**phpunit.save_all_on_run**
-
-Enable/disable saving all dirty views before running tests.
-
-Type: `bool`
-
-Default: `true`
-
-**phpunit.vi_keymaps**
-
-Enable/disable the default vi keymaps.
-
-Type: `bool`
-
-Default: `false`
 
 ## Contributing
 
@@ -218,9 +166,10 @@ Based initially on [Sublime Text Ruby Tests](https://github.com/maltize/sublime-
 
 Released under the [BSD 3-Clause License](LICENSE).
 
-[PHP Grammar]: https://packagecontrol.io/packages/php-grammar
+[Package Control]: https://packagecontrol.io/search/phpunitkit
 [PHP Completions]: https://packagecontrol.io/packages/PHP%20Completions%20Kit
+[PHP Grammar]: https://packagecontrol.io/packages/php-grammar
 [PHP Snippets]: https://packagecontrol.io/packages/php-snippets
-[PHPUnit]: https://github.com/gerardroche/sublime-phpunit
 [PHPUnit Completions]: https://github.com/gerardroche/sublime-phpunit-completions
 [PHPUnit Snippets]: https://github.com/gerardroche/sublime-phpunit-snippets
+[PHPUnit]: https://github.com/gerardroche/sublime-phpunit
