@@ -1,5 +1,9 @@
 # gerardroche/sublime-phpunit changelog
 
+## 0.15.1
+
+* Updated: documentation
+
 ## 0.15.0
 
 * Changed: plugin name from "php_phpunit" to "phpunitkit". The plugin was renamed because the last name was rejected by the Package Control channel.
