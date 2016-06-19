@@ -24,15 +24,15 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 
 ## Features
 
-* Run all tests
-* Run a single test case
-* Run a single test case method
-* Run specific test case methods
-* Run the test case for current class under test
-* Rerun the last test run
+* Run test suite
+* Run test case
+* Run test
+* Run multiple tests
+* Run test case for current class
+* Rerun last test
 * Jump to next or previous failure file line number
 * Switch, split, and focus on test case and class under test
-* Test result output in colour (including failure diffs)
+* Colour test results (including failure diffs)
 * Composer installed PHPUnit aware
 
 ## Installation
