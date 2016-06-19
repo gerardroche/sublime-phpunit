@@ -10,7 +10,7 @@ if DEBUG_MODE:
         """
         Prints a debug level message.
         """
-        print('[phpunit] %s' % str(message))
+        print('phpunitkit: %s' % str(message))
 else:
     def debug_message(message):
         pass
@@ -296,10 +296,12 @@ class PHPUnitTextUITestRunner():
 
         self.window.run_command('exec', {
             'cmd': cmd,
-            'working_dir': working_dir,
             'file_regex': '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$',
+            'quiet': not DEBUG_MODE,
             'shell': True,
-            'quiet': not DEBUG_MODE
+            'syntax': 'Packages/phpunitkit/test-results.hidden-tmLanguage',
+            'word_wrap': False,
+            'working_dir': working_dir
         })
 
         # save last run arguments (for current window)
@@ -310,14 +312,6 @@ class PHPUnitTextUITestRunner():
         })
 
         panel_settings = self.window.create_output_panel('exec').settings()
-        panel_settings.set('syntax','Packages/phpunitkit/test-results.hidden-tmLanguage')
-        panel_settings.set('rulers', [])
-        panel_settings.set('gutter', False)
-        panel_settings.set('scroll_past_end', False)
-        panel_settings.set('draw_centered', False)
-        panel_settings.set('line_numbers', False)
-        panel_settings.set('spell_check', False)
-        panel_settings.set('word_wrap', False) # @todo results output should wrap to size of window
 
         panel_settings.set('color_scheme',
             plugin_settings.get('color_scheme')

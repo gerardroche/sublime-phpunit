@@ -1,0 +1,64 @@
+# SYNTAX TEST "Packages/phpunitkit/test-results.hidden-tmLanguage"
+
+PHPUnit 4.8.25 by Sebastian Bergmann and contributors.
+
+Runtime:    PHP 5.5.9 with Xdebug 2.2.3
+Configuration:  /path/to/project/phpunit.xml.dist
+
+.
+#<- test.progress.success.phpunit-result
+
+E
+#<- test.progress.error.phpunit-result
+
+F
+#<- test.progress.failure.phpunit-result
+
+I
+#<- test.progress.incomplete.phpunit-result
+
+R
+#<- test.progress.risky.phpunit-result
+
+I
+#<- test.progress.incomplete.phpunit-result
+
+.EFIRS
+#<- test.progress.success.phpunit-result
+#^ test.progress.error.phpunit-result
+# ^ test.progress.failure.phpunit-result
+#  ^ test.progress.incomplete.phpunit-result
+#   ^ test.progress.risky.phpunit-result
+#    ^ test.progress.skipped.phpunit-result
+...
+#<- test.progress.success.phpunit-result
+#^^ test.progress.success.phpunit-result
+
+F..S...
+#<- test.progress.failure.phpunit-result
+#^^ test.progress.success.phpunit-result
+#  ^ test.progress.skipped.phpunit-result
+#   ^^. test.progress.success.phpunit-result
+
+Time: 385 ms, Memory: 5.50MB
+
+No tests executed!
+#<- test.footer.none-executed.phpunit-result
+#^^^^^^^^^^^^^^^^^ test.footer.none-executed.phpunit-result
+
+OK (45 tests, 81 assertions)
+#<- test.footer.ok.phpunit-result
+#^^^^^^^^ test.footer.ok.phpunit-result
+
+OK, but incomplete, skipped, or risky tests!
+#<- test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+
+FAILURES!
+#<- test.footer.fail.phpunit-result
+#^^^^^^^^ test.footer.fail.phpunit-result
+
+Tests: 46, Assertions: 82, Failures: 2.
+#<- test.footer.fail.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.fail.phpunit-result
+
