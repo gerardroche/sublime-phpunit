@@ -1,6 +1,15 @@
 # gerardroche/sublime-phpunit
 
-PHPUnit support for Sublime Text 3.
+[![Author](http://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat)](https://twitter.com/gerardroche)
+[![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit)
+[![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit/stargazers)
+[![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat)](https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/LICENSE)
+
+[![Sublime version](https://img.shields.io/badge/sublime-v3-lightgrey.svg?style=flat)](http://sublimetext.com)
+[![Latest version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?maxAge=2592000?style=flat&label=release)](https://github.com/gerardroche/sublime-phpunit/tags)
+[![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?maxAge=2592000?style=flat)](https://packagecontrol.io/packages/phpunitkit)
+
+PHPUnit support for Sublime Text.
 
 Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
 
