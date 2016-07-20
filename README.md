@@ -11,13 +11,9 @@
 
 PHPUnit support for Sublime Text.
 
-Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
-
 ![Screenshot](screenshot.png)
 
-**Now available in [Package Control]. Search for "phpunitkit".**
-
-**The plugin was recently renamed. The new name is "phpunitkit". To update your installation, remove the installation and install via [Package Control] or rename the installation "phpunitkit".**
+Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
 
 ## Overview
 
@@ -46,9 +42,7 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 
 ## Installation
 
-### [Package Control]
-
-This is the preferred method of installation. Search for "phpunitkit".
+The preferred method of installation is [Package Control]. Search for "phpunitkit".
 
 ### Manual installation
 
