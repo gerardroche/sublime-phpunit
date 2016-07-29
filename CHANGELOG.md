@@ -1,5 +1,9 @@
 # gerardroche/sublime-phpunit changelog
 
+## 1.0.0-beta1
+
+* Cleanup for 1.0.0 release
+
 ## 0.15.1
 
 * Updated: documentation
