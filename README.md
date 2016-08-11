@@ -126,7 +126,7 @@ Key | Description | Type | Default
 
 ## Contributing
 
-Your issue reports and pull requests are always welcome.
+Your issue reports and pull requests are welcome.
 
 **Debug messages**
 
@@ -135,7 +135,7 @@ Debug messages are disabled by default. To enable them set an environment variab
 On Linux, for example, Sublime Text can be started at the Terminal with an exported environment variable.
 
 ```
-$ export SUBLIME_PHPUNIT_DEBUG=y; ~/sublime_text_3/sublime_text
+$ export SUBLIME_PHPUNIT_DEBUG=y; subl
 ```
 
 **Running the tests**
