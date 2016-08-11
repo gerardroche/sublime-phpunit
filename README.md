@@ -47,7 +47,7 @@ The preferred method of installation is [Package Control]. Search for "phpunitki
 ### Manual installation
 
 1. Close Sublime Text.
-2. Download or clone this repository to a directory named `phpunitkit` in the Sublime Text Packages directory for your platform:
+2. Download or clone this repository to a directory named <tt>phpunitkit</tt> in the Sublime Text Packages directory for your platform:
     * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
     * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
@@ -55,14 +55,14 @@ The preferred method of installation is [Package Control]. Search for "phpunitki
 
 ## Commands
 
-* `PHPUnit: Run All Tests`
-* `PHPUnit: Run Single Test`
-* `PHPUnit: Run Last Test`
-* `PHPUnit: Switch Test Case / Class Under Test`
-* `PHPUnit: Toggle --tap option`
-* `PHPUnit: Toggle --testdox option`
-* `PHPUnit: Toggle --no-coverage option`
-* `PHPUnit: Open HTML Code Coverage in Browser`
+* PHPUnit: Run All Tests
+* PHPUnit: Run Single Test
+* PHPUnit: Run Last Test
+* PHPUnit: Switch Test Case / Class Under Test
+* PHPUnit: Toggle --tap option
+* PHPUnit: Toggle --testdox option
+* PHPUnit: Toggle --no-coverage option
+* PHPUnit: Open HTML Code Coverage in Browser
 
 ## Key Bindings
 
@@ -88,54 +88,39 @@ OS X / Windows / Linux | Description
 
 Key | Description | Type | Default
 ----|-------------|------|--------
-`phpunit.color_scheme` | *Colour scheme to use for test results.* | `string|null` | `monokai`
-`phpunit.composer` | *Enable/disable composer installed PHPUnit support. If a composer installed PHPUnit exists then it will be used command to run tests, otherwise assumes phpunit is available on the system path.* | `boolean` | `true`
-`phpunit.keymaps` | *Enable/disable the default keymaps.* | `boolean` | `true`
 `phpunit.options` | *Options to pass to PHPUnit when running tests.* | `dict` | `{}`
-`phpunit.save_all_on_run` | *Enable/disable saving all dirty views before running tests.* | `boolean` | `true`
+`phpunit.keymaps` | *Enable/disable the default keymaps.* | `boolean` | `true`
+`phpunit.composer` | *Enable/disable composer installed PHPUnit support. If a composer installed PHPUnit exists then it will be used command to run tests, otherwise assumes phpunit is available on the system path.* | `boolean` | `true`
 `phpunit.vi_keymaps` | *Enable/disable the default vi keymaps.* | `boolean` | `false`
+`phpunit.save_all_on_run` | *Enable/disable saving all dirty views before running tests.* | `boolean` | `true`
 
-The bundled `phpunit.color_scheme`'s are:
+### User settings
 
-* `Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme`
-* `Packages/phpunitkit/color-schemes/monokai-extended-seti.hidden-tmTheme`
-* `Packages/phpunitkit/color-schemes/solarized-dark.hidden-tmTheme`
+`Preferences > Settings - User`
 
-**Example `phpunit.options`**
-
+```json
+{
+    "phpunit.options": { "no-coverage": true, "verbose": true },
+    "phpunit.keymaps": true,
+    "phpunit.composer": true,
+    "phpunit.vi_keymaps": false,
+    "phpunit.save_all_on_run": true
+}
 ```
-    "phpunit.options": {
-        "no-coverage": true,
-        "testdox": true,
-        "verbose": true
-    }
-```
 
-**Per-project settings**
+### Per-project settings
 
 `Project > Edit Project`
 
 ```json
 {
     "settings": {
-        "phpunit.options": {
-            "no-coverage": true
-        },
-        "phpunit.save_all_on_run": false
+        "phpunit.options": { "no-coverage": true, "verbose": true },
+        "phpunit.keymaps": true,
+        "phpunit.composer": true,
+        "phpunit.vi_keymaps": false,
+        "phpunit.save_all_on_run": true
     }
-}
-```
-
-**User settings**
-
-`Preferences > Settings - User`
-
-```json
-{
-    "phpunit.options": {
-        "no-coverage": true
-    },
-    "phpunit.save_all_on_run": false
 }
 ```
 
