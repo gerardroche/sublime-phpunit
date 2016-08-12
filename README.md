@@ -74,7 +74,7 @@ OS X | Windows / Linux | Description
 
 ### Vintage / Vintageous
 
-Vintage / Vintageous key bindings are disabled by default. See the [configuration](#configuration) section.
+*Vintage / Vintageous key bindings are disabled by default.*
 
 OS X / Windows / Linux | Description
 -----------------------|------------
