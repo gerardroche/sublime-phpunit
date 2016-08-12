@@ -39,6 +39,8 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 
 ## Installation
 
+### Package Control installation
+
 The preferred method of installation is [Package Control].
 
 ### Manual installation
@@ -164,10 +166,10 @@ Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltiz
 Released under the [BSD 3-Clause License](LICENSE).
 
 [Package Control]: https://packagecontrol.io/browse/authors/gerardroche
-[PHP Completions]: https://packagecontrol.io/browse/authors/gerardroche
 [PHP Grammar]: https://packagecontrol.io/browse/authors/gerardroche
+[PHP Completions]: https://packagecontrol.io/browse/authors/gerardroche
 [PHP Snippets]: https://packagecontrol.io/browse/authors/gerardroche
+[PHPUnit]: https://packagecontrol.io/browse/authors/gerardroche
 [PHPUnit Completions]: https://packagecontrol.io/browse/authors/gerardroche
 [PHPUnit Snippets]: https://packagecontrol.io/browse/authors/gerardroche
-[PHPUnit]: https://packagecontrol.io/browse/authors/gerardroche
 [Composer]: https://getcomposer.org
