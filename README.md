@@ -1,4 +1,4 @@
-# gerardroche/sublime-phpunit
+# phpunitkit
 
 [![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat)](https://twitter.com/gerardroche) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit) [![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat)](https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit/stargazers)
 
@@ -39,7 +39,7 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 
 ## Installation
 
-The preferred method of installation is [Package Control]. Search for "phpunitkit".
+The preferred method of installation is [Package Control]. Search "phpunitkit".
 
 ### Manual installation
 
