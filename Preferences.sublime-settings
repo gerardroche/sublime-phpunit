@@ -1,39 +1,37 @@
 {
-    // The colour scheme to use for test results. Set to null for no colour
-    // scheme. The Bundled schemes are:
+    // Test results color scheme. Set to null for no colour. Schemes:
     // * Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme
-    // * Packages/phpunitkit/color-schemes/monokai-extended-seti.hidden-tmTheme
     // * Packages/phpunitkit/color-schemes/solarized-dark.hidden-tmTheme
     "phpunit.color_scheme": "Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme",
 
-    // Enable/disable composer installed PHPUnit support. If a composer
-    // installed PHPUnit exists then it will be used command to run tests,
-    // otherwise assumes phpunit is available on the system path.
+    // Enable composer support. If a composer installed PHPUnit is found then it
+    // is used to run tests.
     "phpunit.composer": true,
 
-    // Enable/disable the default keymaps.
+    // Enable the default keymaps.
     "phpunit.keymaps": true,
 
-    // Options to pass to PHPUnit when running tests. Example:
-    // "phpunit.options": {
-    //     "no-coverage": true,
-    //     "testdox": true,
-    //     "verbose": true
-    // }
+    // Options to pass to PHPUnit when running tests. Any PHPUnit option is
+    // valid. See phpunit --help for an up-to-date list of available options.
+    // Example:
+    // * no-coverage: true
+    // * verbose: true
+    // * textdox: true
+    // * tap: true
+    // * debug: true
     "phpunit.options": {},
 
-    // Enable/disable saving all dirty views before running tests.
+    // Enable writing out every buffer with changes and a file name, on test
+    // runs.
     "phpunit.save_all_on_run": true,
 
-    // Enable/disable the default vi keymaps.
+    // Enable the default vi keymaps.
     "phpunit.vi_keymaps": false,
 
     // --- For plugin development only ---
-    // Enable/disable plugin development helpers.
-    // For example, when enabled a "PHPUnit: Run All Plugin Tests" command is
-    // added to the command palette.
-    // *Note: This setting does nothing when installed using Package Control
-    // because plugin development helpers are excluded from the production
-    // build of the plugin.*
+    // Enable plugin development. For example, makes running tests available.
+    // Note: This setting does nothing when installed using Package Control
+    // because plugin development tests and other artifacts are not included
+    // in production builds of the plugin.
     "phpunit.development": false
 }

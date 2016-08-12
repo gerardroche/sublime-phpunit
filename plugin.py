@@ -10,7 +10,7 @@ if DEBUG_MODE:
         """
         Prints a debug level message.
         """
-        print('phpunitkit: %s' % str(message))
+        print('DEBUG PHPUNIT: %s' % str(message))
 else:
     def debug_message(message):
         pass
@@ -250,6 +250,7 @@ class PHPUnitTextUITestRunner():
             return debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
 
         if plugin_settings.get('save_all_on_run'):
+            # Write out every buffer with changes and a file name.
             for view in self.window.views():
                 if view.is_dirty() and view.file_name():
                     view.run_command('save')

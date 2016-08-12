@@ -1,9 +1,6 @@
 # gerardroche/sublime-phpunit
 
-[![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat)](https://twitter.com/gerardroche)
-[![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit)
-[![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat)](https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit/stargazers)
+[![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat)](https://twitter.com/gerardroche) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit) [![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat)](https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit/stargazers)
 
 [![Sublime version](https://img.shields.io/badge/sublime-v3-lightgrey.svg?style=flat)](https://sublimetext.com)
 [![Latest version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?label=release&style=flat&maxAge=2592000)](https://github.com/gerardroche/sublime-phpunit/tags)
@@ -75,7 +72,9 @@ OS X | Windows / Linux | Description
 <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Goto to previous test failure file line number
 
-**Vintage/Vintageous** key bindings are disabled by default. See the [configuration](#configuration) section for how to enable them.
+### Vintage / Vintageous
+
+Vintage / Vintageous key bindings are disabled by default. See the [configuration](#configuration) section.
 
 OS X / Windows / Linux | Description
 -----------------------|------------
@@ -88,11 +87,11 @@ OS X / Windows / Linux | Description
 
 Key | Description | Type | Default
 ----|-------------|------|--------
-`phpunit.options` | *Options to pass to PHPUnit when running tests.* | `dict` | `{}`
-`phpunit.keymaps` | *Enable/disable the default keymaps.* | `boolean` | `true`
-`phpunit.composer` | *Enable/disable composer installed PHPUnit support. If a composer installed PHPUnit exists then it will be used command to run tests, otherwise assumes phpunit is available on the system path.* | `boolean` | `true`
-`phpunit.vi_keymaps` | *Enable/disable the default vi keymaps.* | `boolean` | `false`
-`phpunit.save_all_on_run` | *Enable/disable saving all dirty views before running tests.* | `boolean` | `true`
+`phpunit.options` | Options to pass to PHPUnit on test runs. All PHPUnit options are valid, see <tt>phpunit --help</tt> for an up-to-date list of available options. | `dict` | `{}`
+`phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
+`phpunit.composer` | Enable composer support. If a composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
+`phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `false`
+`phpunit.save_all_on_run` | Enable writing out every buffer with changes and a file name, on test runs. | `boolean` | `true`
 
 ### User settings
 
@@ -100,11 +99,7 @@ Key | Description | Type | Default
 
 ```json
 {
-    "phpunit.options": { "no-coverage": true, "verbose": true },
-    "phpunit.keymaps": true,
-    "phpunit.composer": true,
-    "phpunit.vi_keymaps": false,
-    "phpunit.save_all_on_run": true
+    "phpunit.{Key}": "{Value}"
 }
 ```
 
@@ -115,7 +110,20 @@ Key | Description | Type | Default
 ```json
 {
     "settings": {
-        "phpunit.options": { "no-coverage": true, "verbose": true },
+        "phpunit.{Key}": "{Value}"
+    }
+}
+```
+
+#### Example
+
+```json
+{
+    "settings": {
+        "phpunit.options": {
+            "no-coverage": true,
+            "verbose": true
+        },
         "phpunit.keymaps": true,
         "phpunit.composer": true,
         "phpunit.vi_keymaps": false,
@@ -140,7 +148,8 @@ $ export SUBLIME_PHPUNIT_DEBUG=y; subl
 
 **Running the tests**
 
-Enable plugin development mode (set `phpunit.development` to `true`) and run the "PHPUnit: Run all Plugin Tests" command from the command palette. See the configuration section for more details on configurations.
+Enable plugin development; set <tt>phpunit.development</tt> to <tt>true</tt>
+and from the command palette run "PHPUnit: Run all Plugin Tests".
 
 ## Changelog
 
