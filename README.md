@@ -26,20 +26,20 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 
 ## Features
 
-* Run test suite
-* Run test case
 * Run test
-* Run multiple tests
-* Run test case for current class
+* Run test case
+* Run test suite
 * Rerun last test
+* Run multiple tests
+* Supports [Composer]
+* Run test case for current class
+* Colour test results (including failure diffs)
 * Jump to next or previous failure file line number
 * Switch, split, and focus on test case and class under test
-* Colour test results (including failure diffs)
-* Composer installed PHPUnit aware
 
 ## Installation
 
-The preferred method of installation is [Package Control]. Search "phpunitkit".
+The preferred method of installation is [Package Control].
 
 ### Manual installation
 
@@ -53,20 +53,20 @@ The preferred method of installation is [Package Control]. Search "phpunitkit".
 ## Commands
 
 * PHPUnit: Run All Tests
-* PHPUnit: Run Single Test
 * PHPUnit: Run Last Test
-* PHPUnit: Switch Test Case / Class Under Test
+* PHPUnit: Run Single Test
 * PHPUnit: Toggle --tap option
 * PHPUnit: Toggle --testdox option
 * PHPUnit: Toggle --no-coverage option
 * PHPUnit: Open HTML Code Coverage in Browser
+* PHPUnit: Switch Test Case / Class Under Test
 
 ## Key Bindings
 
 OS X | Windows / Linux | Description
 -----|-----------------|------------
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run tests
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run all tests
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test run
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch test case / class under test
 <kbd>F4</kbd> | <kbd>F4</kbd> | Goto to next test failure file line number
@@ -78,8 +78,8 @@ Vintage / Vintageous key bindings are disabled by default. See the [configuratio
 
 OS X / Windows / Linux | Description
 -----------------------|------------
-<kbd>,</kbd><kbd>t</kbd> | Run all tests
 <kbd>,</kbd><kbd>r</kbd> | Run tests
+<kbd>,</kbd><kbd>t</kbd> | Run all tests
 <kbd>,</kbd><kbd>e</kbd> | Rerun last test run
 <kbd>,</kbd><kbd>.</kbd> | Switch test case / class under test
 
@@ -89,7 +89,7 @@ Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | Options to pass to PHPUnit on test runs. All PHPUnit options are valid, see <tt>phpunit --help</tt> for an up-to-date list of available options. | `dict` | `{}`
 `phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.composer` | Enable composer support. If a composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
+`phpunit.composer` | Enable [Composer] support. If a composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
 `phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `false`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes and a file name, on test runs. | `boolean` | `true`
 
@@ -157,16 +157,17 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Credits
 
-Based initially on [Sublime Text Ruby Tests](https://github.com/maltize/sublime-text-2-ruby-tests).
+Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit).
 
 ## License
 
 Released under the [BSD 3-Clause License](LICENSE).
 
-[Package Control]: https://packagecontrol.io/search/phpunitkit
-[PHP Completions]: https://packagecontrol.io/packages/PHP%20Completions%20Kit
-[PHP Grammar]: https://packagecontrol.io/packages/php-grammar
-[PHP Snippets]: https://packagecontrol.io/packages/php-snippets
-[PHPUnit Completions]: https://github.com/gerardroche/sublime-phpunit-completions
-[PHPUnit Snippets]: https://github.com/gerardroche/sublime-phpunit-snippets
-[PHPUnit]: https://github.com/gerardroche/sublime-phpunit
+[Package Control]: https://packagecontrol.io/browse/authors/gerardroche
+[PHP Completions]: https://packagecontrol.io/browse/authors/gerardroche
+[PHP Grammar]: https://packagecontrol.io/browse/authors/gerardroche
+[PHP Snippets]: https://packagecontrol.io/browse/authors/gerardroche
+[PHPUnit Completions]: https://packagecontrol.io/browse/authors/gerardroche
+[PHPUnit Snippets]: https://packagecontrol.io/browse/authors/gerardroche
+[PHPUnit]: https://packagecontrol.io/browse/authors/gerardroche
+[Composer]: https://getcomposer.org
