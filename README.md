@@ -33,7 +33,7 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 * Fully customized CLI options configuration
 * Run test suite
 * Run single test case
-* Run single test *(test case methods named `test*`)*
+* Run single test *(test case methods named `test\*`)*
 * Run multiple tests *(using multiple selections)*
 * Run test case for current class under test
 * Rerun last test(s)
