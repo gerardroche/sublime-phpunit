@@ -15,7 +15,7 @@
 
 Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
 
- # Overview
+## Overview
 
 * [Features](#features)
 * [Installation](#installation)
