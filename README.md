@@ -102,16 +102,29 @@ Another example is, if `phpunit.xml` or `phpunit.xml.dist` (in that order) is fo
 
 ### Specifying PHPUnit Command-Line Options
 
-Most configurations you might want to specify when invoking PHPUnit are probably best set in a [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file which is automatically read by PHPUnit.
+Most configurations you might want to specify when invoking PHPUnit are probably best set in the [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file which is automatically read by PHPUnit.
 
 > If `phpunit.xml` or `phpunit.xml.dist` (in that order) exist in the current working directory and `--configuration` is not used, the configuration will be automatically read from that file. - https://phpunit.de/manual/current/en/textui.html
 
-See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for a complete up-to-date list of PHPUnit command-line options.
+See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for a up-to-date list of PHPUnit command-line options.
 
 For example, rather than specifying phpunit options via sublime text settings, configure PHPUnit via a configuration file.
 
 #### Bad
-c
+
+```json
+{
+    "settings": {
+        "phpunit.options": {
+            "no-coverage": true,
+            "verbose": true,
+            "stop-on-error": true,
+            "d": "xdebug.scream=0",
+            "d": "disable_functions="
+        }
+    }
+}
+```
 
 #### Good
 
