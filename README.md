@@ -33,13 +33,13 @@ Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Compl
 * Fully customized CLI options configuration
 * Run test suite
 * Run single test case
-* Run single test *(test case methods named test\*)*
-* Run multiple tests *(using multiple selections)*
+* Run single test (test case methods named `test*`)
+* Run multiple tests (using multiple selections)
 * Run test case for current class under test
 * Rerun last test(s)
 * Supports [Composer]
-* Test results output in color *(including color failure diffs)*
-* Jump to next / previous failure *(navigates to file line number of failure)*
+* Test results output in color (including color failure diffs)
+* Jump to next / previous failure (navigates to file line number of failure)
 * Switch, split, and focus test case &amp; class under test
 
 phpunikit consists of a core which provides an abstraction over running PHPUnit tests from the command-line.
