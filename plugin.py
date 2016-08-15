@@ -10,7 +10,7 @@ if DEBUG_MODE:
         """
         Prints a debug level message.
         """
-        print('DEBUG PHPUNIT: %s' % str(message))
+        print('DEBUG [phpunitkit]: %s' % str(message))
 else:
     def debug_message(message):
         pass
