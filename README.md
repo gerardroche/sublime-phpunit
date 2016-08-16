@@ -13,7 +13,7 @@
 
 ![Screenshot](screenshot.png)
 
-Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
+## Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
 
 ## Overview
 
