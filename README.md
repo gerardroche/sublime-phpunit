@@ -110,7 +110,7 @@ See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.c
 
 For example, rather than specifying phpunit options via sublime text settings, configure PHPUnit via a configuration file.
 
-#### Bad
+#### Not So Good
 
 ```json
 {
