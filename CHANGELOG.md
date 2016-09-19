@@ -1,4 +1,8 @@
-# gerardroche/sublime-phpunit changelog
+# phpunitkit changelog
+
+## 1.0.0
+
+* Cleanup for 1.0.0 release
 
 ## 1.0.0-beta2
 
