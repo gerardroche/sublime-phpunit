@@ -100,8 +100,7 @@ For example, rather than specifying PHPUnit options via sublime text settings, c
             "no-coverage": true,
             "verbose": true,
             "stop-on-error": true,
-            "d": "xdebug.scream=0",
-            "d": "disable_functions="
+            "d": "xdebug.scream=0"
         }
     }
 }
@@ -114,7 +113,6 @@ For example, rather than specifying PHPUnit options via sublime text settings, c
          stopOnError="true">
 
     <ini name="xdebug.scream" value="0" />
-    <ini name="disable_functions" value="" />
 
     <!--
     Comment out the code coverage configurations i.e. --no-coverage
