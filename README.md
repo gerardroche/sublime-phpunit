@@ -9,27 +9,25 @@
 [![Latest version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?label=release&style=flat&maxAge=2592000)](https://github.com/gerardroche/sublime-phpunit/tags)
 [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat&maxAge=2592000)](https://packagecontrol.io/packages/phpunitkit)
 
-[PHPUnit](https://phpunit.de) support for [Sublime Text](https://sublimetext.com).
-
-![Screenshot](screenshot.png)
-
-## Works best with [PHP Grammar], [PHP Completions], [PHP Snippets], [PHPUnit Completions], and [PHPUnit Snippets].
+[PHPUnit](https://phpunit.de) support for [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line. Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
 
 ## Overview
 
 * [Features](#features)
-* [Installation](#installation)
 * [Commands](#commands)
 * [Key Bindings](#key-bindings)
 * [Configuration](#configuration)
+* [Installation](#installation)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
 * [Credits](#credits)
 * [License](#license)
 
+![Screenshot](screenshot.png)
+
 ## Features
 
-* Zero configuration required (Does the Right Thing™)
+* Zero configuration required; Does the Right Thing™
 * Fully customized CLI options configuration
 * Run test suite
 * Run single test case
@@ -41,23 +39,6 @@
 * Test results output in color (including color failure diffs)
 * Jump to next / previous failure (navigates to file line number of failure)
 * Switch, split, and focus test case &amp; class under test
-
-phpunikit consists of a core which provides an abstraction over running PHPUnit tests from the command-line.
-
-## Installation
-
-### Package Control installation
-
-The preferred method of installation is [Package Control].
-
-### Manual Installation
-
-1. Close Sublime Text.
-2. Download or clone this repository to a directory named `phpunitkit` in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
-3. Done.
 
 ## Commands
 
@@ -83,7 +64,7 @@ OS X | Windows / Linux | Description
 
 ### Vintage / Vintageous
 
-*Disabled by default.*
+Disabled by default.
 
 OS X / Windows / Linux | Description
 -----------------------|------------
@@ -96,7 +77,7 @@ OS X / Windows / Linux | Description
 
 phpunitkit goes to great lengths to predict how to invoke PHPUnit for the project environment.
 
-For example, if PHPUnit is installed via Composer for the current project then the PHPUnit command-line test runner is invoked through `vendor/bin/phpunit`, otherwise it is assumed PHPUnit is available on the system path and so is invoked via `phpunit`.
+For example, if PHPUnit is installed via [Composer] for the current project then the PHPUnit command-line test runner is invoked through `vendor/bin/phpunit`, otherwise it is assumed PHPUnit is available on the system path and so is invoked via `phpunit`.
 
 Another example is, if `phpunit.xml` or `phpunit.xml.dist` (in that order) is found in the current or the nearest common ancestor directory of the active view, the location is set as the current working directory when invoking PHPUnit and so the configuration will be automatically read by PHPunit. Placing PHPUnit configuration files at the root of a project is highly recommended.
 
@@ -104,13 +85,13 @@ Another example is, if `phpunit.xml` or `phpunit.xml.dist` (in that order) is fo
 
 Most configurations you might want to specify when invoking PHPUnit are probably best set in the [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file which is automatically read by PHPUnit.
 
-> If `phpunit.xml` or `phpunit.xml.dist` (in that order) exist in the current working directory and `--configuration` is not used, the configuration will be automatically read from that file. - https://phpunit.de/manual/current/en/textui.html
+> If `phpunit.xml` or `phpunit.xml.dist` (in that order) exist in the current working directory and `--configuration` is not used, the configuration will be automatically read from that file. &mdash; [PHPUnit Manual](https://phpunit.de/manual/current/en/textui.html)
 
 See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for a up-to-date list of PHPUnit command-line options.
 
-For example, rather than specifying phpunit options via sublime text settings, configure PHPUnit via a configuration file.
+For example, rather than specifying PHPUnit options via sublime text settings, configure PHPUnit via its XML configuration file.
 
-#### Not So Good
+#### Example &mdash; Not So Good
 
 ```json
 {
@@ -126,24 +107,26 @@ For example, rather than specifying phpunit options via sublime text settings, c
 }
 ```
 
-#### Good
+#### Example &mdash; Good
 
 ```
-<phpunit ...
-        stopOnError="true"
-        verbose="true">
-    <!-- ... -->
+<phpunit verbose="true"
+         stopOnError="true">
+
     <ini name="xdebug.scream" value="0" />
     <ini name="disable_functions" value="" />
 
-    <!-- Comment out the code coverage configurations i.e. --no-coverage ->
-    <!-- <logging>
+    <!--
+    Comment out the code coverage configurations i.e. --no-coverage
+    <logging>
         <log type="coverage-html" target="build/coverage" />
-    </logging> -->
+    </logging>
+    -->
+
 </phpunit>
 ```
 
-There are session toggles for settings you might want to enable and disable on the fly like toggle `--no-coverage`, `--tap` and `--textdox`. See [commands](#commands) for up-to-date list of available toggles.
+There are session toggles for settings you might want to enable and disable on the fly like toggle `--no-coverage`, `--tap` and `--textdox`. See [Commands](#commands) for up-to-date list of available toggles.
 
 ### Settings
 
@@ -155,7 +138,7 @@ Key | Description | Type | Default
 `phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `false`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes and a file name, on test runs. | `boolean` | `true`
 
-### User Settings
+#### User Settings
 
 `Preferences > Settings - User`
 
@@ -165,7 +148,7 @@ Key | Description | Type | Default
 }
 ```
 
-### Per-Project Settings
+#### Per-Project Settings
 
 `Project > Edit Project`
 
@@ -176,6 +159,23 @@ Key | Description | Type | Default
     }
 }
 ```
+
+## Installation
+
+Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
+
+### Package Control installation
+
+The preferred method of installation is [Package Control].
+
+### Manual Installation
+
+1. Close Sublime Text.
+2. Download or clone this repository to a directory named **`phpunitkit`** in the Sublime Text Packages directory for your platform:
+    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
+    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
+    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
+3. Done!
 
 ## Contributing
 
@@ -213,6 +213,4 @@ Released under the [BSD 3-Clause License](LICENSE).
 [PHP Completions]: https://packagecontrol.io/browse/authors/gerardroche
 [PHP Snippets]: https://packagecontrol.io/browse/authors/gerardroche
 [PHPUnit]: https://packagecontrol.io/browse/authors/gerardroche
-[PHPUnit Completions]: https://packagecontrol.io/browse/authors/gerardroche
-[PHPUnit Snippets]: https://packagecontrol.io/browse/authors/gerardroche
 [Composer]: https://getcomposer.org
