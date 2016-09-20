@@ -4,57 +4,57 @@
 
 * Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): Cannot run Composer installed PHPUnit on Windows
 
-## 1.0.0
+## [1.0.0]
 
 * Cleanup for 1.0.0 release
 
-## 1.0.0-beta2
+## [1.0.0-beta2]
 
 * Cleanup for 1.0.0 release
 
-## 1.0.0-beta1
+## [1.0.0-beta1]
 
 * Cleanup for 1.0.0 release
 
-## 0.15.1
+## [0.15.1]
 
 * Updated: documentation
 
-## 0.15.0
+## [0.15.0]
 
 * Changed: plugin name from "php_phpunit" to "phpunitkit". The plugin was renamed because the last name was rejected by the Package Control channel.
   - If you previously installed manually then remove the installation and install via Package Control. Search for phpunitkit.
   - If you prefer to keep your manual installation then rename or move your installation to "phpunitkit".
 
-## 0.14.1
+## [0.14.1]
 
 * Fixed: #35 Cannot run 'Run Single Test' with the latest build of Sublime Text (3114)
 
-## 0.14.0
+## [0.14.0]
 
 * Added: Now available on Package Control
 * Changed: Renamed package from "phpunit" to "php_phpunit". This was needed in order to provide the plugin via Package Control. If you are having issues then either remove your existing plugin installation and install via Package Control, making sure to install the plugin by me, PHP PHPUnit (gerardroche), or rename your existing installation to "phpunit".
 
-## 0.13.0
+## [0.13.0]
 
 * Added: #34 an option to disable composer support: phpunit.composer a boolean which defaults to true.
 
-## 0.12.0
+## [0.12.0]
 
 * Changed: switch file command caption is now "PHPUnit: Switch Test Case / Class Under Test"
 * Refactorings
 
-## 0.11.0
+## [0.11.0]
 
 * Added: CHANGELOG link to package settings menu
 * Added: Toggle No Coverage "--no-coverage" command
 * Added: "phpunit.options" setting to allow configuring a default list of options for PHPUnit to use
 
-## 0.10.1
+## [0.10.1]
 
 * Fixed: incorrect file path to settings when opening from the command palette
 
-## 0.10.0
+## [0.10.0]
 
 * Added: "phpunit.development" setting to enable/disable plugin development utilities
 * Changed: settings are no longer loaded from a plugin specific settings file i.e. phpunit.sublime-settings
@@ -98,12 +98,12 @@
 * Minor refactorings
 * Minor fixes
 
-## 0.9.0
+## [0.9.0]
 
 * Added: "Open HTML Code Coverage in Browser" command #23
 * Added: Switch and put class and test-case side-by-side #8
 
-## 0.8.0
+## [0.8.0]
 
 * Added: Configurable color schemes #7
 * Added: Colour scheme "Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme" #21
@@ -111,17 +111,17 @@
 * Fixed: Command palette captions are now capitalised
 * Fixed: Goto next/last failure now matches all files/line-numbers in stack traces
 
-## 0.7.0
+## [0.7.0]
 
 * Removed: Several deprecated behaviours
 * Added: License link to package settings menu
 
-## 0.6.0
+## [0.6.0]
 
 * Added: "PHPUnit: Cancel Test Run" to command palette
 * Added: ST3 Requirements check. Now raises a runtime exception if trying to load in < Sublime Text 3
 
-## 0.5.0
+## [0.5.0]
 
 * Added: "PHPUnit.." to "Tools" main menu #15 #16
 * Added: "PHPUnit: Show Test Results" command
@@ -134,11 +134,11 @@
 * Removed: "phpunit" command #31
 * Deprecated: Per-project settings are now accessed via prefix "phpunit." in project definition settings. The old behaviour is deprecated and will be removed before the 1.0.0 beta releases.
 
-## 0.4.0
+## [0.4.0]
 
 * Added: option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item. #30
 
-## 0.3.0
+## [0.3.0]
 
 * Fixed: Can't switch classes beginning with an underscore #22
 * Fixed: Running single test runs all tests with the same prefix #25
@@ -149,7 +149,7 @@
 * Added: Switching class-under-test/test-case now splits window into two views with both side-by-side *if* the current window only has one group.
 * Added: Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
 
-## 0.2.0
+## [0.2.0]
 
 * Added: Composer installed PHPUnit support #13
 * Added: Saving all files on run can now be disabled. It can also be set on a per-project basis #12
@@ -162,6 +162,6 @@
 * Changed: The last test run is now saved in memory for the current session, previously it was save to a file. #11
 * Changed: Many refactorings including test runner commands are now Window commands, previously they were Text commands. There is no need for these commands to be instantiated for every view.
 
-## 0.1.0
+## [0.1.0]
 
 * Initial import; PHPUnit support
