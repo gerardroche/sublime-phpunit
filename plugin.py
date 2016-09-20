@@ -280,11 +280,24 @@ class PHPUnitTextUITestRunner():
             if k not in options:
                 options[k] = v
 
+        debug_message('[PHPUnitTextUITestRunner] phpunit cli options: %s' % str(options))
+
         for k, v in options.items():
             if not v == False:
-                cmd += " --" + k
-                if not v == True:
-                    cmd += " \"" + v + "\""
+                if len(k) == 1:
+                    if not v == False:
+                        if v == True:
+                            cmd += " -%s" % (k)
+                        else:
+                            if isinstance(v, list):
+                                for _v in v:
+                                    cmd += " -%s \"%s\"" % (k, _v)
+                            else:
+                                cmd += " -%s \"%s\"" % (k, v)
+                else:
+                    cmd += " --" + k
+                    if not v == True:
+                        cmd += " \"%s\"" % (v)
 
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory

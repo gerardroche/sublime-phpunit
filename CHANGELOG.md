@@ -1,5 +1,9 @@
 # phpunitkit changelog
 
+## Unreleased
+
+* Fixed [#40](https://github.com/gerardroche/sublime-phpunit/issues/40): Cannot specify short Command-Line Options
+
 ## [1.0.1]
 
 * Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): Cannot run Composer installed PHPUnit on Windows
