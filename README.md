@@ -179,20 +179,55 @@ The preferred method of installation is [Package Control].
 
 Your issue reports and pull requests are welcome.
 
-**Debug messages**
+### Debug messages
 
 Debug messages are disabled by default. To enable them set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=y`. To disable them set unset it or set it to a blank value e.g. `SUBLIME_PHPUNIT_DEBUG=`.
 
-On Linux, for example, Sublime Text can be started at the Terminal with an exported environment variable.
+For more information on environment variables read [What are PATH and other environment variables, and how can I set or use them?](http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them)
+
+#### Example &mdash; Linux
+
+Sublime Text can be started at the Terminal with an exported environment variable.
 
 ```
 $ export SUBLIME_PHPUNIT_DEBUG=y; subl
 ```
 
-**Running the tests**
+To set the environment permanently set it in `~/.profile` (requires restart).
 
-Enable plugin development; set `phpunit.development` to `true`
-and from the command palette run "PHPUnit: Run all Plugin Tests".
+```
+export SUBLIME_PHPUNIT_DEBUG=y
+```
+
+Alternatively, create a [debug script (subld)](https://github.com/gerardroche/dotfiles/blob/1a27abed589f2fea9126a0496ef4d1cae0479722/src/bin/subld) with debugging environment variables enabled.
+
+#### Example &mdash; Windows
+
+Sublime Text can be started at the Command Prompt with an exported environment variable.
+
+```
+> set SUBLIME_PHPUNIT_DEBUG=y& "C:\Program Files\Sublime Text 3\subl.exe"
+```
+
+To set the environment permanently set it as a *system* environment variable (requires restart).
+
+1. Control Panel > System and Security > System > Advanced system settings
+2. Advanced > Environment Variables
+3. System variables > New...
+4. Add Variable name `SUBLIME_PHPUNIT_DEBUG` with Variable value `y`
+5. Restart
+
+### Running tests
+
+To be able to run the tests enable plugin development. This will make the command "PHPUnit: Run all Plugin Tests" available in the Command Palette.
+
+Preferences > Settings - User
+
+```
+{
+    "phpunit.development": true
+}
+```
 
 ## Changelog
 
