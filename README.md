@@ -81,50 +81,95 @@ For example, if PHPUnit is installed via [Composer] for the current project then
 
 Another example is, if `phpunit.xml` or `phpunit.xml.dist` (in that order) is found in the current or the nearest common ancestor directory of the active view, the location is set as the current working directory when invoking PHPUnit and so the configuration will be automatically read by PHPunit. Placing PHPUnit configuration files at the root of a project is highly recommended.
 
-### Specifying PHPUnit Command-Line Options
-
-Most configurations you might want to specify when invoking PHPUnit are probably best set in the [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file which is automatically read by PHPUnit.
-
 > If `phpunit.xml` or `phpunit.xml.dist` (in that order) exist in the current working directory and `--configuration` is not used, the configuration will be automatically read from that file. &mdash; [PHPUnit Manual](https://phpunit.de/manual/current/en/textui.html)
 
-See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for a up-to-date list of PHPUnit command-line options.
+### Specifying PHPUnit Command-Line Options
 
-For example, rather than specifying PHPUnit options via sublime text settings, configure PHPUnit via its XML configuration file.
+PHPUnit's core functionality can be configured via its [XML Configuration File](https://phpunit.de/manual/current/en/appendixes.configuration.html).
 
-#### Example &mdash; Not So Good
+[Command-Line Options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) can be specified explicitly via sublime text settings.
+
+#### Example &mdash; PHPUnit XML Configuration
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit verbose="true"
+         stopOnFailure="true"
+         >
+
+    <php>
+        <ini name="display_errors" value="1" />
+        <ini name="xdebug.scream" value="0" />
+    </php>
+
+    <testsuites>
+        <testsuite name="unit">
+             <directory>test</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>src</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>
+```
+
+#### Example &mdash; PHPUnit Command-Line Options
+
+##### Command-Line Options can be specified Per-Project.
+
+`Project > Edit Project`
 
 ```json
 {
     "settings": {
         "phpunit.options": {
+            "v": true,
+            "stop-on-failure": true,
             "no-coverage": true,
-            "verbose": true,
-            "stop-on-error": true,
-            "d": "xdebug.scream=0"
+            "d": [
+                "display_errors=1",
+                "xdebug.scream=0"
+            ]
         }
     }
 }
 ```
 
-#### Example &mdash; Good
+The above settings result in the following Command-Line Options being passed to PHPUnit:
 
 ```
-<phpunit verbose="true"
-         stopOnError="true">
-
-    <ini name="xdebug.scream" value="0" />
-
-    <!--
-    Comment out the code coverage configurations i.e. --no-coverage
-    <logging>
-        <log type="coverage-html" target="build/coverage" />
-    </logging>
-    -->
-
-</phpunit>
+--stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
 ```
 
-There are session toggles for settings you might want to enable and disable on the fly like toggle `--no-coverage`, `--tap` and `--textdox`. See [Commands](#commands) for up-to-date list of available toggles.
+##### Command-Line Options can be specified as User level settings.
+
+`Preferences > Settings - User`
+
+*Note: the `settings` key is not required for User level settings like it is for Per-Project settings.*
+
+```json
+{
+    "phpunit.options": {
+        "v": true,
+        "stop-on-failure": true,
+        "no-coverage": true,
+        "d": [
+            "display_errors=1",
+            "xdebug.scream=0"
+        ]
+    }
+}
+```
+
+The above settings result in the following Command-Line Options being passed to PHPUnit:
+
+```
+--stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
+```
 
 ### Settings
 
@@ -215,7 +260,7 @@ To set the environment permanently set it as a *system* environment variable (re
 2. Advanced > Environment Variables
 3. System variables > New...
 4. Add Variable name `SUBLIME_PHPUNIT_DEBUG` with Variable value `y`
-5. Restart
+5. Restart Windows
 
 ### Running tests
 
