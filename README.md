@@ -11,6 +11,8 @@
 
 [PHPUnit](https://phpunit.de) support for [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line. Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
 
+![Screenshot](screenshot.png)
+
 ## Overview
 
 * [Features](#features)
@@ -22,8 +24,6 @@
 * [Changelog](#changelog)
 * [Credits](#credits)
 * [License](#license)
-
-![Screenshot](screenshot.png)
 
 ## Features
 
