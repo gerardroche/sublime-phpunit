@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Added [#39](https://github.com/gerardroche/sublime-phpunit/issues/39): Command Palette Command-Line Option toggles
 * Deprecated [#41](https://github.com/gerardroche/sublime-phpunit/issues/41): The `phpunit.vi_keymaps` configuration setting. Use `phpunit.keymaps.vi` instead.
 
 ## [1.0.3]

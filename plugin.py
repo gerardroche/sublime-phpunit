@@ -456,46 +456,16 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
             self.window.focus_view(current_view)
             self.window.focus_view(switched_view)
 
-class PHPUnitOption():
+class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
 
-    def __init__(self, name):
-        self.name = name
+    """
+    Toggle PHPUnit Command-Line (long) Options
+    """
 
-    def toggle(self):
-        """
-        Toggle a PHPUnit option
-        """
-
+    def run(self, option):
         options = plugin_settings.get_transient('options', {})
-        options[self.name] = not bool(options[self.name]) if self.name in options else True
+        options[option] = not bool(options[option]) if option in options else True
         plugin_settings.set_transient('options', options)
-
-class PhpunitToggleTapOption(sublime_plugin.WindowCommand):
-
-    """
-    Toggle PHPUnit --tap option
-    """
-
-    def run(self):
-        PHPUnitOption('tap').toggle()
-
-class PhpunitToggleTestdoxOption(sublime_plugin.WindowCommand):
-
-    """
-    Toggle PHPUnit --testdox option
-    """
-
-    def run(self):
-        PHPUnitOption('testdox').toggle()
-
-class PhpunitToggleNoCoverageOption(sublime_plugin.WindowCommand):
-
-    """
-    Toggle PHPUnit --no-coverage option
-    """
-
-    def run(self):
-        PHPUnitOption('no-coverage').toggle()
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 
