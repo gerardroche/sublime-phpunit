@@ -10,7 +10,7 @@ if DEBUG_MODE:
         """
         Prints a debug level message.
         """
-        print('DEBUG [phpunitkit]: %s' % str(message))
+        print('DEBUG phpunitkit: %s' % str(message))
 else:
     def debug_message(message):
         pass
@@ -228,7 +228,7 @@ class PHPUnitTextUITestRunner():
             debug_message('PHPUnitTextUITestRunner %s' % (args))
             self._run(**args)
         else:
-            debug_message('PHPUnitTextUITestRunner')
+            debug_message('PHPUnitTextUITestRunner {}')
             self._run()
 
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
@@ -262,9 +262,7 @@ class PHPUnitTextUITestRunner():
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'
 
-        # Options
-        #
-        # Order of Precedence
+        # Configuration Order of Precedence
         #
         # * User specific "phpunit.options" setting
         # * Project specific "phpunit.options" setting
@@ -291,9 +289,8 @@ class PHPUnitTextUITestRunner():
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory
 
-        debug_message('[PHPUnitTextUITestRunner] cmd: %s' % cmd)
-        debug_message('[PHPUnitTextUITestRunner] options: %s' % options)
-        debug_message('[PHPUnitTextUITestRunner] working_dir: %s' % working_dir)
+        debug_message('[PHPUnitTextUITestRunner] exec cmd: %s' % cmd)
+        debug_message('[PHPUnitTextUITestRunner] exec working_dir: %s' % working_dir)
 
         self.window.run_command('exec', {
             'cmd': cmd,
