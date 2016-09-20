@@ -256,8 +256,8 @@ class PHPUnitTextUITestRunner():
                     view.run_command('save')
 
         if plugin_settings.get('composer') and os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
-            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: "vendor/bin/phpunit"')
-            cmd = 'vendor/bin/phpunit'
+            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: %s' % os.path.join(working_dir, 'vendor', 'bin', 'phpunit'))
+            cmd = os.path.join('vendor', 'bin', 'phpunit')
         else:
             debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
             cmd = 'phpunit'

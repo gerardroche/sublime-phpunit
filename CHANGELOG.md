@@ -1,5 +1,9 @@
 # phpunitkit changelog
 
+## Unreleased
+
+* Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): Cannot run Composer installed PHPUnit on Windows
+
 ## 1.0.0
 
 * Cleanup for 1.0.0 release
