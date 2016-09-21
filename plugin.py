@@ -75,30 +75,24 @@ class PHPUnitConfigurationFileFinder():
         Finds the PHPUnit configuration file.
         """
 
-        debug_message('[PHPUnitConfigurationFileFinder] Find PHPUnit configuration file for "%s" in folders %s' % (file_name, folders))
+        debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders)))
 
         if file_name == None:
-            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file is None')
             return None
 
         if not isinstance(file_name, str):
-            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file not instance')
             return None
 
         if not len(file_name) > 0:
-            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: file len not > 0')
             return None
 
         if folders == None:
-            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folders is None')
             return None
 
         if not isinstance(folders, list):
-            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folders not instance')
             return None
 
         if not len(folders) > 0:
-            debug_message('[PHPUnitConfigurationFileFinder] Invalid argument: folder len not > 0')
             return None
 
         ancestor_folders = []
@@ -107,18 +101,21 @@ class PHPUnitConfigurationFileFinder():
         while parent not in ancestor_folders and parent.startswith(common_prefix):
             ancestor_folders.append(parent)
             parent = os.path.dirname(parent)
+
         ancestor_folders.sort(reverse=True)
 
-        debug_message('[PHPUnitConfigurationFileFinder] Look for PHPUnit configuration file in common ancestor folder(s) (%s) %s' % (len(ancestor_folders), ancestor_folders))
+        debug_message('  Found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))
 
-        for ancestor in ancestor_folders:
+        for folder in ancestor_folders:
+            debug_message('    Searching folder: %s' % folder)
             for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
-                phpunit_configuration_file = os.path.join(ancestor, file_name)
+                phpunit_configuration_file = os.path.join(folder, file_name)
+                debug_message('     Checking: %s' % phpunit_configuration_file)
                 if os.path.isfile(phpunit_configuration_file):
-                    debug_message('[PHPUnitConfigurationFileFinder] PHPUnit configuration file found at %s' % phpunit_configuration_file)
+                    debug_message('  Found PHPUnit configuration file: %s' % phpunit_configuration_file)
                     return phpunit_configuration_file
 
-        debug_message('[PHPUnitConfigurationFileFinder] Configuration file not found')
+        debug_message('  PHPUnit Configuration file not found')
 
         return None
 
@@ -174,34 +171,33 @@ class ViewHelpers():
         Returns the first switchable; otherwise None
         """
 
-        debug_message('[ViewHelpers::find_first_switchable_file] Find in view: %s' % ({"id": self.view.id(), "file_name": self.view.file_name()}))
+        file_name = self.view.file_name()
+        debug_message('Find first switchable for %s' % file_name)
 
-        for class_name in self.find_php_classes():
+        classes = self.find_php_classes()
+        debug_message('  Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, file_name))
 
-            debug_message('[ViewHelpers::find_first_switchable_file] Trying to find switchable for class "%s"' % (class_name))
-
+        for class_name in classes:
             if class_name[-4:] == "Test":
                 lookup_symbol = class_name[:-4]
             else:
                 lookup_symbol = class_name + "Test"
 
-            debug_message('[ViewHelpers::find_first_switchable_file] Trying to find switchable class "%s"' % (lookup_symbol))
+            debug_message('    Switchable symbol: %s' % lookup_symbol)
 
             switchables_in_open_files = self.view.window().lookup_symbol_in_open_files(lookup_symbol)
-            debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in open files: %s' % (len(switchables_in_open_files), class_name, str(switchables_in_open_files)))
+            switchables_in_index = self.view.window().lookup_symbol_in_index(lookup_symbol)
+
+            debug_message('      Found %d switchable symbol%s in open files %s' % (len(switchables_in_open_files), '' if len(switchables_in_open_files) == 1 else 's', str(switchables_in_open_files)))
+            debug_message('      Found %d switchable symbol%s in index      %s' % (len(switchables_in_index), '' if len(switchables_in_index) == 1 else 's', str(switchables_in_index)))
 
             for open_file in switchables_in_open_files:
-                debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for %s in open files (%s): %s' % (open_file, class_name, len(switchables_in_open_files), switchables_in_open_files))
+                debug_message('  Found switchable symbol in open file %s' % str(open_file))
                 return open_file
 
-            switchables_in_index = self.view.window().lookup_symbol_in_index(lookup_symbol)
-            debug_message('[ViewHelpers::find_first_switchable_file] Found (%d) possible switchables for %s in index: %s' % (len(switchables_in_index), class_name, switchables_in_index))
-
             for index in switchables_in_index:
-                debug_message('[ViewHelpers::find_first_switchable_file] Found switchable %s for "%s" in indexes (%d): %s' % (index, class_name, len(switchables_in_index), switchables_in_index))
+                debug_message('  Found switchable symbol in index %s' % str(index))
                 return index
-
-            debug_message('[ViewHelpers::find_first_switchable_file] No switchable found for class: %s' % class_name)
 
     def find_first_switchable_file(self):
         """
@@ -213,9 +209,10 @@ class ViewHelpers():
             return None
 
         def normalise_path(path):
-            if sublime.platform() == "windows":
-                path = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", path)
-                path = re.sub(r"/", r"\\", path)
+            if int(sublime.version()) < 3118:
+                if sublime.platform() == "windows":
+                    path = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", path)
+                    path = re.sub(r"/", r"\\", path)
             return path
 
         return normalise_path(first_switchable[0])
@@ -231,63 +228,65 @@ class PHPUnitTextUITestRunner():
 
     def run(self, args=None):
         if args:
-            debug_message('PHPUnitTextUITestRunner %s' % (args))
+            debug_message('PHPUnitTextUITestRunner::run %s' % (args))
             self._run(**args)
         else:
-            debug_message('PHPUnitTextUITestRunner {}')
+            debug_message('PHPUnitTextUITestRunner::run {}')
             self._run()
 
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
-
         view = self.window.active_view()
         if not view:
             return
 
-        if working_dir is None:
-            working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
-
+        # Working directory
         if not working_dir:
-            return debug_message('[PHPUnitTextUITestRunner] Could not find a PHPUnit working directory')
-
+            working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
+            if not working_dir:
+                debug_message('Could not find a PHPUnit working directory')
+                return
+            debug_message('Found PHPUnit working directory: %s' % working_dir)
         if not os.path.isdir(working_dir):
-            return debug_message('[PHPUnitTextUITestRunner] Working directory does not exist or is not a directory: %s' % (working_dir))
+            debug_message('PHPUnit working directory does not exist or is not a valid directory: %s' % working_dir)
+            return
+        debug_message('PHPUnit working directory: %s' % working_dir)
 
-        if unit_test_or_directory and not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-            return debug_message('[PHPUnitTextUITestRunner] Unit test or directory is invalid: %s' % (unit_test_or_directory))
+        # Unit test or directory
+        if unit_test_or_directory:
+            if not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
+                debug_message('PHPUnit test or directory is invalid: %s' % unit_test_or_directory)
+                return
+            unit_test_or_directory = os.path.relpath(unit_test_or_directory, working_dir)
+        debug_message('PHPUnit test or directory: %s' % unit_test_or_directory)
 
-        if plugin_settings.get('save_all_on_run'):
-            # Write out every buffer with changes and a file name.
-            for view in self.window.views():
-                if view.is_dirty() and view.file_name():
-                    view.run_command('save')
-
-        if plugin_settings.get('composer') and os.path.isfile(os.path.join(working_dir, 'vendor', 'bin', 'phpunit')):
-            debug_message('[PHPUnitTextUITestRunner] Found Composer installed PHPUnit: %s' % os.path.join(working_dir, 'vendor', 'bin', 'phpunit'))
-            cmd = os.path.join('vendor', 'bin', 'phpunit')
-        else:
-            debug_message('[PHPUnitTextUITestRunner] Composer installed PHPUnit not found, using default command: "phpunit"')
-            cmd = 'phpunit'
-
-        # Configuration Order of Precedence
-        #
+        # PHPUnit options
+        # Order of Precedence
         # * User specific "phpunit.options" setting
         # * Project specific "phpunit.options" setting
         # * toggled "transient/session" settings
         # * this command's argument
-
         if options is None:
             options = {}
-
         for k, v in plugin_settings.get_transient('options', {}).items():
             if k not in options:
                 options[k] = v
-
         for k, v in plugin_settings.get('options').items():
             if k not in options:
                 options[k] = v
+        debug_message('PHPUnit options %s' % str(options))
 
-        debug_message('[PHPUnitTextUITestRunner] phpunit cli options: %s' % str(options))
+        # PHPUnit bin
+        phpunit_bin = 'phpunit'
+        if plugin_settings.get('composer'):
+            relative_composer_phpunit_bin = os.path.join('vendor', 'bin', 'phpunit')
+            composer_phpunit_bin = os.path.join(working_dir, relative_composer_phpunit_bin)
+            if os.path.isfile(composer_phpunit_bin):
+                debug_message('Found Composer PHPUnit bin: %s' % composer_phpunit_bin)
+                phpunit_bin = relative_composer_phpunit_bin
+        debug_message('PHPUnit bin: %s' % phpunit_bin)
 
+        # Execute Command
+        cmd = phpunit_bin
         for k, v in options.items():
             if not v == False:
                 if len(k) == 1:
@@ -304,12 +303,15 @@ class PHPUnitTextUITestRunner():
                     cmd += " --" + k
                     if not v == True:
                         cmd += " \"%s\"" % (v)
-
         if unit_test_or_directory:
             cmd += " " + unit_test_or_directory
+        debug_message('exec cmd: %s' % cmd)
 
-        debug_message('[PHPUnitTextUITestRunner] exec cmd: %s' % cmd)
-        debug_message('[PHPUnitTextUITestRunner] exec working_dir: %s' % working_dir)
+        # Write out every buffer (active window) with changes and a file name.
+        if plugin_settings.get('save_all_on_run'):
+            for view in self.window.views():
+                if view.is_dirty() and view.file_name():
+                    view.run_command('save')
 
         self.window.run_command('exec', {
             'cmd': cmd,
@@ -321,15 +323,15 @@ class PHPUnitTextUITestRunner():
             'working_dir': working_dir
         })
 
-        # save last run arguments (for current window)
+        # Save last run arguments (for current window)
         plugin_settings.set_transient('__window__' + str(self.window.id()) + '__run_last_test_args', {
             'working_dir': working_dir,
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
         })
 
+        # Configure color scheme
         panel_settings = self.window.create_output_panel('exec').settings()
-
         panel_settings.set('color_scheme',
             plugin_settings.get('color_scheme')
                 if plugin_settings.get('color_scheme')
@@ -370,25 +372,34 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
         if not view:
             return
 
-        options = {}
         view_helpers = ViewHelpers(view)
 
         if view_helpers.contains_phpunit_test_case():
-            unit_test_file = view.file_name()
+            debug_message('Found test case in %s' % view.file_name())
+
+            unit_test = view.file_name()
+            options = {}
+
             unit_test_method_names = self.selected_unit_test_method_names(view)
+            debug_message('Test method selections: %s' % unit_test_method_names)
             if unit_test_method_names:
-                # @todo optimise filter regex; possibly limit the size of the regex too
-                options['filter'] = '::(' + '|'.join(unit_test_method_names) + ')( with data set .+)?$'
+                options = {
+                    # @todo optimise filter regex; possibly limit the size of the regex too
+                    'filter': '::(' + '|'.join(unit_test_method_names) + ')( with data set .+)?$'
+                }
         else:
-            unit_test_file = view_helpers.find_first_switchable_file()
+            debug_message('No test case found in %s' % view.file_name())
+
+            unit_test = view_helpers.find_first_switchable_file()
+            options = {}
             # @todo how to check that the switchable contains a testcase?
 
-        if not unit_test_file:
-            debug_message('[phpunit_run_single_test_command] Could not find a test-case or a switchable test-case')
+        if not unit_test:
+            debug_message('Could not find a PHPUnit test case or a switchable test case')
             return
 
         PHPUnitTextUITestRunner(self.window).run({
-            "unit_test_or_directory": unit_test_file,
+            "unit_test_or_directory": unit_test,
             "options": options
         })
 
@@ -423,9 +434,10 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
         first_switchable = ViewHelpers(current_view).find_first_switchable()
         if not first_switchable:
-            return sublime.status_message('No PHPUnit switchable found for "%s"' % current_view.file_name())
+            sublime.status_message('No PHPUnit switchable found for "%s"' % current_view.file_name())
+            return
 
-        debug_message('[phpunit_switch_file_command] Switching from "%s" to %s' % (current_view.file_name(), first_switchable))
+        debug_message('Switching from %s to %s' % (current_view.file_name(), first_switchable))
 
         self.window.open_file(first_switchable[0])
         switched_view = self.window.active_view()
@@ -474,14 +486,19 @@ class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
     """
 
     def run(self):
+        view = self.window.active_view()
+        if not view:
+            return
 
-        working_dir = PHPUnitConfigurationFileFinder().find_dirname(self.window.active_view().file_name(), self.window.folders())
+        working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
         if not working_dir:
-            return sublime.status_message('PHPUnit: Could not find a working directory')
+            sublime.status_message('Could not find a PHPUnit working directory')
+            return
 
-        coverage_html_index_file = os.path.join(working_dir, 'build/coverage/index.html')
-        if not os.path.exists(coverage_html_index_file):
-            return sublime.status_message('PHPUnit: Could not find HTML code coverage at "%s"' % coverage_html_index_file)
+        coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
+        if not os.path.exists(coverage_html_index_html_file):
+            sublime.status_message('Could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
+            return
 
         import webbrowser
-        webbrowser.open_new_tab('file://' + coverage_html_index_file)
+        webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
