@@ -1,5 +1,9 @@
 # phpunitkit changelog
 
+## [1.0.3]
+
+* Fixed [#46](https://github.com/gerardroche/sublime-phpunit/issues/46): (Windows) Cannot run single test from class under test
+
 ## [1.0.2]
 
 * Fixed [#40](https://github.com/gerardroche/sublime-phpunit/issues/40): Cannot specify short Command-Line Options
@@ -170,6 +174,7 @@
 
 * Initial import; PHPUnit support
 
+[1.0.3]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.0-beta2...1.0.0

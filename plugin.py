@@ -212,7 +212,13 @@ class ViewHelpers():
         if not first_switchable:
             return None
 
-        return first_switchable[0]
+        def normalise_path(path):
+            if sublime.platform() == "windows":
+                path = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", path)
+                path = re.sub(r"/", r"\\", path)
+            return path
+
+        return normalise_path(first_switchable[0])
 
 class PHPUnitTextUITestRunner():
 
