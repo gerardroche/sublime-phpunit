@@ -170,9 +170,9 @@ Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | Command-line options to pass to PHPUnit. See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
 `phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.composer` | Enable [Composer] support. If a composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
-`phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `false`
-`phpunit.save_all_on_run` | Enable writing out every buffer with changes and a file name, on test runs. | `boolean` | `true`
+`phpunit.keymaps.vi` | Enable the default vi keymaps. (requires `phpunit.keymaps` to be enabled) | `boolean` | `false`
+`phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
+`phpunit.save_all_on_run` | Enable writing out every buffer (active window) with changes and a file name, on test runs. | `boolean` | `true`
 
 #### User Settings
 

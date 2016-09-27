@@ -1,4 +1,11 @@
 [
+    { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
+    { "keys": [",", "e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
+    { "keys": [",", "r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
+    { "keys": [",", "t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps"}, { "key": "setting.phpunit.keymaps.vi" } ] },
+
+    // Deprecated: The following four keymaps are to be removed in v2.0.0 and
+    // exist only for backwards compatibility
     { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
     { "keys": [",", "e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
     { "keys": [",", "r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },

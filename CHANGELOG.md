@@ -1,5 +1,9 @@
 # phpunitkit changelog
 
+## Unreleased
+
+* Deprecated [#41](https://github.com/gerardroche/sublime-phpunit/issues/41): The `phpunit.vi_keymaps` configuration setting. Use `phpunit.keymaps.vi` instead.
+
 ## [1.0.3]
 
 * Fixed [#46](https://github.com/gerardroche/sublime-phpunit/issues/46): (Windows) Cannot run single test from class under test
