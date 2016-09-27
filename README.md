@@ -31,7 +31,7 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Rerun last test(s) <kbd>Ctrl+Shift+e</kbd>
 * Test results output in color (including color failure diffs)
 * Jump to next <kbd>F4</kbd> / previous failure <kbd>Shift+F4</kbd> (navigates to file line number of failure)
-* Switch, split, and focus test case &amp; class under test <kbd>Ctrl+Shift+r</kbd>
+* Switch, split, and focus test case &amp; class under test <kbd>Ctrl+Shift+.</kbd>
 
 ## COMMANDS
 
