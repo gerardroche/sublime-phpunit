@@ -3,9 +3,7 @@ import sublime_plugin
 import re
 import os
 
-DEBUG_MODE=bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
-
-if DEBUG_MODE:
+if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
     def debug_message(message):
         """
         Prints a debug level message.
@@ -316,7 +314,7 @@ class PHPUnitTextUITestRunner():
         self.window.run_command('exec', {
             'cmd': cmd,
             'file_regex': '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$',
-            'quiet': not DEBUG_MODE,
+            'quiet': not bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')),
             'shell': True,
             'syntax': 'Packages/phpunitkit/test-results.hidden-tmLanguage',
             'word_wrap': False,
