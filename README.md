@@ -1,19 +1,12 @@
-# phpunitkit
+# WHAT PHPUNITKIT IS
 
-[![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat)](https://twitter.com/gerardroche)
-[![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit)
-[![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat)](https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat)](https://github.com/gerardroche/sublime-phpunit/stargazers)
+[![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat-square&maxAge=86400)](https://twitter.com/gerardroche) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat-square&maxAge=86400)](https://github.com/gerardroche/sublime-phpunit) [![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat-square&maxAge=86400)](LICENSE) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square&maxAge=86400)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Sublime version](https://img.shields.io/badge/sublime-v3.0.0-green.svg?style=flat-square&maxAge=86400)](https://sublimetext.com) [![Latest version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&maxAge=86400&label=release)](https://github.com/gerardroche/sublime-phpunit/tags) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square&maxAge=86400)](https://packagecontrol.io/packages/phpunitkit)
 
-[![Sublime version](https://img.shields.io/badge/sublime-v3-lightgrey.svg?style=flat)](https://sublimetext.com)
-[![Latest version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?label=release&style=flat&maxAge=2592000)](https://github.com/gerardroche/sublime-phpunit/tags)
-[![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat&maxAge=2592000)](https://packagecontrol.io/packages/phpunitkit)
-
-[PHPUnit](https://phpunit.de) support for [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line. Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
+PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line. It works best alongside other PHP development plugins such as [PHP Grammar], [PHP Snippets], and [PHP Completions].
 
 ![Screenshot](screenshot.png)
 
-## Overview
+## OVERVIEW
 
 * [Features](#features)
 * [Commands](#commands)
@@ -25,7 +18,7 @@
 * [Credits](#credits)
 * [License](#license)
 
-## Features
+## FEATURES
 
 * Zero configuration required; Does the Right Thing™
 * Fully customized CLI options configuration
@@ -40,7 +33,7 @@
 * Jump to next / previous failure (navigates to file line number of failure)
 * Switch, split, and focus test case &amp; class under test
 
-## Commands
+## COMMANDS
 
 * PHPUnit: Run All Tests
 * PHPUnit: Run Last Test
@@ -48,10 +41,10 @@
 * PHPUnit: Toggle --tap option
 * PHPUnit: Toggle --testdox option
 * PHPUnit: Toggle --no-coverage option
-* PHPUnit: Open HTML Code Coverage in Browser
 * PHPUnit: Switch Test Case / Class Under Test
+* PHPUnit: Open HTML Code Coverage in Browser
 
-## Key Bindings
+## KEY BINDINGS
 
 OS X | Windows / Linux | Description
 -----|-----------------|------------
@@ -73,7 +66,7 @@ OS X / Windows / Linux | Description
 <kbd>,</kbd><kbd>e</kbd> | Rerun last test(s)
 <kbd>,</kbd><kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
 
-## Configuration
+## CONFIGURATION
 
 phpunitkit goes to great lengths to predict how to invoke PHPUnit for the project environment.
 
@@ -203,15 +196,15 @@ Key | Description | Type | Default
 }
 ```
 
-## Installation
+## INSTALLATION
 
 Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
 
-### Package Control installation
+### Package Control
 
 The preferred method of installation is [Package Control].
 
-### Manual Installation
+### Manual
 
 1. Close Sublime Text.
 2. Download or clone this repository to a directory named **`phpunitkit`** in the Sublime Text Packages directory for your platform:
@@ -220,7 +213,7 @@ The preferred method of installation is [Package Control].
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
 3. Done!
 
-## Contributing
+## CONTRIBUTING
 
 Your issue reports and pull requests are welcome.
 
@@ -274,15 +267,15 @@ Preferences > Settings - User
 }
 ```
 
-## Changelog
+## CHANGELOG
 
 See [CHANGELOG.md](CHANGELOG.md).
 
-## Credits
+## CREDITS
 
 Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit).
 
-## License
+## LICENSE
 
 Released under the [BSD 3-Clause License](LICENSE).
 

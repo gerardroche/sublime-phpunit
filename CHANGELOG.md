@@ -10,7 +10,7 @@
 
 ## [1.0.1]
 
-* Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): Cannot run Composer installed PHPUnit on Windows
+* Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): (Windows) Cannot run Composer installed PHPUnit
 
 ## [1.0.0]
 
