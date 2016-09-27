@@ -22,13 +22,13 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 
 * Zero configuration required; Does the Right Thing™
 * Fully customized CLI options configuration
+* Supports [Composer]
 * Run test suite <kbd>Ctrl+Shift+t</kbd>
 * Run test case <kbd>Ctrl+Shift+r</kbd>
 * Run test method <kbd>Ctrl+Shift+r</kbd> (put cursor on test method)
 * Run test methods <kbd>Ctrl+Shift+r</kbd> (use multiple cursor selection of test method)
 * Run test case for current class under test <kbd>Ctrl+Shift+r</kbd>
 * Rerun last test(s) <kbd>Ctrl+Shift+e</kbd>
-* Supports [Composer]
 * Test results output in color (including color failure diffs)
 * Jump to next <kbd>F4</kbd> / previous failure <kbd>Shift+F4</kbd> (navigates to file line number of failure)
 * Switch, split, and focus test case &amp; class under test <kbd>Ctrl+Shift+r</kbd>
@@ -38,11 +38,24 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * PHPUnit: Run All Tests <kbd>Ctrl+Shift+t</kbd>
 * PHPUnit: Run Last Test <kbd>Ctrl+Shift+e</kbd>
 * PHPUnit: Run Single Test <kbd>Ctrl+Shift+r</kbd>
-* PHPUnit: Toggle --tap option
-* PHPUnit: Toggle --testdox option
-* PHPUnit: Toggle --no-coverage option
 * PHPUnit: Switch Test Case / Class Under Test <kbd>Ctrl+Shift+.</kbd>
 * PHPUnit: Open HTML Code Coverage in Browser
+* PHPUnit: Toggle Option --debug
+* PHPUnit: Toggle Option --disallow-test-output
+* PHPUnit: Toggle Option --disallow-todo-tests
+* PHPUnit: Toggle Option --enforce-time-limit
+* PHPUnit: Toggle Option --no-coverage
+* PHPUnit: Toggle Option --report-useless-tests
+* PHPUnit: Toggle Option --stop-on-error
+* PHPUnit: Toggle Option --stop-on-failure
+* PHPUnit: Toggle Option --stop-on-incomplete
+* PHPUnit: Toggle Option --stop-on-risky
+* PHPUnit: Toggle Option --stop-on-skipped
+* PHPUnit: Toggle Option --strict-coverage
+* PHPUnit: Toggle Option --strict-global-state
+* PHPUnit: Toggle Option --tap
+* PHPUnit: Toggle Option --testdox
+* PHPUnit: Toggle Option --verbose
 
 ## KEY BINDINGS
 
