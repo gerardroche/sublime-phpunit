@@ -85,17 +85,15 @@ phpunitkit goes to great lengths to predict how to invoke PHPUnit for the projec
 
 For example, if PHPUnit is installed via [Composer] for the current project then the PHPUnit command-line test runner is invoked through `vendor/bin/phpunit`, otherwise it is assumed PHPUnit is available on the system path and so is invoked via `phpunit`.
 
-Another example is, if `phpunit.xml` or `phpunit.xml.dist` (in that order) is found in the current or the nearest common ancestor directory of the active view, the location is set as the current working directory when invoking PHPUnit and so the configuration will be automatically read by PHPunit. Placing PHPUnit configuration files at the root of a project is highly recommended.
+Another example is, if `phpunit.xml` or `phpunit.xml.dist` (in that order) is found in the current or the nearest common ancestor directory of the active view file, that location is set as the current working directory when invoking PHPUnit and so that configuration file will be read by PHPunit. Placing PHPUnit configuration files at the root of a project is highly recommended.
 
 > If `phpunit.xml` or `phpunit.xml.dist` (in that order) exist in the current working directory and `--configuration` is not used, the configuration will be automatically read from that file. &mdash; [PHPUnit Manual](https://phpunit.de/manual/current/en/textui.html)
 
-### Specifying PHPUnit Command-Line Options
+### Command-Line Options
 
-PHPUnit's core functionality can be configured via its [XML Configuration File](https://phpunit.de/manual/current/en/appendixes.configuration.html).
+PHPUnit's core functionality can be configured via its [XML Configuration File](https://phpunit.de/manual/current/en/appendixes.configuration.html) or as [Command-Line Options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions). Command-Line options can be specified via sublime text settings (User and Per-Project).
 
-[Command-Line Options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) can be specified explicitly via sublime text settings.
-
-#### Example &mdash; PHPUnit XML Configuration
+#### Example &mdash; `phpunit.xml` or `phpunit.xml.dist`Configuration
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -123,9 +121,7 @@ PHPUnit's core functionality can be configured via its [XML Configuration File](
 </phpunit>
 ```
 
-#### Example &mdash; PHPUnit Command-Line Options
-
-##### Command-Line Options can be specified Per-Project.
+#### Example &mdash; Per-Project PHPUnit Command-Line Options
 
 `Project > Edit Project`
 
@@ -145,17 +141,17 @@ PHPUnit's core functionality can be configured via its [XML Configuration File](
 }
 ```
 
-The above settings result in the following Command-Line Options being passed to PHPUnit:
+The above settings result in the following Command-Line Options being passed to PHPUnit.
 
 ```
 --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
 ```
 
-##### Command-Line Options can be specified as User level settings.
+#### Example &mdash; User PHPUnit Command-Line Options
+
+Note: unlike User level settings, the "settings" key is not required.
 
 `Preferences > Settings - User`
-
-*Note: the `settings` key is not required for User level settings like it is for Per-Project settings.*
 
 ```json
 {
@@ -171,7 +167,7 @@ The above settings result in the following Command-Line Options being passed to 
 }
 ```
 
-The above settings result in the following Command-Line Options being passed to PHPUnit:
+The above settings result in the following Command-Line Options being passed to PHPUnit.
 
 ```
 --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
