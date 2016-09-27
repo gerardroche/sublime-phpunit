@@ -38,7 +38,7 @@ F..S...
 #<- test.progress.failure.phpunit-result
 #^^ test.progress.success.phpunit-result
 #  ^ test.progress.skipped.phpunit-result
-#   ^^. test.progress.success.phpunit-result
+#   ^^^ test.progress.success.phpunit-result
 
 Time: 385 ms, Memory: 5.50MB
 
@@ -48,11 +48,11 @@ No tests executed!
 
 OK (45 tests, 81 assertions)
 #<- test.footer.ok.phpunit-result
-#^^^^^^^^ test.footer.ok.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok.phpunit-result
 
 OK, but incomplete, skipped, or risky tests!
 #<- test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
-#^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
 FAILURES!
 #<- test.footer.fail.phpunit-result
