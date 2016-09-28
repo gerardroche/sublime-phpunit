@@ -1,5 +1,6 @@
 from threading import Thread
 import unittest
+
 import sublime
 import sublime_plugin
 

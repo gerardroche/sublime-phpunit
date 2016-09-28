@@ -1,7 +1,8 @@
-import sublime
-import sublime_plugin
 import re
 import os
+
+import sublime
+import sublime_plugin
 
 if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
     def debug_message(message):
