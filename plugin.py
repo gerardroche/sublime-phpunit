@@ -124,7 +124,7 @@ class PHPUnitConfigurationFileFinder():
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
 
-def contains_phpunit_test_case(view):
+def has_test_case(view):
     """True if the view contains a valid PHPUnit test case."""
     for php_class in find_php_classes(view):
         if php_class[-4:] == 'Test':
@@ -153,6 +153,9 @@ def find_php_classes(view):
 
 def find_first_switchable(view):
     """Returns the first switchable; otherwise None."""
+    window = view.window()
+    if not window:
+        return None
 
     file_name = view.file_name()
     debug_message('Find first switchable for %s' % file_name)
@@ -168,8 +171,8 @@ def find_first_switchable(view):
 
         debug_message('    Switchable symbol: %s' % lookup_symbol)
 
-        switchables_in_open_files = view.window().lookup_symbol_in_open_files(lookup_symbol)
-        switchables_in_index = view.window().lookup_symbol_in_index(lookup_symbol)
+        switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
+        switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
 
         debug_message('      Found %d switchable symbol%s in open files %s' % (len(switchables_in_open_files), '' if len(switchables_in_open_files) == 1 else 's', str(switchables_in_open_files)))
         debug_message('      Found %d switchable symbol%s in index      %s' % (len(switchables_in_index), '' if len(switchables_in_index) == 1 else 's', str(switchables_in_index)))
@@ -184,19 +187,18 @@ def find_first_switchable(view):
 
 def find_first_switchable_file(view):
     """Returns the first switchable file; otherwise None."""
-
     first_switchable = find_first_switchable(view)
     if not first_switchable:
         return None
 
-    def normalise_path(path):
-        if int(sublime.version()) < 3118:
-            if sublime.platform() == "windows":
-                path = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", path)
-                path = re.sub(r"/", r"\\", path)
-        return path
+    file = first_switchable[0]
 
-    return normalise_path(first_switchable[0])
+    if int(sublime.version()) < 3118:
+        if sublime.platform() == "windows":
+            file = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", file)
+            file = re.sub(r"/", r"\\", file)
+
+    return file
 
 class PHPUnitTextUITestRunner():
 
@@ -337,7 +339,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
         if not view:
             return
 
-        if contains_phpunit_test_case(view):
+        if has_test_case(view):
             debug_message('Found test case in %s' % view.file_name())
 
             unit_test = view.file_name()
