@@ -58,68 +58,63 @@ plugin_settings = PluginSettings('phpunit')
 def plugin_loaded():
     plugin_settings.on_load()
 
-class PHPUnitConfigurationFileFinder():
-
+def find_phpunit_configuration_file(file_name, folders):
     """
-    Find the first PHPUnit configuration file, either
-    phpunit.xml or phpunit.xml.dist, in {file_name}
-    directory or the nearest common ancestor directory
-    in {folders}.
+    Find the first PHPUnit configuration file, either phpunit.xml or
+    phpunit.xml.dist, in {file_name} directory or the nearest common ancestor
+    directory in {folders}.
     """
 
-    def find(self, file_name, folders):
-        """Finds the PHPUnit configuration file."""
+    debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))
 
-        debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))
-
-        if file_name == None:
-            return None
-
-        if not isinstance(file_name, str):
-            return None
-
-        if not len(file_name) > 0:
-            return None
-
-        if folders == None:
-            return None
-
-        if not isinstance(folders, list):
-            return None
-
-        if not len(folders) > 0:
-            return None
-
-        ancestor_folders = []
-        common_prefix = os.path.commonprefix(folders)
-        parent = os.path.dirname(file_name)
-        while parent not in ancestor_folders and parent.startswith(common_prefix):
-            ancestor_folders.append(parent)
-            parent = os.path.dirname(parent)
-
-        ancestor_folders.sort(reverse=True)
-
-        debug_message('  Found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))
-
-        for folder in ancestor_folders:
-            debug_message('    Searching folder: %s' % folder)
-            for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
-                phpunit_configuration_file = os.path.join(folder, file_name)
-                debug_message('     Checking: %s' % phpunit_configuration_file)
-                if os.path.isfile(phpunit_configuration_file):
-                    debug_message('  Found PHPUnit configuration file: %s' % phpunit_configuration_file)
-                    return phpunit_configuration_file
-
-        debug_message('  PHPUnit Configuration file not found')
-
+    if file_name == None:
         return None
 
-    def find_dirname(self, file_name, folders):
-        phpunit_configuration_file = self.find(file_name, folders)
-        if phpunit_configuration_file:
-            return os.path.dirname(phpunit_configuration_file)
-
+    if not isinstance(file_name, str):
         return None
+
+    if not len(file_name) > 0:
+        return None
+
+    if folders == None:
+        return None
+
+    if not isinstance(folders, list):
+        return None
+
+    if not len(folders) > 0:
+        return None
+
+    ancestor_folders = []
+    common_prefix = os.path.commonprefix(folders)
+    parent = os.path.dirname(file_name)
+    while parent not in ancestor_folders and parent.startswith(common_prefix):
+        ancestor_folders.append(parent)
+        parent = os.path.dirname(parent)
+
+    ancestor_folders.sort(reverse=True)
+
+    debug_message('  Found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))
+
+    for folder in ancestor_folders:
+        debug_message('    Searching folder: %s' % folder)
+        for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
+            phpunit_configuration_file = os.path.join(folder, file_name)
+            debug_message('     Checking: %s' % phpunit_configuration_file)
+            if os.path.isfile(phpunit_configuration_file):
+                debug_message('  Found PHPUnit configuration file: %s' % phpunit_configuration_file)
+                return phpunit_configuration_file
+
+    debug_message('  PHPUnit Configuration file not found')
+
+    return None
+
+def find_phpunit_working_directory(file_name, folders):
+    configuration_file = find_phpunit_configuration_file(file_name, folders)
+    if configuration_file:
+        return os.path.dirname(configuration_file)
+
+    return None
 
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
@@ -220,7 +215,7 @@ class PHPUnitTextUITestRunner():
 
         # Working directory
         if not working_dir:
-            working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
+            working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
             if not working_dir:
                 debug_message('Could not find a PHPUnit working directory')
                 return
@@ -443,7 +438,7 @@ class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
         if not view:
             return
 
-        working_dir = PHPUnitConfigurationFileFinder().find_dirname(view.file_name(), self.window.folders())
+        working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
         if not working_dir:
             sublime.status_message('Could not find a PHPUnit working directory')
             return
