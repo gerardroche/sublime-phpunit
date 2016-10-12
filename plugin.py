@@ -58,6 +58,15 @@ plugin_settings = PluginSettings('phpunit')
 def plugin_loaded():
     plugin_settings.on_load()
 
+def get_setting(key):
+    return plugin_settings.get(key)
+
+def get_workspace_setting(key):
+    return plugin_settings.get_transient('__window__' + str(sublime.active_window().id()) + '__' + key)
+
+def set_workspace_setting(key, value):
+    plugin_settings.set_transient('__window__' + str(sublime.active_window().id()) + '__' + key, value)
+
 def find_phpunit_configuration_file(file_name, folders):
     """
     Find the first PHPUnit configuration file, either phpunit.xml or
@@ -124,13 +133,12 @@ def has_test_case(view):
     for php_class in find_php_classes(view):
         if php_class[-4:] == 'Test':
             return True
-
     return False
 
 def find_php_classes(view):
     """Returns an array of classes (class names) defined in the view."""
-
     classes = []
+
     for class_as_region in view.find_by_selector('source.php entity.name.type.class'):
         class_as_string = view.substr(class_as_region)
         if is_valid_php_identifier(class_as_string):
@@ -148,15 +156,14 @@ def find_php_classes(view):
 
 def find_first_switchable(view):
     """Returns the first switchable; otherwise None."""
+    debug_message('find_first_switchable(view = %s:%s)' % (view, view.file_name()))
+
     window = view.window()
     if not window:
         return None
 
-    file_name = view.file_name()
-    debug_message('Find first switchable for %s' % file_name)
-
     classes = find_php_classes(view)
-    debug_message('  Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, file_name))
+    debug_message('Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, view.file_name()))
 
     for class_name in classes:
         if class_name[-4:] == "Test":
@@ -241,17 +248,17 @@ class PHPUnitTextUITestRunner():
         # * this command's argument
         if options is None:
             options = {}
-        for k, v in plugin_settings.get_transient('options', {}).items():
+        for k, v in get_workspace_setting('options', {}).items():
             if k not in options:
                 options[k] = v
-        for k, v in plugin_settings.get('options').items():
+        for k, v in get_setting('options').items():
             if k not in options:
                 options[k] = v
         debug_message('PHPUnit options %s' % str(options))
 
         # PHPUnit bin
         phpunit_bin = 'phpunit'
-        if plugin_settings.get('composer'):
+        if get_setting('composer'):
             relative_composer_phpunit_bin = os.path.join('vendor', 'bin', 'phpunit')
             composer_phpunit_bin = os.path.join(working_dir, relative_composer_phpunit_bin)
             if os.path.isfile(composer_phpunit_bin):
@@ -282,7 +289,7 @@ class PHPUnitTextUITestRunner():
         debug_message('exec cmd: %s' % cmd)
 
         # Write out every buffer (active window) with changes and a file name.
-        if plugin_settings.get('save_all_on_run'):
+        if get_setting('save_all_on_run'):
             for view in self.window.views():
                 if view.is_dirty() and view.file_name():
                     view.run_command('save')
@@ -297,8 +304,7 @@ class PHPUnitTextUITestRunner():
             'working_dir': working_dir
         })
 
-        # Save last run arguments (for current window)
-        plugin_settings.set_transient('__window__' + str(self.window.id()) + '__run_last_test_args', {
+        set_workspace_setting('last_test_run_args', {
             'working_dir': working_dir,
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
@@ -307,13 +313,12 @@ class PHPUnitTextUITestRunner():
         # Configure color scheme
         panel_settings = self.window.create_output_panel('exec').settings()
         panel_settings.set('color_scheme',
-            plugin_settings.get('color_scheme')
-                if plugin_settings.get('color_scheme')
+            get_setting('color_scheme')
+                if get_setting('color_scheme')
                     else view.settings().get('color_scheme'))
 
     def run_last_test(self):
-        # get last run arguments (for current window)
-        args = plugin_settings.get_transient('__window__' + str(self.window.id()) + '__run_last_test_args')
+        args = get_workspace_setting('last_test_run_args')
         if args:
             self.run(args)
 
@@ -427,9 +432,9 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
 
     def run(self, option):
-        options = plugin_settings.get_transient('options', {})
+        options = get_workspace_setting('options', {})
         options[option] = not bool(options[option]) if option in options else True
-        plugin_settings.set_transient('options', options)
+        set_workspace_setting('options', options)
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 
