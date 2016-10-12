@@ -26,18 +26,18 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Run test suite <kbd>Ctrl+Shift+t</kbd>
 * Run test case <kbd>Ctrl+Shift+r</kbd>
 * Run test method <kbd>Ctrl+Shift+r</kbd> (put cursor on test method)
-* Run test methods <kbd>Ctrl+Shift+r</kbd> (use multiple cursor selection of test method)
+* Run test methods <kbd>Ctrl+Shift+r</kbd> (use multiple cursor selection of test methods)
 * Run test case for current class under test <kbd>Ctrl+Shift+r</kbd>
-* Rerun last test(s) <kbd>Ctrl+Shift+e</kbd>
-* Test results output in color (including color failure diffs)
-* Jump to next <kbd>F4</kbd> / previous failure <kbd>Shift+F4</kbd> (navigates to file line number of failure)
-* Switch, split, and focus test case &amp; class under test <kbd>Ctrl+Shift+.</kbd>
+* Rerun last test <kbd>Ctrl+Shift+e</kbd>
+* Test results in color (including failure diffs)
+* Jump to next <kbd>F4</kbd> / previous <kbd>Shift+F4</kbd> failure (navigates to file, line, and column of failure)
+* Switch, split, and focus test case / class under test <kbd>Ctrl+Shift+.</kbd>
 
 ## COMMANDS
 
 * PHPUnit: Run All Tests <kbd>Ctrl+Shift+t</kbd>
-* PHPUnit: Run Last Test <kbd>Ctrl+Shift+e</kbd>
 * PHPUnit: Run Single Test <kbd>Ctrl+Shift+r</kbd>
+* PHPUnit: Run Last Test <kbd>Ctrl+Shift+e</kbd>
 * PHPUnit: Switch Test Case / Class Under Test <kbd>Ctrl+Shift+.</kbd>
 * PHPUnit: Open HTML Code Coverage in Browser
 * PHPUnit: Toggle Option --debug
