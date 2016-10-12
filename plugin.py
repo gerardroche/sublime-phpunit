@@ -12,60 +12,31 @@ else:
     def debug_message(message):
         pass
 
-class PluginSettings():
+def get_setting(key):
+    view = sublime.active_window().active_view()
+    if view:
+        settings = view.settings()
+    else:
+        settings = sublime.load_settings('Preferences.sublime-settings')
 
-    def __init__(self, name):
-        self.name = name
-        self.loaded = False
-        self.transient_data = {}
+    if settings.has('phpunit.' + key):
+        return settings.get('phpunit.' + key)
+    else:
+        raise RuntimeError('Could not get setting: %s' % key)
 
-    def on_load(self):
-        if self.loaded:
-            return
-
-        self.loaded = True
-
-    def get(self, key):
-        if not self.loaded:
-            raise RuntimeError('Plugin settings not loaded')
-
-        window = sublime.active_window()
-        if window is not None:
-
-            view = window.active_view()
-            if view is not None:
-
-                settings = view.settings()
-                if settings.has(self.name + '.' + key):
-                    return settings.get(self.name + '.' + key)
-
-        raise RuntimeError('Unknown plugin setting "%s"' % key)
-
-    def get_transient(self, key, default = None):
-        if key in self.transient_data:
-            return self.transient_data[key]
-
-        try:
-            return self.get(key)
-        except:
+def get_window_setting(key, default = None):
+    settings = sublime.active_window().settings()
+    if settings.has('phpunit.window.' + str(key)):
+        return settings.get('phpunit.window.' + str(key))
+    else:
+        try: # default to plugin setting
+            return get_setting(key)
+        except: # or fallback to given default
             return default
 
-    def set_transient(self, key, value):
-        self.transient_data[key] = value
-
-plugin_settings = PluginSettings('phpunit')
-
-def plugin_loaded():
-    plugin_settings.on_load()
-
-def get_setting(key):
-    return plugin_settings.get(key)
-
-def get_workspace_setting(key):
-    return plugin_settings.get_transient('__window__' + str(sublime.active_window().id()) + '__' + key)
-
-def set_workspace_setting(key, value):
-    plugin_settings.set_transient('__window__' + str(sublime.active_window().id()) + '__' + key, value)
+def set_window_setting(key, value):
+    settings = sublime.active_window().settings()
+    settings.set('phpunit.window.' + str(key), value)
 
 def find_phpunit_configuration_file(file_name, folders):
     """
@@ -73,7 +44,6 @@ def find_phpunit_configuration_file(file_name, folders):
     phpunit.xml.dist, in {file_name} directory or the nearest common ancestor
     directory in {folders}.
     """
-
     debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))
 
     if file_name == None:
@@ -248,7 +218,7 @@ class PHPUnitTextUITestRunner():
         # * this command's argument
         if options is None:
             options = {}
-        for k, v in get_workspace_setting('options', {}).items():
+        for k, v in get_window_setting('options', {}).items():
             if k not in options:
                 options[k] = v
         for k, v in get_setting('options').items():
@@ -304,7 +274,7 @@ class PHPUnitTextUITestRunner():
             'working_dir': working_dir
         })
 
-        set_workspace_setting('last_test_run_args', {
+        set_window_setting('last_test_run_args', {
             'working_dir': working_dir,
             'unit_test_or_directory': unit_test_or_directory,
             'options': options
@@ -318,7 +288,7 @@ class PHPUnitTextUITestRunner():
                     else view.settings().get('color_scheme'))
 
     def run_last_test(self):
-        args = get_workspace_setting('last_test_run_args')
+        args = get_window_setting('last_test_run_args')
         if args:
             self.run(args)
 
@@ -432,9 +402,9 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
 
     def run(self, option):
-        options = get_workspace_setting('options', {})
+        options = get_window_setting('options', {})
         options[option] = not bool(options[option]) if option in options else True
-        set_workspace_setting('options', options)
+        set_window_setting('options', options)
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 
