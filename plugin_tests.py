@@ -57,7 +57,7 @@ class PhpunitRunAllPluginTests(sublime_plugin.WindowCommand):
         return bool(self.window.active_view().settings().get('phpunit.development'))
 
 # @todo is there is an ST command that replaces view content?
-class __phpunit_test_view_replace(sublime_plugin.TextCommand):
+class phpunit_test_view_replace(sublime_plugin.TextCommand):
 
     def run(self, edit, text):
         self.view.replace(edit, sublime.Region(0, self.view.size()), text)

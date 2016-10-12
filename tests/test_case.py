@@ -4,7 +4,7 @@ import sublime
 class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.view = sublime.active_window().new_file()
+        self.view = sublime.active_window().create_output_panel('phpunit_test_view', unlisted=True)
         self.view.set_scratch(True)
         self.view.settings().set('auto_indent', False)
         self.view.settings().set('indent_to_bracket', False)
@@ -22,7 +22,7 @@ class ViewTestCase(unittest.TestCase):
             self.view.close()
 
     def set_view_content(self, text):
-        self.view.run_command('__phpunit_test_view_replace', {'text': text})
+        self.view.run_command('phpunit_test_view_replace', {'text': text})
 
     def get_view_content(self):
         return self.view.substr(sublime.Region(0, self.view.size()))

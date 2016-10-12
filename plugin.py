@@ -6,9 +6,7 @@ import sublime_plugin
 
 if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
     def debug_message(message):
-        """
-        Prints a debug level message.
-        """
+        """Prints a debug level message."""
         print('DEBUG phpunitkit: %s' % str(message))
 else:
     def debug_message(message):
@@ -70,11 +68,9 @@ class PHPUnitConfigurationFileFinder():
     """
 
     def find(self, file_name, folders):
-        """
-        Finds the PHPUnit configuration file.
-        """
+        """Finds the PHPUnit configuration file."""
 
-        debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders)))
+        debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))
 
         if file_name == None:
             return None
@@ -128,99 +124,81 @@ class PHPUnitConfigurationFileFinder():
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
 
-class ViewHelpers():
+def contains_phpunit_test_case(view):
+    """True if the view contains a valid PHPUnit test case."""
+    for php_class in find_php_classes(view):
+        if php_class[-4:] == 'Test':
+            return True
 
-    def __init__(self, view):
-        self.view = view
+    return False
 
-    def contains_phpunit_test_case(self):
-        """
-        Returns true if view contains a PHPUnit test-case; otherwise false
-        """
+def find_php_classes(view):
+    """Returns an array of classes (class names) defined in the view."""
 
-        for php_class in self.find_php_classes():
-            if php_class[-4:] == 'Test':
-                return True
+    classes = []
+    for class_as_region in view.find_by_selector('source.php entity.name.type.class'):
+        class_as_string = view.substr(class_as_region)
+        if is_valid_php_identifier(class_as_string):
+            classes.append(class_as_string)
 
-        return False
-
-    def find_php_classes(self):
-        """
-        Returns an array of classes (class names) defined in the view
-        """
-
-        classes = []
-        for class_as_region in self.view.find_by_selector('source.php entity.name.type.class'):
-            class_as_string = self.view.substr(class_as_region)
+    # Quick fix for ST build >= 3114 because the default PHP package changed the
+    # scope on class entities.
+    if not classes:
+        for class_as_region in view.find_by_selector('source.php entity.name.class'):
+            class_as_string = view.substr(class_as_region)
             if is_valid_php_identifier(class_as_string):
                 classes.append(class_as_string)
 
-        # Quick fix for ST build >= 3114 because the default PHP package
-        # changed the scope on class entities.
-        if not classes:
-            for class_as_region in self.view.find_by_selector('source.php entity.name.class'):
-                class_as_string = self.view.substr(class_as_region)
-                if is_valid_php_identifier(class_as_string):
-                    classes.append(class_as_string)
+    return classes
 
-        return classes
+def find_first_switchable(view):
+    """Returns the first switchable; otherwise None."""
 
-    def find_first_switchable(self):
-        """
-        Returns the first switchable; otherwise None
-        """
+    file_name = view.file_name()
+    debug_message('Find first switchable for %s' % file_name)
 
-        file_name = self.view.file_name()
-        debug_message('Find first switchable for %s' % file_name)
+    classes = find_php_classes(view)
+    debug_message('  Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, file_name))
 
-        classes = self.find_php_classes()
-        debug_message('  Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, file_name))
+    for class_name in classes:
+        if class_name[-4:] == "Test":
+            lookup_symbol = class_name[:-4]
+        else:
+            lookup_symbol = class_name + "Test"
 
-        for class_name in classes:
-            if class_name[-4:] == "Test":
-                lookup_symbol = class_name[:-4]
-            else:
-                lookup_symbol = class_name + "Test"
+        debug_message('    Switchable symbol: %s' % lookup_symbol)
 
-            debug_message('    Switchable symbol: %s' % lookup_symbol)
+        switchables_in_open_files = view.window().lookup_symbol_in_open_files(lookup_symbol)
+        switchables_in_index = view.window().lookup_symbol_in_index(lookup_symbol)
 
-            switchables_in_open_files = self.view.window().lookup_symbol_in_open_files(lookup_symbol)
-            switchables_in_index = self.view.window().lookup_symbol_in_index(lookup_symbol)
+        debug_message('      Found %d switchable symbol%s in open files %s' % (len(switchables_in_open_files), '' if len(switchables_in_open_files) == 1 else 's', str(switchables_in_open_files)))
+        debug_message('      Found %d switchable symbol%s in index      %s' % (len(switchables_in_index), '' if len(switchables_in_index) == 1 else 's', str(switchables_in_index)))
 
-            debug_message('      Found %d switchable symbol%s in open files %s' % (len(switchables_in_open_files), '' if len(switchables_in_open_files) == 1 else 's', str(switchables_in_open_files)))
-            debug_message('      Found %d switchable symbol%s in index      %s' % (len(switchables_in_index), '' if len(switchables_in_index) == 1 else 's', str(switchables_in_index)))
+        for open_file in switchables_in_open_files:
+            debug_message('  Found switchable symbol in open file %s' % str(open_file))
+            return open_file
 
-            for open_file in switchables_in_open_files:
-                debug_message('  Found switchable symbol in open file %s' % str(open_file))
-                return open_file
+        for index in switchables_in_index:
+            debug_message('  Found switchable symbol in index %s' % str(index))
+            return index
 
-            for index in switchables_in_index:
-                debug_message('  Found switchable symbol in index %s' % str(index))
-                return index
+def find_first_switchable_file(view):
+    """Returns the first switchable file; otherwise None."""
 
-    def find_first_switchable_file(self):
-        """
-        Returns the first switchable file; otherwise None
-        """
+    first_switchable = find_first_switchable(view)
+    if not first_switchable:
+        return None
 
-        first_switchable = self.find_first_switchable()
-        if not first_switchable:
-            return None
+    def normalise_path(path):
+        if int(sublime.version()) < 3118:
+            if sublime.platform() == "windows":
+                path = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", path)
+                path = re.sub(r"/", r"\\", path)
+        return path
 
-        def normalise_path(path):
-            if int(sublime.version()) < 3118:
-                if sublime.platform() == "windows":
-                    path = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", path)
-                    path = re.sub(r"/", r"\\", path)
-            return path
-
-        return normalise_path(first_switchable[0])
+    return normalise_path(first_switchable[0])
 
 class PHPUnitTextUITestRunner():
-
-    """
-    PHPUnit test runner
-    """
 
     def __init__(self, window):
         self.window = window
@@ -344,36 +322,22 @@ class PHPUnitTextUITestRunner():
 
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
-    """
-    Runs all tests
-    """
-
     def run(self):
         PHPUnitTextUITestRunner(self.window).run()
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
-
-    """
-    Run last test
-    """
 
     def run(self):
         PHPUnitTextUITestRunner(self.window).run_last_test()
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
-    """
-    Run single test
-    """
-
     def run(self):
         view = self.window.active_view()
         if not view:
             return
 
-        view_helpers = ViewHelpers(view)
-
-        if view_helpers.contains_phpunit_test_case():
+        if contains_phpunit_test_case(view):
             debug_message('Found test case in %s' % view.file_name())
 
             unit_test = view.file_name()
@@ -389,7 +353,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
         else:
             debug_message('No test case found in %s' % view.file_name())
 
-            unit_test = view_helpers.find_first_switchable_file()
+            unit_test = find_first_switchable_file(view)
             options = {}
             # @todo how to check that the switchable contains a testcase?
 
@@ -421,17 +385,13 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
-    """
-    Switch file
-    """
-
     def run(self):
 
         current_view = self.window.active_view()
         if not current_view:
             return
 
-        first_switchable = ViewHelpers(current_view).find_first_switchable()
+        first_switchable = find_first_switchable(current_view)
         if not first_switchable:
             sublime.status_message('No PHPUnit switchable found for "%s"' % current_view.file_name())
             return
@@ -469,20 +429,12 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
 class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
 
-    """
-    Toggle PHPUnit Command-Line (long) Options
-    """
-
     def run(self, option):
         options = plugin_settings.get_transient('options', {})
         options[option] = not bool(options[option]) if option in options else True
         plugin_settings.set_transient('options', options)
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
-
-    """
-    Open HTML code coverage in browser
-    """
 
     def run(self):
         view = self.window.active_view()
