@@ -22,21 +22,20 @@ def get_setting(key):
     if settings.has('phpunit.' + key):
         return settings.get('phpunit.' + key)
     else:
-        raise RuntimeError('Could not get setting: %s' % key)
+        raise RuntimeError('Could not get setting: phpunit.%s' % key)
 
 def get_window_setting(key, default = None):
     settings = sublime.active_window().settings()
-    if settings.has('phpunit.window.' + str(key)):
-        return settings.get('phpunit.window.' + str(key))
+    if settings.has('phpunit.' + str(key)):
+        return settings.get('phpunit.' + str(key))
     else:
-        try: # default to plugin setting
+        try:
             return get_setting(key)
-        except: # or fallback to given default
+        except:
             return default
 
 def set_window_setting(key, value):
-    settings = sublime.active_window().settings()
-    settings.set('phpunit.window.' + str(key), value)
+    sublime.active_window().settings().set('phpunit.' + str(key), value)
 
 def find_phpunit_configuration_file(file_name, folders):
     """
@@ -92,7 +91,6 @@ def find_phpunit_working_directory(file_name, folders):
     configuration_file = find_phpunit_configuration_file(file_name, folders)
     if configuration_file:
         return os.path.dirname(configuration_file)
-
     return None
 
 def is_valid_php_identifier(string):

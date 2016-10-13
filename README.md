@@ -209,11 +209,11 @@ Key | Description | Type | Default
 
 Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
 
-### Package Control
+### Package Control installation
 
 The preferred method of installation is [Package Control].
 
-### Manual
+### Manual installation
 
 1. Close Sublime Text.
 2. Download or clone this repository to a directory named **`phpunitkit`** in the Sublime Text Packages directory for your platform:
