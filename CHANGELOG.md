@@ -1,5 +1,9 @@
 # PHPUNITKIT CHANGELOG
 
+## [1.2.0]
+
+* Minor fixes and refactorings
+
 ## [1.1.0]
 
 * Added [#39](https://github.com/gerardroche/sublime-phpunit/issues/39): Command Palette Command-Line Option toggles
@@ -179,6 +183,7 @@
 
 * Initial import; PHPUnit support
 
+[1.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.3...1.1.0
 [1.0.3]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.1...1.0.2
