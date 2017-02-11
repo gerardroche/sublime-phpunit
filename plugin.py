@@ -338,18 +338,29 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
     def selected_unit_test_method_names(self, view):
         """
-        If all selections are test methods returns an array of all selected
-        test method names; otherwise None
+        Returns an array of selected test method names.
+        Selection can be anywhere inside one or more test methods.
+        If no selection is found inside any test method, then all test method names are returned.
         """
 
-        # @todo should be a scoped selection i.e. is the selection a source.php entity.name.function
         method_names = []
-        for region in view.sel():
-            word = view.substr(view.word(region))
-            if not is_valid_php_identifier(word) or word[:4] != 'test':
-                return None
+        function_areas = view.find_by_selector('meta.function')
+        function_regions = view.find_by_selector('entity.name.function')
 
-            method_names.append(word)
+        for region in view.sel():
+            for i, area in enumerate(function_areas):
+                if not area.a <= region.a <= area.b:
+                    continue
+                word = view.substr(function_regions[i])
+                if is_valid_php_identifier(word):
+                    method_names.append(word)
+                break
+
+        if not method_names:
+            for region in function_regions:
+                word = view.substr(region)
+                if is_valid_php_identifier(word):
+                    method_names.append(word)
 
         return method_names
 
