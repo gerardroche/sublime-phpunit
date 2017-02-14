@@ -4,6 +4,7 @@ import os
 import sublime
 import sublime_plugin
 
+
 if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
     def debug_message(message):
         """Prints a debug level message."""
@@ -11,6 +12,7 @@ if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
 else:
     def debug_message(message):
         pass
+
 
 def get_setting(key):
     view = sublime.active_window().active_view()
@@ -24,6 +26,7 @@ def get_setting(key):
     else:
         raise RuntimeError('Could not get setting: phpunit.%s' % key)
 
+
 def get_window_setting(key, default = None):
     settings = sublime.active_window().settings()
     if settings.has('phpunit.' + str(key)):
@@ -34,8 +37,10 @@ def get_window_setting(key, default = None):
         except:
             return default
 
+
 def set_window_setting(key, value):
     sublime.active_window().settings().set('phpunit.' + str(key), value)
+
 
 def find_phpunit_configuration_file(file_name, folders):
     """
@@ -87,14 +92,17 @@ def find_phpunit_configuration_file(file_name, folders):
 
     return None
 
+
 def find_phpunit_working_directory(file_name, folders):
     configuration_file = find_phpunit_configuration_file(file_name, folders)
     if configuration_file:
         return os.path.dirname(configuration_file)
     return None
 
+
 def is_valid_php_identifier(string):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
+
 
 def has_test_case(view):
     """True if the view contains a valid PHPUnit test case."""
@@ -102,6 +110,7 @@ def has_test_case(view):
         if php_class[-4:] == 'Test':
             return True
     return False
+
 
 def find_php_classes(view):
     """Returns an array of classes (class names) defined in the view."""
@@ -121,6 +130,7 @@ def find_php_classes(view):
                 classes.append(class_as_string)
 
     return classes
+
 
 def find_first_switchable(view):
     """Returns the first switchable; otherwise None."""
@@ -155,6 +165,7 @@ def find_first_switchable(view):
             debug_message('  Found switchable symbol in index %s' % str(index))
             return index
 
+
 def find_first_switchable_file(view):
     """Returns the first switchable file; otherwise None."""
     first_switchable = find_first_switchable(view)
@@ -169,6 +180,7 @@ def find_first_switchable_file(view):
             file = re.sub(r"/", r"\\", file)
 
     return file
+
 
 class PHPUnitTextUITestRunner():
 
@@ -290,15 +302,18 @@ class PHPUnitTextUITestRunner():
         if args:
             self.run(args)
 
+
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnitTextUITestRunner(self.window).run()
 
+
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnitTextUITestRunner(self.window).run_last_test()
+
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
@@ -353,6 +368,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 
         return method_names
 
+
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
     def run(self):
@@ -397,12 +413,14 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
             self.window.focus_view(current_view)
             self.window.focus_view(switched_view)
 
+
 class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
 
     def run(self, option):
         options = get_window_setting('options', {})
         options[option] = not bool(options[option]) if option in options else True
         set_window_setting('options', options)
+
 
 class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 
