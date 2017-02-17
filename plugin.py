@@ -358,12 +358,6 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
                     method_names.append(word)
                 break
 
-        if not method_names:
-            for region in function_regions:
-                word = view.substr(region)
-                if is_valid_php_identifier(word):
-                    method_names.append(word)
-
         return method_names
 
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
