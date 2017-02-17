@@ -366,6 +366,8 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             for i, area in enumerate(function_areas):
                 if not area.a <= region.a <= area.b:
                     continue
+                if not i in function_regions and not area.intersects(function_regions[i]):
+                    continue
                 word = view.substr(function_regions[i])
                 if is_valid_php_identifier(word):
                     method_names.append(word)
