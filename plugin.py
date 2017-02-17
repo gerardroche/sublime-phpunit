@@ -372,6 +372,10 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
                 if is_valid_php_identifier(word):
                     method_names.append(word)
                 break
+            if not method_names:
+                word = view.substr(view.word(region))
+                if is_valid_php_identifier(word) and word[:4] == 'test':
+                    method_names.append(word)
 
         return method_names
 
