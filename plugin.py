@@ -182,17 +182,17 @@ def find_first_switchable_file(view):
     return file
 
 
-class PHPUnitTextUITestRunner():
+class PHPUnit():
 
     def __init__(self, window):
         self.window = window
 
     def run(self, args=None):
         if args:
-            debug_message('PHPUnitTextUITestRunner::run %s' % (args))
+            debug_message('PHPUnit::run %s' % (args))
             self._run(**args)
         else:
-            debug_message('PHPUnitTextUITestRunner::run {}')
+            debug_message('PHPUnit::run {}')
             self._run()
 
     def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
@@ -306,13 +306,13 @@ class PHPUnitTextUITestRunner():
 class PhpunitRunAllTests(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnitTextUITestRunner(self.window).run()
+        PHPUnit(self.window).run()
 
 
 class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnitTextUITestRunner(self.window).run_last_test()
+        PHPUnit(self.window).run_last()
 
 
 class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
@@ -346,7 +346,7 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             debug_message('Could not find a PHPUnit test case or a switchable test case')
             return
 
-        PHPUnitTextUITestRunner(self.window).run({
+        PHPUnit(self.window).run({
             "unit_test_or_directory": unit_test,
             "options": options
         })
