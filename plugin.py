@@ -425,7 +425,7 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
             self.window.focus_view(switched_view)
 
 
-class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
+class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 
     def run(self, option):
         options = get_window_setting('options', {})
