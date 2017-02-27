@@ -12,7 +12,7 @@
     "phpunit.keymaps": true,
 
     // Enable the default vi keymaps.
-    "phpunit.keymaps.vi": false,
+    "phpunit.keymaps.vi": true,
 
     // Options to pass to PHPUnit when running tests. Any PHPUnit option is
     // valid. See phpunit --help for an up-to-date list of available options.

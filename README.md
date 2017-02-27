@@ -70,7 +70,7 @@ OS X | Windows / Linux | Description
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
-The Vintage/Vintageous keybindings are disabled by default.
+Vintage/Vintageous
 
 OS X / Windows / Linux | Description
 -----------------------|------------
@@ -85,7 +85,7 @@ Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | Command-line options to pass to PHPUnit. See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
 `phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.keymaps.vi` | Enable the default vi keymaps (requires `phpunit.keymaps` to be enabled). | `boolean` | `false`
+`phpunit.keymaps.vi` | Enable the default vi keymaps (requires `phpunit.keymaps` to be enabled). | `boolean` | `true`
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer (active window) with changes and a file name, on test runs. | `boolean` | `true`
 

@@ -1,5 +1,6 @@
 # PHPUNITKIT CHANGELOG
 
+* Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now disabled by default
 * Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
 
 ## [1.2.1]
