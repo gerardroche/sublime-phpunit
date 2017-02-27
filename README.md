@@ -189,8 +189,6 @@ Or disable it per-project.
 
 ## INSTALLATION
 
-Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
-
 ### Package Control installation
 
 The preferred method of installation is [Package Control].
