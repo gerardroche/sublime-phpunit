@@ -1,5 +1,7 @@
 # PHPUNITKIT CHANGELOG
 
+* Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
+
 ## [1.2.1]
 
 * Fixed: Open settings command file path
