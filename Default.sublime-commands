@@ -34,7 +34,7 @@
         "command": "phpunit_open_html_code_coverage_in_browser"
     },
     {
-        "caption": "PHPUnit: Switch Test Case / Class Under Test",
+        "caption": "PHPUnit: Switch File",
         "command": "phpunit_switch_file"
     },
 

@@ -8,6 +8,7 @@
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run All Tests is now Test Suite
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Last Test is now Test Last
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Single is now Test Nearest
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Switch Test Case / Class Under Test is now Switch File
 * Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
 
 ## [1.2.1]

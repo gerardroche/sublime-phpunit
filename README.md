@@ -25,7 +25,7 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Supports [Composer]
 * Test results in color (including failure diffs)
 * Jump to next/previous test failure (<kbd>F4</kbd>/<kbd>Shift+F4</kbd>)
-* Switch, split, &amp; focus on test case and class under test
+* Switch File (splits, &amp; focuses on test case and class under test)
 
 ## COMMANDS
 
@@ -34,7 +34,7 @@ PHPUnit: Test Suite
 PHPUnit: Test File
 PHPUnit: Test Nearest
 PHPUnit: Test Last
-PHPUnit: Switch Test Case / Class Under Test
+PHPUnit: Switch File
 PHPUnit: Open HTML Code Coverage in Browser
 PHPUnit: Toggle Option --debug
 PHPUnit: Toggle Option --disallow-test-output
@@ -61,7 +61,7 @@ OS X | Windows / Linux | Description
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Test Suite
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Test Nearest
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Test Last
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch, split, &amp; focus test case and class under test
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch File
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
@@ -73,7 +73,7 @@ OS X / Windows / Linux | Description
 <kbd>,</kbd><kbd>T</kbd> | Test File
 <kbd>,</kbd><kbd>t</kbd> | Test Nearest
 <kbd>,</kbd><kbd>l</kbd> | Test Last
-<kbd>,</kbd><kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
+<kbd>,</kbd><kbd>.</kbd> | Switch File
 
 ## CONFIGURATION
 
