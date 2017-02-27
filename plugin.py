@@ -236,18 +236,14 @@ class PHPUnit():
                 options[k] = v
         debug_message('PHPUnit options %s' % str(options))
 
-        # PHPUnit bin
-        phpunit_bin = 'phpunit'
-        if get_setting('composer'):
-            relative_composer_phpunit_bin = os.path.join('vendor', 'bin', 'phpunit')
-            composer_phpunit_bin = os.path.join(working_dir, relative_composer_phpunit_bin)
-            if os.path.isfile(composer_phpunit_bin):
-                debug_message('Found Composer PHPUnit bin: %s' % composer_phpunit_bin)
-                phpunit_bin = relative_composer_phpunit_bin
-        debug_message('PHPUnit bin: %s' % phpunit_bin)
+        # PHPUnit executable
+        if get_setting('composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
+            phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+        else:
+            phpunit_executable = 'phpunit'
 
         # Execute Command
-        cmd = phpunit_bin
+        cmd = phpunit_executable
         for k, v in options.items():
             if not v == False:
                 if len(k) == 1:
