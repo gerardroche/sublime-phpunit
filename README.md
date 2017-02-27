@@ -23,41 +23,28 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Zero configuration required; Does the Right Thing™
 * Fully customized CLI options configuration
 * Supports [Composer]
-* Test results in color (including failure diffs)
-* Jump to next/previous test failure (<kbd>F4</kbd>/<kbd>Shift+F4</kbd>)
-* Switch File (splits, &amp; focuses on test case and class under test)
+* Supports colour test results (including failure diffs)
+* Jump to next/previous test result failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
+* Switch File (splits window and puts test case and class under test side by side)
 
 ## COMMANDS
 
-```
-PHPUnit: Test Suite
-PHPUnit: Test File
-PHPUnit: Test Nearest
-PHPUnit: Test Last
-PHPUnit: Switch File
-PHPUnit: Show Results
-PHPUnit: Open Code Coverage
-PHPUnit: Toggle Option --debug
-PHPUnit: Toggle Option --disallow-test-output
-PHPUnit: Toggle Option --disallow-todo-tests
-PHPUnit: Toggle Option --enforce-time-limit
-PHPUnit: Toggle Option --no-coverage
-PHPUnit: Toggle Option --report-useless-tests
-PHPUnit: Toggle Option --stop-on-error
-PHPUnit: Toggle Option --stop-on-failure
-PHPUnit: Toggle Option --stop-on-incomplete
-PHPUnit: Toggle Option --stop-on-risky
-PHPUnit: Toggle Option --stop-on-skipped
-PHPUnit: Toggle Option --strict-coverage
-PHPUnit: Toggle Option --strict-global-state
-PHPUnit: Toggle Option --tap
-PHPUnit: Toggle Option --testdox
-PHPUnit: Toggle Option --verbose
-```
+All commands are prefixed with "PHPUnit: ".
+
+Command | Description
+--------|------------
+Test Suite | Runs the whole test suite.
+Test File | Runs all the tests in the current file test case.
+Test Nearest | Runs the test nearest to the cursor. A multiple selection can used to used to run several tests at once.
+Test Last | Runs the last test.
+Switch File | Splits the window and puts nearest test case and class under test side by side.
+Show Results |
+Open Code Coverage |
+Toggle Option |
 
 ## KEY BINDINGS
 
-OS X | Windows / Linux | Description
+OS X | Windows / Linux | Command
 -----|-----------------|------------
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Test Suite
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Test Nearest
@@ -68,7 +55,7 @@ OS X | Windows / Linux | Description
 
 Vintage/Vintageous
 
-OS X / Windows / Linux | Description
+OS X / Windows / Linux | Command
 -----------------------|------------
 <kbd>,</kbd><kbd>a</kbd> | Test Suite
 <kbd>,</kbd><kbd>T</kbd> | Test File
@@ -85,6 +72,36 @@ Key | Description | Type | Default
 `phpunit.keymaps.vi` | Enable the default vi keymaps (requires `phpunit.keymaps` to be enabled). | `boolean` | `true`
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer (active window) with changes and a file name, on test runs. | `boolean` | `true`
+
+### Composer
+
+If a [Composer] installed PHPUnit is found then PHPUnit is invoked via `vendor/bin/phpunit`, otherwise PHPUnit assumed to be available on the system path and is invoked via `phpunit`.
+
+To disable the Composer installed PHPunit check globally.
+
+`Preferences > Settings`
+
+```json
+{
+    "phpunit.options": {
+        "composer": false
+    }
+}
+```
+
+Or disable it per-project.
+
+`Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.options": {
+            "composer": false
+        }
+    }
+}
+```
 
 ### CLI Options
 
@@ -152,36 +169,6 @@ All the above configurations map to the following CLI Options passed to PHPUnit.
 
 ```
 --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
-```
-
-### Composer
-
-If a [Composer] installed PHPUnit is found then PHPUnit is invoked via `vendor/bin/phpunit`, otherwise PHPUnit assumed to be available on the system path and is invoked via `phpunit`.
-
-To disable the Composer installed PHPunit check globally.
-
-`Preferences > Settings`
-
-```json
-{
-    "phpunit.options": {
-        "composer": false
-    }
-}
-```
-
-Or disable it per-project.
-
-`Project > Edit Project`
-
-```json
-{
-    "settings": {
-        "phpunit.options": {
-            "composer": false
-        }
-    }
-}
 ```
 
 ## INSTALLATION
