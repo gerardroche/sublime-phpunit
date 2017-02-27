@@ -74,9 +74,9 @@ Vintage/Vintageous
 
 OS X / Windows / Linux | Description
 -----------------------|------------
-<kbd>,</kbd><kbd>r</kbd> | Run single test case or test(s)
-<kbd>,</kbd><kbd>t</kbd> | Run test suite
-<kbd>,</kbd><kbd>e</kbd> | Rerun last test(s)
+<kbd>,</kbd><kbd>t</kbd> | Run single test case or test(s)
+<kbd>,</kbd><kbd>a</kbd> | Run test suite
+<kbd>,</kbd><kbd>l</kbd> | Rerun last test(s)
 <kbd>,</kbd><kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
 
 ## CONFIGURATION
