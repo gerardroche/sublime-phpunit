@@ -16,7 +16,7 @@
         "command": "phpunit_test_nearest"
     },
     {
-        "caption": "PHPUnit: Show Test Results",
+        "caption": "PHPUnit: Show Results",
         "command": "show_panel",
         "args": {
             "panel": "output.exec"

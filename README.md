@@ -35,6 +35,7 @@ PHPUnit: Test File
 PHPUnit: Test Nearest
 PHPUnit: Test Last
 PHPUnit: Switch File
+PHPUnit: Show Results
 PHPUnit: Open Code Coverage
 PHPUnit: Toggle Option --debug
 PHPUnit: Toggle Option --disallow-test-output
