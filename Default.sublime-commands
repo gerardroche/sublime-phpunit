@@ -30,8 +30,8 @@
         }
     },
     {
-        "caption": "PHPUnit: Open HTML Code Coverage in Browser",
-        "command": "phpunit_open_html_code_coverage_in_browser"
+        "caption": "PHPUnit: Open Code Coverage",
+        "command": "phpunit_open_code_coverage"
     },
     {
         "caption": "PHPUnit: Switch File",

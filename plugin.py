@@ -304,6 +304,7 @@ class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
     def run(self):
         PHPUnit(self.window).run()
 
+
 class PhpunitTestFileCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
@@ -442,7 +443,7 @@ class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
         set_window_setting('options', options)
 
 
-class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
+class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
