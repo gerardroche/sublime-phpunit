@@ -260,7 +260,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## CREDITS
 
-Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit).
+Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit). And inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
 
 ## LICENSE
 
