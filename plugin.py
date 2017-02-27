@@ -304,6 +304,20 @@ class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
     def run(self):
         PHPUnit(self.window).run()
 
+class PhpunitTestFileCommand(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        file_name = self.view.file_name()
+        if not file_name:
+            return
+
+        window = self.view.window()
+        if not window:
+            return
+
+        PHPUnit(window).run({"unit_test_or_directory": file_name})
+
+
 class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
 
     def run(self):

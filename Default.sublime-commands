@@ -1,5 +1,9 @@
 [
     {
+        "caption": "PHPUnit: Test File",
+        "command": "phpunit_test_file"
+    },
+    {
         "caption": "PHPUnit: Test Suite",
         "command": "phpunit_test_suite"
     },
