@@ -4,6 +4,9 @@
 * Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,r (Test Single) is now ,t
 * Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,e (Test Last) is now ,l
 * Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,t (Test All) is now ,a
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run All Tests is now Test Suite
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Last Test is now Test Last
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Single is now Test Nearest
 * Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
 
 ## [1.2.1]

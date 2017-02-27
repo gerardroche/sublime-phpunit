@@ -1,15 +1,15 @@
 [
     {
-        "caption": "PHPUnit: Run All Tests",
-        "command": "phpunit_run_all_tests"
+        "caption": "PHPUnit: Test Suite",
+        "command": "phpunit_test_suite"
     },
     {
-        "caption": "PHPUnit: Run Last Test",
-        "command": "phpunit_run_last_test"
+        "caption": "PHPUnit: Test Last",
+        "command": "phpunit_test_last"
     },
     {
-        "caption": "PHPUnit: Run Single Test",
-        "command": "phpunit_run_single_test"
+        "caption": "PHPUnit: Test Nearest",
+        "command": "phpunit_test_nearest"
     },
     {
         "caption": "PHPUnit: Show Test Results",

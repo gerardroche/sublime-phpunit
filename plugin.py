@@ -293,25 +293,24 @@ class PHPUnit():
                 if get_setting('color_scheme')
                     else view.settings().get('color_scheme'))
 
-    def run_last_test(self):
+    def run_last(self):
         args = get_window_setting('last_test_run_args')
         if args:
             self.run(args)
 
 
-class PhpunitRunAllTests(sublime_plugin.WindowCommand):
+class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run()
 
-
-class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
+class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_last()
 
 
-class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
+class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()

@@ -23,22 +23,16 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Zero configuration required; Does the Right Thing™
 * Fully customized CLI options configuration
 * Supports [Composer]
-* Run test suite <kbd>Ctrl+Shift+t</kbd>
-* Run test case <kbd>Ctrl+Shift+r</kbd>
-* Run test method <kbd>Ctrl+Shift+r</kbd> (put cursor on test method)
-* Run test methods <kbd>Ctrl+Shift+r</kbd> (use multiple cursor selection of test methods)
-* Run test case for current class under test <kbd>Ctrl+Shift+r</kbd>
-* Rerun last test <kbd>Ctrl+Shift+e</kbd>
 * Test results in color (including failure diffs)
-* Jump to next <kbd>F4</kbd> / previous <kbd>Shift+F4</kbd> failure (navigates to file, line, and column of failure)
-* Switch, split, and focus test case / class under test <kbd>Ctrl+Shift+.</kbd>
+* Jump to next/previous test failure (<kbd>F4</kbd>/<kbd>Shift+F4</kbd>)
+* Switch, split, &amp; focus on test case and class under test
 
 ## COMMANDS
 
 ```
-PHPUnit: Run All Tests
-PHPUnit: Run Single Test
-PHPUnit: Run Last Test
+PHPUnit: Test Suite
+PHPUnit: Test Nearest
+PHPUnit: Test Last
 PHPUnit: Switch Test Case / Class Under Test
 PHPUnit: Open HTML Code Coverage in Browser
 PHPUnit: Toggle Option --debug
@@ -63,10 +57,10 @@ PHPUnit: Toggle Option --verbose
 
 OS X | Windows / Linux | Description
 -----|-----------------|------------
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run single test case or test(s)
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run test suite
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test(s)
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Test Last
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Test Nearest
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Test Suite
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch, split, &amp; focus test case and class under test
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
@@ -74,9 +68,9 @@ Vintage/Vintageous
 
 OS X / Windows / Linux | Description
 -----------------------|------------
-<kbd>,</kbd><kbd>t</kbd> | Run single test case or test(s)
-<kbd>,</kbd><kbd>a</kbd> | Run test suite
-<kbd>,</kbd><kbd>l</kbd> | Rerun last test(s)
+<kbd>,</kbd><kbd>l</kbd> | Test Last
+<kbd>,</kbd><kbd>t</kbd> | Test Nearest
+<kbd>,</kbd><kbd>a</kbd> | Test Suite
 <kbd>,</kbd><kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
 
 ## CONFIGURATION
