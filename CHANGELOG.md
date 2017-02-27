@@ -10,6 +10,7 @@
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Single is now Test Nearest
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Switch Test Case / Class Under Test is now Switch File
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Open HTML Code Coverage in Browser is now open Code Coverage
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Cancel Test Run is now Cancel Test
 * Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
 
 ## [1.2.1]

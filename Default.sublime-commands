@@ -23,7 +23,7 @@
         }
     },
     {
-        "caption": "PHPUnit: Cancel Test Run",
+        "caption": "PHPUnit: Cancel Test",
         "command": "exec",
         "args": {
             "kill": true
