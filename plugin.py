@@ -232,13 +232,13 @@ class PHPUnit():
         debug_message('Options: %s' % str(options))
 
         if get_setting('composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
-            phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+            executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
         else:
-            phpunit_executable = 'phpunit'
+            executable = 'phpunit'
 
-        debug_message('Executable: %s' % phpunit_executable)
+        debug_message('Executable: %s' % executable)
 
-        cmd = phpunit_executable
+        cmd = executable
         for k, v in options.items():
             if not v == False:
                 if len(k) == 1:
