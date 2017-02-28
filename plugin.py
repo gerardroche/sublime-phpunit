@@ -195,54 +195,49 @@ class PHPUnit():
             debug_message('PHPUnit::run {}')
             self._run()
 
-    def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
+    def _run(self, working_dir=None, file=None, options=None):
         view = self.window.active_view()
         if not view:
             return
 
-        # Working directory
         if not working_dir:
             working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
             if not working_dir:
-                debug_message('Could not find a PHPUnit working directory')
                 return
-            debug_message('Found PHPUnit working directory: %s' % working_dir)
+
         if not os.path.isdir(working_dir):
-            debug_message('PHPUnit working directory does not exist or is not a valid directory: %s' % working_dir)
             return
-        debug_message('PHPUnit working directory: %s' % working_dir)
 
-        # Unit test or directory
-        if unit_test_or_directory:
-            if not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-                debug_message('PHPUnit test or directory is invalid: %s' % unit_test_or_directory)
+        debug_message('Working directory: %s' % working_dir)
+
+        if file:
+            if not os.path.isfile(file) and not os.path.isdir(file):
                 return
-            unit_test_or_directory = os.path.relpath(unit_test_or_directory, working_dir)
-        debug_message('PHPUnit test or directory: %s' % unit_test_or_directory)
 
-        # PHPUnit options
-        # Order of Precedence
-        # * User specific "phpunit.options" setting
-        # * Project specific "phpunit.options" setting
-        # * toggled "transient/session" settings
-        # * this command's argument
+            file = os.path.relpath(file, working_dir)
+
+        debug_message('File: %s' % file)
+
         if options is None:
             options = {}
+
         for k, v in get_window_setting('options', {}).items():
             if k not in options:
                 options[k] = v
+
         for k, v in get_setting('options').items():
             if k not in options:
                 options[k] = v
-        debug_message('PHPUnit options %s' % str(options))
 
-        # PHPUnit executable
+        debug_message('Options: %s' % str(options))
+
         if get_setting('composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
             phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
         else:
             phpunit_executable = 'phpunit'
 
-        # Execute Command
+        debug_message('Executable: %s' % phpunit_executable)
+
         cmd = phpunit_executable
         for k, v in options.items():
             if not v == False:
@@ -260,9 +255,10 @@ class PHPUnit():
                     cmd += " --" + k
                     if not v == True:
                         cmd += " \"%s\"" % (v)
-        if unit_test_or_directory:
-            cmd += " " + unit_test_or_directory
-        debug_message('exec cmd: %s' % cmd)
+        if file:
+            cmd += " " + file
+
+        debug_message('Command: %s' % cmd)
 
         # Write out every buffer (active window) with changes and a file name.
         if get_setting('save_all_on_run'):
@@ -280,9 +276,9 @@ class PHPUnit():
             'working_dir': working_dir
         })
 
-        set_window_setting('last_test_run_args', {
+        set_window_setting('test_last', {
             'working_dir': working_dir,
-            'unit_test_or_directory': unit_test_or_directory,
+            'file': file,
             'options': options
         })
 
@@ -294,9 +290,20 @@ class PHPUnit():
                     else view.settings().get('color_scheme'))
 
     def run_last(self):
-        args = get_window_setting('last_test_run_args')
+        args = get_window_setting('test_last')
         if args:
             self.run(args)
+
+    def run_file(self):
+        view = self.window.active_view()
+        if not view:
+            return
+
+        file = view.file_name()
+        if not file:
+            return
+
+        self.run({"file": file})
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
@@ -305,18 +312,10 @@ class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
         PHPUnit(self.window).run()
 
 
-class PhpunitTestFileCommand(sublime_plugin.TextCommand):
+class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
 
-    def run(self, edit):
-        file_name = self.view.file_name()
-        if not file_name:
-            return
-
-        window = self.view.window()
-        if not window:
-            return
-
-        PHPUnit(window).run({"unit_test_or_directory": file_name})
+    def run(self):
+        PHPUnit(self.window).run_file()
 
 
 class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
@@ -357,7 +356,7 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
             return
 
         PHPUnit(self.window).run({
-            "unit_test_or_directory": unit_test,
+            "file": unit_test,
             "options": options
         })
 
@@ -393,7 +392,6 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
     def run(self):
-
         current_view = self.window.active_view()
         if not current_view:
             return
