@@ -211,7 +211,7 @@ class PHPUnit():
         debug_message('Working directory: %s' % working_dir)
 
         if file:
-            if not os.path.isfile(file) and not os.path.isdir(file):
+            if not os.path.isfile(file):
                 return
 
             file = os.path.relpath(file, working_dir)
