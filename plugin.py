@@ -14,32 +14,23 @@ else:
         pass
 
 
-def get_setting(key):
-    view = sublime.active_window().active_view()
-    if view:
-        settings = view.settings()
-    else:
-        settings = sublime.load_settings('Preferences.sublime-settings')
+def get_window_setting(key, default=None, window=None):
+    if not window:
+        window = sublime.active_window()
 
-    if settings.has('phpunit.' + key):
-        return settings.get('phpunit.' + key)
-    else:
-        raise RuntimeError('Could not get setting: phpunit.%s' % key)
+    if window.settings().has(key):
+        return window.settings().get(key)
 
+    view = window.active_view()
 
-def get_window_setting(key, default = None):
-    settings = sublime.active_window().settings()
-    if settings.has('phpunit.' + str(key)):
-        return settings.get('phpunit.' + str(key))
-    else:
-        try:
-            return get_setting(key)
-        except:
-            return default
+    if view and view.settings().has(key):
+        return view.settings().get(key)
+
+    return default
 
 
-def set_window_setting(key, value):
-    sublime.active_window().settings().set('phpunit.' + str(key), value)
+def set_window_setting(key, value, window):
+    window.settings().set(key, value)
 
 
 def find_phpunit_configuration_file(file_name, folders):
@@ -221,17 +212,17 @@ class PHPUnit():
         if options is None:
             options = {}
 
-        for k, v in get_window_setting('options', {}).items():
+        for k, v in get_window_setting('phpunit.options', default={}, window=self.window).items():
             if k not in options:
                 options[k] = v
 
-        for k, v in get_setting('options').items():
+        for k, v in view.settings().get('phpunit.options').items():
             if k not in options:
                 options[k] = v
 
         debug_message('Options: %s' % str(options))
 
-        if get_setting('composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
+        if view.settings().get('phpunit.composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
             executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
         else:
             executable = 'phpunit'
@@ -261,7 +252,7 @@ class PHPUnit():
         debug_message('Command: %s' % cmd)
 
         # Write out every buffer (active window) with changes and a file name.
-        if get_setting('save_all_on_run'):
+        if view.settings().get('phpunit.save_all_on_run'):
             for view in self.window.views():
                 if view.is_dirty() and view.file_name():
                     view.run_command('save')
@@ -276,21 +267,20 @@ class PHPUnit():
             'working_dir': working_dir
         })
 
-        set_window_setting('test_last', {
+        set_window_setting('phpunit._test_last', {
             'working_dir': working_dir,
             'file': file,
             'options': options
-        })
+        }, window=self.window)
 
         # Configure color scheme
-        panel_settings = self.window.create_output_panel('exec').settings()
-        panel_settings.set('color_scheme',
-            get_setting('color_scheme')
-                if get_setting('color_scheme')
+        self.window.create_output_panel('exec').settings().set('color_scheme',
+            view.settings().get('phpunit.color_scheme')
+                if view.settings().get('phpunit.color_scheme')
                     else view.settings().get('color_scheme'))
 
     def run_last(self):
-        args = get_window_setting('test_last')
+        args = get_window_setting('phpunit._test_last', window=self.window)
         if args:
             self.run(args)
 
@@ -436,9 +426,9 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 
     def run(self, option):
-        options = get_window_setting('options', {})
+        options = get_window_setting('phpunit.options', default={}, window=self.window)
         options[option] = not bool(options[option]) if option in options else True
-        set_window_setting('options', options)
+        set_window_setting('phpunit.options', options, window=self.window)
 
 
 class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
