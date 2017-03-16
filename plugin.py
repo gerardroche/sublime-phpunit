@@ -189,21 +189,21 @@ class PHPUnit():
     def _run(self, working_dir=None, file=None, options=None):
         view = self.window.active_view()
         if not view:
-            return
+            return sublime.status_message('PHPUnit: no active view')
 
         if not working_dir:
             working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
             if not working_dir:
-                return
+                return sublime.status_message('PHPUnit: could not find a working directory')
 
         if not os.path.isdir(working_dir):
-            return
+            return sublime.status_message('PHPUnit: working directory does not exist or is not a valid directory')
 
         debug_message('Working directory: %s' % working_dir)
 
         if file:
             if not os.path.isfile(file):
-                return
+                return sublime.status_message('PHPUnit: unit test file does not exist or is not a valid file')
 
             file = os.path.relpath(file, working_dir)
 
@@ -440,13 +440,11 @@ class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
         working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
         if not working_dir:
-            sublime.status_message('Could not find a PHPUnit working directory')
-            return
+            return sublime.status_message('Could not find a PHPUnit working directory')
 
         coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
         if not os.path.exists(coverage_html_index_html_file):
-            sublime.status_message('Could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
-            return
+            return sublime.status_message('Could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
