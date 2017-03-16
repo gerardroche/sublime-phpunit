@@ -371,10 +371,14 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
                 if is_valid_php_identifier(word):
                     method_names.append(word)
                 break
-            if not method_names:
+
+        # fallback
+        if not method_names:
+            for region in view.sel():
                 word = view.substr(view.word(region))
-                if is_valid_php_identifier(word) and word[:4] == 'test':
-                    method_names.append(word)
+                if not is_valid_php_identifier(word) or word[:4] != 'test':
+                    return None
+                method_names.append(word)
 
         return method_names
 
