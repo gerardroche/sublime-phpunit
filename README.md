@@ -53,10 +53,8 @@ OS X | Windows / Linux | Command
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
-Vintage/Vintageous
-
-OS X / Windows / Linux | Command
------------------------|------------
+Vim/Vintage/Vintageous | Command
+-----------------------|--------
 <kbd>,</kbd><kbd>a</kbd> | Test Suite
 <kbd>,</kbd><kbd>T</kbd> | Test File
 <kbd>,</kbd><kbd>t</kbd> | Test Nearest
@@ -67,43 +65,35 @@ OS X / Windows / Linux | Command
 
 Key | Description | Type | Default
 ----|-------------|------|--------
-`phpunit.options` | Command-line options to pass to PHPUnit. See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
+`phpunit.options` | Command-line options to pass to PHPUnit. See [PHPUnit usage](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
 `phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.keymaps.vi` | Enable the default vi keymaps (requires `phpunit.keymaps` to be enabled). | `boolean` | `true`
-`phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
-`phpunit.save_all_on_run` | Enable writing out every buffer (active window) with changes and a file name, on test runs. | `boolean` | `true`
+`phpunit.keymaps.vi` | Enable the default vi keymaps. | `boolean` | `true`
+`phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
+`phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
 
 ### Composer
 
-If a [Composer] installed PHPUnit is found then PHPUnit is invoked via `vendor/bin/phpunit`, otherwise PHPUnit assumed to be available on the system path and is invoked via `phpunit`.
+If a [Composer] installed PHPUnit executable is found then it is used to run tests, otherwise PHPUnit is assumed to be available via the system path.
 
-To disable the Composer installed PHPunit check globally.
-
-`Preferences > Settings`
+To disable runinng tests via Composer installed PHPUnit: `Preferences > Settings`
 
 ```json
 {
-    "phpunit.options": {
-        "composer": false
-    }
+    "phpunit.composer": false
 }
 ```
 
-Or disable it per-project.
-
-`Project > Edit Project`
+Or disable it per-project: `Project > Edit Project`
 
 ```json
 {
     "settings": {
-        "phpunit.options": {
-            "composer": false
-        }
+        "phpunit.composer": false
     }
 }
 ```
 
-### CLI Options
+### Options
 
 If you want some CLI options to stick around use your [phpunit.xml](https://phpunit.de/manual/current/en/appendixes.configuration.html) file. Place it at the root of your project.
 
@@ -116,7 +106,7 @@ If you want some CLI options to stick around use your [phpunit.xml](https://phpu
     </php>
     <testsuites>
         <testsuite>
-             <directory>test</directory>
+             <directory>tests</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -127,9 +117,7 @@ If you want some CLI options to stick around use your [phpunit.xml](https://phpu
 </phpunit>
 ```
 
-Or as Sublime Text global preferences.
-
-`Preferences > Settings`
+Or as Sublime Text global preferences: `Preferences > Settings`
 
 ```json
 {
@@ -145,9 +133,13 @@ Or as Sublime Text global preferences.
 }
 ```
 
-And as per-project settings.
+The above settings map to the following CLI Options passed to PHPUnit:
 
-`Project > Edit Project`
+```
+phpunit --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
+```
+
+Or as per-project settings: `Project > Edit Project`
 
 ```json
 {
@@ -165,10 +157,10 @@ And as per-project settings.
 }
 ```
 
-All the above configurations map to the following CLI Options passed to PHPUnit.
+The above settings map to the following CLI Options passed to PHPUnit:
 
 ```
---stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
+phpunit --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
 ```
 
 ## INSTALLATION
