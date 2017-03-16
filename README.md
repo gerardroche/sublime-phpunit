@@ -23,73 +23,77 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Zero configuration required; Does the Right Thing™
 * Fully customized CLI options configuration
 * Supports [Composer]
-* Run test suite <kbd>Ctrl+Shift+t</kbd>
-* Run test case <kbd>Ctrl+Shift+r</kbd>
-* Run test method <kbd>Ctrl+Shift+r</kbd> (put cursor on test method)
-* Run test methods <kbd>Ctrl+Shift+r</kbd> (use multiple cursor selection of test methods)
-* Run test case for current class under test <kbd>Ctrl+Shift+r</kbd>
-* Rerun last test <kbd>Ctrl+Shift+e</kbd>
-* Test results in color (including failure diffs)
-* Jump to next <kbd>F4</kbd> / previous <kbd>Shift+F4</kbd> failure (navigates to file, line, and column of failure)
-* Switch, split, and focus test case / class under test <kbd>Ctrl+Shift+.</kbd>
+* Supports colour test results (including failure diffs)
+* Jump to next/previous test result failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
+* Switch File (splits window and puts test case and class under test side by side)
 
 ## COMMANDS
 
-```
-PHPUnit: Run All Tests
-PHPUnit: Run Single Test
-PHPUnit: Run Last Test
-PHPUnit: Switch Test Case / Class Under Test
-PHPUnit: Open HTML Code Coverage in Browser
-PHPUnit: Toggle Option --debug
-PHPUnit: Toggle Option --disallow-test-output
-PHPUnit: Toggle Option --disallow-todo-tests
-PHPUnit: Toggle Option --enforce-time-limit
-PHPUnit: Toggle Option --no-coverage
-PHPUnit: Toggle Option --report-useless-tests
-PHPUnit: Toggle Option --stop-on-error
-PHPUnit: Toggle Option --stop-on-failure
-PHPUnit: Toggle Option --stop-on-incomplete
-PHPUnit: Toggle Option --stop-on-risky
-PHPUnit: Toggle Option --stop-on-skipped
-PHPUnit: Toggle Option --strict-coverage
-PHPUnit: Toggle Option --strict-global-state
-PHPUnit: Toggle Option --tap
-PHPUnit: Toggle Option --testdox
-PHPUnit: Toggle Option --verbose
-```
+All commands are prefixed with "PHPUnit: ".
+
+Command | Description
+--------|------------
+Test Suite | Runs the whole test suite.
+Test File | Runs all the tests in the current file test case.
+Test Nearest | Runs the test nearest to the cursor. A multiple selection can used to used to run several tests at once.
+Test Last | Runs the last test.
+Switch File | Splits the window and puts nearest test case and class under test side by side.
+Show Results |
+Open Code Coverage |
+Toggle Option |
 
 ## KEY BINDINGS
 
-OS X | Windows / Linux | Description
+OS X | Windows / Linux | Command
 -----|-----------------|------------
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Run single test case or test(s)
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Run test suite
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Rerun last test(s)
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Test Suite
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Test Nearest
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Test Last
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch File
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
-The Vintage/Vintageous keybindings are disabled by default.
-
-OS X / Windows / Linux | Description
------------------------|------------
-<kbd>,</kbd><kbd>r</kbd> | Run single test case or test(s)
-<kbd>,</kbd><kbd>t</kbd> | Run test suite
-<kbd>,</kbd><kbd>e</kbd> | Rerun last test(s)
-<kbd>,</kbd><kbd>.</kbd> | Switch, split, and focus test case &amp; class under test
+Vim/Vintage/Vintageous | Command
+-----------------------|--------
+<kbd>,</kbd><kbd>a</kbd> | Test Suite
+<kbd>,</kbd><kbd>T</kbd> | Test File
+<kbd>,</kbd><kbd>t</kbd> | Test Nearest
+<kbd>,</kbd><kbd>l</kbd> | Test Last
+<kbd>,</kbd><kbd>.</kbd> | Switch File
 
 ## CONFIGURATION
 
 Key | Description | Type | Default
 ----|-------------|------|--------
-`phpunit.options` | Command-line options to pass to PHPUnit. See [`phpunit --help`](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
+`phpunit.options` | Command-line options to pass to PHPUnit. See [PHPUnit usage](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
 `phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.keymaps.vi` | Enable the default vi keymaps (requires `phpunit.keymaps` to be enabled). | `boolean` | `false`
-`phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit is found then it is used to run tests. | `boolean` | `true`
-`phpunit.save_all_on_run` | Enable writing out every buffer (active window) with changes and a file name, on test runs. | `boolean` | `true`
+`phpunit.keymaps.vi` | Enable the default vi keymaps. | `boolean` | `true`
+`phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
+`phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
 
-### CLI Options
+### Composer
+
+If a [Composer] installed PHPUnit executable is found then it is used to run tests, otherwise PHPUnit is assumed to be available via the system path.
+
+To disable runinng tests via Composer installed PHPUnit: `Preferences > Settings`
+
+```json
+{
+    "phpunit.composer": false
+}
+```
+
+Or disable it per-project: `Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.composer": false
+    }
+}
+```
+
+### Options
 
 If you want some CLI options to stick around use your [phpunit.xml](https://phpunit.de/manual/current/en/appendixes.configuration.html) file. Place it at the root of your project.
 
@@ -102,7 +106,7 @@ If you want some CLI options to stick around use your [phpunit.xml](https://phpu
     </php>
     <testsuites>
         <testsuite>
-             <directory>test</directory>
+             <directory>tests</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -113,9 +117,7 @@ If you want some CLI options to stick around use your [phpunit.xml](https://phpu
 </phpunit>
 ```
 
-Or as Sublime Text global preferences.
-
-`Preferences > Settings`
+Or as Sublime Text global preferences: `Preferences > Settings`
 
 ```json
 {
@@ -131,9 +133,13 @@ Or as Sublime Text global preferences.
 }
 ```
 
-And as per-project settings.
+The above settings map to the following CLI Options passed to PHPUnit:
 
-`Project > Edit Project`
+```
+phpunit --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
+```
+
+Or as per-project settings: `Project > Edit Project`
 
 ```json
 {
@@ -151,45 +157,13 @@ And as per-project settings.
 }
 ```
 
-All the above configurations map to the following CLI Options passed to PHPUnit.
+The above settings map to the following CLI Options passed to PHPUnit:
 
 ```
---stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
-```
-
-### Composer
-
-If a [Composer] installed PHPUnit is found then PHPUnit is invoked via `vendor/bin/phpunit`, otherwise PHPUnit assumed to be available on the system path and is invoked via `phpunit`.
-
-To disable the Composer installed PHPunit check globally.
-
-`Preferences > Settings`
-
-```json
-{
-    "phpunit.options": {
-        "composer": false
-    }
-}
-```
-
-Or disable it per-project.
-
-`Project > Edit Project`
-
-```json
-{
-    "settings": {
-        "phpunit.options": {
-            "composer": false
-        }
-    }
-}
+phpunit --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
 ```
 
 ## INSTALLATION
-
-Works best alongside [PHP Grammar], [PHP Completions], and [PHP Snippets].
 
 ### Package Control installation
 
@@ -266,7 +240,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## CREDITS
 
-Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit).
+Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit). And inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
 
 ## LICENSE
 

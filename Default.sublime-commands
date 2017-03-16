@@ -1,55 +1,59 @@
 [
     {
-        "caption": "PHPUnit: Run All Tests",
-        "command": "phpunit_run_all_tests"
+        "caption": "PHPUnit: Test File",
+        "command": "phpunit_test_file"
     },
     {
-        "caption": "PHPUnit: Run Last Test",
-        "command": "phpunit_run_last_test"
+        "caption": "PHPUnit: Test Suite",
+        "command": "phpunit_test_suite"
     },
     {
-        "caption": "PHPUnit: Run Single Test",
-        "command": "phpunit_run_single_test"
+        "caption": "PHPUnit: Test Last",
+        "command": "phpunit_test_last"
     },
     {
-        "caption": "PHPUnit: Show Test Results",
+        "caption": "PHPUnit: Test Nearest",
+        "command": "phpunit_test_nearest"
+    },
+    {
+        "caption": "PHPUnit: Show Results",
         "command": "show_panel",
         "args": {
             "panel": "output.exec"
         }
     },
     {
-        "caption": "PHPUnit: Cancel Test Run",
+        "caption": "PHPUnit: Cancel Test",
         "command": "exec",
         "args": {
             "kill": true
         }
     },
     {
-        "caption": "PHPUnit: Open HTML Code Coverage in Browser",
-        "command": "phpunit_open_html_code_coverage_in_browser"
+        "caption": "PHPUnit: Open Code Coverage",
+        "command": "phpunit_open_code_coverage"
     },
     {
-        "caption": "PHPUnit: Switch Test Case / Class Under Test",
+        "caption": "PHPUnit: Switch File",
         "command": "phpunit_switch_file"
     },
 
-    { "caption": "PHPUnit: Toggle Option --debug",                  "command": "phpunit_toggle_long_option", "args": { "option": "debug" } },                 // Display debugging information during test execution.
-    { "caption": "PHPUnit: Toggle Option --disallow-test-output",   "command": "phpunit_toggle_long_option", "args": { "option": "disallow-test-output" } },  // Be strict about output during tests.
-    { "caption": "PHPUnit: Toggle Option --disallow-todo-tests",    "command": "phpunit_toggle_long_option", "args": { "option": "disallow-todo-tests" } },   // Disallow @todo-annotated tests.
-    { "caption": "PHPUnit: Toggle Option --enforce-time-limit",     "command": "phpunit_toggle_long_option", "args": { "option": "enforce-time-limit" } },    // Enforce time limit based on test size.
-    { "caption": "PHPUnit: Toggle Option --no-coverage",            "command": "phpunit_toggle_long_option", "args": { "option": "no-coverage" } },           // Ignore code coverage configuration.
-    { "caption": "PHPUnit: Toggle Option --report-useless-tests",   "command": "phpunit_toggle_long_option", "args": { "option": "report-useless-tests" } },  // Be strict about tests that do not test anything.
-    { "caption": "PHPUnit: Toggle Option --stop-on-error",          "command": "phpunit_toggle_long_option", "args": { "option": "stop-on-error" } },         // Stop execution upon first error.
-    { "caption": "PHPUnit: Toggle Option --stop-on-failure",        "command": "phpunit_toggle_long_option", "args": { "option": "stop-on-failure" } },       // Stop execution upon first error or failure.
-    { "caption": "PHPUnit: Toggle Option --stop-on-incomplete",     "command": "phpunit_toggle_long_option", "args": { "option": "stop-on-incomplete" } },    // Stop execution upon first incomplete test.
-    { "caption": "PHPUnit: Toggle Option --stop-on-risky",          "command": "phpunit_toggle_long_option", "args": { "option": "stop-on-risky" } },         // Stop execution upon first risky test.
-    { "caption": "PHPUnit: Toggle Option --stop-on-skipped",        "command": "phpunit_toggle_long_option", "args": { "option": "stop-on-skipped" } },       // Stop execution upon first skipped test.
-    { "caption": "PHPUnit: Toggle Option --strict-coverage",        "command": "phpunit_toggle_long_option", "args": { "option": "strict-coverage" } },       // Be strict about unintentionally covered code.
-    { "caption": "PHPUnit: Toggle Option --strict-global-state",    "command": "phpunit_toggle_long_option", "args": { "option": "strict-global-state" } },   // Be strict about changes to global state
-    { "caption": "PHPUnit: Toggle Option --tap",                    "command": "phpunit_toggle_long_option", "args": { "option": "tap" } },                   // Report test execution progress in TAP format.
-    { "caption": "PHPUnit: Toggle Option --testdox",                "command": "phpunit_toggle_long_option", "args": { "option": "testdox" } },               // Report test execution progress in TestDox format.
-    { "caption": "PHPUnit: Toggle Option --verbose",                "command": "phpunit_toggle_long_option", "args": { "option": "verbose" } },               // Output more verbose information.
+    { "caption": "PHPUnit: Toggle Option --debug",                  "command": "phpunit_toggle_option", "args": { "option": "debug" } },                 // Display debugging information during test execution.
+    { "caption": "PHPUnit: Toggle Option --disallow-test-output",   "command": "phpunit_toggle_option", "args": { "option": "disallow-test-output" } },  // Be strict about output during tests.
+    { "caption": "PHPUnit: Toggle Option --disallow-todo-tests",    "command": "phpunit_toggle_option", "args": { "option": "disallow-todo-tests" } },   // Disallow @todo-annotated tests.
+    { "caption": "PHPUnit: Toggle Option --enforce-time-limit",     "command": "phpunit_toggle_option", "args": { "option": "enforce-time-limit" } },    // Enforce time limit based on test size.
+    { "caption": "PHPUnit: Toggle Option --no-coverage",            "command": "phpunit_toggle_option", "args": { "option": "no-coverage" } },           // Ignore code coverage configuration.
+    { "caption": "PHPUnit: Toggle Option --report-useless-tests",   "command": "phpunit_toggle_option", "args": { "option": "report-useless-tests" } },  // Be strict about tests that do not test anything.
+    { "caption": "PHPUnit: Toggle Option --stop-on-error",          "command": "phpunit_toggle_option", "args": { "option": "stop-on-error" } },         // Stop execution upon first error.
+    { "caption": "PHPUnit: Toggle Option --stop-on-failure",        "command": "phpunit_toggle_option", "args": { "option": "stop-on-failure" } },       // Stop execution upon first error or failure.
+    { "caption": "PHPUnit: Toggle Option --stop-on-incomplete",     "command": "phpunit_toggle_option", "args": { "option": "stop-on-incomplete" } },    // Stop execution upon first incomplete test.
+    { "caption": "PHPUnit: Toggle Option --stop-on-risky",          "command": "phpunit_toggle_option", "args": { "option": "stop-on-risky" } },         // Stop execution upon first risky test.
+    { "caption": "PHPUnit: Toggle Option --stop-on-skipped",        "command": "phpunit_toggle_option", "args": { "option": "stop-on-skipped" } },       // Stop execution upon first skipped test.
+    { "caption": "PHPUnit: Toggle Option --strict-coverage",        "command": "phpunit_toggle_option", "args": { "option": "strict-coverage" } },       // Be strict about unintentionally covered code.
+    { "caption": "PHPUnit: Toggle Option --strict-global-state",    "command": "phpunit_toggle_option", "args": { "option": "strict-global-state" } },   // Be strict about changes to global state
+    { "caption": "PHPUnit: Toggle Option --tap",                    "command": "phpunit_toggle_option", "args": { "option": "tap" } },                   // Report test execution progress in TAP format.
+    { "caption": "PHPUnit: Toggle Option --testdox",                "command": "phpunit_toggle_option", "args": { "option": "testdox" } },               // Report test execution progress in TestDox format.
+    { "caption": "PHPUnit: Toggle Option --verbose",                "command": "phpunit_toggle_option", "args": { "option": "verbose" } },               // Output more verbose information.
 
     {
         "caption": "Preferences: PHPUnit Settings – Default",

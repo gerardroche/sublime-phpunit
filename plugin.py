@@ -14,32 +14,23 @@ else:
         pass
 
 
-def get_setting(key):
-    view = sublime.active_window().active_view()
-    if view:
-        settings = view.settings()
-    else:
-        settings = sublime.load_settings('Preferences.sublime-settings')
+def get_window_setting(key, default=None, window=None):
+    if not window:
+        window = sublime.active_window()
 
-    if settings.has('phpunit.' + key):
-        return settings.get('phpunit.' + key)
-    else:
-        raise RuntimeError('Could not get setting: phpunit.%s' % key)
+    if window.settings().has(key):
+        return window.settings().get(key)
 
+    view = window.active_view()
 
-def get_window_setting(key, default = None):
-    settings = sublime.active_window().settings()
-    if settings.has('phpunit.' + str(key)):
-        return settings.get('phpunit.' + str(key))
-    else:
-        try:
-            return get_setting(key)
-        except:
-            return default
+    if view and view.settings().has(key):
+        return view.settings().get(key)
+
+    return default
 
 
-def set_window_setting(key, value):
-    sublime.active_window().settings().set('phpunit.' + str(key), value)
+def set_window_setting(key, value, window):
+    window.settings().set(key, value)
 
 
 def find_phpunit_configuration_file(file_name, folders):
@@ -182,72 +173,63 @@ def find_first_switchable_file(view):
     return file
 
 
-class PHPUnitTextUITestRunner():
+class PHPUnit():
 
     def __init__(self, window):
         self.window = window
 
     def run(self, args=None):
         if args:
-            debug_message('PHPUnitTextUITestRunner::run %s' % (args))
+            debug_message('PHPUnit::run %s' % (args))
             self._run(**args)
         else:
-            debug_message('PHPUnitTextUITestRunner::run {}')
+            debug_message('PHPUnit::run {}')
             self._run()
 
-    def _run(self, working_dir=None, unit_test_or_directory=None, options = None):
+    def _run(self, working_dir=None, file=None, options=None):
         view = self.window.active_view()
         if not view:
-            return
+            return sublime.status_message('PHPUnit: no active view')
 
-        # Working directory
         if not working_dir:
             working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
             if not working_dir:
-                debug_message('Could not find a PHPUnit working directory')
-                return
-            debug_message('Found PHPUnit working directory: %s' % working_dir)
+                return sublime.status_message('PHPUnit: could not find a working directory')
+
         if not os.path.isdir(working_dir):
-            debug_message('PHPUnit working directory does not exist or is not a valid directory: %s' % working_dir)
-            return
-        debug_message('PHPUnit working directory: %s' % working_dir)
+            return sublime.status_message('PHPUnit: working directory does not exist or is not a valid directory')
 
-        # Unit test or directory
-        if unit_test_or_directory:
-            if not os.path.isfile(unit_test_or_directory) and not os.path.isdir(unit_test_or_directory):
-                debug_message('PHPUnit test or directory is invalid: %s' % unit_test_or_directory)
-                return
-            unit_test_or_directory = os.path.relpath(unit_test_or_directory, working_dir)
-        debug_message('PHPUnit test or directory: %s' % unit_test_or_directory)
+        debug_message('Working directory: %s' % working_dir)
 
-        # PHPUnit options
-        # Order of Precedence
-        # * User specific "phpunit.options" setting
-        # * Project specific "phpunit.options" setting
-        # * toggled "transient/session" settings
-        # * this command's argument
+        if file:
+            if not os.path.isfile(file):
+                return sublime.status_message('PHPUnit: unit test file does not exist or is not a valid file')
+
+            file = os.path.relpath(file, working_dir)
+
+        debug_message('File: %s' % file)
+
         if options is None:
             options = {}
-        for k, v in get_window_setting('options', {}).items():
+
+        for k, v in get_window_setting('phpunit.options', default={}, window=self.window).items():
             if k not in options:
                 options[k] = v
-        for k, v in get_setting('options').items():
+
+        for k, v in view.settings().get('phpunit.options').items():
             if k not in options:
                 options[k] = v
-        debug_message('PHPUnit options %s' % str(options))
 
-        # PHPUnit bin
-        phpunit_bin = 'phpunit'
-        if get_setting('composer'):
-            relative_composer_phpunit_bin = os.path.join('vendor', 'bin', 'phpunit')
-            composer_phpunit_bin = os.path.join(working_dir, relative_composer_phpunit_bin)
-            if os.path.isfile(composer_phpunit_bin):
-                debug_message('Found Composer PHPUnit bin: %s' % composer_phpunit_bin)
-                phpunit_bin = relative_composer_phpunit_bin
-        debug_message('PHPUnit bin: %s' % phpunit_bin)
+        debug_message('Options: %s' % str(options))
 
-        # Execute Command
-        cmd = phpunit_bin
+        if view.settings().get('phpunit.composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
+            executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+        else:
+            executable = 'phpunit'
+
+        debug_message('Executable: %s' % executable)
+
+        cmd = executable
         for k, v in options.items():
             if not v == False:
                 if len(k) == 1:
@@ -264,12 +246,13 @@ class PHPUnitTextUITestRunner():
                     cmd += " --" + k
                     if not v == True:
                         cmd += " \"%s\"" % (v)
-        if unit_test_or_directory:
-            cmd += " " + unit_test_or_directory
-        debug_message('exec cmd: %s' % cmd)
+        if file:
+            cmd += " " + file
+
+        debug_message('Command: %s' % cmd)
 
         # Write out every buffer (active window) with changes and a file name.
-        if get_setting('save_all_on_run'):
+        if view.settings().get('phpunit.save_all_on_run'):
             for view in self.window.views():
                 if view.is_dirty() and view.file_name():
                     view.run_command('save')
@@ -284,38 +267,54 @@ class PHPUnitTextUITestRunner():
             'working_dir': working_dir
         })
 
-        set_window_setting('last_test_run_args', {
+        set_window_setting('phpunit._test_last', {
             'working_dir': working_dir,
-            'unit_test_or_directory': unit_test_or_directory,
+            'file': file,
             'options': options
-        })
+        }, window=self.window)
 
         # Configure color scheme
-        panel_settings = self.window.create_output_panel('exec').settings()
-        panel_settings.set('color_scheme',
-            get_setting('color_scheme')
-                if get_setting('color_scheme')
+        self.window.create_output_panel('exec').settings().set('color_scheme',
+            view.settings().get('phpunit.color_scheme')
+                if view.settings().get('phpunit.color_scheme')
                     else view.settings().get('color_scheme'))
 
-    def run_last_test(self):
-        args = get_window_setting('last_test_run_args')
+    def run_last(self):
+        args = get_window_setting('phpunit._test_last', window=self.window)
         if args:
             self.run(args)
 
+    def run_file(self):
+        view = self.window.active_view()
+        if not view:
+            return
 
-class PhpunitRunAllTests(sublime_plugin.WindowCommand):
+        file = view.file_name()
+        if not file:
+            return
+
+        self.run({"file": file})
+
+
+class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnitTextUITestRunner(self.window).run()
+        PHPUnit(self.window).run()
 
 
-class PhpunitRunLastTestCommand(sublime_plugin.WindowCommand):
+class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnitTextUITestRunner(self.window).run_last_test()
+        PHPUnit(self.window).run_file()
 
 
-class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
+class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        PHPUnit(self.window).run_last()
+
+
+class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -346,25 +345,40 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
             debug_message('Could not find a PHPUnit test case or a switchable test case')
             return
 
-        PHPUnitTextUITestRunner(self.window).run({
-            "unit_test_or_directory": unit_test,
+        PHPUnit(self.window).run({
+            "file": unit_test,
             "options": options
         })
 
     def selected_unit_test_method_names(self, view):
         """
-        If all selections are test methods returns an array of all selected
-        test method names; otherwise None
+        Returns an array of selected test method names.
+        Selection can be anywhere inside one or more test methods.
+        If no selection is found inside any test method, then all test method names are returned.
         """
 
-        # @todo should be a scoped selection i.e. is the selection a source.php entity.name.function
         method_names = []
-        for region in view.sel():
-            word = view.substr(view.word(region))
-            if not is_valid_php_identifier(word) or word[:4] != 'test':
-                return None
+        function_areas = view.find_by_selector('meta.function')
+        function_regions = view.find_by_selector('entity.name.function')
 
-            method_names.append(word)
+        for region in view.sel():
+            for i, area in enumerate(function_areas):
+                if not area.a <= region.a <= area.b:
+                    continue
+                if not i in function_regions and not area.intersects(function_regions[i]):
+                    continue
+                word = view.substr(function_regions[i])
+                if is_valid_php_identifier(word):
+                    method_names.append(word)
+                break
+
+        # fallback
+        if not method_names:
+            for region in view.sel():
+                word = view.substr(view.word(region))
+                if not is_valid_php_identifier(word) or word[:4] != 'test':
+                    return None
+                method_names.append(word)
 
         return method_names
 
@@ -372,7 +386,6 @@ class PhpunitRunSingleTestCommand(sublime_plugin.WindowCommand):
 class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
     def run(self):
-
         current_view = self.window.active_view()
         if not current_view:
             return
@@ -414,15 +427,15 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
             self.window.focus_view(switched_view)
 
 
-class PhpunitToggleLongOption(sublime_plugin.WindowCommand):
+class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 
     def run(self, option):
-        options = get_window_setting('options', {})
+        options = get_window_setting('phpunit.options', default={}, window=self.window)
         options[option] = not bool(options[option]) if option in options else True
-        set_window_setting('options', options)
+        set_window_setting('phpunit.options', options, window=self.window)
 
 
-class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
+class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -431,13 +444,11 @@ class PhpunitOpenHtmlCodeCoverageInBrowser(sublime_plugin.WindowCommand):
 
         working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
         if not working_dir:
-            sublime.status_message('Could not find a PHPUnit working directory')
-            return
+            return sublime.status_message('Could not find a PHPUnit working directory')
 
         coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
         if not os.path.exists(coverage_html_index_html_file):
-            sublime.status_message('Could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
-            return
+            return sublime.status_message('Could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)

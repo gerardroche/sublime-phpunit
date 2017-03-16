@@ -12,12 +12,7 @@
     "phpunit.keymaps": true,
 
     // Enable the default vi keymaps.
-    "phpunit.keymaps.vi": false,
-
-    // Deprecated
-    // The following setting will be removed in v2.0.0 and exists only for
-    // backwards compatibility, use "phpunit.keymaps.vi" instead.
-    "phpunit.vi_keymaps": false,
+    "phpunit.keymaps.vi": true,
 
     // Options to pass to PHPUnit when running tests. Any PHPUnit option is
     // valid. See phpunit --help for an up-to-date list of available options.

@@ -1,18 +1,12 @@
 [
     { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps"}, { "key": "setting.phpunit.keymaps.vi" } ] },
-
-    // Deprecated: The following four keymaps are to be removed in v2.0.0 and
-    // exist only for backwards compatibility
-    { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
-    { "keys": [",", "e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
-    { "keys": [",", "r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.vi_keymaps" }] },
-    { "keys": [",", "t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps"}, { "key": "setting.phpunit.vi_keymaps" } ] },
+    { "keys": [",", "l"], "command": "phpunit_test_last", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
+    { "keys": [",", "t"], "command": "phpunit_test_nearest", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
+    { "keys": [",", "T"], "command": "phpunit_test_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
+    { "keys": [",", "a"], "command": "phpunit_test_suite", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps"}, { "key": "setting.phpunit.keymaps.vi" } ] },
 
     { "keys": ["super+shift+."], "command": "phpunit_switch_file", "context": [{ "key": "setting.phpunit.keymaps" }] },
-    { "keys": ["super+shift+e"], "command": "phpunit_run_last_test", "context": [{ "key": "setting.phpunit.keymaps" }] },
-    { "keys": ["super+shift+r"], "command": "phpunit_run_single_test", "context": [{ "key": "setting.phpunit.keymaps" }] },
-    { "keys": ["super+shift+t"], "command": "phpunit_run_all_tests", "context": [{ "key": "setting.phpunit.keymaps" }] }
+    { "keys": ["super+shift+e"], "command": "phpunit_test_last", "context": [{ "key": "setting.phpunit.keymaps" }] },
+    { "keys": ["super+shift+r"], "command": "phpunit_test_nearest", "context": [{ "key": "setting.phpunit.keymaps" }] },
+    { "keys": ["super+shift+t"], "command": "phpunit_test_suite", "context": [{ "key": "setting.phpunit.keymaps" }] }
 ]

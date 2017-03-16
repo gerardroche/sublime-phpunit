@@ -1,5 +1,19 @@
 # PHPUNITKIT CHANGELOG
 
+* Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now disabled by default
+* Added [#52](https://github.com/gerardroche/sublime-phpunit/issues/52): Test File command
+* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,r (Test Single) is now ,t
+* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,e (Test Last) is now ,l
+* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,t (Test All) is now ,a
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run All Tests is now Test Suite
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Last Test is now Test Last
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Single is now Test Nearest
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Switch Test Case / Class Under Test is now Switch File
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Open HTML Code Coverage in Browser is now open Code Coverage
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Cancel Test Run is now Cancel Test
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Show Test Results is now Show Results
+* Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
+
 ## [1.2.1]
 
 * Fixed: Open settings command file path
