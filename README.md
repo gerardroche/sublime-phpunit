@@ -71,6 +71,7 @@ Key | Description | Type | Default
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
 `phpunit.php_executable` | Use a custom PHP executable. | `string` | Uses PHP available on system path
+`phpunit.php_versions_path` | Locations of PHP versions. | `string` | `~/.phpenv/versions`
 
 ### Composer
 
@@ -94,28 +95,48 @@ Or disable it per-project: `Project > Edit Project`
 }
 ```
 
-### Options
+### PHP versions path
 
-If you want some CLI options to stick around use your [phpunit.xml](https://phpunit.de/manual/current/en/appendixes.configuration.html) file. Place it at the root of your project.
+You can specific a location to find different PHP versions for running PHPUnit. The default location is `~/.phpenv/versions`. To specify the version to use for your project create a file named `.php-version` and place it in the root of your project (where the project phpunit.xml configuration file is located). For example a `.php-version` file with the contents `7.x` will mean the PHP executable located at `~/.phpenv/versions/7.x/bin/php` will be used to run PHPUnit.
 
+To change the path set it globally: `Preferences > Settings`
+
+```json
+{
+    "phpunit.php_versions_path": "~/.phpenv/versions"
+}
 ```
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit verbose="true" stopOnFailure="true">
-    <php>
-        <ini name="display_errors" value="1" />
-        <ini name="xdebug.scream" value="0" />
-    </php>
-    <testsuites>
-        <testsuite>
-             <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>src</directory>
-        </whitelist>
-    </filter>
-</phpunit>
+
+Or set it per-project: `Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.php_versions_path": "~/.phpenv/versions"
+    }
+}
+```
+
+### PHP executable
+
+You can use a custom PHP executable for running PHPUnit.
+
+Set it globally: `Preferences > Settings`
+
+```json
+{
+    "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
+}
+```
+
+Or set it per-project: `Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
+    }
+}
 ```
 
 Or as Sublime Text global preferences: `Preferences > Settings`

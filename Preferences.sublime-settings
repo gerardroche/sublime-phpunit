@@ -16,8 +16,14 @@
     // e.g. "phpunit.options": {"no-coverage": true, "verbose": true},
     "phpunit.options": {},
 
-    // Use a custom PHP executable to run PHPUnit, defaults to using the PHP
-    // available on the system path.
+    // Path to find php versions. The expected location of the PHP executables
+    // is {php_versions_path}/{version}/bin/php. Specify the version to use by
+    // creating a file named .php-version, with the version as its contents,
+    // and place it in the root of the project (where the project phpunit.xml
+    // configuration file is located).
+    "phpunit.php_versions_path": "~/.phpenv/versions",
+
+    // Use a custom (specific) PHP executable to run PHPUnit.
     // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
 
     // Enable writing out every buffer (active window) with changes and a file
