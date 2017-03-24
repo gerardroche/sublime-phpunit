@@ -1,22 +1,37 @@
 # PHPUNITKIT CHANGELOG
 
-* Fixed: Find next / previous failure keymaps (Windows)
-* Added: Support for .php-version file to specify PHP version to use for running PHPUnit
+## [2.0.0]
+
+* Fixed [#57](https://github.com/gerardroche/sublime-phpunit/issues/57): Find next / previous failure keymaps (Windows)
+* Added [#56](https://github.com/gerardroche/sublime-phpunit/issues/56): Support for .php-version file to specify PHP version to use for running PHPUnit
 * Added [#55](https://github.com/gerardroche/sublime-phpunit/issues/55): Use different PHP executable
 * Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now disabled by default
 * Added [#52](https://github.com/gerardroche/sublime-phpunit/issues/52): Test File command
-* Changed: `phpunit.keymaps.vi` setting is now `phpunit.vi_keymaps` and can be enabled/disabled independently of the `phpunit.keymaps` setting.
-* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,r (Test Single) is now ,t
-* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,e (Test Last) is now ,l
-* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,t (Test All) is now ,a
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run All Tests is now Test Suite
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Last Test is now Test Last
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Command Run Single is now Test Nearest
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Switch Test Case / Class Under Test is now Switch File
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Open HTML Code Coverage in Browser is now open Code Coverage
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Cancel Test Run is now Cancel Test
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Show Test Results is now Show Results
-* Removed [#45](https://github.com/gerardroche/sublime-phpunit/issues/45): Deprecated keymaps
+* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Commands
+
+    Old name | new name
+    -------- | --------
+    Run All Tests | Test Suite
+    Run Last Test | Test Last
+    Run Single | Test Nearest
+    Switch Test Case / Class Under Test | Switch File
+    Open HTML Code Coverage in Browser | open Code Coverage
+    Cancel Test Run | Cancel Test
+    Show Test Results | Show Results
+
+* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vim keymaps
+
+    Old keymap | New keymap | Description
+    ---------- | ---------- | -----------
+    `,t` | `,a` | Test All
+    `,r` | `,t` | Test Single
+    `,e` | `,l` | Test Last
+
+* Changed: settings
+
+    Old setting | new setting
+    ----------- | -----------
+    `phpunit.keymaps.vi` | `phpunit.vi_keymaps`
 
 ## [1.2.1]
 
@@ -205,6 +220,7 @@
 
 * Initial import; PHPUnit support
 
+[2.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.2.1...2.0.0
 [1.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.3...1.1.0
