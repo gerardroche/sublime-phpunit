@@ -13,13 +13,12 @@
 
     // Options to pass to PHPUnit when running tests. Any PHPUnit option is
     // valid. See phpunit --help for an up-to-date list of available options.
-    // Example:
-    // * no-coverage: true
-    // * verbose: true
-    // * textdox: true
-    // * tap: true
-    // * debug: true
+    // e.g. "phpunit.options": {"no-coverage": true, "verbose": true},
     "phpunit.options": {},
+
+    // Use a custom PHP executable to run PHPUnit, defaults to using the PHP
+    // available on the system path.
+    // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
 
     // Enable writing out every buffer (active window) with changes and a file
     // name, on test runs.

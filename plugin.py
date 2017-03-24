@@ -1,5 +1,6 @@
 import re
 import os
+import shutil
 
 import sublime
 import sublime_plugin
@@ -222,14 +223,30 @@ class PHPUnit():
 
         debug_message('Options: %s' % str(options))
 
+        cmd = ''
+
+        php_executable = view.settings().get('phpunit.php_executable')
+        if php_executable:
+            php_executable = os.path.expanduser(php_executable)
+            if not os.path.isfile(php_executable):
+                return sublime.status_message('PHPUnit: PHP executable not found')
+            if not os.access(php_executable, os.X_OK):
+                return sublime.status_message('PHPUnit: PHP executable is not executable')
+            cmd += php_executable + ' '
+
+            debug_message('PHP executable: %s' % php_executable)
+
         if view.settings().get('phpunit.composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
             executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
         else:
-            executable = 'phpunit'
+            executable = shutil.which('phpunit')
+            if not executable:
+                return sublime.status_message('PHPUnit: PHP executable not found')
+
+        cmd += executable
 
         debug_message('Executable: %s' % executable)
 
-        cmd = executable
         for k, v in options.items():
             if not v == False:
                 if len(k) == 1:

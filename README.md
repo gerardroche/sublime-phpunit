@@ -70,6 +70,7 @@ Key | Description | Type | Default
 `phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
+`phpunit.php_executable` | Use a custom PHP executable. | `string` | Uses PHP available on system path
 
 ### Composer
 
