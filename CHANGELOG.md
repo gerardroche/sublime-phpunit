@@ -3,6 +3,7 @@
 * Fixed: Find next / previous failure keymaps (Windows)
 * Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now disabled by default
 * Added [#52](https://github.com/gerardroche/sublime-phpunit/issues/52): Test File command
+* Changed: `phpunit.keymaps.vi` setting is now `phpunit.vi_keymaps` and can be enabled/disabled independently of the `phpunit.keymaps` setting.
 * Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,r (Test Single) is now ,t
 * Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,e (Test Last) is now ,l
 * Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vi keymap ,t (Test All) is now ,a

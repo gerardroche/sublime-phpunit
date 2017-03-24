@@ -11,9 +11,6 @@
     // Enable the default keymaps.
     "phpunit.keymaps": true,
 
-    // Enable the default vi keymaps.
-    "phpunit.keymaps.vi": true,
-
     // Options to pass to PHPUnit when running tests. Any PHPUnit option is
     // valid. See phpunit --help for an up-to-date list of available options.
     // Example:
@@ -27,6 +24,9 @@
     // Enable writing out every buffer (active window) with changes and a file
     // name, on test runs.
     "phpunit.save_all_on_run": true,
+
+    // Enable the default vi keymaps.
+    "phpunit.vi_keymaps": true,
 
     // --- For plugin development only ---
     // Enable plugin development. For example, makes running tests available.

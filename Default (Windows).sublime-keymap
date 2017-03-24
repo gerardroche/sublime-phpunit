@@ -1,9 +1,9 @@
 [
-    { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "l"], "command": "phpunit_test_last", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "t"], "command": "phpunit_test_nearest", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "T"], "command": "phpunit_test_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps" }, { "key": "setting.phpunit.keymaps.vi" }] },
-    { "keys": [",", "a"], "command": "phpunit_test_suite", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.keymaps"}, { "key": "setting.phpunit.keymaps.vi" } ] },
+    { "keys": [",", "."], "command": "phpunit_switch_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "l"], "command": "phpunit_test_last", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "t"], "command": "phpunit_test_nearest", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "T"], "command": "phpunit_test_file", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.vi_keymaps" }] },
+    { "keys": [",", "a"], "command": "phpunit_test_suite", "context": [{ "key": "setting.command_mode" }, { "key": "setting.phpunit.vi_keymaps" } ] },
 
     { "keys": ["ctrl+shift+."], "command": "phpunit_switch_file", "context": [{ "key": "setting.phpunit.keymaps" }] },
     { "keys": ["ctrl+shift+e"], "command": "phpunit_test_last", "context": [{ "key": "setting.phpunit.keymaps" }] },
