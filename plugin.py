@@ -257,9 +257,14 @@ class PHPUnit():
                 if view.is_dirty() and view.file_name():
                     view.run_command('save')
 
+        if sublime.platform() == 'windows':
+            file_regex = '((?:[a-zA-Z]\:)?[a-zA-Z0-9\\.\\/\\\\_-]+)(?: on line |\:)([0-9]+)$'
+        else:
+            file_regex = '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$'
+
         self.window.run_command('exec', {
             'cmd': cmd,
-            'file_regex': '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$',
+            'file_regex': file_regex,
             'quiet': not bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')),
             'shell': True,
             'syntax': 'Packages/phpunitkit/test-results.hidden-tmLanguage',
