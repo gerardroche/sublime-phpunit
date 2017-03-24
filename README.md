@@ -20,7 +20,7 @@ PHPUNITKIT is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 
 ## FEATURES
 
-* Zero configuration required; Does the Right Thing™
+* Zero configuration required; Does the Right Thing
 * Fully customized CLI options configuration
 * Supports [Composer]
 * Supports colour test results (including failure diffs)
@@ -139,13 +139,14 @@ Or set it per-project: `Project > Edit Project`
 }
 ```
 
-Or as Sublime Text global preferences: `Preferences > Settings`
+### Options
+
+Set them globally: `Preferences > Settings`
 
 ```json
 {
     "phpunit.options": {
-        "v": true,
-        "stop-on-failure": true,
+        "verbose": true,
         "no-coverage": true,
         "d": [
             "display_errors=1",
@@ -155,20 +156,13 @@ Or as Sublime Text global preferences: `Preferences > Settings`
 }
 ```
 
-The above settings map to the following CLI Options passed to PHPUnit:
-
-```
-phpunit --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
-```
-
-Or as per-project settings: `Project > Edit Project`
+Or set them per-project: `Project > Edit Project`
 
 ```json
 {
     "settings": {
         "phpunit.options": {
-            "v": true,
-            "stop-on-failure": true,
+            "verbose": true,
             "no-coverage": true,
             "d": [
                 "display_errors=1",
@@ -179,17 +173,39 @@ Or as per-project settings: `Project > Edit Project`
 }
 ```
 
-The above settings map to the following CLI Options passed to PHPUnit:
+Both of the above configurations translate to the following PHPUnit options:
 
 ```
-phpunit --stop-on-failure -d "display_errors=1" -d "xdebug.scream=0" -v --no-coverage
+phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage
+```
+
+It is recommended to use your [phpunit.xml](https://phpunit.de/manual/current/en/appendixes.configuration.html) configuration file if you want some CLI options to stick around. Place it at the root of your project.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit verbose="true">
+    <php>
+        <ini name="display_errors" value="1" />
+        <ini name="xdebug.scream" value="0" />
+    </php>
+    <testsuites>
+        <testsuite>
+             <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>src</directory>
+        </whitelist>
+    </filter>
+</phpunit>
 ```
 
 ## INSTALLATION
 
 ### Package Control installation
 
-The preferred method of installation is [Package Control].
+The preferred method of installation is [Package Control](https://packagecontrol.io/browse/authors/gerardroche).
 
 ### Manual installation
 
@@ -268,7 +284,6 @@ Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltiz
 
 Released under the [BSD 3-Clause License](LICENSE).
 
-[Package Control]: https://packagecontrol.io/browse/authors/gerardroche
 [PHP Grammar]: https://packagecontrol.io/browse/authors/gerardroche
 [PHP Completions]: https://packagecontrol.io/browse/authors/gerardroche
 [PHP Snippets]: https://packagecontrol.io/browse/authors/gerardroche
