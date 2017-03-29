@@ -2,7 +2,7 @@
 
 ## [2.0.1]
 
-* Fixed [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv.versions path doesn't exist
+* Fixed [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv/versions path doesn't exist
 
 ## [2.0.0]
 

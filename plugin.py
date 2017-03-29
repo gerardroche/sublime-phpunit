@@ -237,39 +237,39 @@ class PHPUnit():
 
             cmd += php_executable + ' '
 
-            debug_message('PHP executable: %s' % php_executable)
-
         else:
 
-            php_versions_path = view.settings().get('phpunit.php_versions_path')
-            if php_versions_path:
+            php_version_file = os.path.join(working_dir, '.php-version')
+            if os.path.isfile(php_version_file):
+
+                with open(php_version_file, 'r') as f:
+                    php_version = f.read().strip()
+
+                php_version = re.match('^master|[1-9]+\.[0-9x](?:\.[0-9x])?(?:snapshot)?$', php_version)
+                if not php_version:
+                    return sublime.status_message('PHPUnit: .php-version file version is invalid')
+
+                php_versions_path = view.settings().get('phpunit.php_versions_path')
+                if not php_versions_path:
+                    return sublime.status_message('PHPUnit: PHP versions path is not set')
 
                 php_versions_path = os.path.expanduser(php_versions_path)
-                if os.path.isdir(php_versions_path):
+                if not os.path.isdir(php_versions_path):
+                    return sublime.status_message('PHPUnit: PHP versions path does not exist or is not a valid directory: %s' % php_versions_path)
 
-                    php_version_file = os.path.join(working_dir, '.php-version')
-                    if os.path.isfile(php_version_file):
+                php_version = php_version.group(0)
 
-                        with open(php_version_file, 'r') as f:
-                            php_version = f.read().strip()
+                php_executable = os.path.join(php_versions_path, php_version, 'bin', 'php')
 
-                        php_version = re.match('^master|[1-9]+\.[0-9x](?:\.[0-9x])?(?:snapshot)?$', php_version)
-                        if not php_version:
-                            return sublime.status_message('PHPUnit: PHP version file version is malformed')
+                if not os.path.isfile(php_executable):
+                    return sublime.status_message('PHPUnit: PHP executable for .php-version file not found: %s' % php_executable)
 
-                        php_version = php_version.group(0)
+                if not os.access(php_executable, os.X_OK):
+                    return sublime.status_message('PHPUnit: PHP executable for .php-version file is not executable: %s' % php_executable)
 
-                        php_executable = os.path.join(php_versions_path, php_version, 'bin', 'php')
+                cmd += php_executable + ' '
 
-                        if not os.path.isfile(php_executable):
-                            return sublime.status_message('PHPUnit: PHP executable for version file not found')
-
-                        if not os.access(php_executable, os.X_OK):
-                            return sublime.status_message('PHPUnit: PHP executable for version file is not executable')
-
-                        cmd += php_executable + ' '
-
-                        debug_message('PHP executable: %s' % php_executable)
+        debug_message('PHP executable: %s' % php_executable)
 
         if view.settings().get('phpunit.composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
             executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
