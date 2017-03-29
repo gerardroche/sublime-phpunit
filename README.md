@@ -71,7 +71,7 @@ Key | Description | Type | Default
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
 `phpunit.php_executable` | Use a custom PHP executable. | `string` | Uses PHP available on system path
-`phpunit.php_versions_path` | Locations of PHP versions. | `string` | `~/.phpenv/versions`
+`phpunit.php_versions_path` | Location of `.php-version` file versions. | `string` | `~/.phpenv/versions`
 
 ### Composer
 

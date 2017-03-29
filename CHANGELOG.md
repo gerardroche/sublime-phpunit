@@ -1,11 +1,15 @@
 # PHPUNITKIT CHANGELOG
 
+## [2.0.1]
+
+* Fixed [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv.versions path doesn't exist
+
 ## [2.0.0]
 
 * Fixed [#57](https://github.com/gerardroche/sublime-phpunit/issues/57): Find next / previous failure keymaps (Windows)
 * Added [#56](https://github.com/gerardroche/sublime-phpunit/issues/56): Support for .php-version file to specify PHP version to use for running PHPUnit
 * Added [#55](https://github.com/gerardroche/sublime-phpunit/issues/55): Use different PHP executable
-* Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now disabled by default
+* Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now enabled by default
 * Added [#52](https://github.com/gerardroche/sublime-phpunit/issues/52): Test File command
 * Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Commands
 
@@ -220,6 +224,7 @@
 
 * Initial import; PHPUnit support
 
+[2.0.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.2.1...2.0.0
 [1.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.1.0...1.2.0
