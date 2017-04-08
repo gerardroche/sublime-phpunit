@@ -14,6 +14,11 @@ else:
     def debug_message(message):
         pass
 
+def fix_windows_path(path):
+
+    if sublime.platform() == 'windows':
+        return '"' + path + '"'
+    return path
 
 def get_window_setting(key, default=None, window=None):
     if not window:
@@ -42,7 +47,7 @@ def find_phpunit_configuration_file(file_name, folders):
     """
     debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))
 
-    if file_name == None:
+    if file_name is None:
         return None
 
     if not isinstance(file_name, str):
@@ -51,7 +56,7 @@ def find_phpunit_configuration_file(file_name, folders):
     if not len(file_name) > 0:
         return None
 
-    if folders == None:
+    if folders is None:
         return None
 
     if not isinstance(folders, list):
@@ -146,8 +151,8 @@ def find_first_switchable(view):
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
         switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
 
-        debug_message('      Found %d switchable symbol%s in open files %s' % (len(switchables_in_open_files), '' if len(switchables_in_open_files) == 1 else 's', str(switchables_in_open_files)))
-        debug_message('      Found %d switchable symbol%s in index      %s' % (len(switchables_in_index), '' if len(switchables_in_index) == 1 else 's', str(switchables_in_index)))
+        debug_message('      Found %d switchable symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))
+        debug_message('      Found %d switchable symbol(s) in index      %s' % (len(switchables_in_index), str(switchables_in_index)))
 
         for open_file in switchables_in_open_files:
             debug_message('  Found switchable symbol in open file %s' % str(open_file))
@@ -235,7 +240,7 @@ class PHPUnit():
             if not os.access(php_executable, os.X_OK):
                 return sublime.status_message('PHPUnit: PHP executable is not executable')
 
-            cmd += php_executable + ' '
+            cmd += fix_windows_path(php_executable) + ' '
 
         else:
 
@@ -267,7 +272,7 @@ class PHPUnit():
                 if not os.access(php_executable, os.X_OK):
                     return sublime.status_message('PHPUnit: PHP executable for .php-version file is not executable: %s' % php_executable)
 
-                cmd += php_executable + ' '
+                cmd += fix_windows_path(php_executable) + ' '
 
         debug_message('PHP executable: %s' % php_executable)
 
@@ -278,7 +283,7 @@ class PHPUnit():
             if not executable:
                 return sublime.status_message('PHPUnit: PHP executable not found')
 
-        cmd += '"' + executable + '"'
+        cmd += fix_windows_path(executable)
 
         debug_message('Executable: %s' % executable)
 
@@ -299,7 +304,7 @@ class PHPUnit():
                     if not v == True:
                         cmd += " \"%s\"" % (v)
         if file:
-            cmd += " " + file
+            cmd += " " + fix_windows_path(file)
 
         debug_message('Command: %s' % cmd)
 
@@ -331,10 +336,11 @@ class PHPUnit():
         }, window=self.window)
 
         # Configure color scheme
-        self.window.create_output_panel('exec').settings().set('color_scheme',
-            view.settings().get('phpunit.color_scheme')
-                if view.settings().get('phpunit.color_scheme')
-                    else view.settings().get('color_scheme'))
+        if view.settings().get('phpunit.color_scheme'):
+            color_scheme = view.settings().get('phpunit.color_scheme')
+        else:
+            color_scheme = view.settings().get('color_scheme')
+        self.window.create_output_panel('exec').settings().set('color_scheme', color_scheme)
 
     def run_last(self):
         args = get_window_setting('phpunit._test_last', window=self.window)
