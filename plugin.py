@@ -1,6 +1,7 @@
 import re
 import os
 import shutil
+import shlex
 
 import sublime
 import sublime_plugin
@@ -235,7 +236,7 @@ class PHPUnit():
             if not os.access(php_executable, os.X_OK):
                 return sublime.status_message('PHPUnit: PHP executable is not executable')
 
-            cmd += php_executable + ' '
+            cmd += shlex.quote(php_executable) + ' '
 
         else:
 
@@ -267,7 +268,7 @@ class PHPUnit():
                 if not os.access(php_executable, os.X_OK):
                     return sublime.status_message('PHPUnit: PHP executable for .php-version file is not executable: %s' % php_executable)
 
-                cmd += php_executable + ' '
+                cmd += shlex.quote(php_executable) + ' '
 
         debug_message('PHP executable: %s' % php_executable)
 
@@ -278,7 +279,7 @@ class PHPUnit():
             if not executable:
                 return sublime.status_message('PHPUnit: PHP executable not found')
 
-        cmd += executable
+        cmd += shlex.quote(executable)
 
         debug_message('Executable: %s' % executable)
 
