@@ -278,7 +278,7 @@ class PHPUnit():
             if not executable:
                 return sublime.status_message('PHPUnit: PHP executable not found')
 
-        cmd += executable
+        cmd += '"' + executable + '"'
 
         debug_message('Executable: %s' % executable)
 
