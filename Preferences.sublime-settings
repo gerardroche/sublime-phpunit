@@ -16,8 +16,8 @@
     // e.g. "phpunit.options": {"no-coverage": true, "verbose": true},
     "phpunit.options": {},
 
-    // Default PHP executable to use to run PHPUnit. if not set then the first
-    // PHP executable available on the system path is used.
+    // Default PHP executable used to run PHPUnit. If not set then the first
+    // PHP executable found on the system path is used.
     // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
 
     // Path to find php versions. The expected location of the PHP executables

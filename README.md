@@ -22,14 +22,15 @@ Phpunitkit is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 
 * Zero configuration required; Does the Right Thing
 * Fully customized CLI options configuration
+* Test Suite, Test File, Test Nearest, Test Last, and other commands
 * Supports [Composer]
 * Supports colour test results (including failure diffs)
-* Jump to next/previous test result failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
+* Jump to next/previous test failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
 * Switch File (splits window and puts test case and class under test side by side)
 
 ## COMMANDS
 
-All commands are prefixed with "PHPUnit: ".
+*All commands in the Command Palette are prefixed with "PHPUnit: ".*
 
 Command | Description
 --------|------------
@@ -38,9 +39,9 @@ Test File | Runs all the tests in the current file test case.
 Test Nearest | Runs the test nearest to the cursor. A multiple selection can used to used to run several tests at once.
 Test Last | Runs the last test.
 Switch File | Splits the window and puts nearest test case and class under test side by side.
-Show Results |
-Open Code Coverage |
-Toggle Option |
+Show Results | Show the test results panel.
+Open Code Coverage | Open code coverage in browser.
+Toggle Option &lt;option&gt; | Toggle PHPUnit CLI options.
 
 ## KEY BINDINGS
 
@@ -53,7 +54,7 @@ OS X | Windows / Linux | Command
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
-Vim/Vintage/Vintageous | Command
+Vim/Vintage/Vintageous/[NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) | Command
 -----------------------|--------
 <kbd>,</kbd><kbd>a</kbd> | Test Suite
 <kbd>,</kbd><kbd>T</kbd> | Test File
@@ -70,7 +71,7 @@ Key | Description | Type | Default
 `phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
-`phpunit.php_executable` | Default PHP executable. If not set then the PHP available on the system PATH is used. | `string` | Uses PHP available on system path
+`phpunit.php_executable` | Default PHP executable used to run PHPUnit. If not set then the first PHP available found on the system PATH is used. | `string` | Uses PHP available on system path
 `phpunit.php_versions_path` | Location of `.php-version` file versions. | `string` | `~/.phpenv/versions`
 
 ### Composer
@@ -95,6 +96,28 @@ Or disable it per-project: `Project > Edit Project`
 }
 ```
 
+### PHP executable
+
+You can use a default PHP executable for running PHPUnit.
+
+Set it globally: `Preferences > Settings`
+
+```json
+{
+    "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
+}
+```
+
+Or set it per-project: `Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
+    }
+}
+```
+
 ### PHP versions path
 
 You can specific a location to find different PHP versions for running PHPUnit. The default location is `~/.phpenv/versions`. To specify the version to use for your project create a file named `.php-version` and place it in the root of your project (where the project phpunit.xml configuration file is located). For example a `.php-version` file with the contents `7.x` will mean the PHP executable located at `~/.phpenv/versions/7.x/bin/php` will be used to run PHPUnit.
@@ -113,28 +136,6 @@ Or set it per-project: `Project > Edit Project`
 {
     "settings": {
         "phpunit.php_versions_path": "~/.phpenv/versions"
-    }
-}
-```
-
-### PHP executable
-
-You can use a custom PHP executable for running PHPUnit.
-
-Set it globally: `Preferences > Settings`
-
-```json
-{
-    "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
-}
-```
-
-Or set it per-project: `Project > Edit Project`
-
-```json
-{
-    "settings": {
-        "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
     }
 }
 ```
