@@ -31,12 +31,5 @@
     "phpunit.save_all_on_run": true,
 
     // Enable the default vi keymaps.
-    "phpunit.vi_keymaps": true,
-
-    // --- For plugin development only ---
-    // Enable plugin development. For example, makes running tests available.
-    // Note: This setting does nothing when installed using Package Control
-    // because plugin development tests and other artifacts are not included
-    // in production builds of the plugin.
-    "phpunit.development": false
+    "phpunit.vi_keymaps": true
 }
