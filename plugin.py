@@ -1,6 +1,7 @@
 import re
 import os
 import shutil
+import shlex
 
 import sublime
 import sublime_plugin
