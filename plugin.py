@@ -15,6 +15,11 @@ else:
     def debug_message(message):
         pass
 
+def fix_windows_path(path):
+
+    if sublime.platform() == 'windows':
+        return '"' + path + '"'
+    return path
 
 def get_window_setting(key, default=None, window=None):
     if not window:
@@ -236,7 +241,7 @@ class PHPUnit():
             if not os.access(php_executable, os.X_OK):
                 return sublime.status_message('PHPUnit: PHP executable is not executable')
 
-            cmd += shlex.quote(php_executable) + ' '
+            cmd += fix_windows_path(php_executable) + ' '
 
         else:
 
@@ -268,7 +273,7 @@ class PHPUnit():
                 if not os.access(php_executable, os.X_OK):
                     return sublime.status_message('PHPUnit: PHP executable for .php-version file is not executable: %s' % php_executable)
 
-                cmd += shlex.quote(php_executable) + ' '
+                cmd += fix_windows_path(php_executable) + ' '
 
         debug_message('PHP executable: %s' % php_executable)
 
@@ -279,7 +284,7 @@ class PHPUnit():
             if not executable:
                 return sublime.status_message('PHPUnit: PHP executable not found')
 
-        cmd += shlex.quote(executable)
+        cmd += fix_windows_path(executable)
 
         debug_message('Executable: %s' % executable)
 
@@ -300,7 +305,7 @@ class PHPUnit():
                     if not v == True:
                         cmd += " \"%s\"" % (v)
         if file:
-            cmd += " " + file
+            cmd += " " + fix_windows_path(file)
 
         debug_message('Command: %s' % cmd)
 
