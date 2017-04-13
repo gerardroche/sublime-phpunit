@@ -117,6 +117,14 @@ def find_php_classes(view):
     """Returns an array of classes (class names) defined in the view."""
     classes = []
 
+    for class_declaration in view.find_by_selector('source.php storage.type.class'):
+        class_main = view.find('[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+', class_declaration.end(), sublime.IGNORECASE)
+        main_class_as_string = view.substr(class_main)
+        if is_valid_php_identifier(main_class_as_string):
+            classes.append(main_class_as_string)
+            debug_message('Main class found: %s' % (main_class_as_string) )
+            break
+
     for class_as_region in view.find_by_selector('source.php entity.name.type.class'):
         class_as_string = view.substr(class_as_region)
         if is_valid_php_identifier(class_as_string):
