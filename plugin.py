@@ -185,9 +185,9 @@ def find_first_switchable_file(view):
 
 def exec_file_regex():
     if sublime.platform() == 'windows':
-        return '((?:[a-zA-Z]\:)?[a-zA-Z0-9\\.\\/\\\\_-]+)(?: on line |\:)([0-9]+)$'
+        return '((?:[a-zA-Z]\:)?\\\\[a-zA-Z0-9 \\.\\/\\\\_-]+)(?: on line |\:)([0-9]+)'
     else:
-        return '([a-zA-Z0-9\\.\\/_-]+)(?: on line |\:)([0-9]+)$'
+        return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\:)([0-9]+)'
 
 
 def is_file_executable(file):

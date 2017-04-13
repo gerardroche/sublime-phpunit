@@ -5,6 +5,7 @@
 * Fixed: Errors when some paths contained characters like spaces
 * Fixed: Environment variables now work in path settings like "phpunit.php_executable" and "phpunit.php_versions_path"
 * Fixed: Project PHP version file (`.php-version`) version number not working for some version numbers
+* Fixed: Jump to next/previous error didn't work in some cases where file paths contained characters like spaces
 
 ## [2.0.1]
 

@@ -1,6 +1,9 @@
 import re
 
 
+import sublime
+
+
 from phpunitkit.tests.helpers import ViewTestCase
 
 
@@ -8,6 +11,7 @@ from phpunitkit.plugin import find_php_classes
 from phpunitkit.plugin import has_test_case
 from phpunitkit.plugin import build_cmd_options
 from phpunitkit.plugin import is_valid_php_version_file_version
+from phpunitkit.plugin import exec_file_regex
 
 
 class FunctionsTest(ViewTestCase):
@@ -94,3 +98,94 @@ class FunctionsTest(ViewTestCase):
         self.assertTrue(is_valid_php_version_file_version('7.1.1snapshot'))
 
         self.assertFalse(is_valid_php_version_file_version('snapshot'))
+
+    def test_exec_file_regex(self):
+
+        def assert_false(test):
+            self.assertFalse(bool(re.match(exec_file_regex(), test)))
+
+        def test_matches_one(test, expected_path, expected_line_number):
+            res = re.findall(exec_file_regex(), test)
+            self.assertTrue(len(res) == 1)
+            self.assertEqual(res[0][0], expected_path)
+            self.assertEqual(res[0][1], expected_line_number)
+
+        assert_false('')
+        assert_false('  ')
+        assert_false('foobar')
+
+        if sublime.platform() == 'windows':
+            test_matches_one('C:\\code\\file.php:11', 'C:\\code\\file.php', '11')
+            test_matches_one('C:\\code\\file.php:22    ', 'C:\\code\\file.php', '22')
+            test_matches_one('    C:\\code\\file.php:33', 'C:\\code\\file.php', '33')
+            test_matches_one('  C:\\code\\file.php:44    ', 'C:\\code\\file.php', '44')
+
+            test_matches_one('C:\\code\\test\\DeepThoughtTest.php:9', 'C:\\code\\test\\DeepThoughtTest.php', '9')
+
+            test_matches_one(
+                'C:\\home\\user\\code\\tests\\DeepThoughtTest.php on line 20',
+                'C:\\home\\user\\code\\tests\\DeepThoughtTest.php',
+                '20'
+            )
+
+            test_matches_one(
+                'PHP Fatal error:  Class \'Vendor\Package\Exception\' not found in C:\\home\\user\\code\\tests\\DeepThoughtTest.php on line 20',
+                'C:\\home\\user\\code\\tests\\DeepThoughtTest.php',
+                '20'
+            )
+
+            test_matches_one(
+                'PHP   1. {main}() C:\\home\\user\\code\\vendor\\phpunit\\phpunit\\phpunit:0',
+                'C:\\home\\user\\code\\vendor\\phpunit\\phpunit\\phpunit',
+                '0'
+            )
+
+            test_matches_one(
+                '0.3400    4950336   7. PHPUnit_Framework_TestCase->run() C:\\home\\user\\code\\project\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php:722',
+                'C:\\home\\user\\code\\project\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php',
+                '722'
+            )
+
+            test_matches_one(
+                'PHP Warning:  require(C:\\home\\user\\code\\test\\..\\src\\PHP.php): failed to open stream: No such file or directory in C:\\home\\user\\code\\test\\bootstrap.php on line 6',
+                'C:\\home\\user\\code\\test\\bootstrap.php',
+                '6',
+            )
+        else:
+
+            test_matches_one('/code/file.php:11', '/code/file.php', '11')
+            test_matches_one('/code/file.php:22    ', '/code/file.php', '22')
+            test_matches_one('    /code/file.php:33', '/code/file.php', '33')
+            test_matches_one('  /code/file.php:44    ', '/code/file.php', '44')
+
+            test_matches_one('/code/test/DeepThoughtTest.php:9', '/code/test/DeepThoughtTest.php', '9')
+
+            test_matches_one(
+                '/home/user/code/tests/DeepThoughtTest.php on line 20',
+                '/home/user/code/tests/DeepThoughtTest.php',
+                '20'
+            )
+
+            test_matches_one(
+                'PHP Fatal error:  Class \'Vendor\Package\Exception\' not found in /home/user/code/tests/DeepThoughtTest.php on line 20',
+                '/home/user/code/tests/DeepThoughtTest.php',
+                '20'
+            )
+
+            test_matches_one(
+                'PHP   1. {main}() /home/user/code/vendor/phpunit/phpunit/phpunit:0',
+                '/home/user/code/vendor/phpunit/phpunit/phpunit',
+                '0'
+            )
+
+            test_matches_one(
+                '0.3400    4950336   7. PHPUnit_Framework_TestCase->run() /home/user/code/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php:722',
+                '/home/user/code/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php',
+                '722'
+            )
+
+            test_matches_one(
+                'PHP Warning:  require(/home/user/code/test/../src/PHP.php): failed to open stream: No such file or directory in /home/user/code/test/bootstrap.php on line 6',
+                '/home/user/code/test/bootstrap.php',
+                '6',
+            )
