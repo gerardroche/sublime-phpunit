@@ -1,6 +1,0 @@
-[
-    {
-        "caption": "PHPUnit: Run All Plugin Tests",
-        "command": "phpunit_run_all_plugin_tests"
-    }
-]

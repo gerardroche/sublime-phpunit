@@ -16,6 +16,10 @@
     // e.g. "phpunit.options": {"no-coverage": true, "verbose": true},
     "phpunit.options": {},
 
+    // Default PHP executable to use to run PHPUnit. if not set then the first
+    // PHP executable available on the system path is used.
+    // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
+
     // Path to find php versions. The expected location of the PHP executables
     // is {php_versions_path}/{version}/bin/php. Specify the version to use by
     // creating a file named .php-version, with the version as its contents,
@@ -23,20 +27,10 @@
     // configuration file is located).
     "phpunit.php_versions_path": "~/.phpenv/versions",
 
-    // Use a custom (specific) PHP executable to run PHPUnit.
-    // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
-
     // Enable writing out every buffer (active window) with changes and a file
     // name, on test runs.
     "phpunit.save_all_on_run": true,
 
     // Enable the default vi keymaps.
-    "phpunit.vi_keymaps": true,
-
-    // --- For plugin development only ---
-    // Enable plugin development. For example, makes running tests available.
-    // Note: This setting does nothing when installed using Package Control
-    // because plugin development tests and other artifacts are not included
-    // in production builds of the plugin.
-    "phpunit.development": false
+    "phpunit.vi_keymaps": true
 }

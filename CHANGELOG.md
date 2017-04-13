@@ -1,5 +1,14 @@
 # PHPUNITKIT CHANGELOG
 
+* Fixed [#59](https://github.com/gerardroche/sublime-phpunit/issues/59): Error when trying to run PHPUnit with a PHP executable (Windows)
+* Fixed: Error when trying to run a global install of PHPUnit with a PHP executable
+* Fixed: Errors when some paths contained characters like spaces
+* Fixed: Environment variables now work in path settings like "phpunit.php_executable" and "phpunit.php_versions_path"
+* Fixed: Project PHP version file (`.php-version`) version number not working for some version numbers
+* Fixed: Jump to next/previous error didn't work in some cases where file paths contained characters like spaces
+* Fixed: Running tests now terminates any currently running tests before running tests
+* Fixed: .php-version file version is no longer overridden by the default executable 'phpunit.php_executable'
+
 ## [2.0.1]
 
 * Fixed [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv/versions path doesn't exist

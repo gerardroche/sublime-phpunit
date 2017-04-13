@@ -1,6 +1,6 @@
 # WHAT PHPUNITKIT IS
 
-[![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat-square&maxAge=86400)](https://twitter.com/gerardroche) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat-square&maxAge=86400)](https://github.com/gerardroche/sublime-phpunit) [![License](https://img.shields.io/badge/license-BSD--3-blue.svg?style=flat-square&maxAge=86400)](LICENSE) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square&maxAge=86400)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&maxAge=86400&label=release)](https://github.com/gerardroche/sublime-phpunit/tags) [![Sublime version](https://img.shields.io/badge/sublime-v3.0.0-green.svg?style=flat-square&maxAge=86400)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square&maxAge=86400)](https://packagecontrol.io/packages/phpunitkit)
+[![Build Status](https://travis-ci.org/gerardroche/sublime-phpunit.svg?branch=master)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Minimum Sublime version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=packagecontrol)](https://github.com/gerardroche/sublime-phpunit/tags) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit) [![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
 
 Phpunitkit is a plugin that provides [PHPUnit](https://phpunit.de) support in [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line. It works best alongside other PHP development plugins such as [PHP Grammar], [PHP Snippets], and [PHP Completions].
 
@@ -70,7 +70,7 @@ Key | Description | Type | Default
 `phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
 `phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
-`phpunit.php_executable` | Use a custom PHP executable. | `string` | Uses PHP available on system path
+`phpunit.php_executable` | Default PHP executable. If not set then the PHP available on the system PATH is used. | `string` | Uses PHP available on system path
 `phpunit.php_versions_path` | Location of `.php-version` file versions. | `string` | `~/.phpenv/versions`
 
 ### Composer
@@ -220,7 +220,7 @@ The preferred method of installation is [Package Control](https://packagecontrol
 
 Your issue reports and pull requests are welcome.
 
-### Debug messages
+### Debugging
 
 Debug messages are output to the Console (not the tests results output panel). Open the console: `Menu > View > Console` or click the icon in the bottom right of the status bar.
 
@@ -260,17 +260,9 @@ To set the environment permanently set it as a *system* environment variable (re
 4. Add Variable name `SUBLIME_PHPUNIT_DEBUG` with Variable value `y`
 5. Restart Windows
 
-### Running tests
+### Tests
 
-To be able to run the tests enable plugin development. This will make the command "PHPUnit: Run all Plugin Tests" available in the Command Palette.
-
-Preferences > Settings - User
-
-```
-{
-    "phpunit.development": true
-}
-```
+The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run the tests. Install it, open the Command Palette, type "UnitTesting", press Enter and input "phpunitkit" as the package to test.
 
 ## CHANGELOG
 
@@ -278,7 +270,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## CREDITS
 
-Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit). And inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
+Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit). Also inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
 
 ## LICENSE
 
