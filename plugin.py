@@ -235,6 +235,9 @@ class PHPUnit():
     def run(self, working_dir=None, file=None, options=None):
         debug_message('running with (working_dir={}, file={}, options={})'.format(working_dir, file, options))
 
+        # Kill any currently running tests
+        self.window.run_command('exec', {'kill': True})
+
         env = {}
         cmd = []
 
