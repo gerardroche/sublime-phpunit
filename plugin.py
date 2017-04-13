@@ -195,7 +195,7 @@ def is_file_executable(file):
 
 
 def is_valid_php_version_file_version(version):
-    return bool(re.match('^master|[1-9]+\.[0-9x](?:\.[0-9x])?(?:snapshot)?$', version))
+    return bool(re.match('^(?:master|[1-9]\.[0-9]+(?:snapshot|\.[0-9]+(?:snapshot)?)|[1-9]\.x|[1-9]\.[0-9]+\.x)$', version))
 
 
 def build_cmd_options(options, cmd):

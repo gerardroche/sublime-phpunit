@@ -4,6 +4,7 @@
 * Fixed: Error when trying to run a global install of PHPUnit with a PHP executable
 * Fixed: Errors when some paths contained characters like spaces
 * Fixed: Environment variables now work in path settings like "phpunit.php_executable" and "phpunit.php_versions_path"
+* Fixed: Project PHP version file (`.php-version`) version number not working for some version numbers
 
 ## [2.0.1]
 
