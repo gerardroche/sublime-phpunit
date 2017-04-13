@@ -7,6 +7,7 @@
 * Fixed: Project PHP version file (`.php-version`) version number not working for some version numbers
 * Fixed: Jump to next/previous error didn't work in some cases where file paths contained characters like spaces
 * Fixed: Running tests now terminates any currently running tests before running tests
+* Fixed: .php-version file version is no longer overridden by the default executable 'phpunit.php_executable'
 
 ## [2.0.1]
 

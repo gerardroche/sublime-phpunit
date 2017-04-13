@@ -340,14 +340,6 @@ class PHPUnit():
         return options
 
     def get_php_executable(self, working_dir):
-        php_executable = self.view.settings().get('phpunit.php_executable')
-        if php_executable:
-            php_executable = filter_path(php_executable)
-            if not is_file_executable(php_executable):
-                raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
-
-            return php_executable
-
         php_version_file = os.path.join(working_dir, '.php-version')
         if os.path.isfile(php_version_file):
             with open(php_version_file, 'r') as f:
@@ -371,6 +363,14 @@ class PHPUnit():
 
             if not is_file_executable(php_executable):
                 raise ValueError("php executable '%s' is not an executable file" % php_executable)
+
+            return php_executable
+
+        php_executable = self.view.settings().get('phpunit.php_executable')
+        if php_executable:
+            php_executable = filter_path(php_executable)
+            if not is_file_executable(php_executable):
+                raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
 
             return php_executable
 
