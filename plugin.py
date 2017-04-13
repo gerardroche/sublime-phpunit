@@ -200,23 +200,28 @@ def is_valid_php_version_file_version(version):
 
 def build_cmd_options(options, cmd):
     for k, v in options.items():
-        if not v == False:
+        if v:
             if len(k) == 1:
-                if not v == False:
-                    if v == True:
-                        cmd += " -%s" % (k)
-                    else:
-                        if isinstance(v, list):
-                            for _v in v:
-                                cmd += " -%s \"%s\"" % (k, _v)
-                        else:
-                            cmd += " -%s \"%s\"" % (k, v)
+                if isinstance(v, list):
+                    for _v in v:
+                        cmd.append('-' + k)
+                        cmd.append(_v)
+                else:
+                    cmd.append('-' + k)
+                    if v is not True:
+                        cmd.append(v)
             else:
-                cmd += " --" + k
-                if not v == True:
-                    cmd += " \"%s\"" % (v)
+                cmd.append('--' + k)
+                if v is not True:
+                    cmd.append(v)
 
     return cmd
+
+
+def filter_path(path):
+    path = os.path.expanduser(path)
+    path = os.path.expandvars(path)
+    return path
 
 
 class PHPUnit():
@@ -225,31 +230,32 @@ class PHPUnit():
         self.window = window
         self.view = self.window.active_view()
         if not self.view:
-            raise ValueError('no active view')
+            raise ValueError('view not found')
 
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('run(working_dir={}, file={}, options={})'.format(working_dir, file, options))
+        debug_message('running with (working_dir={}, file={}, options={})'.format(working_dir, file, options))
 
-        if not working_dir:
-            working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
-            if not working_dir:
-                return sublime.status_message('PHPUnit: could not find a working directory')
-
-        if not os.path.isdir(working_dir):
-            return sublime.status_message('PHPUnit: working directory does not exist or is not a valid directory')
-
-        debug_message('working_dir = %s' % working_dir)
-
-        cmd = ''
+        env = {}
+        cmd = []
 
         try:
+            if not working_dir:
+                working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
+                if not working_dir:
+                    raise ValueError('working directory not found')
+
+            if not os.path.isdir(working_dir):
+                raise ValueError('working directory does not exist or is not a valid directory')
+
+            debug_message('working dir = %s' % working_dir)
+
             php_executable = self.get_php_executable(working_dir)
             if php_executable:
-                cmd += shlex.quote(php_executable) + ' '
+                env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
                 debug_message('php executable = %s' % php_executable)
 
             phpunit_executable = self.get_phpunit_executable(working_dir)
-            cmd += shlex.quote(phpunit_executable)
+            cmd.append(phpunit_executable)
             debug_message('phpunit executable = %s' % phpunit_executable)
 
             options = self.filter_options(options)
@@ -260,15 +266,16 @@ class PHPUnit():
             if file:
                 if os.path.isfile(file):
                     file = os.path.relpath(file, working_dir)
-                    cmd += ' ' + file
+                    cmd.append(file)
                     debug_message('file = %s' % file)
                 else:
-                    raise ValueError("test file '%s' is not valid" % file)
+                    raise ValueError("test file '%s' not found" % file)
 
         except Exception as e:
             print('PHPUnit: {}'.format(e))
             return sublime.status_message(str(e))
 
+        debug_message('env = %s' % env)
         debug_message('cmd = %s' % cmd)
 
         if self.view.settings().get('phpunit.save_all_on_run'):
@@ -280,10 +287,11 @@ class PHPUnit():
                     view.run_command('save')
 
         self.window.run_command('exec', {
+            'env': env,
             'cmd': cmd,
             'file_regex': exec_file_regex(),
             'quiet': not is_debug(self.view),
-            'shell': True,
+            'shell': False,
             'syntax': 'Packages/phpunitkit/test-results.hidden-tmLanguage',
             'word_wrap': False,
             'working_dir': working_dir
@@ -331,8 +339,7 @@ class PHPUnit():
     def get_php_executable(self, working_dir):
         php_executable = self.view.settings().get('phpunit.php_executable')
         if php_executable:
-            php_executable = os.path.expanduser(php_executable)
-
+            php_executable = filter_path(php_executable)
             if not is_file_executable(php_executable):
                 raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
 
@@ -350,11 +357,14 @@ class PHPUnit():
             if not php_versions_path:
                 raise ValueError("'phpunit.php_versions_path' is not set")
 
-            php_versions_path = os.path.expanduser(php_versions_path)
+            php_versions_path = filter_path(php_versions_path)
             if not os.path.isdir(php_versions_path):
                 raise ValueError("'phpunit.php_versions_path' '%s' does not exist or is not a valid directory" % php_versions_path)
 
-            php_executable = os.path.join(php_versions_path, php_version_number, 'bin', 'php')
+            if sublime.platform() == 'windows':
+                php_executable = os.path.join(php_versions_path, php_version_number, 'php.exe')
+            else:
+                php_executable = os.path.join(php_versions_path, php_version_number, 'bin', 'php')
 
             if not is_file_executable(php_executable):
                 raise ValueError("php executable '%s' is not an executable file" % php_executable)
@@ -364,8 +374,13 @@ class PHPUnit():
         return None
 
     def get_phpunit_executable(self, working_dir):
-        if self.view.settings().get('phpunit.composer') and os.path.isfile(os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))):
-            return os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+        if sublime.platform() == 'windows':
+            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
+        else:
+            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+
+        if self.view.settings().get('phpunit.composer') and is_file_executable(composer_phpunit_executable):
+            return composer_phpunit_executable
         else:
             executable = shutil.which('phpunit')
             if executable:
