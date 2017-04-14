@@ -125,11 +125,6 @@ def find_php_classes(view):
             debug_message('Main class found: %s' % (main_class_as_string) )
             break
 
-    for class_as_region in view.find_by_selector('source.php entity.name.type.class'):
-        class_as_string = view.substr(class_as_region)
-        if is_valid_php_identifier(class_as_string):
-            classes.append(class_as_string)
-
     # Quick fix for ST build >= 3114 because the default PHP package changed the
     # scope on class entities.
     if not classes:
