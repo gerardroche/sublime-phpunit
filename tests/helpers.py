@@ -8,6 +8,13 @@ import sublime_plugin
 class phpunit_test_view_replace(sublime_plugin.TextCommand):
 
     def run(self, edit, text):
+        # Don't know it fails without import sublime
+        # here. Without the import running tests
+        # multiple times fails with an
+        # attribute "Region" not
+        # found error.
+        import sublime
+
         self.view.replace(edit, sublime.Region(0, self.view.size()), text)
 
 

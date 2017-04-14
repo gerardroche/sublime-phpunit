@@ -15,7 +15,7 @@ class FindersTest(unittest.TestCase):
         self.assertIsNone(find_phpunit_configuration_file('', ['']))
         self.assertIsNone(find_phpunit_configuration_file(' ', [' ']))
 
-    def test_find_nonw_with_file(self):
+    def test_find_none_with_file(self):
         file = os.path.join(fixtures_path(), 'common_prefix_parent', 'valid', 'file.php')
 
         self.assertIsNone(find_phpunit_configuration_file(file, None))
@@ -23,7 +23,7 @@ class FindersTest(unittest.TestCase):
         self.assertIsNone(find_phpunit_configuration_file(file, [' ']))
         self.assertIsNone(find_phpunit_configuration_file(file, ['foobarfoobar']))
 
-    def test_find_nonw_with_folders(self):
+    def test_find_none_with_folders(self):
         folders = [
             os.path.join(fixtures_path(), 'common_prefix_parent'),
             os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
