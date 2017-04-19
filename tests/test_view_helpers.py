@@ -14,6 +14,19 @@ class FindPHPClassesTest(ViewTestCase):
         self.set_view_content('a')
         self.assertEquals([], find_php_classes(self.view))
 
+    def test_find_php_classes_with_namespace_and_use_and_alias(self):
+        self.set_view_content('''<?php
+
+use some\\namespace\\BaseCommandInterface as Command;
+
+class CommandBus
+{
+
+}
+''')
+
+        self.assertEquals(['CommandBus'], find_php_classes(self.view))
+
 
 class HasTestCaseTest(ViewTestCase):
 
