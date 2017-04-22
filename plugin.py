@@ -369,16 +369,21 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
+        # BC: to be removed in v3.0.0
+        # Custom color schemes are deprecated and will
+        # be removed in v3.0.0. Instead, a definitive
+        # syntax for test results panels will be
+        # written and popular color schemes will
+        # be asked to support it. See the issue
+        # tracker for more details.
         if self.view.settings().has('phpunit.color_scheme'):
             color_scheme = self.view.settings().get('phpunit.color_scheme')
             if color_scheme:
-                # bc compat: to be removed in v3.0.0
                 color_scheme = color_scheme.replace('Packages/phpunitkit/color-schemes/', 'Packages/phpunitkit/res/')
             else:
                 color_scheme = self.view.settings().get('color_scheme')
         else:
-            color_scheme = self.view.settings().get('color_scheme')
-
+            color_scheme = 'Packages/phpunitkit/res/monokai.hidden-tmTheme'
         self.window.create_output_panel('exec').settings().set('color_scheme', color_scheme)
 
     def run_last(self):
