@@ -133,6 +133,39 @@ def find_php_classes(view):
     return classes
 
 
+def selected_unit_test_method_names(view):
+    """
+    Returns an array of selected test method names.
+    Selection can be anywhere inside one or more test methods.
+    If no selection is found inside any test method, then all test method names are returned.
+    """
+
+    method_names = []
+    function_areas = view.find_by_selector('meta.function')
+    function_regions = view.find_by_selector('entity.name.function')
+
+    for region in view.sel():
+        for i, area in enumerate(function_areas):
+            if not area.a <= region.a <= area.b:
+                continue
+            if not i in function_regions and not area.intersects(function_regions[i]):
+                continue
+            word = view.substr(function_regions[i])
+            if is_valid_php_identifier(word):
+                method_names.append(word)
+            break
+
+    # fallback
+    if not method_names:
+        for region in view.sel():
+            word = view.substr(view.word(region))
+            if not is_valid_php_identifier(word) or word[:4] != 'test':
+                return None
+            method_names.append(word)
+
+    return method_names
+
+
 def find_first_switchable(view):
     """Returns the first switchable; otherwise None."""
     debug_message('find_first_switchable(view = %s:%s)' % (view, view.file_name()))
@@ -355,6 +388,33 @@ class PHPUnit():
 
         self.run(file=file)
 
+    def run_nearest(self):
+        if has_test_case(self.view):
+            debug_message('Found test case in %s' % self.view.file_name())
+
+            unit_test = self.view.file_name()
+            options = {}
+
+            unit_test_method_names = selected_unit_test_method_names(self.view)
+            debug_message('Test method selections: %s' % unit_test_method_names)
+            if unit_test_method_names:
+                options = {
+                    # @todo optimise filter regex; possibly limit the size of the regex too
+                    'filter': '::(' + '|'.join(unit_test_method_names) + ')( with data set .+)?$'
+                }
+        else:
+            debug_message('No test case found in %s' % self.view.file_name())
+
+            unit_test = find_first_switchable_file(self.view)
+            options = {}
+            # @todo how to check that the switchable contains a testcase?
+
+        if not unit_test:
+            debug_message('Could not find a PHPUnit test case or a switchable test case')
+            return
+
+        self.run(file=unit_test, options=options)
+
     def filter_options(self, options):
         if options is None:
             options = {}
@@ -403,8 +463,6 @@ class PHPUnit():
                 raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
 
             return php_executable
-
-        return None
 
     def get_phpunit_executable(self, working_dir):
         if sublime.platform() == 'windows':
