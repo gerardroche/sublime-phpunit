@@ -1,8 +1,8 @@
 {
     // Test results color scheme. Set to null for no colour. Schemes:
-    // * Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme
-    // * Packages/phpunitkit/color-schemes/solarized-dark.hidden-tmTheme
-    "phpunit.color_scheme": "Packages/phpunitkit/color-schemes/monokai.hidden-tmTheme",
+    // * Packages/phpunitkit/res/monokai.hidden-tmTheme
+    // * Packages/phpunitkit/res/solarized-dark.hidden-tmTheme
+    "phpunit.color_scheme": "Packages/phpunitkit/res/monokai.hidden-tmTheme",
 
     // Enable composer support. If a composer installed PHPUnit is found then it
     // is used to run tests.

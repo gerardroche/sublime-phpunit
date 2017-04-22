@@ -369,8 +369,13 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
-        if self.view.settings().get('phpunit.color_scheme'):
+        if self.view.settings().has('phpunit.color_scheme'):
             color_scheme = self.view.settings().get('phpunit.color_scheme')
+            if color_scheme:
+                # bc compat: to be removed in v3.0.0
+                color_scheme = color_scheme.replace('Packages/phpunitkit/color-schemes/', 'Packages/phpunitkit/res/')
+            else:
+                color_scheme = self.view.settings().get('color_scheme')
         else:
             color_scheme = self.view.settings().get('color_scheme')
 
