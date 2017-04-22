@@ -295,7 +295,7 @@ class PHPUnit():
             'file_regex': exec_file_regex(),
             'quiet': not is_debug(self.view),
             'shell': False,
-            'syntax': 'Packages/phpunitkit/res/text-ui-result.hidden-tmLanguage',
+            'syntax': 'Packages/phpunitkit/res/text-ui-result.sublime-syntax',
             'word_wrap': False,
             'working_dir': working_dir
         })

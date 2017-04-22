@@ -1,0 +1,38 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+# See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c35359287fa6b0adb17391/src/TextUI/ResultPrinter.php#L344
+name: PHPUnit Text UI Result
+scope: text.phpunit-result
+hidden: true
+contexts:
+  main:
+    - include: scope:source.diff
+    - match: ^(?=(\.|E|F|I|R|S)+\s+)
+      push:
+        - match: \s+(\d+\s+\/\s+\d+\s+\(\s*\d+\%\))?$
+          pop: true
+        - match: \.
+          scope: test.progress.success.phpunit-result
+        - match: E
+          scope: test.progress.error.phpunit-result
+        - match: F
+          scope: test.progress.failure.phpunit-result
+        - match: I
+          scope: test.progress.incomplete.phpunit-result
+        - match: R
+          scope: test.progress.risky.phpunit-result
+        - match: S
+          scope: test.progress.skipped.phpunit-result
+    - match: '^(?:\e\[[0-9;]+m)?No tests executed\!(?:\e\[[0-9;]+m)?$'
+      scope: test.footer.none-executed.phpunit-result
+    - match: '^(?:\e\[[0-9;]+m)?OK \(\d+ test(?:s)?, \d+ assertion(?:s)?\)(?:\e\[[0-9;]+m)?$'
+      scope: test.footer.ok.phpunit-result
+    - match: '^(?:\e\[[0-9;]+m)?OK, but incomplete, skipped, or risky tests\!(?:\e\[[0-9;]+m)?$'
+      scope: test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+    - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Incomplete|Skipped|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+      scope: test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+    - match: '^(?:\e\[[0-9;]+m)?FAILURES\!(?:\e\[[0-9;]+m\s*)?$'
+      scope: test.footer.fail.phpunit-result
+    - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+      scope: test.footer.fail.phpunit-result

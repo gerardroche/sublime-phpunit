@@ -1,4 +1,3 @@
-
 from phpunitkit.tests.helpers import ViewTestCase
 from phpunitkit.plugin import find_php_classes
 from phpunitkit.plugin import has_test_case
