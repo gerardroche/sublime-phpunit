@@ -133,11 +133,11 @@ def find_php_classes(view):
     return classes
 
 
-def selected_unit_test_method_names(view):
+def find_selected_test_methods(view):
     """
-    Returns an array of selected test method names.
+    Returns a list of selected test method names.
+    Returns an empty list if no selections found.
     Selection can be anywhere inside one or more test methods.
-    If no selection is found inside any test method, then all test method names are returned.
     """
 
     method_names = []
@@ -148,19 +148,23 @@ def selected_unit_test_method_names(view):
         for i, area in enumerate(function_areas):
             if not area.a <= region.a <= area.b:
                 continue
-            if not i in function_regions and not area.intersects(function_regions[i]):
+
+            if i not in function_regions and not area.intersects(function_regions[i]):
                 continue
+
             word = view.substr(function_regions[i])
             if is_valid_php_identifier(word):
                 method_names.append(word)
             break
 
-    # fallback
+    # Fallback for ealier
+    # versions of ST.
     if not method_names:
         for region in view.sel():
             word = view.substr(view.word(region))
             if not is_valid_php_identifier(word) or word[:4] != 'test':
-                return None
+                return []
+
             method_names.append(word)
 
     return method_names
@@ -390,40 +394,36 @@ class PHPUnit():
         kwargs = get_window_setting('phpunit._test_last', window=self.window)
         if kwargs:
             self.run(**kwargs)
+        else:
+            return sublime.status_message('PHPUnit: last test not found')
 
     def run_file(self):
         file = self.view.file_name()
-        if not file:
-            return
-
-        self.run(file=file)
+        if file:
+            self.run(file=file)
+        else:
+            return sublime.status_message('PHPUnit: file not found')
 
     def run_nearest(self):
+        options = {}
+
         if has_test_case(self.view):
-            debug_message('Found test case in %s' % self.view.file_name())
-
+            debug_message("Found test case in '{}'".format(self.view.file_name()))
             unit_test = self.view.file_name()
-            options = {}
-
-            unit_test_method_names = selected_unit_test_method_names(self.view)
-            debug_message('Test method selections: %s' % unit_test_method_names)
-            if unit_test_method_names:
-                options = {
-                    # @todo optimise filter regex; possibly limit the size of the regex too
-                    'filter': '::(' + '|'.join(unit_test_method_names) + ')( with data set .+)?$'
-                }
+            selected_test_methods = find_selected_test_methods(self.view)
+            if selected_test_methods:
+                debug_message('Selected test methods = {}'.format(selected_test_methods))
+                # @todo optimise filter regex; possibly limit the size of the regex too
+                options = {'filter': '::(' + '|'.join(selected_test_methods) + ')( with data set .+)?$'}
         else:
-            debug_message('No test case found in %s' % self.view.file_name())
-
+            # @todo check that the switchable actually contains a testcase
+            debug_message("No test case found in '%s'".format(self.view.file_name()))
             unit_test = find_first_switchable_file(self.view)
-            options = {}
-            # @todo how to check that the switchable contains a testcase?
 
-        if not unit_test:
-            debug_message('Could not find a PHPUnit test case or a switchable test case')
-            return
-
-        self.run(file=unit_test, options=options)
+        if unit_test:
+            self.run(file=unit_test, options=options)
+        else:
+            return sublime.status_message('PHPUnit: nearest test not found')
 
     def filter_options(self, options):
         if options is None:
