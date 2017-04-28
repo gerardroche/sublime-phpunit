@@ -285,6 +285,12 @@ def build_cmd_options(options, cmd):
     return cmd
 
 
+# TODO do we need to optimise the filter pattern?
+# TODO should the filter pattern have max size?
+def build_filter_option_pattern(list):
+    return '::(' + '|'.join(sorted(list)) + ')( with data set .+)?$'
+
+
 def filter_path(path):
     path = os.path.expanduser(path)
     path = os.path.expandvars(path)
@@ -413,10 +419,8 @@ class PHPUnit():
             selected_test_methods = find_selected_test_methods(self.view)
             if selected_test_methods:
                 debug_message('Selected test methods = {}'.format(selected_test_methods))
-                # @todo optimise filter regex; possibly limit the size of the regex too
-                options = {'filter': '::(' + '|'.join(selected_test_methods) + ')( with data set .+)?$'}
+                options = {'filter': build_filter_option_pattern(selected_test_methods)}
         else:
-            # @todo check that the switchable actually contains a testcase
             debug_message("No test case found in '%s'".format(self.view.file_name()))
             unit_test = find_first_switchable_file(self.view)
 

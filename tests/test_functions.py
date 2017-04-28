@@ -6,6 +6,7 @@ import sublime
 from phpunitkit.plugin import build_cmd_options
 from phpunitkit.plugin import is_valid_php_version_file_version
 from phpunitkit.plugin import exec_file_regex
+from phpunitkit.plugin import build_filter_option_pattern
 
 
 class FunctionsTest(unittest.TestCase):
@@ -163,3 +164,9 @@ class FunctionsTest(unittest.TestCase):
                 '/home/user/code/test/bootstrap.php',
                 '6',
             )
+
+    def test_build_filter_option(self):
+        self.assertEqual('::(a)( with data set .+)?$', build_filter_option_pattern(['a']))
+        self.assertEqual('::(a|b)( with data set .+)?$', build_filter_option_pattern(['a', 'b']))
+        self.assertEqual('::(a|b|c)( with data set .+)?$', build_filter_option_pattern(['a', 'b', 'c']))
+        self.assertEqual('::(a|b|c)( with data set .+)?$', build_filter_option_pattern(['b', 'c', 'a']))
