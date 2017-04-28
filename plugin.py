@@ -349,7 +349,7 @@ class PHPUnit():
 
         except Exception as e:
             print('PHPUnit: {}'.format(e))
-            return sublime.status_message(str(e))
+            return sublime.status_message('PHPUnit: ' + str(e))
 
         debug_message('env = %s' % env)
         debug_message('cmd = %s' % cmd)
@@ -554,11 +554,11 @@ class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
         working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
         if not working_dir:
-            return sublime.status_message('Could not find a PHPUnit working directory')
+            return sublime.status_message('PHPUnit: could not find a PHPUnit working directory')
 
         coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
         if not os.path.exists(coverage_html_index_html_file):
-            return sublime.status_message('Could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
+            return sublime.status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
