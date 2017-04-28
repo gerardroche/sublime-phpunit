@@ -1,8 +1,8 @@
 # WHAT PHPUNITKIT IS
 
-[![Build Status](https://travis-ci.org/gerardroche/sublime-phpunit.svg?branch=master)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Minimum Sublime version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=packagecontrol)](https://github.com/gerardroche/sublime-phpunit/tags) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit) [![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
+[![Build Status](https://travis-ci.org/gerardroche/sublime-phpunit.svg?branch=master)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=release)](https://github.com/gerardroche/sublime-phpunit/tags) [![Source Code](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit) [![Author](https://img.shields.io/badge/author-@gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
 
-Phpunitkit is a plugin that provides [PHPUnit](https://phpunit.de) support in [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line. It works best alongside other PHP development plugins such as [PHP Grammar], [PHP Snippets], and [PHP Completions].
+Phpunitkit is a plugin that provides [PHPUnit](https://phpunit.de) support in [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line.
 
 ![Screenshot](screenshot.png)
 
@@ -21,12 +21,12 @@ Phpunitkit is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 ## FEATURES
 
 * Zero configuration required; Does the Right Thing
-* Fully customized CLI options configuration
 * Test Suite, Test File, Test Nearest, Test Last, and other commands
-* Supports [Composer]
+* Supports [Composer](https://getcomposer.org)
 * Supports colour test results (including failure diffs)
 * Jump to next/previous test failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
 * Switch File (splits window and puts test case and class under test side by side)
+* Fully customized CLI options configuration
 
 ## COMMANDS
 
@@ -67,16 +67,16 @@ Vim/Vintage/Vintageous/[NeoVintageous](https://github.com/NeoVintageous/NeoVinta
 Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | Command-line options to pass to PHPUnit. See [PHPUnit usage](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
-`phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
-`phpunit.composer` | Enable [Composer] support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
+`phpunit.composer` | Enable Composer support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
 `phpunit.php_executable` | Default PHP executable used to run PHPUnit. If not set then the first PHP available found on the system PATH is used. | `string` | Uses PHP available on system path
 `phpunit.php_versions_path` | Location of `.php-version` file versions. | `string` | `~/.phpenv/versions`
+`phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
+`phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
 
 ### Composer
 
-If a [Composer] installed PHPUnit executable is found then it is used to run tests, otherwise PHPUnit is assumed to be available via the system path.
+If a Composer installed PHPUnit executable is found then it is used to run tests, otherwise PHPUnit is assumed to be available via the system path.
 
 To disable running tests via Composer installed PHPUnit: `Preferences > Settings`
 
@@ -276,9 +276,3 @@ Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltiz
 ## LICENSE
 
 Released under the [BSD 3-Clause License](LICENSE).
-
-[PHP Grammar]: https://packagecontrol.io/browse/authors/gerardroche
-[PHP Completions]: https://packagecontrol.io/browse/authors/gerardroche
-[PHP Snippets]: https://packagecontrol.io/browse/authors/gerardroche
-[PHPUnit]: https://packagecontrol.io/browse/authors/gerardroche
-[Composer]: https://getcomposer.org
