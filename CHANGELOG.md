@@ -2,6 +2,22 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased
+
+### Added
+
+* Added: New syntax definition format for test results panel
+
+### Deprecated
+
+* Deprecated: Colour schemes are deprecated and will be removed in v3.0.0
+
+### Fixed
+
+* Fixed: .travis.yml is not needed in release package
+* Fixed: All status messages should be prefixed with "PHPUnit: "
+* Fixed: No status messages in some edge cases
+
 ## [2.0.3] - 2017-04-19
 
 ### Fixed
