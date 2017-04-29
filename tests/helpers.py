@@ -1,11 +1,10 @@
 import unittest
 
-
 import sublime
 import sublime_plugin
 
 
-class phpunit_test_view_replace(sublime_plugin.TextCommand):
+class PhpunitTestReplace(sublime_plugin.TextCommand):
 
     def run(self, edit, text):
         # Don't know it fails without import sublime
@@ -16,6 +15,21 @@ class phpunit_test_view_replace(sublime_plugin.TextCommand):
         import sublime
 
         self.view.replace(edit, sublime.Region(0, self.view.size()), text)
+
+
+class PhpunitTestFilterSelection(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        cursor_placeholders = self.view.find_all('\|')
+        if cursor_placeholders:
+            self.view.sel().clear()
+            for i, cursor_placeholder in enumerate(cursor_placeholders):
+                self.view.sel().add(cursor_placeholder.begin() - i)
+                self.view.replace(
+                    edit,
+                    sublime.Region(cursor_placeholder.begin() - i, cursor_placeholder.end() - i),
+                    ''
+                )
 
 
 class ViewTestCase(unittest.TestCase):
@@ -38,8 +52,14 @@ class ViewTestCase(unittest.TestCase):
         if self.view:
             self.view.close()
 
-    def set_view_content(self, text):
-        self.view.run_command('phpunit_test_view_replace', {'text': text})
+    def set_view_content(self, text, filter_selection=False):
+        self.view.run_command('phpunit_test_replace', {'text': text})
+        if filter_selection:
+            self.view.run_command('phpunit_test_filter_selection')
+
+    def set_view_selection(self, text):
+        self.view.run_command('phpunit_test_replace', {'text': text})
+        self.view.run_command('phpunit_test_filter_selection')
 
     def get_view_content(self):
         return self.view.substr(sublime.Region(0, self.view.size()))
