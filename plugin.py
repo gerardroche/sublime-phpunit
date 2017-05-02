@@ -117,15 +117,14 @@ def find_php_classes(view):
     """Returns an array of classes (class names) defined in the view."""
     classes = []
 
-    for class_as_region in view.find_by_selector('source.php entity.name.type.class - meta.use'):
+    for class_as_region in view.find_by_selector('source.php entity.name.class - meta.use'):
         class_as_string = view.substr(class_as_region)
         if is_valid_php_identifier(class_as_string):
             classes.append(class_as_string)
 
-    # Quick fix for ST build >= 3114 because the default PHP package changed the
-    # scope on class entities.
-    if not classes:
-        for class_as_region in view.find_by_selector('source.php entity.name.class - meta.use'):
+    # BC: < 3114
+    if not classes:  # pragma: no cover
+        for class_as_region in view.find_by_selector('source.php entity.name.type.class - meta.use'):
             class_as_string = view.substr(class_as_region)
             if is_valid_php_identifier(class_as_string):
                 classes.append(class_as_string)
@@ -157,9 +156,8 @@ def find_selected_test_methods(view):
                 method_names.append(word)
             break
 
-    # Fallback for ealier
-    # versions of ST.
-    if not method_names:
+    # BC: < 3114 (i think it's 3114)
+    if not method_names:  # pragma: no cover
         for region in view.sel():
             word = view.substr(view.word(region))
             if not is_valid_php_identifier(word) or word[:4] != 'test':
