@@ -22,10 +22,21 @@ class FunctionsTest(unittest.TestCase):
         self.assertEqual(['--verbose'], build_cmd_options({'verbose': True}, []))
         self.assertEqual(['--no-coverage'], build_cmd_options({'no-coverage': True}, []))
 
-        self.assertEqual(['--no-coverage', '--verbose'], sorted(build_cmd_options({'no-coverage': True, 'verbose': True}, [])))
+        self.assertEqual(
+            ['--no-coverage', '--verbose'],
+            sorted(build_cmd_options({'no-coverage': True, 'verbose': True}, [])))
+
         self.assertEqual(['-h', '-v'], sorted(build_cmd_options({'h': True, 'v': True}, [])))
 
         self.assertEqual(['-d', 'x', '-d', 'y', '-d', 'z'], build_cmd_options({'d': ['x', 'y', 'z']}, []))
+
+        self.assertEqual(
+            ['--configuration', 'path/to/phpunit.xml'],
+            sorted(build_cmd_options({'configuration': 'path/to/phpunit.xml'}, [])))
+
+        self.assertEqual(
+            ['-c', 'path/to/phpunit.xml'],
+            sorted(build_cmd_options({'c': 'path/to/phpunit.xml'}, [])))
 
     def test_is_valid_php_version_file_version(self):
         self.assertFalse(is_valid_php_version_file_version(''))
@@ -104,7 +115,8 @@ class FunctionsTest(unittest.TestCase):
             )
 
             test_matches_one(
-                'PHP Fatal error:  Class \'Vendor\Package\Exception\' not found in C:\\home\\user\\code\\tests\\DeepThoughtTest.php on line 20',
+                'PHP Fatal error:  Class \'Vendor\Package\Exception\' not found'
+                ' in C:\\home\\user\\code\\tests\\DeepThoughtTest.php on line 20',
                 'C:\\home\\user\\code\\tests\\DeepThoughtTest.php',
                 '20'
             )
@@ -116,13 +128,15 @@ class FunctionsTest(unittest.TestCase):
             )
 
             test_matches_one(
-                '0.3400    4950336   7. PHPUnit_Framework_TestCase->run() C:\\home\\user\\code\\project\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php:722',
+                '0.3400    4950336   7. PHPUnit_Framework_TestCase->run()'
+                ' C:\\home\\user\\code\\project\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php:722',
                 'C:\\home\\user\\code\\project\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php',
                 '722'
             )
 
             test_matches_one(
-                'PHP Warning:  require(C:\\home\\user\\code\\test\\..\\src\\PHP.php): failed to open stream: No such file or directory in C:\\home\\user\\code\\test\\bootstrap.php on line 6',
+                'PHP Warning:  require(C:\\home\\user\\code\\test\\..\\src\\PHP.php): failed to open stream:'
+                ' No such file or directory in C:\\home\\user\\code\\test\\bootstrap.php on line 6',
                 'C:\\home\\user\\code\\test\\bootstrap.php',
                 '6',
             )
@@ -142,7 +156,8 @@ class FunctionsTest(unittest.TestCase):
             )
 
             test_matches_one(
-                'PHP Fatal error:  Class \'Vendor\Package\Exception\' not found in /home/user/code/tests/DeepThoughtTest.php on line 20',
+                'PHP Fatal error:  Class \'Vendor\Package\Exception\''
+                ' not found in /home/user/code/tests/DeepThoughtTest.php on line 20',
                 '/home/user/code/tests/DeepThoughtTest.php',
                 '20'
             )
@@ -154,13 +169,15 @@ class FunctionsTest(unittest.TestCase):
             )
 
             test_matches_one(
-                '0.3400    4950336   7. PHPUnit_Framework_TestCase->run() /home/user/code/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php:722',
+                '0.3400    4950336   7. PHPUnit_Framework_TestCase->run()'
+                ' /home/user/code/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php:722',
                 '/home/user/code/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php',
                 '722'
             )
 
             test_matches_one(
-                'PHP Warning:  require(/home/user/code/test/../src/PHP.php): failed to open stream: No such file or directory in /home/user/code/test/bootstrap.php on line 6',
+                'PHP Warning:  require(/home/user/code/test/../src/PHP.php): failed to open stream:'
+                ' No such file or directory in /home/user/code/test/bootstrap.php on line 6',
                 '/home/user/code/test/bootstrap.php',
                 '6',
             )

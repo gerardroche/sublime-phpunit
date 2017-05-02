@@ -1,35 +1,6 @@
 import unittest
 
 import sublime
-import sublime_plugin
-
-
-class PhpunitTestReplace(sublime_plugin.TextCommand):
-
-    def run(self, edit, text):
-        # Don't know it fails without import sublime
-        # here. Without the import running tests
-        # multiple times fails with an
-        # attribute "Region" not
-        # found error.
-        import sublime
-
-        self.view.replace(edit, sublime.Region(0, self.view.size()), text)
-
-
-class PhpunitTestFilterSelection(sublime_plugin.TextCommand):
-
-    def run(self, edit):
-        cursor_placeholders = self.view.find_all('\|')
-        if cursor_placeholders:
-            self.view.sel().clear()
-            for i, cursor_placeholder in enumerate(cursor_placeholders):
-                self.view.sel().add(cursor_placeholder.begin() - i)
-                self.view.replace(
-                    edit,
-                    sublime.Region(cursor_placeholder.begin() - i, cursor_placeholder.end() - i),
-                    ''
-                )
 
 
 class ViewTestCase(unittest.TestCase):

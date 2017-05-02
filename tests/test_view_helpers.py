@@ -1,6 +1,6 @@
 import sublime
 
-from phpunitkit.tests.helpers import ViewTestCase
+from phpunitkit.tests.utils import ViewTestCase
 from phpunitkit.plugin import find_php_classes
 from phpunitkit.plugin import has_test_case
 from phpunitkit.plugin import find_selected_test_methods
