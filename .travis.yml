@@ -14,7 +14,8 @@ install:
     - sh travis.sh bootstrap
 
 script:
-    - sh travis.sh run_tests
+    - sh travis.sh run_tests --coverage
+    - sh travis.sh run_syntax_tests
 
 notifications:
     email: false
