@@ -1,6 +1,6 @@
 # WHAT PHPUNITKIT IS
 
-[![Build Status](https://travis-ci.org/gerardroche/sublime-phpunit.svg?branch=master)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=release)](https://github.com/gerardroche/sublime-phpunit/tags) [![Source Code](https://img.shields.io/badge/source-github-blue.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit) [![Author](https://img.shields.io/badge/author-gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
+[![Build Status](https://travis-ci.org/gerardroche/sublime-phpunit.svg?branch=master)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![Source Code](https://img.shields.io/badge/source-github-blue.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit) [![Author](https://img.shields.io/badge/author-gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
 
 PHPUnitKit is a plugin that provides [PHPUnit](https://phpunit.de) support in [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line.
 
@@ -9,10 +9,9 @@ PHPUnitKit is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 ## OVERVIEW
 
 * [Features](#features)
-* [Commands](#commands)
-* [Key Bindings](#key-bindings)
-* [Configuration](#configuration)
 * [Installation](#installation)
+* [Usage](#usage)
+* [Configuration](#configuration)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
 * [Credits](#credits)
@@ -28,39 +27,54 @@ PHPUnitKit is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Switch File (splits window and puts test case and class under test side by side)
 * Fully customized CLI options configuration
 
-## COMMANDS
+## INSTALLATION
 
-*All commands in the Command Palette are prefixed with "PHPUnit: ".*
+### Package Control installation
+
+The preferred method of installation is [Package Control](https://packagecontrol.io/browse/authors/gerardroche).
+
+### Manual installation
+
+1. Close Sublime Text.
+2. Download or clone this repository to a directory named **`phpunitkit`** in the Sublime Text Packages directory for your platform:
+    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
+    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
+    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
+3. Done!
+
+## USAGE
+
+### Command Palette
 
 Command | Description
 --------|------------
-Test Suite | Runs the whole test suite.
-Test File | Runs all the tests in the current file test case.
-Test Nearest | Runs the test nearest to the cursor. A multiple selection can used to used to run several tests at once.
-Test Last | Runs the last test.
-Switch File | Splits the window and puts nearest test case and class under test side by side.
-Show Results | Show the test results panel.
-Open Code Coverage | Open code coverage in browser.
-Toggle Option &lt;option&gt; | Toggle PHPUnit CLI options.
+PHPUnit: Test Suite | Runs the whole test suite.
+PHPUnit: Test File | Runs all the tests in the current file test case.
+PHPUnit: Test Nearest | Runs the test nearest to the cursor. A multiple selection can used to used to run several tests at once.
+PHPUnit: Test Last | Runs the last test.
+PHPUnit: Switch File | Splits the window and puts nearest test case and class under test side by side.
+PHPUnit: Show Results | Show the test results panel.
+PHPUnit: Open Code Coverage | Open code coverage in browser.
+PHPUnit: Toggle Option [name] | Toggle PHPUnit CLI options.
 
-## KEY BINDINGS
+### Key Bindings
 
 OS X | Windows / Linux | Command
 -----|-----------------|------------
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | Test Suite
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Test Nearest
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Test Last
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | Switch File
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | PHPUnit: Test Suite
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | PHPUnit: Test Nearest
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | PHPUnit: Test Last
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | PHPUnit: Switch File
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
-Vim/Vintage/Vintageous/[NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) | Command
+Vi / Vintage / [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) | Command
 -----------------------|--------
-<kbd>,</kbd><kbd>a</kbd> | Test Suite
-<kbd>,</kbd><kbd>T</kbd> | Test File
-<kbd>,</kbd><kbd>t</kbd> | Test Nearest
-<kbd>,</kbd><kbd>l</kbd> | Test Last
-<kbd>,</kbd><kbd>.</kbd> | Switch File
+<kbd>,</kbd><kbd>a</kbd> | PHPUnit: Test Suite
+<kbd>,</kbd><kbd>T</kbd> | PHPUnit: Test File
+<kbd>,</kbd><kbd>t</kbd> | PHPUnit: Test Nearest
+<kbd>,</kbd><kbd>l</kbd> | PHPUnit: Test Last
+<kbd>,</kbd><kbd>.</kbd> | PHPUnit: Switch File
 
 ## CONFIGURATION
 
@@ -202,32 +216,19 @@ It is recommended to use your [phpunit.xml](https://phpunit.de/manual/current/en
 </phpunit>
 ```
 
-## INSTALLATION
-
-### Package Control installation
-
-The preferred method of installation is [Package Control](https://packagecontrol.io/browse/authors/gerardroche).
-
-### Manual installation
-
-1. Close Sublime Text.
-2. Download or clone this repository to a directory named **`phpunitkit`** in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
-3. Done!
-
 ## CONTRIBUTING
 
 Your issue reports and pull requests are welcome.
 
+### Tests
+
+The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run the tests. Install it, open the Command Palette, type "UnitTesting", press Enter and input "phpunitkit" as the package to test.
+
 ### Debugging
 
-Debug messages are output to the Console (not the tests results output panel). Open the console: `Menu > View > Console` or click the icon in the bottom right of the status bar.
+Debug messages are disabled by default. To enable them set the environment variable SUBLIME_PHPUNIT_DEBUG to a non-blank value. Debug messages are output to the Console (not the tests results output panel). Open the console via `Menu > View > Console` or click the icon in the bottom right of the status bar.
 
-Debug messages are disabled by default. To enable them set an environment variable to a non-blank value e.g. `SUBLIME_PHPUNIT_DEBUG=y`. To disable them set unset it or set it to a blank value e.g. `SUBLIME_PHPUNIT_DEBUG=`.
-
-For more information on environment variables read [What are PATH and other environment variables, and how can I set or use them?](http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them)
+Below are detailed explanations on how to set environment variables for each OS. For more information on environment variables read [What are PATH and other environment variables, and how can I set or use them?](http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
 
 #### Linux
 
@@ -260,10 +261,6 @@ To set the environment permanently set it as a *system* environment variable (re
 3. System variables > New...
 4. Add Variable name `SUBLIME_PHPUNIT_DEBUG` with Variable value `y`
 5. Restart Windows
-
-### Tests
-
-The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run the tests. Install it, open the Command Palette, type "UnitTesting", press Enter and input "phpunitkit" as the package to test.
 
 ## CHANGELOG
 

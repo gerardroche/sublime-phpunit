@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## Unreleased
+## [2.1.0] - 2017-05-17
 
 ### Added
 
@@ -358,6 +358,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[2.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.3...2.1.0
 [2.0.3]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.0...2.0.1
