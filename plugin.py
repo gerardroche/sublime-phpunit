@@ -7,9 +7,9 @@ import sublime
 import sublime_plugin
 
 
-DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
+_DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
-if DEBUG:
+if _DEBUG:
     def debug_message(msg):
         print('PHPUnit: %s' % str(msg))
 else:
@@ -19,9 +19,9 @@ else:
 
 def is_debug(view=None):
     if view is not None:
-        return view.settings().get('phpunit.debug') or (view.settings().get('debug') and view.settings().get('phpunit.debug') is not False)
+        return view.settings().get('phpunit.debug') or (view.settings().get('debug') and view.settings().get('phpunit.debug') is not False)  # noqa: E501
     else:
-        return DEBUG
+        return _DEBUG
 
 
 def get_window_setting(key, default=None, window=None):
@@ -45,11 +45,12 @@ def set_window_setting(key, value, window):
 
 def find_phpunit_configuration_file(file_name, folders):
     """
-    Find the first PHPUnit configuration file, either phpunit.xml or
-    phpunit.xml.dist, in {file_name} directory or the nearest common ancestor
-    directory in {folders}.
+    Find the first PHPUnit configuration file.
+
+    Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
+    the nearest common ancestor directory in {folders}.
     """
-    debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))
+    debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))  # noqa: E501
 
     if file_name is None:
         return None
@@ -78,7 +79,7 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('  Found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))
+    debug_message('  Found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))  # noqa: E501
 
     for folder in ancestor_folders:
         debug_message('    Searching folder: %s' % folder)
@@ -106,7 +107,7 @@ def is_valid_php_identifier(string):
 
 
 def has_test_case(view):
-    """True if the view contains a valid PHPUnit test case."""
+    """Return True if the view contains a valid PHPUnit test case."""
     for php_class in find_php_classes(view):
         if php_class[-4:] == 'Test':
             return True
@@ -114,7 +115,7 @@ def has_test_case(view):
 
 
 def find_php_classes(view):
-    """Returns an array of classes (class names) defined in the view."""
+    """Return list of class names defined in the view."""
     classes = []
 
     for class_as_region in view.find_by_selector('source.php entity.name.class - meta.use'):
@@ -134,11 +135,12 @@ def find_php_classes(view):
 
 def find_selected_test_methods(view):
     """
-    Returns a list of selected test method names.
-    Returns an empty list if no selections found.
+    Return a list of selected test method names.
+
+    Return an empty list if no selections found.
+
     Selection can be anywhere inside one or more test methods.
     """
-
     method_names = []
     function_areas = view.find_by_selector('meta.function')
     function_regions = view.find_by_selector('entity.name.function')
@@ -169,7 +171,7 @@ def find_selected_test_methods(view):
 
 
 def find_first_switchable(view):
-    """Returns the first switchable; otherwise None."""
+    """Return first switchable in view; otherwise None."""
     debug_message('find_first_switchable(view = %s:%s)' % (view, view.file_name()))
 
     window = view.window()
@@ -177,7 +179,7 @@ def find_first_switchable(view):
         return None
 
     classes = find_php_classes(view)
-    debug_message('Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, view.file_name()))
+    debug_message('Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, view.file_name()))  # noqa: E501
 
     for class_name in classes:
         if class_name[-4:] == "Test":
@@ -190,8 +192,8 @@ def find_first_switchable(view):
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
         switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
 
-        debug_message('      Found %d switchable symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))
-        debug_message('      Found %d switchable symbol(s) in index      %s' % (len(switchables_in_index), str(switchables_in_index)))
+        debug_message('      Found %d switchable symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
+        debug_message('      Found %d switchable symbol(s) in index      %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
 
         for open_file in switchables_in_open_files:
             debug_message('  Found switchable symbol in open file %s' % str(open_file))
@@ -203,7 +205,7 @@ def find_first_switchable(view):
 
 
 def find_first_switchable_file(view):
-    """Returns the first switchable file; otherwise None."""
+    """Return first switchable file in view; otherwise None."""
     first_switchable = find_first_switchable(view)
     if not first_switchable:
         return None
@@ -260,7 +262,10 @@ def is_file_executable(file):
 
 
 def is_valid_php_version_file_version(version):
-    return bool(re.match('^(?:master|[1-9]\.[0-9]+(?:snapshot|\.[0-9]+(?:snapshot)?)|[1-9]\.x|[1-9]\.[0-9]+\.x)$', version))
+    return bool(re.match(
+        '^(?:master|[1-9]\.[0-9]+(?:snapshot|\.[0-9]+(?:snapshot)?)|[1-9]\.x|[1-9]\.[0-9]+\.x)$',
+        version
+    ))
 
 
 def build_cmd_options(options, cmd):
@@ -456,7 +461,7 @@ class PHPUnit():
 
             php_versions_path = filter_path(php_versions_path)
             if not os.path.isdir(php_versions_path):
-                raise ValueError("'phpunit.php_versions_path' '%s' does not exist or is not a valid directory" % php_versions_path)
+                raise ValueError("'phpunit.php_versions_path' '%s' does not exist or is not a valid directory" % php_versions_path)  # noqa: E501
 
             if sublime.platform() == 'windows':
                 php_executable = os.path.join(php_versions_path, php_version_number, 'php.exe')
@@ -556,7 +561,7 @@ class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
         coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
         if not os.path.exists(coverage_html_index_html_file):
-            return sublime.status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)
+            return sublime.status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
