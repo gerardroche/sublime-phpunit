@@ -409,7 +409,10 @@ class PHPUnit():
     def run_file(self):
         file = self.view.file_name()
         if file:
-            self.run(file=file)
+            if has_test_case(self.view):
+                self.run(file=file)
+            else:
+                self.run(file=find_first_switchable_file(self.view))
         else:
             return sublime.status_message('PHPUnit: file not found')
 

@@ -7,6 +7,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 ### Added
 
 * Added: New syntax definition format for test results panel
+* Added: Test File command will now also run the test case for current file
 
 ### Deprecated
 
