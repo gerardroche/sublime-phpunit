@@ -351,8 +351,9 @@ class PHPUnit():
                     raise ValueError("test file '%s' not found" % file)
 
         except Exception as e:
-            print('PHPUnit: {}'.format(e))
-            return sublime.status_message('PHPUnit: ' + str(e))
+            sublime.status_message('PHPUnit: an error occurred, see console log for details')
+            print('PHPUnit: an error occurred \'{}\''.format(e))
+            raise e
 
         debug_message('env = %s' % env)
         debug_message('cmd = %s' % cmd)
