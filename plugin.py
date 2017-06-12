@@ -50,7 +50,7 @@ def find_phpunit_configuration_file(file_name, folders):
     Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
     the nearest common ancestor directory in {folders}.
     """
-    debug_message('Find PHPUnit configuration file for %s in %s (%d)' % (file_name, folders, len(folders) if folders else 0))  # noqa: E501
+    debug_message('find configuration file for \'%s\' in (%d) %s' % (file_name, len(folders) if folders else 0, folders))  # noqa: E501
 
     if file_name is None:
         return None
@@ -79,18 +79,18 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('  Found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))  # noqa: E501
+    debug_message('  found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))  # noqa: E501
 
+    candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
     for folder in ancestor_folders:
-        debug_message('    Searching folder: %s' % folder)
-        for file_name in ['phpunit.xml', 'phpunit.xml.dist']:
+        debug_message('  searching \'%s\' for first file in %s' % (folder, candidate_configuration_file_names))
+        for file_name in candidate_configuration_file_names:
             phpunit_configuration_file = os.path.join(folder, file_name)
-            debug_message('     Checking: %s' % phpunit_configuration_file)
             if os.path.isfile(phpunit_configuration_file):
-                debug_message('  Found PHPUnit configuration file: %s' % phpunit_configuration_file)
+                debug_message('  found configuration file: \'%s\'' % phpunit_configuration_file)
                 return phpunit_configuration_file
 
-    debug_message('  PHPUnit Configuration file not found')
+    debug_message('  configuration file not found')
 
     return None
 
@@ -179,7 +179,7 @@ def find_first_switchable(view):
         return None
 
     classes = find_php_classes(view)
-    debug_message('Found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, view.file_name()))  # noqa: E501
+    debug_message('found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, view.file_name()))  # noqa: E501
 
     for class_name in classes:
         if class_name[-4:] == "Test":
@@ -187,20 +187,20 @@ def find_first_switchable(view):
         else:
             lookup_symbol = class_name + "Test"
 
-        debug_message('    Switchable symbol: %s' % lookup_symbol)
+        debug_message('    switchable symbol: %s' % lookup_symbol)
 
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
         switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
 
-        debug_message('      Found %d switchable symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
-        debug_message('      Found %d switchable symbol(s) in index      %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
+        debug_message('      found %d switchable symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
+        debug_message('      found %d switchable symbol(s) in index      %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
 
         for open_file in switchables_in_open_files:
-            debug_message('  Found switchable symbol in open file %s' % str(open_file))
+            debug_message('  found switchable symbol in open file %s' % str(open_file))
             return open_file
 
         for index in switchables_in_index:
-            debug_message('  Found switchable symbol in index %s' % str(index))
+            debug_message('  found switchable symbol in index %s' % str(index))
             return index
 
 
