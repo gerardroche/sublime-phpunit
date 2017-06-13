@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gerardroche/sublime-phpunit.svg?branch=master)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![Source Code](https://img.shields.io/badge/source-github-blue.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit) [![Author](https://img.shields.io/badge/author-gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
 
-PHPUnitKit is a plugin that provides [PHPUnit](https://phpunit.de) support in [Sublime Text](https://sublimetext.com). It provides an abstraction over running tests from the command-line.
+PHPUnitKit is a plugin that provides PHPUnit support in Sublime Text. It provides an abstraction over running tests from the command-line.
 
 ![Screenshot](screenshot.png)
 
@@ -19,13 +19,16 @@ PHPUnitKit is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 
 ## FEATURES
 
+* Run Nearest Test
+* Run Test File
+* Run Test Suite
+* Run Last Test
+* Supports Composer
 * Zero configuration required; Does the Right Thing
-* Test Suite, Test File, Test Nearest, Test Last, and other commands
-* Supports [Composer](https://getcomposer.org)
-* Supports colour test results (including failure diffs)
-* Jump to next/previous test failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
-* Test Switch (splits window and puts test case and class under test side by side)
+* Supports colour results (including diffs)
 * Fully customized CLI options configuration
+* Jump to next and jump to previous failure
+* Switch Test File (splits window and puts test case and class under test side by side)
 
 ## INSTALLATION
 
@@ -44,38 +47,38 @@ The preferred method of installation is [Package Control](https://packagecontrol
 
 ## USAGE
 
-### Command Palette
-
 Command | Description
 --------|------------
-PHPUnit: Test Suite | Runs the whole test suite.
-PHPUnit: Test File | Runs all the tests in the current file test case.
-PHPUnit: Test Nearest | Runs the test nearest to the cursor. Use multiple selection to run more than one test.
-PHPUnit: Test Last | Runs the last test.
-PHPUnit: Test Switch | Splits the window and puts nearest test case and class under test side by side.
-PHPUnit: Test Visit | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-PHPUnit: Test Results | Show the test results panel.
-PHPUnit: Test Coverage | Open code coverage in browser.
-PHPUnit: Toggle Option [name] | Toggle PHPUnit CLI options.
+`:TestSuite` | Run test suite of the current file.
+`:TestFile` | Run tests for the current file. If the current file is not a test file, it runs tests of the test file for the current file.
+`:TestNearest` | Run a test nearest to the cursor (supports multiple selections). If the current file is not a test file, it runs tests of the test file for the current file.
+`:TestLast` | Run the last test.
+`:TestVisit` | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+`:TestSwitch` | Splits the window and puts nearest test case and class under test side by side.
+`:TestResults` | Show the test results panel.
+`:TestCancel` | Cancels current test run.
+`:TestCoverage` | Open code coverage in browser.
+`:ToggleOption*` | Toggle PHPUnit CLI options.
 
-### Key Bindings
+* Jump to Next Failure: <kbd>F4</kbd>
+* Jump to Previous Failure: <kbd>Shift</kbd>+<kbd>F4</kbd>
 
-OS X | Windows / Linux | Command
------|-----------------|------------
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | PHPUnit: Test Suite
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | PHPUnit: Test Nearest
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | PHPUnit: Test Last
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | PHPUnit: Test Switch
-<kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
-<kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
+Windows / Linux | OS X | Command
+--------------- | ---- | -------
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | `:TestSuite`
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | `:TestNearest`
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | `:TestLast`
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | `:TestSwitch`
 
-Vi / Vintage / [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) | Command
+Vintage / [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous)
+
+Keymap | Command
 -----------------------|--------
-<kbd>,</kbd><kbd>a</kbd> | PHPUnit: Test Suite
-<kbd>,</kbd><kbd>T</kbd> | PHPUnit: Test File
-<kbd>,</kbd><kbd>t</kbd> | PHPUnit: Test Nearest
-<kbd>,</kbd><kbd>l</kbd> | PHPUnit: Test Last
-<kbd>,</kbd><kbd>.</kbd> | PHPUnit: Test Switch
+<kbd>,a</kbd> | `:TestSuite`
+<kbd>,T</kbd> | `:TestFile`
+<kbd>,t</kbd> | `:TestNearest`
+<kbd>,l</kbd> | `:TestLast`
+<kbd>,.</kbd> | `:TestSwitch`
 
 ## CONFIGURATION
 
