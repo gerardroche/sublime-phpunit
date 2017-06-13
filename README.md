@@ -85,18 +85,18 @@ Keymap | Command
 Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | Command-line options to pass to PHPUnit. See [PHPUnit usage](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
-`phpunit.composer` | Enable Composer support. If a Composer installed PHPUnit executable is found then it is used to run tests. | `boolean` | `true`
+`phpunit.composer` | Enable Composer support (if a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find PHPUnit). | `boolean` | `true`
 `phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
-`phpunit.php_executable` | Default PHP executable used to run PHPUnit. If not set then the first PHP available found on the system PATH is used. | `string` | Uses PHP available on system path
-`phpunit.php_versions_path` | Location of `.php-version` file versions. | `string` | `~/.phpenv/versions`
+`phpunit.php_executable` | Path to PHP executable used to run PHPUnit (if not set then the system PATH is used to find PHP). | `string` | Uses the system PATH
+`phpunit.php_versions_path` | Location of `.php-version` file PHP versions. | `string` | `~/.phpenv/versions`
 `phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
 `phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
 
 ### Composer
 
-If a Composer installed PHPUnit executable is found then it is used to run tests, otherwise PHPUnit is assumed to be available via the system path.
+If a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find PHPUnit. To disable Composer support:
 
-To disable running tests via Composer installed PHPUnit: `Preferences > Settings`
+`Menu > Preferences > Settings`
 
 ```json
 {
@@ -104,7 +104,9 @@ To disable running tests via Composer installed PHPUnit: `Preferences > Settings
 }
 ```
 
-Or disable it per-project: `Project > Edit Project`
+You can also disable it per-project:
+
+`Menu > Project > Edit Project`
 
 ```json
 {
@@ -116,9 +118,9 @@ Or disable it per-project: `Project > Edit Project`
 
 ### PHP executable
 
-You can use a default PHP executable for running PHPUnit.
+Path to PHP executable used to run PHPUnit, otherwise the system PATH is used to find PHP. To set a default executable other than the one one the one found on system PATH (`~` and environment variables e.g. `$HOME` are expanded):
 
-Set it globally: `Preferences > Settings`
+`Menu > Preferences > Settings`
 
 ```json
 {
@@ -126,7 +128,9 @@ Set it globally: `Preferences > Settings`
 }
 ```
 
-Or set it per-project: `Project > Edit Project`
+You can also disable it per-project:
+
+`Menu > Project > Edit Project`
 
 ```json
 {
@@ -138,9 +142,28 @@ Or set it per-project: `Project > Edit Project`
 
 ### PHP versions path
 
-You can specific a location to find different PHP versions for running PHPUnit. The default location is `~/.phpenv/versions`. To specify the version to use for your project create a file named `.php-version` and place it in the root of your project (where the project phpunit.xml configuration file is located). For example a `.php-version` file with the contents `7.x` will mean the PHP executable located at `~/.phpenv/versions/7.x/bin/php` will be used to run PHPUnit.
+You can set a location to find different PHP versions and use `.php-version` files to select versions per-project. The default location is of PHP versions is `~/.phpenv/versions`. The structure of the versions directory should be:
 
-To change the path set it globally: `Preferences > Settings`
+```
+Linux and OSX                       Windows
+└── .phpenv                         └── .phpenv
+    └── versions                        └── versions
+        ├── 7.0.18                          ├── 7.0.18
+        │   └── bin                         │   └── php
+        │       └── php                     │ 
+        ├── 7.1.4                           ├── 7.1.4
+        │   └── bin                         │   └── php
+        │       └── php                     │
+        └── 7.x                             └── 7.x
+            └── bin                             └── php
+                └── php
+```
+
+To specify a version from the versions path to use for a project, create a file named `.php-version` with the name of the version as its contents and place it in the root of your project. For example, a `.php-version` file with the contents `7.1.4` and a PHP versions path of `~/.phpenv/versions` will expand to the PHP version at `~/.phpenv/versions/7.1.4/bin/php` on Linux and `~/.phpenv/versions/7.1.4/php` on Windows.
+
+You can specify a PHP versions path other than the default:
+
+`Menu > Preferences > Settings`
 
 ```json
 {
@@ -148,7 +171,9 @@ To change the path set it globally: `Preferences > Settings`
 }
 ```
 
-Or set it per-project: `Project > Edit Project`
+You can also set it per-project:
+
+`Menu > Project > Edit Project`
 
 ```json
 {
@@ -160,7 +185,9 @@ Or set it per-project: `Project > Edit Project`
 
 ### Options
 
-Set them globally: `Preferences > Settings`
+To set PHPUnit options:
+
+`Menu > Preferences > Settings`
 
 ```json
 {
@@ -175,7 +202,9 @@ Set them globally: `Preferences > Settings`
 }
 ```
 
-Or set them per-project: `Project > Edit Project`
+You can also set them per-project:
+
+`Menu > Project > Edit Project`
 
 ```json
 {
