@@ -4,7 +4,7 @@
     { "caption": "PHPUnit: Test Nearest", "command": "phpunit_test_nearest" },
     { "caption": "PHPUnit: Test Suite", "command": "phpunit_test_suite" },
     { "caption": "PHPUnit: Cancel Test", "command": "exec", "args": { "kill": true } },
-    { "caption": "PHPUnit: Open Code Coverage", "command": "phpunit_open_code_coverage" },
+    { "caption": "PHPUnit: Test Coverage", "command": "phpunit_test_coverage" },
     { "caption": "PHPUnit: Show Results", "command": "show_panel", "args": { "panel": "output.exec" } },
     { "caption": "PHPUnit: Test Switch", "command": "phpunit_test_switch" },
     { "caption": "PHPUnit: Toggle Option --debug", "command": "phpunit_toggle_option", "args": { "option": "debug" } },

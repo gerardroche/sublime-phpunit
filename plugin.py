@@ -567,7 +567,7 @@ class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
         set_window_setting('phpunit.options', options, window=self.window)
 
 
-class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
+class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -584,3 +584,11 @@ class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
+
+
+# DEPRECATED: to be removed in v3.0.0; use :TestCoverageCommand instead
+class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        print('PHPUnit: DEPRECATED :OpenCodeCoverage; please use :TestCoverage instead')
+        self.window.run_command('phpunit_test_coverage')

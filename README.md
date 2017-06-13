@@ -54,7 +54,7 @@ PHPUnit: Test Nearest | Runs the test nearest to the cursor. Use multiple select
 PHPUnit: Test Last | Runs the last test.
 PHPUnit: Test Switch | Splits the window and puts nearest test case and class under test side by side.
 PHPUnit: Show Results | Show the test results panel.
-PHPUnit: Open Code Coverage | Open code coverage in browser.
+PHPUnit: Test Coverage | Open code coverage in browser.
 PHPUnit: Toggle Option [name] | Toggle PHPUnit CLI options.
 
 ### Key Bindings

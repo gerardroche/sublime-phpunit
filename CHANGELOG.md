@@ -6,10 +6,12 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Changed
 
+* Renamed: Command "PHPUnit: Open Code Coverage" to "PHPUnit: Test Coverage"
 * Renamed: Command "PHPUnit: Switch File" to "PHPUnit: Test Switch"
 
 ### Deprecated
 
+* The command "phpunit_open_code_coverage" is deprecated and will be removed in v3.0.0; use "phpunit_test_coverage" instead
 * The command "phpunit_switch_file" is deprecated and will be removed in v3.0.0; use "phpunit_test_switch" instead
 
 ## [2.1.0] - 2017-05-17
