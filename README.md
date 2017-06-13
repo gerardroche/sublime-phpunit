@@ -53,6 +53,7 @@ PHPUnit: Test File | Runs all the tests in the current file test case.
 PHPUnit: Test Nearest | Runs the test nearest to the cursor. Use multiple selection to run more than one test.
 PHPUnit: Test Last | Runs the last test.
 PHPUnit: Test Switch | Splits the window and puts nearest test case and class under test side by side.
+PHPUnit: Test Visit | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
 PHPUnit: Test Results | Show the test results panel.
 PHPUnit: Test Coverage | Open code coverage in browser.
 PHPUnit: Toggle Option [name] | Toggle PHPUnit CLI options.

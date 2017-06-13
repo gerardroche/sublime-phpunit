@@ -541,6 +541,20 @@ class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
         self.window.run_command('exec', {'kill': True})
 
 
+class PhpunitTestVisitCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        test_last = get_window_setting('phpunit._test_last', window=self.window)
+        if test_last:
+            if 'file' in test_last and 'working_dir' in test_last:
+                if test_last['file']:
+                    file = os.path.join(test_last['working_dir'], test_last['file'])
+                    if os.path.isfile(file):
+                        return self.window.open_file(file)
+
+        return sublime.status_message('PHPUnit: no tests were run so far')
+
+
 class PhpunitTestSwitch(sublime_plugin.WindowCommand):
 
     def run(self):

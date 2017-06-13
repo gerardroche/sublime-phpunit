@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
+* Added [#38](https://github.com/gerardroche/sublime-phpunit/issues/38): Command "PHPUnit: Test Visit" (phpunit_test_visit) Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests)
 * Added: Command "phpunit_test_cancel" for cancelling tests
 * Added: Command "phpunit_test_results" for opening the test results panel
 
