@@ -352,11 +352,15 @@ class PHPUnit():
                     cmd.append(file)
                     debug_message('file = %s' % file)
                 else:
-                    raise ValueError("test file '%s' not found" % file)
+                    raise ValueError('test file \'%s\' not found' % file)
 
+        except ValueError as e:
+            sublime.status_message('PHPUnit: {}'.format(e))
+            print('PHPUnit: {}'.format(e))
+            return
         except Exception as e:
-            sublime.status_message('PHPUnit: an error occurred, see console log for details')
-            print('PHPUnit: an error occurred \'{}\''.format(e))
+            sublime.status_message('PHPUnit: {}'.format(e))
+            print('PHPUnit: \'{}\''.format(e))
             raise e
 
         debug_message('env = %s' % env)
@@ -409,7 +413,7 @@ class PHPUnit():
         if kwargs:
             self.run(**kwargs)
         else:
-            return sublime.status_message('PHPUnit: last test not found')
+            return sublime.status_message('PHPUnit: no tests were run so far')
 
     def run_file(self):
         file = self.view.file_name()
@@ -419,7 +423,7 @@ class PHPUnit():
             else:
                 self.run(file=find_first_switchable_file(self.view))
         else:
-            return sublime.status_message('PHPUnit: file not found')
+            return sublime.status_message('PHPUnit: not a test file')
 
     def run_nearest(self):
         options = {}
@@ -437,7 +441,7 @@ class PHPUnit():
         if unit_test:
             self.run(file=unit_test, options=options)
         else:
-            return sublime.status_message('PHPUnit: nearest test not found')
+            return sublime.status_message('PHPUnit: not a test file')
 
     def filter_options(self, options):
         if options is None:
