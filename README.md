@@ -24,7 +24,7 @@ PHPUnitKit is a plugin that provides [PHPUnit](https://phpunit.de) support in [S
 * Supports [Composer](https://getcomposer.org)
 * Supports colour test results (including failure diffs)
 * Jump to next/previous test failure via keybinding <kbd>F4</kbd>/<kbd>Shift+F4</kbd>
-* Switch File (splits window and puts test case and class under test side by side)
+* Test Switch (splits window and puts test case and class under test side by side)
 * Fully customized CLI options configuration
 
 ## INSTALLATION
@@ -52,7 +52,7 @@ PHPUnit: Test Suite | Runs the whole test suite.
 PHPUnit: Test File | Runs all the tests in the current file test case.
 PHPUnit: Test Nearest | Runs the test nearest to the cursor. Use multiple selection to run more than one test.
 PHPUnit: Test Last | Runs the last test.
-PHPUnit: Switch File | Splits the window and puts nearest test case and class under test side by side.
+PHPUnit: Test Switch | Splits the window and puts nearest test case and class under test side by side.
 PHPUnit: Show Results | Show the test results panel.
 PHPUnit: Open Code Coverage | Open code coverage in browser.
 PHPUnit: Toggle Option [name] | Toggle PHPUnit CLI options.
@@ -64,7 +64,7 @@ OS X | Windows / Linux | Command
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | PHPUnit: Test Suite
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | PHPUnit: Test Nearest
 <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | PHPUnit: Test Last
-<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | PHPUnit: Switch File
+<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | PHPUnit: Test Switch
 <kbd>F4</kbd> | <kbd>F4</kbd> | Jump to next failure
 <kbd>Shift</kbd>+<kbd>F4</kbd> | <kbd>Shift</kbd>+<kbd>F4</kbd> | Jump to previous failure
 
@@ -74,7 +74,7 @@ Vi / Vintage / [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) |
 <kbd>,</kbd><kbd>T</kbd> | PHPUnit: Test File
 <kbd>,</kbd><kbd>t</kbd> | PHPUnit: Test Nearest
 <kbd>,</kbd><kbd>l</kbd> | PHPUnit: Test Last
-<kbd>,</kbd><kbd>.</kbd> | PHPUnit: Switch File
+<kbd>,</kbd><kbd>.</kbd> | PHPUnit: Test Switch
 
 ## CONFIGURATION
 

@@ -6,7 +6,7 @@
     { "caption": "PHPUnit: Cancel Test", "command": "exec", "args": { "kill": true } },
     { "caption": "PHPUnit: Open Code Coverage", "command": "phpunit_open_code_coverage" },
     { "caption": "PHPUnit: Show Results", "command": "show_panel", "args": { "panel": "output.exec" } },
-    { "caption": "PHPUnit: Switch File", "command": "phpunit_switch_file" },
+    { "caption": "PHPUnit: Test Switch", "command": "phpunit_test_switch" },
     { "caption": "PHPUnit: Toggle Option --debug", "command": "phpunit_toggle_option", "args": { "option": "debug" } },
     { "caption": "PHPUnit: Toggle Option --disallow-test-output", "command": "phpunit_toggle_option", "args": { "option": "disallow-test-output" } },
     { "caption": "PHPUnit: Toggle Option --disallow-todo-tests", "command": "phpunit_toggle_option", "args": { "option": "disallow-todo-tests" } },

@@ -532,7 +532,7 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
         PHPUnit(self.window).run_nearest()
 
 
-class PhpunitSwitchFile(sublime_plugin.WindowCommand):
+class PhpunitTestSwitch(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -549,6 +549,14 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
         other_view = self.window.active_view()
 
         put_views_side_by_side(view, other_view)
+
+
+# DEPRECATED: to be removed in v3.0.0; use :TestSwitch instead
+class PhpunitSwitchFile(sublime_plugin.WindowCommand):
+
+    def run(self):
+        print('PHPUnit: DEPRECATED :SwitchFile; please use :TestSwitch instead')
+        self.window.run_command('phpunit_test_switch')
 
 
 class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):

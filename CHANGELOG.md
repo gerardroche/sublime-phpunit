@@ -2,6 +2,16 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased
+
+### Changed
+
+* Renamed: Command "PHPUnit: Switch File" to "PHPUnit: Test Switch"
+
+### Deprecated
+
+* The command "phpunit_switch_file" is deprecated and will be removed in v3.0.0; use "phpunit_test_switch" instead
+
 ## [2.1.0] - 2017-05-17
 
 ### Added
