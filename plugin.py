@@ -50,7 +50,7 @@ def find_phpunit_configuration_file(file_name, folders):
     Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
     the nearest common ancestor directory in {folders}.
     """
-    debug_message('find configuration file for \'%s\' in (%d) %s' % (file_name, len(folders) if folders else 0, folders))  # noqa: E501
+    debug_message('find_phpunit_configuration_file() file=\'%s\', folders=(%d)%s' % (file_name, len(folders), folders))  # noqa: E501
 
     if file_name is None:
         return None
@@ -79,18 +79,19 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('  found %d common ancestor folder%s %s' % (len(ancestor_folders), '' if len(ancestor_folders) == 1 else 's', ancestor_folders))  # noqa: E501
+    debug_message('[find_phpunit_configuration_file] found %d common ancestor(s) %s' % (len(ancestor_folders), ancestor_folders))  # noqa: E501
 
     candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
+    debug_message('[find_phpunit_configuration_file] searching for configuration files = %s' % (candidate_configuration_file_names))  # noqa: E501
     for folder in ancestor_folders:
-        debug_message('  searching \'%s\' for first file in %s' % (folder, candidate_configuration_file_names))
+        debug_message('[find_phpunit_configuration_file] searching in \'%s\'' % folder)  # noqa: E501
         for file_name in candidate_configuration_file_names:
             phpunit_configuration_file = os.path.join(folder, file_name)
             if os.path.isfile(phpunit_configuration_file):
-                debug_message('  found configuration file: \'%s\'' % phpunit_configuration_file)
+                debug_message('[find_phpunit_configuration_file] found \'%s\'' % phpunit_configuration_file)
                 return phpunit_configuration_file
 
-    debug_message('  configuration file not found')
+    debug_message('[find_phpunit_configuration_file] not found')
 
     return None
 
@@ -172,14 +173,14 @@ def find_selected_test_methods(view):
 
 def find_first_switchable(view):
     """Return first switchable in view; otherwise None."""
-    debug_message('find_first_switchable(view = %s:%s)' % (view, view.file_name()))
+    debug_message('find_first_switchable() view=[id=%d,file=%s]' % (view.id(), view.file_name()))
 
     window = view.window()
     if not window:
         return None
 
     classes = find_php_classes(view)
-    debug_message('found %d PHP class%s %s in %s' % (len(classes), '' if len(classes) == 1 else 'es', classes, view.file_name()))  # noqa: E501
+    debug_message('[find_first_switchable] found %d PHP class(es) %s' % (len(classes), classes))  # noqa: E501
 
     for class_name in classes:
         if class_name[-4:] == "Test":
@@ -187,20 +188,21 @@ def find_first_switchable(view):
         else:
             lookup_symbol = class_name + "Test"
 
-        debug_message('    switchable symbol: %s' % lookup_symbol)
+        debug_message('[find_first_switchable] lookup symbol: \'%s\'' % lookup_symbol)
 
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
         switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
 
-        debug_message('      found %d switchable symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
-        debug_message('      found %d switchable symbol(s) in index      %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
+        debug_message('[find_first_switchable] found %d symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
+        debug_message('[find_first_switchable] found %d symbol(s) in index %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
 
         for open_file in switchables_in_open_files:
-            debug_message('  found switchable symbol in open file %s' % str(open_file))
+            debug_message('[find_first_switchable] found symbol in open file %s' % str(open_file))
             return open_file
 
+
         for index in switchables_in_index:
-            debug_message('  found switchable symbol in index %s' % str(index))
+            debug_message('[find_first_switchable] found symbol in index %s' % str(index))
             return index
 
 
@@ -308,8 +310,10 @@ class PHPUnit():
         if not self.view:
             raise ValueError('view not found')
 
+        debug_message('init() view=[id=%d,file=%s]' % (self.view.id(), self.view.file_name()))
+
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('running with (working_dir={}, file={}, options={})'.format(working_dir, file, options))
+        debug_message('run() working_dir={}, file={}, options={}'.format(working_dir, file, options))
 
         # Kill any currently running tests
         self.window.run_command('exec', {'kill': True})
@@ -421,14 +425,13 @@ class PHPUnit():
         options = {}
 
         if has_test_case(self.view):
-            debug_message("Found test case in '{}'".format(self.view.file_name()))
             unit_test = self.view.file_name()
             selected_test_methods = find_selected_test_methods(self.view)
             if selected_test_methods:
-                debug_message('Selected test methods = {}'.format(selected_test_methods))
+                debug_message('found test selections: {}'.format(selected_test_methods))
                 options = {'filter': build_filter_option_pattern(selected_test_methods)}
         else:
-            debug_message("No test case found in '%s'".format(self.view.file_name()))
+            debug_message('current file is not a test file')
             unit_test = find_first_switchable_file(self.view)
 
         if unit_test:
@@ -536,7 +539,7 @@ class PhpunitSwitchFile(sublime_plugin.WindowCommand):
         if not first_switchable:
             return sublime.status_message('PHPUnit: no switchable found')
 
-        debug_message("switching from '%s' to '%s'" % (view.file_name(), first_switchable))
+        debug_message('switching from \'%s\' to \'%s\'' % (view.file_name(), first_switchable))
 
         self.window.open_file(first_switchable[0])
         other_view = self.window.active_view()
