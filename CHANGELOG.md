@@ -4,6 +4,10 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## Unreleased
 
+### Added
+
+* Added: Command "phpunit_test_results" for opening the test results panel
+
 ### Changed
 
 * Renamed: Command "PHPUnit: Open Code Coverage" to "PHPUnit: Test Coverage"

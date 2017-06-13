@@ -529,6 +529,12 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
         PHPUnit(self.window).run_nearest()
 
 
+class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        self.window.run_command('show_panel', {'panel': 'output.exec'})
+
+
 class PhpunitTestSwitch(sublime_plugin.WindowCommand):
 
     def run(self):

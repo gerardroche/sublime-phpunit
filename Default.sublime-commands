@@ -5,7 +5,7 @@
     { "caption": "PHPUnit: Test Suite", "command": "phpunit_test_suite" },
     { "caption": "PHPUnit: Cancel Test", "command": "exec", "args": { "kill": true } },
     { "caption": "PHPUnit: Test Coverage", "command": "phpunit_test_coverage" },
-    { "caption": "PHPUnit: Show Results", "command": "show_panel", "args": { "panel": "output.exec" } },
+    { "caption": "PHPUnit: Show Results", "command": "phpunit_test_results" },
     { "caption": "PHPUnit: Test Switch", "command": "phpunit_test_switch" },
     { "caption": "PHPUnit: Toggle Option --debug", "command": "phpunit_toggle_option", "args": { "option": "debug" } },
     { "caption": "PHPUnit: Toggle Option --disallow-test-output", "command": "phpunit_toggle_option", "args": { "option": "disallow-test-output" } },
