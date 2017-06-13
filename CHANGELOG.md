@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
+* Added: Command "phpunit_test_cancel" for cancelling tests
 * Added: Command "phpunit_test_results" for opening the test results panel
 
 ### Changed

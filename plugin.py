@@ -535,6 +535,12 @@ class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
 
+class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
+
+    def run(self):
+        self.window.run_command('exec', {'kill': True})
+
+
 class PhpunitTestSwitch(sublime_plugin.WindowCommand):
 
     def run(self):

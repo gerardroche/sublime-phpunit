@@ -3,7 +3,7 @@
     { "caption": "PHPUnit: Test Last", "command": "phpunit_test_last" },
     { "caption": "PHPUnit: Test Nearest", "command": "phpunit_test_nearest" },
     { "caption": "PHPUnit: Test Suite", "command": "phpunit_test_suite" },
-    { "caption": "PHPUnit: Cancel Test", "command": "exec", "args": { "kill": true } },
+    { "caption": "PHPUnit: Cancel Test", "command": "phpunit_test_cancel" },
     { "caption": "PHPUnit: Test Coverage", "command": "phpunit_test_coverage" },
     { "caption": "PHPUnit: Test Results", "command": "phpunit_test_results" },
     { "caption": "PHPUnit: Test Switch", "command": "phpunit_test_switch" },
