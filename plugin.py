@@ -50,7 +50,7 @@ def find_phpunit_configuration_file(file_name, folders):
     Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
     the nearest common ancestor directory in {folders}.
     """
-    debug_message('find_phpunit_configuration_file() file=\'%s\', folders=(%d)%s' % (file_name, len(folders), folders))  # noqa: E501
+    debug_message('find_phpunit_configuration_file() file=\'%s\', folders=(%d)%s' % (file_name, len(folders) if folders else 0, folders))  # noqa: E501
 
     if file_name is None:
         return None
