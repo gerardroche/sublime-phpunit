@@ -1,6 +1,9 @@
 import sublime
 
 from phpunitkit.tests.utils import ViewTestCase
+
+from phpunitkit.plugin import _DEBUG
+from phpunitkit.plugin import is_debug
 from phpunitkit.plugin import find_php_classes
 from phpunitkit.plugin import has_test_case
 from phpunitkit.plugin import find_selected_test_methods
@@ -59,6 +62,40 @@ class HasTestCaseTest(ViewTestCase):
     def test_contains_phpunit_test_case_returns_false_when_view_is_empty(self):
         self.set_view_content('')
         self.assertFalse(has_test_case(self.view))
+
+
+class IsDebugTest(ViewTestCase):
+
+    def test_is_debug(self):
+        self.view.settings().erase('debug')
+        self.view.settings().erase('phpunit.debug')
+
+        self.assertEqual(_DEBUG, is_debug())
+
+        self.view.settings().set('phpunit.debug', True)
+        self.assertTrue(is_debug(self.view))
+
+        self.view.settings().set('phpunit.debug', False)
+        self.assertFalse(is_debug(self.view))
+
+        self.view.settings().erase('phpunit.debug')
+        self.assertFalse(is_debug(self.view))
+
+        self.view.settings().set('debug', True)
+        self.view.settings().set('phpunit.debug', True)
+        self.assertTrue(is_debug(self.view))
+
+        self.view.settings().set('debug', False)
+        self.view.settings().set('phpunit.debug', True)
+        self.assertTrue(is_debug(self.view))
+
+        self.view.settings().set('debug', False)
+        self.view.settings().set('phpunit.debug', False)
+        self.assertFalse(is_debug(self.view))
+
+        self.view.settings().set('debug', True)
+        self.view.settings().set('phpunit.debug', False)
+        self.assertFalse(is_debug(self.view))
 
 
 class SelectedUnitTestMethodsNamesTest(ViewTestCase):

@@ -12,7 +12,7 @@ _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 if _DEBUG:
     def debug_message(msg):
         print('PHPUnit: %s' % str(msg))
-else:
+else:  # pragma: no cover
     def debug_message(msg):
         pass
 
