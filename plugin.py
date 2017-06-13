@@ -191,16 +191,13 @@ def find_first_switchable(view):
         debug_message('[find_first_switchable] lookup symbol: \'%s\'' % lookup_symbol)
 
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
-        switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
-
         debug_message('[find_first_switchable] found %d symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
-        debug_message('[find_first_switchable] found %d symbol(s) in index %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
-
         for open_file in switchables_in_open_files:
             debug_message('[find_first_switchable] found symbol in open file %s' % str(open_file))
             return open_file
 
-
+        switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
+        debug_message('[find_first_switchable] found %d symbol(s) in index %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
         for index in switchables_in_index:
             debug_message('[find_first_switchable] found symbol in index %s' % str(index))
             return index
