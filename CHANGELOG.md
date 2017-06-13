@@ -10,6 +10,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Changed
 
+* Renamed: Command "PHPUnit: Show Results" to "PHPUnit: Test Results"
 * Renamed: Command "PHPUnit: Open Code Coverage" to "PHPUnit: Test Coverage"
 * Renamed: Command "PHPUnit: Switch File" to "PHPUnit: Test Switch"
 
