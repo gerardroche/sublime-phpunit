@@ -2,12 +2,15 @@ import re
 import os
 import shutil
 
-
-import sublime
-import sublime_plugin
+from sublime import version
+from sublime import active_window
+from sublime import platform
+from sublime import status_message
+from sublime_plugin import WindowCommand
 
 
 _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
+
 
 if _DEBUG:
     def debug_message(msg):
@@ -26,7 +29,7 @@ def is_debug(view=None):
 
 def get_window_setting(key, default=None, window=None):
     if not window:
-        window = sublime.active_window()
+        window = active_window()
 
     if window.settings().has(key):
         return window.settings().get(key)
@@ -180,7 +183,7 @@ def find_first_switchable(view):
         return None
 
     classes = find_php_classes(view)
-    debug_message('[find_first_switchable] found %d PHP class(es) %s' % (len(classes), classes))  # noqa: E501
+    debug_message('find_first_switchable() found %d PHP class(es) %s' % (len(classes), classes))  # noqa: E501
 
     for class_name in classes:
         if class_name[-4:] == "Test":
@@ -188,18 +191,18 @@ def find_first_switchable(view):
         else:
             lookup_symbol = class_name + "Test"
 
-        debug_message('[find_first_switchable] lookup symbol: \'%s\'' % lookup_symbol)
+        debug_message('find_first_switchable() lookup symbol: \'%s\'' % lookup_symbol)
 
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
-        debug_message('[find_first_switchable] found %d symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
+        debug_message('find_first_switchable() found %d symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
         for open_file in switchables_in_open_files:
-            debug_message('[find_first_switchable] found symbol in open file %s' % str(open_file))
+            debug_message('find_first_switchable() found symbol in open file %s' % str(open_file))
             return open_file
 
         switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
-        debug_message('[find_first_switchable] found %d symbol(s) in index %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
+        debug_message('find_first_switchable() found %d symbol(s) in index %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
         for index in switchables_in_index:
-            debug_message('[find_first_switchable] found symbol in index %s' % str(index))
+            debug_message('find_first_switchable() found symbol in index %s' % str(index))
             return index
 
 
@@ -211,8 +214,8 @@ def find_first_switchable_file(view):
 
     file = first_switchable[0]
 
-    if int(sublime.version()) < 3118:
-        if sublime.platform() == "windows":
+    if int(version()) < 3118:
+        if platform() == "windows":
             file = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", file)
             file = re.sub(r"/", r"\\", file)
 
@@ -250,7 +253,7 @@ def put_views_side_by_side(view_a, view_b):
 
 
 def exec_file_regex():
-    if sublime.platform() == 'windows':
+    if platform() == 'windows':
         return '((?:[a-zA-Z]\:)?\\\\[a-zA-Z0-9 \\.\\/\\\\_-]+)(?: on line |\:)([0-9]+)'
     else:
         return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\:)([0-9]+)'
@@ -352,11 +355,11 @@ class PHPUnit():
                     raise ValueError('test file \'%s\' not found' % file)
 
         except ValueError as e:
-            sublime.status_message('PHPUnit: {}'.format(e))
+            status_message('PHPUnit: {}'.format(e))
             print('PHPUnit: {}'.format(e))
             return
         except Exception as e:
-            sublime.status_message('PHPUnit: {}'.format(e))
+            status_message('PHPUnit: {}'.format(e))
             print('PHPUnit: \'{}\''.format(e))
             raise e
 
@@ -410,7 +413,7 @@ class PHPUnit():
         if kwargs:
             self.run(**kwargs)
         else:
-            return sublime.status_message('PHPUnit: no tests were run so far')
+            return status_message('PHPUnit: no tests were run so far')
 
     def run_file(self):
         file = self.view.file_name()
@@ -420,7 +423,7 @@ class PHPUnit():
             else:
                 self.run(file=find_first_switchable_file(self.view))
         else:
-            return sublime.status_message('PHPUnit: not a test file')
+            return status_message('PHPUnit: not a test file')
 
     def run_nearest(self):
         options = {}
@@ -438,7 +441,7 @@ class PHPUnit():
         if unit_test:
             self.run(file=unit_test, options=options)
         else:
-            return sublime.status_message('PHPUnit: not a test file')
+            return status_message('PHPUnit: not a test file')
 
     def filter_options(self, options):
         if options is None:
@@ -471,7 +474,7 @@ class PHPUnit():
             if not os.path.isdir(php_versions_path):
                 raise ValueError("'phpunit.php_versions_path' '%s' does not exist or is not a valid directory" % php_versions_path)  # noqa: E501
 
-            if sublime.platform() == 'windows':
+            if platform() == 'windows':
                 php_executable = os.path.join(php_versions_path, php_version_number, 'php.exe')
             else:
                 php_executable = os.path.join(php_versions_path, php_version_number, 'bin', 'php')
@@ -490,7 +493,7 @@ class PHPUnit():
             return php_executable
 
     def get_phpunit_executable(self, working_dir):
-        if sublime.platform() == 'windows':
+        if platform() == 'windows':
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
         else:
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
@@ -505,43 +508,43 @@ class PHPUnit():
                 raise ValueError('phpunit not found')
 
 
-class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
+class PhpunitTestSuiteCommand(WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run()
 
 
-class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
+class PhpunitTestFileCommand(WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_file()
 
 
-class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
+class PhpunitTestLastCommand(WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_last()
 
 
-class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
+class PhpunitTestNearestCommand(WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_nearest()
 
 
-class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
+class PhpunitTestResultsCommand(WindowCommand):
 
     def run(self):
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
 
-class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
+class PhpunitTestCancelCommand(WindowCommand):
 
     def run(self):
         self.window.run_command('exec', {'kill': True})
 
 
-class PhpunitTestVisitCommand(sublime_plugin.WindowCommand):
+class PhpunitTestVisitCommand(WindowCommand):
 
     def run(self):
         test_last = get_window_setting('phpunit._test_last', window=self.window)
@@ -552,19 +555,19 @@ class PhpunitTestVisitCommand(sublime_plugin.WindowCommand):
                     if os.path.isfile(file):
                         return self.window.open_file(file)
 
-        return sublime.status_message('PHPUnit: no tests were run so far')
+        return status_message('PHPUnit: no tests were run so far')
 
 
-class PhpunitTestSwitch(sublime_plugin.WindowCommand):
+class PhpunitTestSwitch(WindowCommand):
 
     def run(self):
         view = self.window.active_view()
         if not view:
-            return sublime.status_message('PHPUnit: view not found')
+            return status_message('PHPUnit: view not found')
 
         first_switchable = find_first_switchable(view)
         if not first_switchable:
-            return sublime.status_message('PHPUnit: no switchable found')
+            return status_message('PHPUnit: no switchable found')
 
         debug_message('switching from \'%s\' to \'%s\'' % (view.file_name(), first_switchable))
 
@@ -575,14 +578,14 @@ class PhpunitTestSwitch(sublime_plugin.WindowCommand):
 
 
 # DEPRECATED: to be removed in v3.0.0; use :TestSwitch instead
-class PhpunitSwitchFile(sublime_plugin.WindowCommand):
+class PhpunitSwitchFile(WindowCommand):
 
     def run(self):
         print('PHPUnit: DEPRECATED :SwitchFile; please use :TestSwitch instead')
         self.window.run_command('phpunit_test_switch')
 
 
-class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
+class PhpunitToggleOptionCommand(WindowCommand):
 
     def run(self, option):
         options = get_window_setting('phpunit.options', default={}, window=self.window)
@@ -590,7 +593,7 @@ class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
         set_window_setting('phpunit.options', options, window=self.window)
 
 
-class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
+class PhpunitTestCoverageCommand(WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -599,18 +602,18 @@ class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
         working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
         if not working_dir:
-            return sublime.status_message('PHPUnit: could not find a PHPUnit working directory')
+            return status_message('PHPUnit: could not find a PHPUnit working directory')
 
         coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
         if not os.path.exists(coverage_html_index_html_file):
-            return sublime.status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
+            return status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
 
 
 # DEPRECATED: to be removed in v3.0.0; use :TestCoverageCommand instead
-class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
+class PhpunitOpenCodeCoverageCommand(WindowCommand):
 
     def run(self):
         print('PHPUnit: DEPRECATED :OpenCodeCoverage; please use :TestCoverage instead')
