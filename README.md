@@ -47,21 +47,42 @@ The preferred method of installation is [Package Control](https://packagecontrol
 
 ## USAGE
 
-Command | Description
---------|------------
-`:TestSuite` | Run test suite of the current file.
-`:TestFile` | Run tests for the current file. If the current file is not a test file, it runs tests of the test file for the current file.
-`:TestNearest` | Run a test nearest to the cursor (supports multiple selections). If the current file is not a test file, it runs tests of the test file for the current file.
-`:TestLast` | Run the last test.
-`:TestVisit` | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-`:TestSwitch` | Splits the window and puts nearest test case and class under test side by side.
-`:TestResults` | Show the test results panel.
-`:TestCancel` | Cancels current test run.
-`:TestCoverage` | Open code coverage in browser.
-`:ToggleOption*` | Toggle PHPUnit CLI options.
+Command Palette | Command | Description
+--------------- | ------- | -----------
+`:TestSuite` | `phpunit_test_suite` | Run test suite of the current file.
+`:TestFile` | `phpunit_test_file` | Run tests for the current file. If the current file is not a test file, it runs tests of the test file for the current file.
+`:TestNearest` | `phpunit_test_nearest` | Run a test nearest to the cursor (supports multiple selections). If the current file is not a test file, it runs tests of the test file for the current file.
+`:TestLast` | `phpunit_test_last` | Run the last test.
+`:TestVisit` | `phpunit_test_visit` | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+`:TestSwitch` | `phpunit_test_switch` | Splits the window and puts nearest test case and class under test side by side.
+`:TestResults` | `phpunit_test_results` | Show the test results panel.
+`:TestCancel` | `phpunit_test_cancel` | Cancels current test run.
+`:TestCoverage` | `phpunit_test_coverage` | Open code coverage in browser.
+`:ToggleOption*`| `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
 
-* Jump to Next Failure: <kbd>F4</kbd>
-* Jump to Previous Failure: <kbd>Shift</kbd>+<kbd>F4</kbd>
+### Key bindings
+
+Key | Description
+--- | -----------
+`F4` | Jump to Next Failure
+`Shift+F4` | Jump to Previous Failure
+
+Add your preferred keymaps for commands:
+
+`Menu > Preferences Key Bindings`
+
+```json
+[
+    { "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
+    { "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
+    { "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
+    { "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
+    { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
+    { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
+]
+```
+
+The following default keymaps are deprecated:
 
 Windows / Linux | OS X | Command
 --------------- | ---- | -------
