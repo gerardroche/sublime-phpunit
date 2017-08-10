@@ -2,6 +2,36 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased
+
+### Removed
+
+* The default key bindings have been removed, instead add your preferred key bindings:
+
+  `Menu > Preferences > Key Bindings`
+
+  ```json
+  [
+      { "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
+      { "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
+      { "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
+      { "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
+      { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
+      { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
+      { "keys": ["ctrl+shift+c"], "command": "phpunit_test_cancel" },
+      { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
+  ]
+  ```
+
+  The `super` key is also a... super choice to use instead of the `ctrl` key, and on OSX you may prefer to use the `command` key.
+
+  The following key bindings remain the same:
+
+  Key | Description
+  --- | -----------
+  `F4` | Jump to Next Failure
+  `Shift+F4` | Jump to Previous Failure
+
 ## [2.2.1] - 2017-06-13
 
 ### Fixed

@@ -57,13 +57,6 @@
                                 "caption": "-"
                             },
                             {
-                                "caption": "Key Bindings – Default",
-                                "command": "open_file",
-                                "args": {
-                                    "file": "${packages}/phpunitkit/Default (${platform}).sublime-keymap"
-                                }
-                            },
-                            {
                                 "caption": "Key Bindings – User",
                                 "command": "open_file",
                                 "args": {

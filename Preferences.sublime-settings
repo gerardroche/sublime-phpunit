@@ -4,9 +4,6 @@
     // executable.
     "phpunit.composer": true,
 
-    // Enable the default keymaps.
-    "phpunit.keymaps": true,
-
     // Command-line options to pass to PHPUnit.
     // https://phpunit.de/manual/current/en/textui.html#textui.clioptions
     // e.g. `{"no-coverage": true, "verbose": true}`
@@ -26,8 +23,5 @@
 
     // Enable writing out every buffer (in the active window) with changes
     // before running tests.
-    "phpunit.save_all_on_run": true,
-
-    // Enable the default vi keymaps.
-    "phpunit.vi_keymaps": true
+    "phpunit.save_all_on_run": true
 }
