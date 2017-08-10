@@ -1,8 +1,8 @@
 # WHAT PHPUNITKIT IS
 
-[![Build Status](https://img.shields.io/travis/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![Author](https://img.shields.io/badge/twitter-gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
+A Sublime Text plugin that provides an abstraction over running PHPUnit tests from the command-line.
 
-PHPUnitKit is a plugin that provides PHPUnit support in Sublime Text. It provides an abstraction over running tests from the command-line.
+[![Build Status](https://img.shields.io/travis/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/phpunitkit.svg?style=flat-square)](https://packagecontrol.io/packages/phpunitkit) [![Author](https://img.shields.io/badge/twitter-gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
 
 ![Screenshot](screenshot.png)
 
@@ -10,7 +10,8 @@ PHPUnitKit is a plugin that provides PHPUnit support in Sublime Text. It provide
 
 * [Features](#features)
 * [Installation](#installation)
-* [Usage](#usage)
+* [Commands](#commands)
+* [Keybindings](#key-bindings)
 * [Configuration](#configuration)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
@@ -45,7 +46,7 @@ The preferred method of installation is [Package Control](https://packagecontrol
     * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
 3. Done!
 
-## USAGE
+## COMMANDS
 
 Command Palette | Command | Description
 --------------- | ------- | -----------
@@ -58,16 +59,16 @@ Command Palette | Command | Description
 `:TestResults` | `phpunit_test_results` | Show the test results panel.
 `:TestCancel` | `phpunit_test_cancel` | Cancels current test run.
 `:TestCoverage` | `phpunit_test_coverage` | Open code coverage in browser.
-`:ToggleOption*`| `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
+`:ToggleOption`| `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
 
-### Key bindings
+## KEY BINDINGS
 
 Key | Description
 --- | -----------
 `F4` | Jump to Next Failure
 `Shift+F4` | Jump to Previous Failure
 
-Add your preferred keymaps for commands:
+Add your preferred key bindings:
 
 `Menu > Preferences Key Bindings`
 
@@ -79,27 +80,12 @@ Add your preferred keymaps for commands:
     { "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
     { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
     { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
+    { "keys": ["ctrl+shift+c"], "command": "phpunit_test_cancel" },
+    { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
 ]
 ```
 
-The following default keymaps are deprecated:
-
-Windows / Linux | OS X | Command
---------------- | ---- | -------
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>t</kbd> | `:TestSuite`
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | `:TestNearest`
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | `:TestLast`
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> | `:TestSwitch`
-
-Vintage / [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous)
-
-Keymap | Command
------------------------|--------
-<kbd>,a</kbd> | `:TestSuite`
-<kbd>,T</kbd> | `:TestFile`
-<kbd>,t</kbd> | `:TestNearest`
-<kbd>,l</kbd> | `:TestLast`
-<kbd>,.</kbd> | `:TestSwitch`
+The `super` key is also a... super choice to use instead of the `ctrl` key, and on OSX you may prefer to use the `command` key.
 
 ## CONFIGURATION
 
@@ -107,11 +93,11 @@ Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | Command-line options to pass to PHPUnit. See [PHPUnit usage](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
 `phpunit.composer` | Enable Composer support (if a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find PHPUnit). | `boolean` | `true`
-`phpunit.save_all_on_run` | Enable writing out every buffer with changes in active window before running tests. | `boolean` | `true`
-`phpunit.php_executable` | Path to PHP executable used to run PHPUnit (if not set then the system PATH is used to find PHP). | `string` | Uses the system PATH
+`phpunit.save_all_on_run` | Enable writing out every buffer (in active window) with changes before running tests. | `boolean` | `true`
+`phpunit.php_executable` | Path to PHP executable used to run PHPUnit (if not set then the system PATH is used to find PHP). | `string` | Uses the PHP executable found on the system PATH
 `phpunit.php_versions_path` | Location of `.php-version` file PHP versions. | `string` | `~/.phpenv/versions`
-`phpunit.keymaps` | Enable the default keymaps. | `boolean` | `true`
-`phpunit.vi_keymaps` | Enable the default vi keymaps. | `boolean` | `true`
+`phpunit.keymaps` | (**Deprecated**: the default key bindings will be removed in a future version, instead define your preferred key bindings, see the [key bindings](#key-bindings) section for more details) Enable the default keymaps. | `boolean` | `false`
+`phpunit.vi_keymaps` | (**Deprecated**: the default key bindings will be removed in a future version, instead define your preferred key bindings, see the [key bindings](#key-bindings) section for more details) Enable the default vi keymaps. | `boolean` | `false`
 
 ### Composer
 
@@ -139,7 +125,9 @@ You can also disable it per-project:
 
 ### PHP executable
 
-Path to PHP executable used to run PHPUnit, otherwise the system PATH is used to find PHP. To set a default executable other than the one one the one found on system PATH (`~` and environment variables e.g. `$HOME` are expanded):
+The PHP executable to use when running PHPUnit. The default is to use the PHP executable found on the system PATH.
+
+Environment variables and user place-holders are expanded e.g. `~` and `$HOME`.
 
 `Menu > Preferences > Settings`
 
@@ -163,7 +151,11 @@ You can also set it per-project:
 
 ### PHP versions path
 
-You can set a location to find different PHP versions and use `.php-version` files to select versions per-project. The default location is of PHP versions is `~/.phpenv/versions`. The structure of the versions directory should be:
+You can set a location to find different PHP versions and use `.php-version` files to select versions per-project.
+
+The default location is of PHP versions is `~/.phpenv/versions`.
+
+The structure of the versions directory should be in the following form.
 
 ```
 Linux and OSX                       Windows
@@ -180,9 +172,9 @@ Linux and OSX                       Windows
                 └── php
 ```
 
-To specify a version from the versions path to use for a project, create a file named `.php-version` with the name of the version as its contents and place it in the root of your project. For example, a `.php-version` file with the contents `7.1.4` and a PHP versions path of `~/.phpenv/versions` will expand to the PHP version at `~/.phpenv/versions/7.1.4/bin/php` on Linux and `~/.phpenv/versions/7.1.4/php` on Windows.
+To specify a version from the versions path, create a file named `.php-version` with the name of the version as its contents and place it in the root of your project.
 
-You can specify a PHP versions path other than the default:
+For example, a `.php-version` file with the contents `7.1.4` and a PHP versions path of `~/.phpenv/versions` will expand to the PHP version at `~/.phpenv/versions/7.1.4/bin/php` on Linux, and `~/.phpenv/versions/7.1.4/php` on Windows.
 
 `Menu > Preferences > Settings`
 
@@ -191,8 +183,6 @@ You can specify a PHP versions path other than the default:
     "phpunit.php_versions_path": "~/.phpenv/versions"
 }
 ```
-
-You can also set it per-project:
 
 `Menu > Project > Edit Project`
 
@@ -322,7 +312,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## CREDITS
 
-Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit). Also inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
+Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), and also inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
 
 ## LICENSE
 

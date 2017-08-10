@@ -1,6 +1,7 @@
 {
-    // Enable composer support. If a composer installed PHPUnit is found then it
-    // is used to run tests.
+    // Enable Composer support (if a Composer installed PHPUnit is found then it
+    // is used to run the tests, otherwise the system PATH is used to find
+    // PHPUnit)
     "phpunit.composer": true,
 
     // Enable the default keymaps.
@@ -22,8 +23,8 @@
     // configuration file is located).
     "phpunit.php_versions_path": "~/.phpenv/versions",
 
-    // Enable writing out every buffer (active window) with changes and a file
-    // name, on test runs.
+    // Enable writing out every buffer (in active window) with changes before
+    // running tests.
     "phpunit.save_all_on_run": true,
 
     // Enable the default vi keymaps.
