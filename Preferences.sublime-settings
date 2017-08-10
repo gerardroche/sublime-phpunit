@@ -1,19 +1,20 @@
 {
-    // Enable Composer support (if a Composer installed PHPUnit is found then it
-    // is used to run the tests, otherwise the system PATH is used to find
-    // PHPUnit)
+    // If enabled and a Composer installed PHPUnit is found then it is used to
+    // run the tests, otherwise the system PATH is used to find the PHPUnit
+    // executable.
     "phpunit.composer": true,
 
     // Enable the default keymaps.
     "phpunit.keymaps": true,
 
-    // Options to pass to PHPUnit when running tests. Any PHPUnit option is
-    // valid. See phpunit --help for an up-to-date list of available options.
-    // e.g. "phpunit.options": {"no-coverage": true, "verbose": true},
+    // Command-line options to pass to PHPUnit.
+    // https://phpunit.de/manual/current/en/textui.html#textui.clioptions
+    // e.g. `{"no-coverage": true, "verbose": true}`
     "phpunit.options": {},
 
-    // Default PHP executable used to run PHPUnit. If not set then the first
-    // PHP executable found on the system path is used.
+    // // The PHP executable to use when running PHPUnit. The default is to use the
+    // // PHP executable found on the system PATH. Environment variables and user
+    // // place-holders are expanded e.g. `~` and `$HOME`.
     // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
 
     // Path to find php versions. The expected location of the PHP executables
@@ -23,8 +24,8 @@
     // configuration file is located).
     "phpunit.php_versions_path": "~/.phpenv/versions",
 
-    // Enable writing out every buffer (in active window) with changes before
-    // running tests.
+    // Enable writing out every buffer (in the active window) with changes
+    // before running tests.
     "phpunit.save_all_on_run": true,
 
     // Enable the default vi keymaps.

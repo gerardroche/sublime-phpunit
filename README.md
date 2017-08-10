@@ -63,14 +63,9 @@ Command Palette | Command | Description
 
 ## KEY BINDINGS
 
-Key | Description
---- | -----------
-`F4` | Jump to Next Failure
-`Shift+F4` | Jump to Previous Failure
-
 Add your preferred key bindings:
 
-`Menu > Preferences Key Bindings`
+`Menu > Preferences > Key Bindings`
 
 ```json
 [
@@ -87,27 +82,32 @@ Add your preferred key bindings:
 
 The `super` key is also a... super choice to use instead of the `ctrl` key, and on OSX you may prefer to use the `command` key.
 
+Key bindings provided by default:
+
+Key | Description
+--- | -----------
+`F4` | Jump to Next Failure
+`Shift+F4` | Jump to Previous Failure
+
 ## CONFIGURATION
 
 Key | Description | Type | Default
 ----|-------------|------|--------
-`phpunit.options` | Command-line options to pass to PHPUnit. See [PHPUnit usage](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) for an up-to-date list of command-line options. | `dict` | `{}`
-`phpunit.composer` | Enable Composer support (if a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find PHPUnit). | `boolean` | `true`
-`phpunit.save_all_on_run` | Enable writing out every buffer (in active window) with changes before running tests. | `boolean` | `true`
-`phpunit.php_executable` | Path to PHP executable used to run PHPUnit (if not set then the system PATH is used to find PHP). | `string` | Uses the PHP executable found on the system PATH
+`phpunit.options` | Command-line [options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) to pass to PHPUnit e.g. `{"no-coverage": true, "verbose": true}`. | `dict` | `{}`
+`phpunit.composer` | If enabled and a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find the PHPUnit executable. | `boolean` | `true`
+`phpunit.save_all_on_run` | Enable writing out every buffer (in the active window) with changes before running tests. | `boolean` | `true`
+`phpunit.php_executable` | The PHP executable to use when running PHPUnit. The default is to use the PHP executable found on the system PATH. Environment variables and user place-holders are expanded e.g. `~` and `$HOME`. | `string` | The PHP executable found on the system PATH.
 `phpunit.php_versions_path` | Location of `.php-version` file PHP versions. | `string` | `~/.phpenv/versions`
-`phpunit.keymaps` | (**Deprecated**: the default key bindings will be removed in a future version, instead define your preferred key bindings, see the [key bindings](#key-bindings) section for more details) Enable the default keymaps. | `boolean` | `false`
-`phpunit.vi_keymaps` | (**Deprecated**: the default key bindings will be removed in a future version, instead define your preferred key bindings, see the [key bindings](#key-bindings) section for more details) Enable the default vi keymaps. | `boolean` | `false`
 
 ### Composer
 
-If a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find PHPUnit. To disable Composer support:
+If enabled and a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find the PHPUnit executable.
 
 `Menu > Preferences > Settings`
 
 ```json
 {
-    "phpunit.composer": false
+    "phpunit.composer": true
 }
 ```
 
@@ -118,7 +118,7 @@ You can also disable it per-project:
 ```json
 {
     "settings": {
-        "phpunit.composer": false
+        "phpunit.composer": true
     }
 }
 ```
@@ -196,7 +196,35 @@ For example, a `.php-version` file with the contents `7.1.4` and a PHP versions 
 
 ### Options
 
-To set PHPUnit options:
+Command-line [options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) to pass to PHPUnit.
+
+`Menu > Preferences > Settings`
+
+```json
+{
+    "phpunit.options": {
+        "no-coverage": true,
+        "verbose": true
+    }
+}
+```
+
+Translates to the command: `phpunit --verbose --no-coverage`.
+
+`Menu > Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.options": {
+            "no-coverage": true,
+            "verbose": true
+        }
+    }
+}
+```
+
+Translates to the command: `phpunit --verbose --no-coverage`.
 
 `Menu > Preferences > Settings`
 
@@ -213,7 +241,7 @@ To set PHPUnit options:
 }
 ```
 
-You can also set them per-project:
+Translates to the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage`
 
 `Menu > Project > Edit Project`
 
@@ -232,18 +260,17 @@ You can also set them per-project:
 }
 ```
 
-Both of the above configurations translate to the following PHPUnit options:
+Translates to the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage`
 
-```
-phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage
-```
+### The `phpunit.xml` [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file.
 
-It is recommended to use your [phpunit.xml](https://phpunit.de/manual/current/en/appendixes.configuration.html) configuration file if you want some CLI options to stick around. Place it at the root of your project.
+It is recommended to use your `phpunit.xml` configuration file if you want some CLI options to stick around.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit verbose="true">
     <php>
+        <ini name="error_reporting" value="-1" />
         <ini name="display_errors" value="1" />
         <ini name="xdebug.scream" value="0" />
     </php>
@@ -257,6 +284,9 @@ It is recommended to use your [phpunit.xml](https://phpunit.de/manual/current/en
             <directory>src</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-html" target="build/coverage" />
+    </logging>
 </phpunit>
 ```
 
