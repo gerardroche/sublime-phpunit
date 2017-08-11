@@ -447,13 +447,17 @@ class PHPUnit():
         if options is None:
             options = {}
 
-        for k, v in get_window_setting('phpunit.options', default={}, window=self.window).items():
-            if k not in options:
-                options[k] = v
+        window_options = get_window_setting('phpunit.options', default={}, window=self.window)
+        if window_options:
+            for k, v in window_options.items():
+                if k not in options:
+                    options[k] = v
 
-        for k, v in self.view.settings().get('phpunit.options').items():
-            if k not in options:
-                options[k] = v
+        view_options = self.view.settings().get('phpunit.options')
+        if view_options:
+            for k, v in view_options.items():
+                if k not in options:
+                    options[k] = v
 
         return options
 
