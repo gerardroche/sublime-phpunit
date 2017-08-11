@@ -14,35 +14,35 @@ class TestFindSelectedTestMethods(ViewTestCase):
         self.fixture('')
         self.assertEqual([], find_selected_test_methods(self.view))
 
-    def test_none_in_plain_text(self):
+    def test_none_when_plain_text(self):
         self.fixture('foo|bar')
         self.assertEqual([], find_selected_test_methods(self.view))
 
-    def test_no_selection(self):
-        self.fixture("""<?php
-            namespace Vendor\Package;
-            class BooleanTest extends \PHPUnit_Framework_TestCase
+    def test_none_when_bof(self):
+        self.fixture("""|<?php
+
+            namespace User\Repository;
+
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
             {
                 public function testOne()
                 {
                     $this->assertTrue(true);
                 }
-
-                public function testTwo()
-                {
-                    $this->assertTrue(true);
-                }
             }
+
         """)
 
         self.assertEqual([], find_selected_test_methods(self.view))
 
-    def test_selection_on_method_declaration(self):
+    def test_one(self):
         self.fixture("""<?php
-            namespace Vendor\Package;
-            class BooleanTest extends \PHPUnit_Framework_TestCase
+
+            namespace User\Repository;
+
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
             {
-                public function testFoobar()
+                public function testFoobar1()
                 {
                     $this->assertTrue(true);
                 }
@@ -52,19 +52,78 @@ class TestFindSelectedTestMethods(ViewTestCase):
                     $this->assertTrue(true);
                 }
 
-                public function testFoobar()
+                public function testFoobar2()
                 {
                     $this->assertTrue(true);
                 }
             }
+
         """)
 
         self.assertEqual(['testOne'], find_selected_test_methods(self.view))
 
-    def test_selection_on_many_method_declarations(self):
+    def test_underscore_test_methods(self):
         self.fixture("""<?php
-            namespace Vendor\Package;
-            class BooleanTest extends \PHPUnit_Framework_TestCase
+
+            namespace User\Repository;
+
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            {
+                public function test_one_un|derscore()
+                {
+                    $this->assertTrue(true);
+                }
+
+                public function testFoobar()
+                {
+                    $this->assertTrue(true);
+                }
+
+                public function test_two|_under_scored()
+                {
+                    $this->assertTrue(true);
+                }
+
+            }
+
+        """)
+
+        self.assertEqual(['test_one_underscore', 'test_two_under_scored'],
+                         find_selected_test_methods(self.view))
+
+    def test_annotated_test_methods(self):
+        self.fixture("""<?php
+
+            namespace User\Repository;
+
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            {
+                /**
+                 * @test
+                 */
+                public function o|ne()
+                {
+                    $this->assertTrue(true);
+                }
+
+                /** @test */
+                public function tw|o()
+                {
+                    $this->assertTrue(true);
+                }
+            }
+
+        """)
+
+        self.assertEqual(['one', 'two'],
+                         find_selected_test_methods(self.view))
+
+    def test_many(self):
+        self.fixture("""<?php
+
+            namespace User\Repository;
+
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
             {
                 public function testFoobar()
                 {
@@ -101,13 +160,15 @@ class TestFindSelectedTestMethods(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
+
         """)
 
-        self.assertEqual(['testOne', 'testTwo', 'testThree'], find_selected_test_methods(self.view))
+        self.assertEqual(['testOne', 'testTwo', 'testThree'],
+                         find_selected_test_methods(self.view))
 
-    def test_selection_anywhere_on_method_declarations(self):
+    def test_many_when_cursor_is_anywhere_on_method_declarations(self):
         self.fixture("""<?php
-            class BooleanTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
             {
                 public function foobar()
                 {
@@ -144,17 +205,19 @@ class TestFindSelectedTestMethods(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
+
         """)
 
-        self.assertEqual(['testOne', 'testTwo', 'testThree'], find_selected_test_methods(self.view))
+        self.assertEqual(['testOne', 'testTwo', 'testThree'],
+                         find_selected_test_methods(self.view))
 
-    def test_selection_anywhere_inside_method_declarations(self):
+    def test_many_when_cursor_is_anywhere_inside_method_declarations(self):
         if _is_php_syntax_using_php_grammar():
             # Skip because php-grammar does not support this feature
             return
 
         self.fixture("""<?php
-            class BooleanTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \PHPUnit_Framework_TestCase
             {
                 public function foobar()
                 {
@@ -194,6 +257,8 @@ class TestFindSelectedTestMethods(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
+
         """)
 
-        self.assertEqual(['testOne', 'testTwo', 'testThree'], find_selected_test_methods(self.view))
+        self.assertEqual(['testOne', 'testTwo', 'testThree'],
+                         find_selected_test_methods(self.view))
