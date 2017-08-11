@@ -1,115 +1,25 @@
-import sublime
+from sublime import find_resources
 
 from phpunitkit.tests.utils import ViewTestCase
-
-from phpunitkit.plugin import _DEBUG
-from phpunitkit.plugin import is_debug
-from phpunitkit.plugin import find_php_classes
-from phpunitkit.plugin import has_test_case
 from phpunitkit.plugin import find_selected_test_methods
 
 
-class FindPHPClassesTest(ViewTestCase):
-
-    def test_find_php_classes_returns_array_of_classes_in_view(self):
-        self.set_view_content('<?php\nclass x {}\nclass y {}')
-        self.assertEquals(['x', 'y'], find_php_classes(self.view))
-
-    def test_find_php_classes_returns_empty_array_when_view_is_empty(self):
-        self.set_view_content('foobar')
-        self.assertEquals([], find_php_classes(self.view))
-
-    def test_find_php_classes_has_namespace(self):
-        self.set_view_content('''<?php
-            namespace Vendor\Package;
-            class BooleanTest extends \PHPUnit_Framework_TestCase
-            {
-                public function testTrue()
-                {
-                    $this->assertTrue(true);
-                }
-
-                public function testFalse()
-                {
-                    $this->assertFalse(false);
-                }
-            }
-        ''')
-
-        self.assertEquals(['BooleanTest'], find_php_classes(self.view))
-
-    def test_find_php_classes_with_namespace_alias(self):
-        self.set_view_content('''<?php
-            use some\\namespace\\BaseCommandInterface as Command;
-            class CommandBus
-            {
-            }
-        ''')
-
-        self.assertEquals(['CommandBus'], find_php_classes(self.view))
+def _is_php_syntax_using_php_grammar():
+    return 'php-grammar' in find_resources('PHP.sublime-syntax')[0]
 
 
-class HasTestCaseTest(ViewTestCase):
+class TestFindSelectedTestMethods(ViewTestCase):
 
-    def test_contains_phpunit_test_case_returns_true_when_view_has_test_case(self):
-        self.set_view_content("<?php\nclass ExampleTest {}")
-        self.assertTrue(has_test_case(self.view))
-
-    def test_contains_phpunit_test_case_returns_false_when_view_has_no_test_case_classes(self):
-        self.set_view_content('<?php\nclass x {}\nclass y {}')
-        self.assertFalse(has_test_case(self.view))
-
-    def test_contains_phpunit_test_case_returns_false_when_view_is_empty(self):
-        self.set_view_content('')
-        self.assertFalse(has_test_case(self.view))
-
-
-class IsDebugTest(ViewTestCase):
-
-    def test_is_debug(self):
-        self.view.settings().erase('debug')
-        self.view.settings().erase('phpunit.debug')
-
-        self.assertEqual(_DEBUG, is_debug())
-
-        self.view.settings().set('phpunit.debug', True)
-        self.assertTrue(is_debug(self.view))
-
-        self.view.settings().set('phpunit.debug', False)
-        self.assertFalse(is_debug(self.view))
-
-        self.view.settings().erase('phpunit.debug')
-        self.assertFalse(is_debug(self.view))
-
-        self.view.settings().set('debug', True)
-        self.view.settings().set('phpunit.debug', True)
-        self.assertTrue(is_debug(self.view))
-
-        self.view.settings().set('debug', False)
-        self.view.settings().set('phpunit.debug', True)
-        self.assertTrue(is_debug(self.view))
-
-        self.view.settings().set('debug', False)
-        self.view.settings().set('phpunit.debug', False)
-        self.assertFalse(is_debug(self.view))
-
-        self.view.settings().set('debug', True)
-        self.view.settings().set('phpunit.debug', False)
-        self.assertFalse(is_debug(self.view))
-
-
-class SelectedUnitTestMethodsNamesTest(ViewTestCase):
-
-    def test_none_in_empty(self):
-        self.set_view_content('')
+    def test_empty(self):
+        self.fixture('')
         self.assertEqual([], find_selected_test_methods(self.view))
 
     def test_none_in_plain_text(self):
-        self.set_view_selection('foo|bar')
+        self.fixture('foo|bar')
         self.assertEqual([], find_selected_test_methods(self.view))
 
     def test_no_selection(self):
-        self.set_view_selection('''<?php
+        self.fixture("""<?php
             namespace Vendor\Package;
             class BooleanTest extends \PHPUnit_Framework_TestCase
             {
@@ -123,12 +33,12 @@ class SelectedUnitTestMethodsNamesTest(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
-        ''')
+        """)
 
         self.assertEqual([], find_selected_test_methods(self.view))
 
     def test_selection_on_method_declaration(self):
-        self.set_view_selection('''<?php
+        self.fixture("""<?php
             namespace Vendor\Package;
             class BooleanTest extends \PHPUnit_Framework_TestCase
             {
@@ -147,12 +57,12 @@ class SelectedUnitTestMethodsNamesTest(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
-        ''')
+        """)
 
         self.assertEqual(['testOne'], find_selected_test_methods(self.view))
 
     def test_selection_on_many_method_declarations(self):
-        self.set_view_selection('''<?php
+        self.fixture("""<?php
             namespace Vendor\Package;
             class BooleanTest extends \PHPUnit_Framework_TestCase
             {
@@ -191,12 +101,12 @@ class SelectedUnitTestMethodsNamesTest(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
-        ''')
+        """)
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'], find_selected_test_methods(self.view))
 
     def test_selection_anywhere_on_method_declarations(self):
-        self.set_view_selection('''<?php
+        self.fixture("""<?php
             class BooleanTest extends \PHPUnit_Framework_TestCase
             {
                 public function foobar()
@@ -234,16 +144,16 @@ class SelectedUnitTestMethodsNamesTest(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
-        ''')
+        """)
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'], find_selected_test_methods(self.view))
 
     def test_selection_anywhere_inside_method_declarations(self):
-        if 'php-grammar' in sublime.find_resources('PHP.sublime-syntax')[0]:
+        if _is_php_syntax_using_php_grammar():
             # Skip because php-grammar does not support this feature
             return
 
-        self.set_view_selection('''<?php
+        self.fixture("""<?php
             class BooleanTest extends \PHPUnit_Framework_TestCase
             {
                 public function foobar()
@@ -284,6 +194,6 @@ class SelectedUnitTestMethodsNamesTest(ViewTestCase):
                     $this->assertTrue(true);
                 }
             }
-        ''')
+        """)
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'], find_selected_test_methods(self.view))

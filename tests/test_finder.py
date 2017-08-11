@@ -1,15 +1,15 @@
 import os
-import unittest
+from unittest import TestCase
 
 from phpunitkit.plugin import find_phpunit_configuration_file
 from phpunitkit.plugin import find_phpunit_working_directory
 
 
-def fixtures_path():
+def _fixtures_path():
     return os.path.join(os.path.dirname(__file__), 'fixtures')
 
 
-class FindersTest(unittest.TestCase):
+class TestFinders(TestCase):
 
     def test_find_none(self):
         self.assertIsNone(find_phpunit_configuration_file(None, None))
@@ -23,7 +23,7 @@ class FindersTest(unittest.TestCase):
         self.assertIsNone(find_phpunit_working_directory(' ', [' ']))
 
     def test_find_none_with_file(self):
-        file = os.path.join(fixtures_path(), 'common_prefix_parent', 'valid', 'file.php')
+        file = os.path.join(_fixtures_path(), 'common_prefix_parent', 'valid', 'file.php')
 
         self.assertIsNone(find_phpunit_configuration_file(file, None))
         self.assertIsNone(find_phpunit_configuration_file(file, []))
@@ -32,9 +32,9 @@ class FindersTest(unittest.TestCase):
 
     def test_find_none_with_folders(self):
         folders = [
-            os.path.join(fixtures_path(), 'common_prefix_parent'),
-            os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
-            os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
+            os.path.join(_fixtures_path(), 'common_prefix_parent'),
+            os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
+            os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
         ]
 
         self.assertIsNone(find_phpunit_configuration_file(None, folders))
@@ -43,14 +43,14 @@ class FindersTest(unittest.TestCase):
         self.assertIsNone(find_phpunit_configuration_file('foobarfoobar', folders))
 
     def test_find_phpunit_xml_dist(self):
-        base_file_dir = os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
+        base_file_dir = os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
 
         file = os.path.join(base_file_dir, 'src', 'Has', 'PHPUnitXmlDist.php')
 
         folders = [
-            os.path.join(fixtures_path(), 'common_prefix_parent'),
-            os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
-            os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
+            os.path.join(_fixtures_path(), 'common_prefix_parent'),
+            os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
+            os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
         ]
 
         expected = os.path.join(base_file_dir, 'phpunit.xml.dist')
@@ -60,14 +60,14 @@ class FindersTest(unittest.TestCase):
         self.assertEqual(expected, find_phpunit_working_directory(file, folders))
 
     def test_find_phpunit_xml_before_phpunit_xml_dist(self):
-        base_file_dir = os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml')
+        base_file_dir = os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml')
 
         file = os.path.join(base_file_dir, 'src', 'Has', 'PHPUnitXml.php')
 
         folders = [
-            os.path.join(fixtures_path(), 'common_prefix_parent'),
-            os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
-            os.path.join(fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
+            os.path.join(_fixtures_path(), 'common_prefix_parent'),
+            os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
+            os.path.join(_fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml_dist')
         ]
 
         expected = os.path.join(base_file_dir, 'phpunit.xml')
@@ -77,7 +77,7 @@ class FindersTest(unittest.TestCase):
         self.assertEqual(expected, find_phpunit_working_directory(file, folders))
 
     def test_find_only_checks_as_far_as_the_nearest_common_prefix_of_folders(self):
-        common_base_dir = os.path.join(fixtures_path(), 'common_prefix_parent')
+        common_base_dir = os.path.join(_fixtures_path(), 'common_prefix_parent')
 
         base_file_dir = os.path.join(common_base_dir, 'common_prefix', 'folder_a')
 
