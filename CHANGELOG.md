@@ -4,6 +4,10 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## Unreleased
 
+### Added
+
+* Added: `:TestSwitch` now positions cursor at the row of the class definition
+
 ### Removed
 
 * The default key bindings have been removed, instead add your preferred key bindings:

@@ -4,6 +4,7 @@ import shutil
 
 from sublime import version
 from sublime import active_window
+from sublime import ENCODED_POSITION
 from sublime import platform
 from sublime import status_message
 from sublime_plugin import WindowCommand
@@ -589,12 +590,9 @@ class PhpunitTestSwitchCommand(WindowCommand):
         if not first_switchable:
             return status_message('PHPUnit: no switchable found')
 
-        debug_message('switching from \'%s\' to \'%s\'' % (view.file_name(), first_switchable))
-
-        self.window.open_file(first_switchable[0])
-        other_view = self.window.active_view()
-
-        put_views_side_by_side(view, other_view)
+        self.window.open_file(first_switchable[0] + ':' + str(first_switchable[2][0]), ENCODED_POSITION)
+        debug_message('@run switch from \'%s\' to \'%s\'', view.file_name(), first_switchable)
+        put_views_side_by_side(view, self.window.active_view())
 
 
 class PhpunitToggleOptionCommand(WindowCommand):
