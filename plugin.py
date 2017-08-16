@@ -21,8 +21,12 @@ else:  # pragma: no cover
 
 
 def is_debug(view=None):
-    if view is not None:
-        return view.settings().get('phpunit.debug') or (view.settings().get('debug') and view.settings().get('phpunit.debug') is not False)  # noqa: E501
+    if view:
+        phpunit_debug = view.settings().get('phpunit.debug')
+        return phpunit_debug or (
+            phpunit_debug is not False and
+            view.settings().get('debug')
+        )
     else:
         return _DEBUG
 
@@ -103,7 +107,6 @@ def find_phpunit_working_directory(file_name, folders):
     configuration_file = find_phpunit_configuration_file(file_name, folders)
     if configuration_file:
         return os.path.dirname(configuration_file)
-    return None
 
 
 def is_valid_php_identifier(string):
@@ -162,7 +165,7 @@ def find_selected_test_methods(view):
                 method_names.append(word)
             break
 
-    # BC: < 3114 (i think it's 3114)
+    # BC: < 3114
     if not method_names:  # pragma: no cover
         for region in view.sel():
             word = view.substr(view.word(region))
@@ -443,6 +446,17 @@ class PHPUnit():
         else:
             return status_message('PHPUnit: not a test file')
 
+    def results(self):
+        self.window.run_command('show_panel', {'panel': 'output.exec'})
+
+    def cancel(self):
+        self.window.run_command('exec', {'kill': True})
+
+    def toggle(self, option):
+        options = get_window_setting('phpunit.options', default={}, window=self.window)
+        options[option] = not bool(options[option]) if option in options else True
+        set_window_setting('phpunit.options', options, window=self.window)
+
     def filter_options(self, options):
         if options is None:
             options = {}
@@ -539,13 +553,13 @@ class PhpunitTestNearestCommand(WindowCommand):
 class PhpunitTestResultsCommand(WindowCommand):
 
     def run(self):
-        self.window.run_command('show_panel', {'panel': 'output.exec'})
+        PHPUnit(self.window).results()
 
 
 class PhpunitTestCancelCommand(WindowCommand):
 
     def run(self):
-        self.window.run_command('exec', {'kill': True})
+        PHPUnit(self.window).cancel()
 
 
 class PhpunitTestVisitCommand(WindowCommand):
@@ -562,7 +576,7 @@ class PhpunitTestVisitCommand(WindowCommand):
         return status_message('PHPUnit: no tests were run so far')
 
 
-class PhpunitTestSwitch(WindowCommand):
+class PhpunitTestSwitchCommand(WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -581,20 +595,10 @@ class PhpunitTestSwitch(WindowCommand):
         put_views_side_by_side(view, other_view)
 
 
-# DEPRECATED: to be removed in v3.0.0; use :TestSwitch instead
-class PhpunitSwitchFile(WindowCommand):
-
-    def run(self):
-        print('PHPUnit: DEPRECATED :SwitchFile; please use :TestSwitch instead')
-        self.window.run_command('phpunit_test_switch')
-
-
 class PhpunitToggleOptionCommand(WindowCommand):
 
     def run(self, option):
-        options = get_window_setting('phpunit.options', default={}, window=self.window)
-        options[option] = not bool(options[option]) if option in options else True
-        set_window_setting('phpunit.options', options, window=self.window)
+        PHPUnit(self.window).toggle(option)
 
 
 class PhpunitTestCoverageCommand(WindowCommand):
@@ -614,6 +618,14 @@ class PhpunitTestCoverageCommand(WindowCommand):
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
+
+
+# DEPRECATED: to be removed in v3.0.0; use :TestSwitchCommand instead
+class PhpunitSwitchFile(WindowCommand):
+
+    def run(self):
+        print('PHPUnit: DEPRECATED :SwitchFile; please use :TestSwitch instead')
+        self.window.run_command('phpunit_test_switch')
 
 
 # DEPRECATED: to be removed in v3.0.0; use :TestCoverageCommand instead
