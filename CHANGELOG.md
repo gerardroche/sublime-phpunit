@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
+* Added: Improved color scheme support for test results
 * Added: `:TestSwitch` now positions cursor at the row of the class definition
 
 ### Removed

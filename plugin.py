@@ -2,11 +2,13 @@ import re
 import os
 import shutil
 
-from sublime import version
 from sublime import active_window
+from sublime import cache_path
 from sublime import ENCODED_POSITION
+from sublime import load_resource
 from sublime import platform
 from sublime import status_message
+from sublime import version
 from sublime_plugin import WindowCommand
 
 
@@ -411,7 +413,7 @@ class PHPUnit():
             else:
                 color_scheme = self.view.settings().get('color_scheme')
         else:
-            color_scheme = 'Packages/phpunitkit/res/monokai.hidden-tmTheme'
+            color_scheme = self.get_auto_generated_color_scheme()
         self.window.create_output_panel('exec').settings().set('color_scheme', color_scheme)
 
     def run_last(self):
@@ -527,6 +529,34 @@ class PHPUnit():
                 return executable
             else:
                 raise ValueError('phpunit not found')
+
+    def get_auto_generated_color_scheme(self):
+        color_scheme = self.view.settings().get('color_scheme')
+
+        cs_head, cs_tail = os.path.split(color_scheme)
+        cs_package = os.path.split(cs_head)[1]
+        cs_name = os.path.splitext(cs_tail)[0]
+
+        file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
+        abs_file = os.path.join(cache_path(), 'phpunitkit', 'color-schemes', file_name)
+        rel_file = 'Cache/phpunitkit/color-schemes/' + file_name
+
+        if not os.path.exists(os.path.dirname(abs_file)):
+            os.makedirs(os.path.dirname(abs_file))
+
+        with open(abs_file, 'w', encoding='utf8') as f:
+            f.write(re.sub(
+                '</array>\\s*'
+                '(<key>uuid</key>\\s*<string>.*</string>\\s*)?'
+                '(<key>license</key>\\s*<string>[^<]*</string>\\s*)?'
+                '</dict>\\s*</plist>\\s*'
+                '$',
+                load_resource(
+                    'Packages/phpunitkit/res/text-ui-result-theme-partial.txt') + '\\n</array></dict></plist>',
+                load_resource(color_scheme)
+            ))
+
+        return rel_file
 
 
 class PhpunitTestSuiteCommand(WindowCommand):
