@@ -13,10 +13,12 @@ _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
 
 if _DEBUG:
-    def debug_message(msg):
-        print('PHPUnit: %s' % str(msg))
+    def debug_message(msg, *args):
+        if args:
+            msg = msg % args
+        print('PHPUnit: ' + msg)
 else:  # pragma: no cover
-    def debug_message(msg):
+    def debug_message(msg, *args):
         pass
 
 
@@ -57,7 +59,7 @@ def find_phpunit_configuration_file(file_name, folders):
     Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
     the nearest common ancestor directory in {folders}.
     """
-    debug_message('find_phpunit_configuration_file() file=\'%s\', folders=(%d)%s' % (file_name, len(folders) if folders else 0, folders))  # noqa: E501
+    debug_message('@find_phpunit_configuration_file file=\'%s\', folder(s)(%d)=%s', file_name, len(folders) if folders else 0, folders)  # noqa: E501
 
     if file_name is None:
         return None
@@ -86,19 +88,19 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('[find_phpunit_configuration_file] found %d common ancestor(s) %s' % (len(ancestor_folders), ancestor_folders))  # noqa: E501
+    debug_message('@find_phpunit_configuration_file found %d common ancestor(s) %s', len(ancestor_folders), ancestor_folders)  # noqa: E501
 
     candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
-    debug_message('[find_phpunit_configuration_file] searching for configuration files = %s' % (candidate_configuration_file_names))  # noqa: E501
+    debug_message('@find_phpunit_configuration_file search for configuration files %s', candidate_configuration_file_names)  # noqa: E501
     for folder in ancestor_folders:
-        debug_message('[find_phpunit_configuration_file] searching in \'%s\'' % folder)  # noqa: E501
+        debug_message('@find_phpunit_configuration_file search in \'%s\'', folder)
         for file_name in candidate_configuration_file_names:
             phpunit_configuration_file = os.path.join(folder, file_name)
             if os.path.isfile(phpunit_configuration_file):
-                debug_message('[find_phpunit_configuration_file] found \'%s\'' % phpunit_configuration_file)
+                debug_message('@find_phpunit_configuration_file found configuration file \'%s\'', phpunit_configuration_file)  # noqa: E501
                 return phpunit_configuration_file
 
-    debug_message('[find_phpunit_configuration_file] not found')
+    debug_message('@find_phpunit_configuration_file not found')
 
     return None
 
@@ -179,14 +181,14 @@ def find_selected_test_methods(view):
 
 def find_first_switchable(view):
     """Return first switchable in view; otherwise None."""
-    debug_message('find_first_switchable() view=[id=%d,file=%s]' % (view.id(), view.file_name()))
+    debug_message('@find_first_switchable view=[id=%d,file=%s]', view.id(), view.file_name())
 
     window = view.window()
     if not window:
         return None
 
     classes = find_php_classes(view)
-    debug_message('find_first_switchable() found %d PHP class(es) %s' % (len(classes), classes))  # noqa: E501
+    debug_message('@find_first_switchable found %d PHP class(es) %s', len(classes), classes)
 
     for class_name in classes:
         if class_name[-4:] == "Test":
@@ -194,18 +196,18 @@ def find_first_switchable(view):
         else:
             lookup_symbol = class_name + "Test"
 
-        debug_message('find_first_switchable() lookup symbol: \'%s\'' % lookup_symbol)
+        debug_message('@find_first_switchable lookup symbol: \'%s\'', lookup_symbol)
 
         switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
-        debug_message('find_first_switchable() found %d symbol(s) in open files %s' % (len(switchables_in_open_files), str(switchables_in_open_files)))  # noqa: E501
+        debug_message('@find_first_switchable found %d symbol(s) in open files %s', len(switchables_in_open_files), switchables_in_open_files)  # noqa: E501
         for open_file in switchables_in_open_files:
-            debug_message('find_first_switchable() found symbol in open file %s' % str(open_file))
+            debug_message('@find_first_switchable found symbol in open file %s', open_file)
             return open_file
 
         switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
-        debug_message('find_first_switchable() found %d symbol(s) in index %s' % (len(switchables_in_index), str(switchables_in_index)))  # noqa: E501
+        debug_message('@find_first_switchable found %d symbol(s) in index %s', len(switchables_in_index), switchables_in_index)  # noqa: E501
         for index in switchables_in_index:
-            debug_message('find_first_switchable() found symbol in index %s' % str(index))
+            debug_message('@find_first_switchable found symbol in index %s', index)
             return index
 
 
@@ -313,10 +315,10 @@ class PHPUnit():
         if not self.view:
             raise ValueError('view not found')
 
-        debug_message('init() view=[id=%d,file=%s]' % (self.view.id(), self.view.file_name()))
+        debug_message('@init view=[id=%d,file=%s]', self.view.id(), self.view.file_name())
 
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('run() working_dir={}, file={}, options={}'.format(working_dir, file, options))
+        debug_message('@run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
         # Kill any currently running tests
         self.window.run_command('exec', {'kill': True})
@@ -333,19 +335,19 @@ class PHPUnit():
             if not os.path.isdir(working_dir):
                 raise ValueError('working directory does not exist or is not a valid directory')
 
-            debug_message('working dir = %s' % working_dir)
+            debug_message('workingdir = %s', working_dir)
 
             php_executable = self.get_php_executable(working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
-                debug_message('php executable = %s' % php_executable)
+                debug_message('php executable = %s', php_executable)
 
             phpunit_executable = self.get_phpunit_executable(working_dir)
             cmd.append(phpunit_executable)
-            debug_message('phpunit executable = %s' % phpunit_executable)
+            debug_message('executable = %s', phpunit_executable)
 
             options = self.filter_options(options)
-            debug_message('options = %s' % options)
+            debug_message('options = %s', options)
 
             cmd = build_cmd_options(options, cmd)
 
@@ -353,7 +355,7 @@ class PHPUnit():
                 if os.path.isfile(file):
                     file = os.path.relpath(file, working_dir)
                     cmd.append(file)
-                    debug_message('file = %s' % file)
+                    debug_message('file = %s', file)
                 else:
                     raise ValueError('test file \'%s\' not found' % file)
 
@@ -366,8 +368,8 @@ class PHPUnit():
             print('PHPUnit: \'{}\''.format(e))
             raise e
 
-        debug_message('env = %s' % env)
-        debug_message('cmd = %s' % cmd)
+        debug_message('env = %s', env)
+        debug_message('cmd = %s', cmd)
 
         if self.view.settings().get('phpunit.save_all_on_run'):
             # Write out every buffer in active
@@ -435,7 +437,7 @@ class PHPUnit():
             unit_test = self.view.file_name()
             selected_test_methods = find_selected_test_methods(self.view)
             if selected_test_methods:
-                debug_message('found test selections: {}'.format(selected_test_methods))
+                debug_message('found test selections: %s', selected_test_methods)
                 options = {'filter': build_filter_option_pattern(selected_test_methods)}
         else:
             debug_message('current file is not a test file')
