@@ -101,7 +101,7 @@ Key | Description | Type | Default
 
 ### Composer
 
-If enabled and a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find the PHPUnit executable.
+If enabled, and a Composer installed PHPUnit executable is found, then it is used to run the tests, otherwise the system PATH is used to find the PHPUnit executable.
 
 `Menu > Preferences > Settings`
 
@@ -110,8 +110,6 @@ If enabled and a Composer installed PHPUnit is found then it is used to run the 
     "phpunit.composer": true
 }
 ```
-
-You can also disable it per-project:
 
 `Menu > Project > Edit Project`
 
@@ -125,9 +123,11 @@ You can also disable it per-project:
 
 ### PHP executable
 
-The PHP executable to use when running PHPUnit. The default is to use the PHP executable found on the system PATH.
+The PHP executable used to run PHPUnit.
 
-Environment variables and user place-holders are expanded e.g. `~` and `$HOME`.
+The default is to use the PHP executable found on the system PATH.
+
+Environment variables and user place-holders are expanded e.g. `$HOME` and `~`.
 
 `Menu > Preferences > Settings`
 
@@ -136,8 +136,6 @@ Environment variables and user place-holders are expanded e.g. `~` and `$HOME`.
     "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
 }
 ```
-
-You can also set it per-project:
 
 `Menu > Project > Edit Project`
 
@@ -153,9 +151,9 @@ You can also set it per-project:
 
 You can set a location to find different PHP versions and use `.php-version` files to select versions per-project.
 
-The default location is of PHP versions is `~/.phpenv/versions`.
+The default location is `~/.phpenv/versions`.
 
-The structure of the versions directory should be in the following form.
+The structure of the versions directory should be in the following form:
 
 ```
 Linux and OSX                       Windows
@@ -172,9 +170,9 @@ Linux and OSX                       Windows
                 └── php
 ```
 
-To specify a version from the versions path, create a file named `.php-version` with the name of the version as its contents and place it in the root of your project.
+To specify a version, create a file named `.php-version` with the version as its contents, and place it in the root of your project.
 
-For example, a `.php-version` file with the contents `7.1.4` and a PHP versions path of `~/.phpenv/versions` will expand to the PHP version at `~/.phpenv/versions/7.1.4/bin/php` on Linux, and `~/.phpenv/versions/7.1.4/php` on Windows.
+For example, a `.php-version` file with the contents `7.1.4` and a PHP versions path of `~/.phpenv/versions`, will expand to the PHP version at `~/.phpenv/versions/7.1.4/bin/php` on Linux and OSX, and `~/.phpenv/versions/7.1.4/php` on Windows.
 
 `Menu > Preferences > Settings`
 
@@ -198,6 +196,8 @@ For example, a `.php-version` file with the contents `7.1.4` and a PHP versions 
 
 Command-line [options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) to pass to PHPUnit.
 
+A useful option to set by default is `no-coverage`, because your tests will run faster and you can toggle the option when needed via the Command Palette: `PHPUnit: Toggle Option --no-coverage`.
+
 `Menu > Preferences > Settings`
 
 ```json
@@ -208,8 +208,6 @@ Command-line [options](https://phpunit.de/manual/current/en/textui.html#textui.c
     }
 }
 ```
-
-Translates to the command: `phpunit --verbose --no-coverage`.
 
 `Menu > Project > Edit Project`
 
@@ -224,7 +222,7 @@ Translates to the command: `phpunit --verbose --no-coverage`.
 }
 ```
 
-Translates to the command: `phpunit --verbose --no-coverage`.
+Both of the above result in the command: `phpunit --verbose --no-coverage`.
 
 `Menu > Preferences > Settings`
 
@@ -240,8 +238,6 @@ Translates to the command: `phpunit --verbose --no-coverage`.
     }
 }
 ```
-
-Translates to the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage`
 
 `Menu > Project > Edit Project`
 
@@ -260,7 +256,7 @@ Translates to the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" -
 }
 ```
 
-Translates to the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage`
+Both of the above result in the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage`
 
 ### The `phpunit.xml` [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file.
 
