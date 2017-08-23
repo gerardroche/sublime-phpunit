@@ -399,6 +399,12 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
+        if self.view.settings().has('phpunit.text_ui_result_font_size'):
+            self.window.create_output_panel('exec').settings().set(
+                'font_size',
+                self.view.settings().get('phpunit.text_ui_result_font_size')
+            )
+
         # BC: to be removed in v3.0.0
         # Custom color schemes are deprecated and will
         # be removed in v3.0.0. Instead, a definitive

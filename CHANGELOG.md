@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.4.0] - 2017-08-23
+
+### Added
+
+* Added [#69](https://github.com/gerardroche/sublime-phpunit/issues/69): Can I adjust the font size of the test result panel
+
 ## [2.3.0] - 2017-08-23
 
 ### Added
@@ -423,6 +429,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[2.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.2...2.3.0
 [2.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.0...2.2.1
