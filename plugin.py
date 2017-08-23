@@ -547,14 +547,15 @@ class PHPUnit():
         abs_file = os.path.join(cache_path(), 'phpunitkit', 'color-schemes', file_name)
         rel_file = 'Cache/phpunitkit/color-schemes/' + file_name
 
+        debug_message('auto generated color scheme = %s', rel_file)
+
         if not os.path.exists(os.path.dirname(abs_file)):
             os.makedirs(os.path.dirname(abs_file))
 
         with open(abs_file, 'w', encoding='utf8') as f:
             f.write(re.sub(
                 '</array>\\s*'
-                '(<key>uuid</key>\\s*<string>.*</string>\\s*)?'
-                '(<key>license</key>\\s*<string>[^<]*</string>\\s*)?'
+                '(<key>.*</key>\\s*<string>[^<]*</string>\\s*)*'
                 '</dict>\\s*</plist>\\s*'
                 '$',
                 load_resource(

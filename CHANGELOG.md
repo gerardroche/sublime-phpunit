@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.4.1] - 2017-08-23
+
+### Fixed
+
+Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
+
 ## [2.4.0] - 2017-08-23
 
 ### Added
