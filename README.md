@@ -25,6 +25,7 @@ A Sublime Text plugin that provides an abstraction over running PHPUnit tests fr
 * Run Test Suite
 * Run Last Test
 * Supports Composer
+* Supported by the [Test](https://github.com/gerardroche/sublime-test) plugin
 * Zero configuration required; Does the Right Thing
 * Supports colour results (including diffs)
 * Fully customized CLI options configuration
@@ -61,6 +62,8 @@ Command Palette | Command | Description
 `:TestCoverage` | `phpunit_test_coverage` | Open code coverage in browser.
 `:ToggleOption`| `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
 
+*You can also use the [Test](https://github.com/gerardroche/sublime-test) plugin, which unifies ST testing plugin commands.*
+
 ## KEY BINDINGS
 
 Add your preferred key bindings:
@@ -80,14 +83,14 @@ Add your preferred key bindings:
 ]
 ```
 
-The `super` key is also a... super choice to use instead of the `ctrl` key, and on OSX you may prefer to use the `command` key.
-
 Key bindings provided by default:
 
 Key | Description
 --- | -----------
 `F4` | Jump to Next Failure
 `Shift+F4` | Jump to Previous Failure
+
+*You can also use the [Test](https://github.com/gerardroche/sublime-test) plugin, which unifies ST testing plugin key bindings.*
 
 ## CONFIGURATION
 
