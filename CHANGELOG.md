@@ -40,8 +40,6 @@ Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests re
   ]
   ```
 
-  The `super` key is also a... super choice to use instead of the `ctrl` key, and on OSX you may prefer to use the `command` key.
-
   The following key bindings remain the same:
 
   Key | Description
@@ -50,6 +48,8 @@ Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests re
   `Shift+F4` | Jump to Previous Failure
 
 ## [2.2.2] - 2017-08-11
+
+### Fixed
 
 * Fixed [#66](https://github.com/gerardroche/sublime-phpunit/issues/66): PHPUnit: 'NoneType' object has no attribute 'items'
 
@@ -435,6 +435,7 @@ Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests re
 
 * Initial import; PHPUnit support
 
+[2.4.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.2...2.3.0
 [2.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.1...2.2.2

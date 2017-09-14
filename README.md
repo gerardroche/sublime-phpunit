@@ -40,12 +40,11 @@ The preferred method of installation is [Package Control](https://packagecontrol
 
 ### Manual installation
 
-1. Close Sublime Text.
-2. Download or clone this repository to a directory named **`phpunitkit`** in the Sublime Text Packages directory for your platform:
-    * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
-    * OS X: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
-    * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
-3. Done!
+Close Sublime Text then download or clone this repository to a directory named `phpunitkit` in the Sublime Text Packages directory for your platform:
+
+* Linux: `git clone https://github.com/gerardroche/sublime-phpunitkit.git ~/.config/sublime-text-3/Packages/phpunitkit`
+* OSX: `git clone https://github.com/gerardroche/sublime-phpunitkit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
+* Windows: `git clone https://github.com/gerardroche/sublime-phpunitkit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
 
 ## COMMANDS
 
