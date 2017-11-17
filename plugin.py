@@ -262,9 +262,9 @@ def put_views_side_by_side(view_a, view_b):
 
 def exec_file_regex():
     if platform() == 'windows':
-        return '((?:[a-zA-Z]\:)?\\\\[a-zA-Z0-9 \\.\\/\\\\_-]+)(?: on line |\:)([0-9]+)'
+        return '((?:[a-zA-Z]\\:)?\\\\[a-zA-Z0-9 \\.\\/\\\\_-]+)(?: on line |\\:)([0-9]+)'
     else:
-        return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\:)([0-9]+)'
+        return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\\:)([0-9]+)'
 
 
 def is_file_executable(file):
@@ -273,7 +273,7 @@ def is_file_executable(file):
 
 def is_valid_php_version_file_version(version):
     return bool(re.match(
-        '^(?:master|[1-9]\.[0-9]+(?:snapshot|\.[0-9]+(?:snapshot)?)|[1-9]\.x|[1-9]\.[0-9]+\.x)$',
+        '^(?:master|[1-9]\\.[0-9]+(?:snapshot|\\.[0-9]+(?:snapshot)?)|[1-9]\\.x|[1-9]\\.[0-9]+\\.x)$',
         version
     ))
 
