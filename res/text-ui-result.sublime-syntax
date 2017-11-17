@@ -8,31 +8,54 @@ hidden: true
 contexts:
   main:
     - include: scope:source.diff
-    - match: ^(?=(\.|E|F|I|R|S)+\s+)
+    - match: ^(?=(\.|E|F|I|R|S|W)+\s+)
       push:
         - match: \s+(\d+\s+\/\s+\d+\s+\(\s*\d+\%\))?$
           pop: true
         - match: \.
           scope: test.progress.success.phpunit-result
         - match: E
-          scope: test.progress.error.phpunit-result
+          scope: region.redish phpunitkit test.progress.error.phpunit-result
         - match: F
-          scope: test.progress.failure.phpunit-result
+          scope: region.redish phpunitkit test.progress.failure.phpunit-result
         - match: I
-          scope: test.progress.incomplete.phpunit-result
+          scope: region.orangish phpunitkit test.progress.incomplete.phpunit-result
         - match: R
-          scope: test.progress.risky.phpunit-result
+          scope: region.orangish phpunitkit test.progress.risky.phpunit-result
         - match: S
-          scope: test.progress.skipped.phpunit-result
+          scope: region.orangish phpunitkit test.progress.skipped.phpunit-result
+        - match: W
+          scope: region.orangish phpunitkit test.progress.warning.phpunit-result
+
     - match: '^(?:\e\[[0-9;]+m)?No tests executed\!(?:\e\[[0-9;]+m)?$'
-      scope: test.footer.none-executed.phpunit-result
+      scope: region.orangish test.footer.none-executed.phpunit-result
+
     - match: '^(?:\e\[[0-9;]+m)?OK \(\d+ test(?:s)?, \d+ assertion(?:s)?\)(?:\e\[[0-9;]+m)?$'
-      scope: test.footer.ok.phpunit-result
+      scope: region.greenish phpunitkit test.footer.ok.phpunit-result
+
     - match: '^(?:\e\[[0-9;]+m)?OK, but incomplete, skipped, or risky tests\!(?:\e\[[0-9;]+m)?$'
-      scope: test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+      scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+
     - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Incomplete|Skipped|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
-      scope: test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+      scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+
+    - match: '^(?:\e\[[0-9;]+m)?WARNINGS\!(?:\e\[[0-9;]+m\s*)?$'
+      scope: region.orangish phpunitkit test.footer.warn.phpunit-result
+      push:
+        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+          scope: region.orangish phpunitkit test.footer.warn.phpunit-result
+          pop: true
+
     - match: '^(?:\e\[[0-9;]+m)?FAILURES\!(?:\e\[[0-9;]+m\s*)?$'
-      scope: test.footer.fail.phpunit-result
-    - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
-      scope: test.footer.fail.phpunit-result
+      scope: region.redish phpunitkit test.footer.fail.phpunit-result
+      push:
+        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+          scope: region.redish phpunitkit test.footer.fail.phpunit-result
+          pop: true
+
+    - match: '^(?:\e\[[0-9;]+m)?ERRORS\!(?:\e\[[0-9;]+m\s*)?$'
+      scope: region.redish phpunitkit test.footer.error.phpunit-result
+      push:
+        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+          scope: region.orangish phpunitkit test.footer.error.phpunit-result
+          pop: true

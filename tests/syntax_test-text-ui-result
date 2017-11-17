@@ -20,25 +20,33 @@ I
 R
 #<- test.progress.risky.phpunit-result
 
-I
-#<- test.progress.incomplete.phpunit-result
+S
+#<- test.progress.skipped.phpunit-result
 
-.EFIRS
+W
+#<- test.progress.warning.phpunit-result
+
+.EFIRSW
 #<- test.progress.success.phpunit-result
 #^ test.progress.error.phpunit-result
 # ^ test.progress.failure.phpunit-result
 #  ^ test.progress.incomplete.phpunit-result
 #   ^ test.progress.risky.phpunit-result
 #    ^ test.progress.skipped.phpunit-result
+#     ^ test.progress.warning.phpunit-result
 ...
 #<- test.progress.success.phpunit-result
 #^^ test.progress.success.phpunit-result
 
-F..S...
+F..S...W..E.
 #<- test.progress.failure.phpunit-result
 #^^ test.progress.success.phpunit-result
 #  ^ test.progress.skipped.phpunit-result
 #   ^^^ test.progress.success.phpunit-result
+#      ^ test.progress.warning.phpunit-result
+#       ^^ test.progress.success.phpunit-result
+#         ^ test.progress.error.phpunit-result
+#          ^ test.progress.success.phpunit-result
 
 Time: 385 ms, Memory: 5.50MB
 
@@ -53,12 +61,34 @@ OK (45 tests, 81 assertions)
 OK, but incomplete, skipped, or risky tests!
 #<- test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+Tests: 1, Assertions: 0, Skipped: 1.
+#<- test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
 FAILURES!
 #<- test.footer.fail.phpunit-result
 #^^^^^^^^ test.footer.fail.phpunit-result
-
 Tests: 46, Assertions: 82, Failures: 2.
 #<- test.footer.fail.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.fail.phpunit-result
 
+ERRORS!
+#<- test.footer.error.phpunit-result
+#^^^^^^ test.footer.error.phpunit-result
+Tests: 6, Assertions: 5, Errors: 1.
+#<- test.footer.error.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.error.phpunit-result
+
+ERRORS!
+#<- test.footer.error.phpunit-result
+#^^^^^^ test.footer.error.phpunit-result
+Tests: 18, Assertions: 16, Errors: 1, Skipped: 1, Risky: 1.
+#<- test.footer.error.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.error.phpunit-result
+
+WARNINGS!
+#<- test.footer.warn.phpunit-result
+#^^^^^^ test.footer.warn.phpunit-result
+Tests: 1, Assertions: 0, Warnings: 1.
+#<- test.footer.warn.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.warn.phpunit-result

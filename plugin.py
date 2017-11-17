@@ -538,32 +538,49 @@ class PHPUnit():
 
     def get_auto_generated_color_scheme(self):
         color_scheme = self.view.settings().get('color_scheme')
+        debug_message('color scheme \'{}\''.format(color_scheme))
 
-        cs_head, cs_tail = os.path.split(color_scheme)
-        cs_package = os.path.split(cs_head)[1]
-        cs_name = os.path.splitext(cs_tail)[0]
+        if color_scheme.endswith('.sublime-color-scheme'):
+            return color_scheme
 
-        file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
-        abs_file = os.path.join(cache_path(), 'phpunitkit', 'color-schemes', file_name)
-        rel_file = 'Cache/phpunitkit/color-schemes/' + file_name
+        try:
+            # Try to patch color scheme with default test result colors
 
-        debug_message('auto generated color scheme = %s', rel_file)
+            color_scheme_resource = load_resource(color_scheme)
+            if 'phpunitkit' in color_scheme_resource or 'region.greenish' in color_scheme_resource:
+                debug_message('color looks like it has color support')
+                return color_scheme
 
-        if not os.path.exists(os.path.dirname(abs_file)):
-            os.makedirs(os.path.dirname(abs_file))
+            cs_head, cs_tail = os.path.split(color_scheme)
+            cs_package = os.path.split(cs_head)[1]
+            cs_name = os.path.splitext(cs_tail)[0]
 
-        with open(abs_file, 'w', encoding='utf8') as f:
-            f.write(re.sub(
-                '</array>\\s*'
-                '(<key>.*</key>\\s*<string>[^<]*</string>\\s*)*'
-                '</dict>\\s*</plist>\\s*'
-                '$',
-                load_resource(
-                    'Packages/phpunitkit/res/text-ui-result-theme-partial.txt') + '\\n</array></dict></plist>',
-                load_resource(color_scheme)
-            ))
+            file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
+            abs_file = os.path.join(cache_path(), 'phpunitkit', 'color-schemes', file_name)
+            rel_file = 'Cache/phpunitkit/color-schemes/' + file_name
 
-        return rel_file
+            debug_message('auto generated color scheme = %s', rel_file)
+
+            if not os.path.exists(os.path.dirname(abs_file)):
+                os.makedirs(os.path.dirname(abs_file))
+
+            with open(abs_file, 'w', encoding='utf8') as f:
+                f.write(re.sub(
+                    '</array>\\s*'
+                    '(<key>.*</key>\\s*<string>[^<]*</string>\\s*)*'
+                    '</dict>\\s*</plist>\\s*'
+                    '$',
+                    load_resource(
+                        'Packages/phpunitkit/res/text-ui-result-theme-partial.txt') + '\\n</array></dict></plist>',
+                    color_scheme_resource
+                ))
+
+            return rel_file
+        except Exception as e:
+            print('PHPUnit: an error occurred trying to patch color'
+                  ' scheme with PHPUnit test results colors: {}'.format(str(e)))
+
+            return color_scheme
 
 
 class PhpunitTestSuiteCommand(WindowCommand):
