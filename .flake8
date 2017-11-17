@@ -6,4 +6,6 @@ max-line-length = 120
 # D102  Missing docstring in public method
 # D103  Missing docstring in public function
 # D104  Missing docstring in public package
-ignore = D100, D101, D102, D103, D104
+# D105  Missing docstring in magic method
+# D107  Missing docstring in __init__
+ignore = D100,D101,D102,D103,D104,D105,D107
