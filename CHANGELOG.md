@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.4.2] - 2017-11-19
+
+### Fixed
+
+Fixed: Support for new Sublime Text color scheme format
+
 ## [2.4.1] - 2017-08-23
 
 ### Fixed
@@ -435,6 +441,7 @@ Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests re
 
 * Initial import; PHPUnit support
 
+[2.4.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.2...2.3.0
