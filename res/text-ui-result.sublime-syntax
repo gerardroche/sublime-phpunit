@@ -7,10 +7,15 @@ scope: text.phpunit-result
 hidden: true
 contexts:
   main:
+
+    - match: ^--$
+      scope: comment.text.phpunit-result
+
     - include: scope:source.diff
-    - match: ^(?=(\.|E|F|I|R|S|W)+\s+)
+
+    - match: ^(?=(\.\.|\.(E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|E|F|I|R|S|W)$)
       push:
-        - match: \s+(\d+\s+\/\s+\d+\s+\(\s*\d+\%\))?$
+        - match: ^(?=Time|OK|FAILURES|ERRORS|WARNINGS)
           pop: true
         - match: \.
           scope: test.progress.success.phpunit-result
@@ -28,7 +33,7 @@ contexts:
           scope: region.orangish phpunitkit test.progress.warning.phpunit-result
 
     - match: '^(?:\e\[[0-9;]+m)?No tests executed\!(?:\e\[[0-9;]+m)?$'
-      scope: region.orangish test.footer.none-executed.phpunit-result
+      scope: region.orangish phpunitkit test.footer.none-executed.phpunit-result
 
     - match: '^(?:\e\[[0-9;]+m)?OK \(\d+ test(?:s)?, \d+ assertion(?:s)?\)(?:\e\[[0-9;]+m)?$'
       scope: region.greenish phpunitkit test.footer.ok.phpunit-result
@@ -57,5 +62,5 @@ contexts:
       scope: region.redish phpunitkit test.footer.error.phpunit-result
       push:
         - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
-          scope: region.orangish phpunitkit test.footer.error.phpunit-result
+          scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true

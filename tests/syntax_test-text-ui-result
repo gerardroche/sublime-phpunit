@@ -34,9 +34,12 @@ W
 #   ^ test.progress.risky.phpunit-result
 #    ^ test.progress.skipped.phpunit-result
 #     ^ test.progress.warning.phpunit-result
-...
+..
 #<- test.progress.success.phpunit-result
-#^^ test.progress.success.phpunit-result
+#^ test.progress.success.phpunit-result
+.......
+#<- test.progress.success.phpunit-result
+#^^^^^^ test.progress.success.phpunit-result
 
 F..S...W..E.
 #<- test.progress.failure.phpunit-result
@@ -48,47 +51,95 @@ F..S...W..E.
 #         ^ test.progress.error.phpunit-result
 #          ^ test.progress.success.phpunit-result
 
+......F.......S.hello!R.                                                18 / 18 (100%)
+# ^^^^ test.progress.success.phpunit-result
+#     ^ test.progress.failure.phpunit-result
+#      ^^^^^^^ test.progress.success.phpunit-result
+#             ^ test.progress.skipped.phpunit-result
+#              ^ test.progress.success.phpunit-result
+#                     ^ test.progress.risky.phpunit-result
+#                      ^ test.progress.success.phpunit-result
+
 Time: 385 ms, Memory: 5.50MB
 
-No tests executed!
-#<- test.footer.none-executed.phpunit-result
-#^^^^^^^^^^^^^^^^^ test.footer.none-executed.phpunit-result
-
 OK (45 tests, 81 assertions)
-#<- test.footer.ok.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok.phpunit-result
+#<- region.greenish phpunitkit test.footer.ok.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.greenish phpunitkit test.footer.ok.phpunit-result
+
+No tests executed!
+#<- region.orangish phpunitkit test.footer.none-executed.phpunit-result
+#^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.none-executed.phpunit-result
 
 OK, but incomplete, skipped, or risky tests!
-#<- test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 Tests: 1, Assertions: 0, Skipped: 1.
-#<- test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
 FAILURES!
-#<- test.footer.fail.phpunit-result
-#^^^^^^^^ test.footer.fail.phpunit-result
+#<- region.redish phpunitkit test.footer.fail.phpunit-result
+#^^^^^^^^ region.redish phpunitkit test.footer.fail.phpunit-result
 Tests: 46, Assertions: 82, Failures: 2.
-#<- test.footer.fail.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.fail.phpunit-result
+#<- region.redish phpunitkit test.footer.fail.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.fail.phpunit-result
 
 ERRORS!
-#<- test.footer.error.phpunit-result
-#^^^^^^ test.footer.error.phpunit-result
+#<- region.redish phpunitkit test.footer.error.phpunit-result
+#^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
 Tests: 6, Assertions: 5, Errors: 1.
-#<- test.footer.error.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.error.phpunit-result
+#<- region.redish phpunitkit test.footer.error.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
 
 ERRORS!
-#<- test.footer.error.phpunit-result
-#^^^^^^ test.footer.error.phpunit-result
+#<- region.redish phpunitkit test.footer.error.phpunit-result
+#^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
 Tests: 18, Assertions: 16, Errors: 1, Skipped: 1, Risky: 1.
-#<- test.footer.error.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.error.phpunit-result
+#<- region.redish phpunitkit test.footer.error.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
 
 WARNINGS!
-#<- test.footer.warn.phpunit-result
-#^^^^^^ test.footer.warn.phpunit-result
+#<- region.orangish phpunitkit test.footer.warn.phpunit-result
+#^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
 Tests: 1, Assertions: 0, Warnings: 1.
-#<- test.footer.warn.phpunit-result
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ test.footer.warn.phpunit-result
+#<- region.orangish phpunitkit test.footer.warn.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
+
+There was 1 failure:
+
+1) AppNamespace\AppName\MethodTest::annotated_underscore_test_method
+Failed asserting that two arrays are equal.
+--- Expected
+#   ^^^^^^^^ meta.diff
++++ Actual
+#   ^^^^^^ meta.diff
+@@ @@
+ Array (
+-    0 => 'expected'
+#    ^ markup.deleted.diff
+#      ^^ markup.deleted.diff
+#         ^^^^^^^^^^ markup.deleted.diff
++    0 => 'actual'
+#    ^ markup.inserted.diff
+#      ^^ markup.inserted.diff
+#         ^^^^^^^^ markup.inserted.diff
+
+/home/code/projects/vendor/name/test/MethodTest.php:22
+
+--
+#<- comment
+#^ comment
+
+There was 1 risky test:
+
+1) AppNamespace\AppName\RiskyTest::testReportUselessTests
+This test did not perform any assertions
+
+--
+#<- comment
+#^ comment
+
+There was 1 skipped test:
+
+1) App\AppName\RiskyTest::testSkip
+skipped
