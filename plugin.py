@@ -564,14 +564,15 @@ class PHPUnit():
             if not os.path.exists(os.path.dirname(abs_file)):
                 os.makedirs(os.path.dirname(abs_file))
 
+            color_scheme_resource_partial = load_resource('Packages/phpunitkit/res/text-ui-result-theme-partial.txt')
             with open(abs_file, 'w', encoding='utf8') as f:
                 f.write(re.sub(
                     '</array>\\s*'
-                    '(<key>.*</key>\\s*<string>[^<]*</string>\\s*)*'
+                    '((<!--\\s*)?<key>.*</key>\\s*<string>[^<]*</string>\\s*(-->\\s*)?)*'
                     '</dict>\\s*</plist>\\s*'
                     '$',
-                    load_resource(
-                        'Packages/phpunitkit/res/text-ui-result-theme-partial.txt') + '\\n</array></dict></plist>',
+
+                    color_scheme_resource_partial + '\\n</array></dict></plist>',
                     color_scheme_resource
                 ))
 
