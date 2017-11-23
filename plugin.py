@@ -9,7 +9,7 @@ from sublime import load_resource
 from sublime import platform
 from sublime import status_message
 from sublime import version
-from sublime_plugin import WindowCommand
+import sublime_plugin
 
 
 _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
@@ -584,43 +584,43 @@ class PHPUnit():
             return color_scheme
 
 
-class PhpunitTestSuiteCommand(WindowCommand):
+class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run()
 
 
-class PhpunitTestFileCommand(WindowCommand):
+class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_file()
 
 
-class PhpunitTestLastCommand(WindowCommand):
+class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_last()
 
 
-class PhpunitTestNearestCommand(WindowCommand):
+class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).run_nearest()
 
 
-class PhpunitTestResultsCommand(WindowCommand):
+class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).results()
 
 
-class PhpunitTestCancelCommand(WindowCommand):
+class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).cancel()
 
 
-class PhpunitTestVisitCommand(WindowCommand):
+class PhpunitTestVisitCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         test_last = get_window_setting('phpunit._test_last', window=self.window)
@@ -634,7 +634,7 @@ class PhpunitTestVisitCommand(WindowCommand):
         return status_message('PHPUnit: no tests were run so far')
 
 
-class PhpunitTestSwitchCommand(WindowCommand):
+class PhpunitTestSwitchCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -650,13 +650,13 @@ class PhpunitTestSwitchCommand(WindowCommand):
         put_views_side_by_side(view, self.window.active_view())
 
 
-class PhpunitToggleOptionCommand(WindowCommand):
+class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 
     def run(self, option):
         PHPUnit(self.window).toggle(option)
 
 
-class PhpunitTestCoverageCommand(WindowCommand):
+class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         view = self.window.active_view()
@@ -676,7 +676,7 @@ class PhpunitTestCoverageCommand(WindowCommand):
 
 
 # DEPRECATED: to be removed in v3.0.0; use :TestSwitchCommand instead
-class PhpunitSwitchFile(WindowCommand):
+class PhpunitSwitchFile(sublime_plugin.WindowCommand):
 
     def run(self):
         print('PHPUnit: DEPRECATED :SwitchFile; please use :TestSwitch instead')
@@ -684,7 +684,7 @@ class PhpunitSwitchFile(WindowCommand):
 
 
 # DEPRECATED: to be removed in v3.0.0; use :TestCoverageCommand instead
-class PhpunitOpenCodeCoverageCommand(WindowCommand):
+class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         print('PHPUnit: DEPRECATED :OpenCodeCoverage; please use :TestCoverage instead')

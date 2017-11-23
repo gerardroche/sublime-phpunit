@@ -2,23 +2,29 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.4.4] - 2017-11-23
+
+### Fixed
+
+* Fixed: Workaround https://github.com/SublimeTextIssues/Core/issues/2044
+
 ## [2.4.3] - 2017-11-20
 
 ### Fixed
 
-Fixed: [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
+* Fixed: [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
 
 ## [2.4.2] - 2017-11-19
 
 ### Fixed
 
-Fixed: Support for new Sublime Text color scheme format
+* Fixed: Support for new Sublime Text color scheme format
 
 ## [2.4.1] - 2017-08-23
 
 ### Fixed
 
-Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
+* Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
 
 ## [2.4.0] - 2017-08-23
 
@@ -447,6 +453,7 @@ Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests re
 
 * Initial import; PHPUnit support
 
+[2.4.4]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.3...2.4.4
 [2.4.3]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.2...2.4.3
 [2.4.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.0...2.4.1
