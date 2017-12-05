@@ -21,9 +21,9 @@ class TestFindSelectedTestMethods(ViewTestCase):
     def test_none_when_bof(self):
         self.fixture("""|<?php
 
-            namespace User\Repository;
+            namespace User\\Repository;
 
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 public function testOne()
                 {
@@ -38,9 +38,9 @@ class TestFindSelectedTestMethods(ViewTestCase):
     def test_one(self):
         self.fixture("""<?php
 
-            namespace User\Repository;
+            namespace User\\Repository;
 
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 public function testFoobar1()
                 {
@@ -65,9 +65,9 @@ class TestFindSelectedTestMethods(ViewTestCase):
     def test_underscore_test_methods(self):
         self.fixture("""<?php
 
-            namespace User\Repository;
+            namespace User\\Repository;
 
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 public function test_one_un|derscore()
                 {
@@ -94,9 +94,9 @@ class TestFindSelectedTestMethods(ViewTestCase):
     def test_annotated_test_methods(self):
         self.fixture("""<?php
 
-            namespace User\Repository;
+            namespace User\\Repository;
 
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 /**
                  * @test
@@ -121,9 +121,9 @@ class TestFindSelectedTestMethods(ViewTestCase):
     def test_many(self):
         self.fixture("""<?php
 
-            namespace User\Repository;
+            namespace User\\Repository;
 
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 public function testFoobar()
                 {
@@ -168,7 +168,7 @@ class TestFindSelectedTestMethods(ViewTestCase):
 
     def test_many_when_cursor_is_anywhere_on_method_declarations(self):
         self.fixture("""<?php
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 public function foobar()
                 {
@@ -217,7 +217,7 @@ class TestFindSelectedTestMethods(ViewTestCase):
             return
 
         self.fixture("""<?php
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
                 public function foobar()
                 {

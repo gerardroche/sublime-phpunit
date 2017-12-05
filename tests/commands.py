@@ -7,7 +7,7 @@ class PhpunitTestSetupFixtureCommand(TextCommand):
         self.view.replace(edit, Region(0, self.view.size()), text)
 
         if '|' in text:
-            cursor_placeholders = self.view.find_all('\|')
+            cursor_placeholders = self.view.find_all('\\|')
             if cursor_placeholders:
                 self.view.sel().clear()
                 for i, cursor_placeholder in enumerate(cursor_placeholders):
