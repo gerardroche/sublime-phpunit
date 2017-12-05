@@ -1,9 +1,19 @@
-from sublime import Region
 from sublime_plugin import TextCommand
 
 
 class PhpunitTestSetupFixtureCommand(TextCommand):
     def run(self, edit, text):
+        # This fixes an issue where an exception is thrown when  reloading the
+        # test commands. I don't know why this is  needed, but it works. It's
+        # most likely a bug in ST. The exception:
+        #     Traceback (most recent call last):
+        #       File "/home/code/sublime_text_3/sublime_plugin.py", line 933, in run_
+        #         return self.run(edit, **args)
+        #       File "/home/code/.config/sublime-text-3/Packages/phpunitkit/tests/commands.py", line 11, in run
+        #         self.view.replace(edit, Region(0, self.view.size()), text)
+        #     TypeError: 'NoneType' object is not callable
+        from sublime import Region  # noqa: F401
+
         self.view.replace(edit, Region(0, self.view.size()), text)
 
         if '|' in text:
