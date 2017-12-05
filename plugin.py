@@ -179,7 +179,9 @@ def find_selected_test_methods(view):
 
             method_names.append(word)
 
-    return method_names
+    ignore_methods = ['setup', 'teardown']
+
+    return [m for m in method_names if m.lower() not in ignore_methods]
 
 
 def find_first_switchable(view):

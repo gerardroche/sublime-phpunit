@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.4.5] - 2017-11-23
+
+### Fixed
+
+* Fixed: [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
+
 ## [2.4.4] - 2017-11-23
 
 ### Fixed
@@ -453,6 +459,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[2.4.5]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.4...2.4.5
 [2.4.4]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.3...2.4.4
 [2.4.3]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.2...2.4.3
 [2.4.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.1...2.4.2

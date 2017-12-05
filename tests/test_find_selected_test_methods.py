@@ -262,3 +262,58 @@ class TestFindSelectedTestMethods(ViewTestCase):
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'],
                          find_selected_test_methods(self.view))
+
+    def test_setup_and_teardown_methods_should_be_ignored(self):
+        self.fixture("""<?php
+
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
+            {
+                public function se|tUp() {}
+                public function se|tup() {}
+                public function tea|rDown() {}
+                public function tea|rdown() {}
+                public function tes|t_x() {}
+                public function te|stY() {}
+            }
+
+        """)
+
+        self.assertEqual(['test_x', 'testY'],
+                         find_selected_test_methods(self.view))
+
+    def test_issue_76_setup_method_is_not_a_test_method(self):
+        self.fixture("""<?php
+            namespace Tests\\Feature;
+
+            use Tests\\TestCase;
+
+            class CreateThreadsTest extends TestCase
+            {
+                use DatabaseMigrations, MockeryPHPUnitIntegration;
+
+                pu|blic function setUp()
+                {
+                    parent::setUp();
+
+                    app()->singleton(Recaptcha::class, function () {
+                        return \\Mockery::mock(Recaptcha::class, function ($m) {
+                            $m->shouldReceive('passes')->andReturn(true);
+                        });
+                    });
+                }
+
+                /** @test */
+                function guests_may_not_create_threads()
+                {
+                    $this->withExceptionHandling();
+
+                    $this->get('/threads/create')
+                        ->assertRedirect(route('login'));
+
+                    $this->post(route('threads'))
+                        ->assertRedirect(route('login'));
+                }
+            }
+        """)
+
+        self.assertEqual([], find_selected_test_methods(self.view))
