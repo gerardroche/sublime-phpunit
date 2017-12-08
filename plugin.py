@@ -540,7 +540,7 @@ class PHPUnit():
 
     def get_auto_generated_color_scheme(self):
         color_scheme = self.view.settings().get('color_scheme')
-        debug_message('color scheme \'{}\''.format(color_scheme))
+        debug_message('checking if color scheme \'{}\' needs support'.format(color_scheme))
 
         if color_scheme.endswith('.sublime-color-scheme'):
             return color_scheme
@@ -549,8 +549,12 @@ class PHPUnit():
             # Try to patch color scheme with default test result colors
 
             color_scheme_resource = load_resource(color_scheme)
-            if 'phpunitkit' in color_scheme_resource or 'region.greenish' in color_scheme_resource:
-                debug_message('color looks like it has color support')
+            if 'phpunitkit' in color_scheme_resource:
+                debug_message('color scheme has plugin support')
+                return color_scheme
+
+            if 'region.greenish' in color_scheme_resource:
+                debug_message('color scheme has region colorish support')
                 return color_scheme
 
             cs_head, cs_tail = os.path.split(color_scheme)
