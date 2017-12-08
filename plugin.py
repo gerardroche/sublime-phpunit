@@ -154,8 +154,14 @@ def find_selected_test_methods(view):
     Selection can be anywhere inside one or more test methods.
     """
     method_names = []
-    function_areas = view.find_by_selector('meta.function')
+
     function_regions = view.find_by_selector('entity.name.function')
+    function_areas = []
+    # Only include areas that contain function declarations.
+    for function_area in view.find_by_selector('meta.function'):
+        for function_region in function_regions:
+            if function_region.intersects(function_area):
+                function_areas.append(function_area)
 
     for region in view.sel():
         for i, area in enumerate(function_areas):
@@ -173,11 +179,16 @@ def find_selected_test_methods(view):
     # BC: < 3114
     if not method_names:  # pragma: no cover
         for region in view.sel():
-            word = view.substr(view.word(region))
-            if not is_valid_php_identifier(word) or word[:4] != 'test':
+            word_region = view.word(region)
+            word = view.substr(word_region)
+            if not is_valid_php_identifier(word):
                 return []
 
-            method_names.append(word)
+            scope_score = view.score_selector(word_region.begin(), 'entity.name.function.php')
+            if scope_score > 0:
+                method_names.append(word)
+            else:
+                return []
 
     ignore_methods = ['setup', 'teardown']
 

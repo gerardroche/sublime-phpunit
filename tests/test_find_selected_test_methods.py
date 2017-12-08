@@ -167,6 +167,10 @@ class TestFindSelectedTestMethods(ViewTestCase):
                          find_selected_test_methods(self.view))
 
     def test_many_when_cursor_is_anywhere_on_method_declarations(self):
+        if _is_php_syntax_using_php_grammar():
+            # Skip because php-grammar does not support this feature
+            return
+
         self.fixture("""<?php
             class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
@@ -291,7 +295,7 @@ class TestFindSelectedTestMethods(ViewTestCase):
             {
                 use DatabaseMigrations, MockeryPHPUnitIntegration;
 
-                pu|blic function setUp()
+                public function se|tUp()
                 {
                     parent::setUp();
 
@@ -303,7 +307,7 @@ class TestFindSelectedTestMethods(ViewTestCase):
                 }
 
                 /** @test */
-                function guests_may_not_create_threads()
+                function |guests_may_not_create_threads()
                 {
                     $this->withExceptionHandling();
 
@@ -316,4 +320,19 @@ class TestFindSelectedTestMethods(ViewTestCase):
             }
         """)
 
-        self.assertEqual([], find_selected_test_methods(self.view))
+        self.assertEqual(['guests_may_not_create_threads'],
+                         find_selected_test_methods(self.view))
+
+    def test_issue_76_list_index_out_of_range(self):
+        self.fixture("""<?php
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase {
+                public function setUp() {
+                    $func = function () {};
+                }
+
+                /** @test */
+                function x_|y_z() {}
+            }
+        """)
+
+        self.assertEqual(['x_y_z'], find_selected_test_methods(self.view))
