@@ -32,6 +32,30 @@ contexts:
         - match: W
           scope: region.orangish phpunitkit test.progress.warning.phpunit-result
 
+    # Pretty Printer support
+    - match: ^\s*==>.{43}
+      push:
+        - match: $
+          pop: true
+
+        - match: ✓
+          scope: markup.inserted
+
+        - match: ✖
+          scope: markup.deleted
+
+        - match: ⚈
+          scope: markup.deleted
+
+        - match: ➦
+          scope: markup.changed
+
+        - match: ℹ
+          scope: markup.changed
+
+        - match: \bR\b
+          scope: markup.changed
+
     - match: '^(?:\e\[[0-9;]+m)?No tests executed\!(?:\e\[[0-9;]+m)?$'
       scope: region.orangish phpunitkit test.footer.none-executed.phpunit-result
 
