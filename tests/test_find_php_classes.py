@@ -23,9 +23,9 @@ class TestFindPHPClasses(ViewTestCase):
     def test_with_namespace(self):
         self.fixture("""<?php
 
-            namespace User\Repository;
+            namespace User\\Repository;
 
-            class ClassNameTest extends \PHPUnit_Framework_TestCase
+            class ClassNameTest extends \\PHPUnit_Framework_TestCase
             {
             }
 

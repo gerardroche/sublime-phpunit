@@ -38,7 +38,7 @@ class TestExecFileRegex(TestCase):
             )
 
             self.assertMatchesOne(
-                'PHP Fatal error:  Class \'Vendor\Package\Exception\' not found'
+                'PHP Fatal error:  Class \'Vendor\\Package\\Exception\' not found'
                 ' in C:\\home\\user\\code\\tests\\DeepThoughtTest.php on line 20',
                 'C:\\home\\user\\code\\tests\\DeepThoughtTest.php',
                 '20'
@@ -79,7 +79,7 @@ class TestExecFileRegex(TestCase):
             )
 
             self.assertMatchesOne(
-                'PHP Fatal error:  Class \'Vendor\Package\Exception\''
+                'PHP Fatal error:  Class \'Vendor\\Package\\Exception\''
                 ' not found in /home/user/code/tests/DeepThoughtTest.php on line 20',
                 '/home/user/code/tests/DeepThoughtTest.php',
                 '20'
