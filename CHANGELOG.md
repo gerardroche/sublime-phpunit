@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [2.5.0] - 2018-03-03
+
+### Added
+
+* Added: [#78](https://github.com/gerardroche/sublime-phpunit/issues/78): Add support for PHPUnit Pretty Result Printer
+
 ## [2.4.6] - 2017-12-08
 
 ### Fixed
@@ -465,6 +471,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[2.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.6...2.5.0
 [2.4.6]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.5...2.4.6
 [2.4.5]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.4...2.4.5
 [2.4.4]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.3...2.4.4
