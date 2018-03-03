@@ -690,19 +690,3 @@ class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
-
-
-# DEPRECATED: to be removed in v3.0.0; use :TestSwitchCommand instead
-class PhpunitSwitchFile(sublime_plugin.WindowCommand):
-
-    def run(self):
-        print('PHPUnit: DEPRECATED :SwitchFile; please use :TestSwitch instead')
-        self.window.run_command('phpunit_test_switch')
-
-
-# DEPRECATED: to be removed in v3.0.0; use :TestCoverageCommand instead
-class PhpunitOpenCodeCoverageCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        print('PHPUnit: DEPRECATED :OpenCodeCoverage; please use :TestCoverage instead')
-        self.window.run_command('phpunit_test_coverage')

@@ -2,6 +2,13 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased (3.0.0)
+
+## Removed
+
+* Removed: Deprecated command `phpunit_switch_file`, use `phpunit_test_switch` instead.
+* Removed: Deprecated command `phpunit_open_code_coverage`, use `phpunit_test_coverage` instead.
+
 ## [2.5.0] - 2018-03-03
 
 ### Added
