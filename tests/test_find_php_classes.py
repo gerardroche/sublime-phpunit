@@ -1,5 +1,5 @@
-from phpunitkit.tests.utils import ViewTestCase
-from phpunitkit.plugin import find_php_classes
+from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.plugin import find_php_classes
 
 
 class TestFindPHPClasses(ViewTestCase):

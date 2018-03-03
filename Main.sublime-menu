@@ -26,14 +26,14 @@
                                 "caption": "README",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/phpunitkit/README.md"
+                                    "file": "${packages}/PHPUnitKit/README.md"
                                 }
                             },
                             {
                                 "caption": "CHANGELOG",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/phpunitkit/CHANGELOG.md"
+                                    "file": "${packages}/PHPUnitKit/CHANGELOG.md"
                                 }
                             },
                             {
@@ -43,7 +43,7 @@
                                 "caption": "Settings – Default",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/phpunitkit/Preferences.sublime-settings"
+                                    "file": "${packages}/PHPUnitKit/Preferences.sublime-settings"
                                 }
                             },
                             {
@@ -70,7 +70,7 @@
                                 "caption": "LICENSE",
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/phpunitkit/LICENSE"
+                                    "file": "${packages}/PHPUnitKit/LICENSE"
                                 }
                             }
                         ]

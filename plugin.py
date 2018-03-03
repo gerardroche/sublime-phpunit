@@ -401,7 +401,7 @@ class PHPUnit():
             'file_regex': exec_file_regex(),
             'quiet': not is_debug(self.view),
             'shell': False,
-            'syntax': 'Packages/phpunitkit/res/text-ui-result.sublime-syntax',
+            'syntax': 'Packages/PHPUnitKit/res/text-ui-result.sublime-syntax',
             'word_wrap': False,
             'working_dir': working_dir
         })
@@ -546,7 +546,7 @@ class PHPUnit():
             # Try to patch color scheme with default test result colors
 
             color_scheme_resource = load_resource(color_scheme)
-            if 'phpunitkit' in color_scheme_resource:
+            if 'phpunitkit' in color_scheme_resource or 'PHPUnitKit' in color_scheme_resource:
                 debug_message('color scheme has plugin support')
                 return color_scheme
 
@@ -559,15 +559,15 @@ class PHPUnit():
             cs_name = os.path.splitext(cs_tail)[0]
 
             file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
-            abs_file = os.path.join(cache_path(), 'phpunitkit', 'color-schemes', file_name)
-            rel_file = 'Cache/phpunitkit/color-schemes/' + file_name
+            abs_file = os.path.join(cache_path(), 'PHPUnitKit', 'color-schemes', file_name)
+            rel_file = 'Cache/PHPUnitKit/color-schemes/' + file_name
 
             debug_message('auto generated color scheme = %s', rel_file)
 
             if not os.path.exists(os.path.dirname(abs_file)):
                 os.makedirs(os.path.dirname(abs_file))
 
-            color_scheme_resource_partial = load_resource('Packages/phpunitkit/res/text-ui-result-theme-partial.txt')
+            color_scheme_resource_partial = load_resource('Packages/PHPUnitKit/res/text-ui-result-theme-partial.txt')
             with open(abs_file, 'w', encoding='utf8') as f:
                 f.write(re.sub(
                     '</array>\\s*'

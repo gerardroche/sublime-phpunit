@@ -1,7 +1,7 @@
 from sublime import find_resources
 
-from phpunitkit.tests.utils import ViewTestCase
-from phpunitkit.plugin import find_selected_test_methods
+from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.plugin import find_selected_test_methods
 
 
 def _is_php_syntax_using_php_grammar():

@@ -1,8 +1,8 @@
 import os
 from unittest import TestCase
 
-from phpunitkit.plugin import find_phpunit_configuration_file
-from phpunitkit.plugin import find_phpunit_working_directory
+from PHPUnitKit.plugin import find_phpunit_configuration_file
+from PHPUnitKit.plugin import find_phpunit_working_directory
 
 
 def _fixtures_path():

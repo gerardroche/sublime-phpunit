@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from phpunitkit.plugin import is_valid_php_version_file_version
+from PHPUnitKit.plugin import is_valid_php_version_file_version
 
 
 class TestIsValidPhpVersionFileVersion(TestCase):

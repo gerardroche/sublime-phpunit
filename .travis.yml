@@ -2,7 +2,7 @@ language: python
 
 env:
     global:
-        - PACKAGE="phpunitkit"
+        - PACKAGE="PHPUnitKit"
     matrix:
         - SUBLIME_TEXT_VERSION="3"
 

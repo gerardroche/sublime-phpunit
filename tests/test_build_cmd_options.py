@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from phpunitkit.plugin import build_cmd_options
+from PHPUnitKit.plugin import build_cmd_options
 
 
 class TestBuildCmdOptions(TestCase):
