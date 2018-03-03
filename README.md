@@ -44,7 +44,20 @@ Close Sublime Text, then download or clone this repository to a directory named 
 
 * Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/phpunitkit`
 * OSX: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/phpunitkit`
-* Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/phpunitkit`
+* Windows:
+
+```cmd
+git clone https://github.com/gerardroche/sublime-phpunit.git "%APPDATA%\Sublime Text 3\Packages\phpunitkit2"
+```
+```bat
+git clone https://github.com/gerardroche/sublime-phpunit.git "%APPDATA%\Sublime Text 3\Packages\phpunitkit2"
+```
+
+### Or
+
+```bash
+git clone https://github.com/gerardroche/sublime-phpunit.git "$APPDATA/Sublime Text 3/Packages/phpunitkit"
+```
 
 ## COMMANDS
 
@@ -162,14 +175,14 @@ Linux and OSX                       Windows
 └── .phpenv                         └── .phpenv
     └── versions                        └── versions
         ├── 7.0.18                          ├── 7.0.18
-        │   └── bin                         │   └── php
-        │       └── php                     │ 
+        │   └── bin                         │   └── php
+        │       └── php                     │ 
         ├── 7.1.4                           ├── 7.1.4
-        │   └── bin                         │   └── php
-        │       └── php                     │
+        │   └── bin                         │   └── php
+        │       └── php                     │
         └── 7.x                             └── 7.x
-            └── bin                             └── php
-                └── php
+            └── bin                             └── php
+                └── php
 ```
 
 To specify a version, create a file named `.php-version` with the version as its contents, and place it in the root of your project.
