@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## Removed
 
+* Removed: Deprecated color schemes, a color scheme is auto generated based on the active color scheme.
 * Removed: Deprecated command `phpunit_switch_file`, use `phpunit_test_switch` instead.
 * Removed: Deprecated command `phpunit_open_code_coverage`, use `phpunit_test_coverage` instead.
 
