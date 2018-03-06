@@ -2,15 +2,15 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## Unreleased (3.0.0)
+## [3.0.0] - 2018-03-06
 
-## Changed
+### Changed
 
 * Changed: Renamed plugin from "phpunitkit" to "PHPUnitKit"
 
   If you manually installed the package then you will need to rename the folder where you installed it from "phpunitkit" to "PHPUnitKit".
 
-## Removed
+### Removed
 
 * Removed: Deprecated color schemes (color schemes are auto generated based on the active color scheme)
 * Removed: Deprecated command `phpunit_switch_file`, use `phpunit_test_switch` instead
@@ -485,6 +485,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.5.0...3.0.0
 [2.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.6...2.5.0
 [2.4.6]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.5...2.4.6
 [2.4.5]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.4...2.4.5
