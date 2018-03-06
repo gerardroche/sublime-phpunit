@@ -1,5 +1,5 @@
-from phpunitkit.tests.utils import ViewTestCase
-from phpunitkit.plugin import has_test_case
+from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.plugin import has_test_case
 
 
 class TestHasTestCase(ViewTestCase):

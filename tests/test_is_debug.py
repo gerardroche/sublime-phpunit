@@ -1,6 +1,6 @@
-from phpunitkit.tests.utils import ViewTestCase
-from phpunitkit.plugin import _DEBUG
-from phpunitkit.plugin import is_debug
+from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.plugin import _DEBUG
+from PHPUnitKit.plugin import is_debug
 
 
 class TestIsDebug(ViewTestCase):

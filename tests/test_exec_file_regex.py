@@ -3,7 +3,7 @@ from unittest import TestCase
 
 from sublime import platform
 
-from phpunitkit.plugin import exec_file_regex
+from PHPUnitKit.plugin import exec_file_regex
 
 
 class TestExecFileRegex(TestCase):

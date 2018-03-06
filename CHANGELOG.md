@@ -2,6 +2,20 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased (3.0.0)
+
+## Changed
+
+* Changed: Renamed plugin from "phpunitkit" to "PHPUnitKit"
+
+  If you manually installed the package then you will need to rename the folder where you installed it from "phpunitkit" to "PHPUnitKit".
+
+## Removed
+
+* Removed: Deprecated color schemes (color schemes are auto generated based on the active color scheme)
+* Removed: Deprecated command `phpunit_switch_file`, use `phpunit_test_switch` instead
+* Removed: Deprecated command `phpunit_open_code_coverage`, use `phpunit_test_coverage` instead
+
 ## [2.5.0] - 2018-03-03
 
 ### Added

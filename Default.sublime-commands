@@ -24,6 +24,6 @@
     { "caption": "PHPUnit: Toggle Option --tap", "command": "phpunit_toggle_option", "args": { "option": "tap" } },
     { "caption": "PHPUnit: Toggle Option --testdox", "command": "phpunit_toggle_option", "args": { "option": "testdox" } },
     { "caption": "PHPUnit: Toggle Option --verbose", "command": "phpunit_toggle_option", "args": { "option": "verbose" } },
-    { "caption": "Preferences: PHPUnit Settings – Default", "command": "open_file", "args": { "file": "${packages}/phpunitkit/Preferences.sublime-settings" } },
+    { "caption": "Preferences: PHPUnit Settings – Default", "command": "open_file", "args": { "file": "${packages}/PHPUnitKit/Preferences.sublime-settings" } },
     { "caption": "Preferences: PHPUnit Settings – User", "command": "open_file", "args": { "file": "${packages}/User/Preferences.sublime-settings" } }
 ]

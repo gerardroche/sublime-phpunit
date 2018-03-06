@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from phpunitkit.plugin import build_filter_option_pattern
+from PHPUnitKit.plugin import build_filter_option_pattern
 
 
 class TestBuildFilterOptionPattern(TestCase):
