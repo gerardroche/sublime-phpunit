@@ -38,7 +38,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed: Workaround https://github.com/SublimeTextIssues/Core/issues/2044
+* Fixed: Workaround [Base ApplicationCommand registered in application_command_classes](https://github.com/SublimeTextIssues/Core/issues/2044)
 
 ## [2.4.3] - 2017-11-20
 
