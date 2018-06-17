@@ -653,6 +653,20 @@ class PhpunitTestSwitchCommand(sublime_plugin.WindowCommand):
         if not first_switchable:
             return status_message('PHPUnit: no switchable found')
 
+        word = view.substr(view.word(view.sel()[0].b))
+        if word[:4] == 'test':
+            word = word[4:]
+            word = word[0].lower() + word[1:]
+        else:
+            word = 'test' + word[0].upper() + word[1:]
+
+        switchables_in_open_files = self.window.lookup_symbol_in_open_files(word)
+        if switchables_in_open_files:
+            for s in switchables_in_open_files:
+                if s[0] == first_switchable[0]:
+                    first_switchable = (first_switchable[0], first_switchable[1], s[2])
+                    break
+
         self.window.open_file(first_switchable[0] + ':' + str(first_switchable[2][0]), ENCODED_POSITION)
         debug_message('@run switch from \'%s\' to \'%s\'', view.file_name(), first_switchable)
         put_views_side_by_side(view, self.window.active_view())
