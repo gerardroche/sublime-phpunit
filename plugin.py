@@ -412,14 +412,17 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
+        panel_settings = self.window.create_output_panel('exec').settings()
+        panel_settings.set('rulers', [])
+
         if self.view.settings().has('phpunit.text_ui_result_font_size'):
-            self.window.create_output_panel('exec').settings().set(
+            panel_settings.set(
                 'font_size',
                 self.view.settings().get('phpunit.text_ui_result_font_size')
             )
 
         color_scheme = self.get_auto_generated_color_scheme()
-        self.window.create_output_panel('exec').settings().set('color_scheme', color_scheme)
+        panel_settings.set('color_scheme', color_scheme)
 
     def run_last(self):
         kwargs = get_window_setting('phpunit._test_last', window=self.window)
