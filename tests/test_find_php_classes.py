@@ -15,10 +15,24 @@ class TestFindPHPClasses(unittest.ViewTestCase):
     def test_one(self):
         self.fixture('<?php\nclass x {}')
         self.assertEquals(['x'], find_php_classes(self.view))
+        self.assertEquals([{'class': 'x', 'namespace': None}], find_php_classes(self.view, True))
 
     def test_many(self):
         self.fixture('<?php\nclass x {}\nclass y {}\nclass z {}')
         self.assertEquals(['x', 'y', 'z'], find_php_classes(self.view))
+        self.assertEquals([
+            {
+                'class': 'x',
+                'namespace': None
+            },
+            {
+                'class': 'y',
+                'namespace': None
+            },
+            {
+                'class': 'z',
+                'namespace': None
+            }], find_php_classes(self.view, True))
 
     def test_with_namespace(self):
         self.fixture("""<?php
@@ -32,6 +46,10 @@ class TestFindPHPClasses(unittest.ViewTestCase):
         """)
 
         self.assertEquals(['ClassNameTest'], find_php_classes(self.view))
+        self.assertEquals(
+            [{'class': 'ClassNameTest', 'namespace': 'User\\Repository'}],
+            find_php_classes(self.view, True)
+        )
 
     def test_with_namespace_alias(self):
         self.fixture("""<?php
@@ -45,6 +63,10 @@ class TestFindPHPClasses(unittest.ViewTestCase):
         """)
 
         self.assertEquals(['ClassNameTest'], find_php_classes(self.view))
+        self.assertEquals(
+            [{'class': 'ClassNameTest', 'namespace': None}],
+            find_php_classes(self.view, True)
+        )
 
     def test_with_implements(self):
         self.fixture("""<?php

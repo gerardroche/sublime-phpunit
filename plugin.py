@@ -6,9 +6,9 @@ from sublime import active_window
 from sublime import cache_path
 from sublime import ENCODED_POSITION
 from sublime import load_resource
+from sublime import message_dialog
 from sublime import platform
 from sublime import status_message
-from sublime import version
 import sublime_plugin
 
 
@@ -126,14 +126,25 @@ def has_test_case(view):
     return False
 
 
-def find_php_classes(view):
+def find_php_classes(view, with_namespace=False):
     """Return list of class names defined in the view."""
     classes = []
+
+    namespace = None
+    for namespace_region in view.find_by_selector('source.php entity.name.namespace'):
+        namespace = view.substr(namespace_region)
+        break  # TODO handle files with multiple namespaces
 
     for class_as_region in view.find_by_selector('source.php entity.name.class - meta.use'):
         class_as_string = view.substr(class_as_region)
         if is_valid_php_identifier(class_as_string):
-            classes.append(class_as_string)
+            if with_namespace:
+                classes.append({
+                    'namespace': namespace,
+                    'class': class_as_string
+                })
+            else:
+                classes.append(class_as_string)
 
     # BC: < 3114
     if not classes:  # pragma: no cover
@@ -195,52 +206,166 @@ def find_selected_test_methods(view):
     return [m for m in method_names if m.lower() not in ignore_methods]
 
 
-def find_first_switchable(view):
-    """Return first switchable in view; otherwise None."""
-    debug_message('@find_first_switchable view=[id=%d,file=%s]', view.id(), view.file_name())
+class Switchable:
 
+    def __init__(self, location):
+        self.location = location
+        self.file = location[0]
+
+    def file_with_encoded_position(self, view):
+        window = view.window()
+
+        file = self.location[0]
+        row = self.location[2][0]
+        col = self.location[2][1]
+
+        # If the file we're switching to is already open,
+        # then by default don't goto encoded position.
+        for v in window.views():
+            if v.file_name() == self.location[0]:
+                row = None
+                col = None
+
+        # If cursor is on a symbol like a class method,
+        # then try find the relating test method or vice-versa,
+        # and use that as the encoded position to jump to.
+        symbol = view.substr(view.word(view.sel()[0].b))
+        if symbol:
+            if symbol[:4] == 'test':
+                symbol = symbol[4:]
+                symbol = symbol[0].lower() + symbol[1:]
+            else:
+                symbol = 'test' + symbol[0].upper() + symbol[1:]
+
+            locations = window.lookup_symbol_in_open_files(symbol)
+            if locations:
+                for location in locations:
+                    if location[0] == self.location[0]:
+                        row = location[2][0]
+                        col = location[2][1]
+                        break
+
+        encoded_postion = ''
+        if row:
+            encoded_postion += ':' + str(row)
+        if col:
+            encoded_postion += ':' + str(col)
+
+        return file + encoded_postion
+
+
+def refine_switchable_locations(locations, file):
+    if not file:
+        return locations, False
+
+    debug_message('locations=%s', locations)
+    debug_message('file=     %s', file)
+
+    files = []
+    if file.endswith('Test.php'):
+        file_is_test_case = True
+        file = file.replace('Test.php', '.php')
+        files.append(re.sub('(\\/)?[tT]ests\\/([uU]nit\\/)?', '/', file))
+        files.append(re.sub('(\\/)?[tT]ests\\/', '/src/', file))
+    else:
+        file_is_test_case = False
+        file = file.replace('.php', 'Test.php')
+        files.append(file)
+        files.append(re.sub('(\\/)?src\\/', '/', file))
+
+    debug_message('converted=%s', files)
+
+    if len(locations) > 1:
+        common_prefix = os.path.commonprefix([l[0] for l in locations])
+        if common_prefix != '/':
+            files = [file.replace(common_prefix, '') for file in files]
+            debug_message('remove file common prefix prefix=%s files=%s', common_prefix, files)
+
+    for location in locations:
+        loc_file = location[0]
+        if not file_is_test_case:
+            loc_file = re.sub('\\/[tT]ests\\/([uU]nit\\/)?', '/', loc_file)
+
+        for file in files:
+            debug_message('if locfile   %s', loc_file)
+            debug_message('ends with    %s', file)
+            if loc_file.endswith(file):
+                return [location], True
+
+    return locations, False
+
+
+def find_switchable(view, on_file=None, on_switchable=None):
+    # Args:
+    #   view (View)
+    #   on_file (callable)
+    #
+    # Returns:
+    #   void
     window = view.window()
-    if not window:
-        return None
 
-    classes = find_php_classes(view)
-    debug_message('@find_first_switchable found %d PHP class(es) %s', len(classes), classes)
+    if on_file is None and on_switchable is None:
+        raise ValueError('a callable is required')
 
-    for class_name in classes:
-        if class_name[-4:] == "Test":
-            lookup_symbol = class_name[:-4]
+    file = view.file_name()
+    debug_message('file=%s', file)
+
+    classes = find_php_classes(view, with_namespace=True)
+    if len(classes) == 0:
+        return message_dialog('PHPUnit\n\nCould not find a test case or class under test.')
+
+    debug_message('classes(%s)=%s', len(classes), classes)
+
+    locations = []
+    for _class in classes:
+        class_name = _class['class']
+
+        if class_name[-4:] == 'Test':
+            symbol = class_name[:-4]
         else:
-            lookup_symbol = class_name + "Test"
+            symbol = class_name + 'Test'
 
-        debug_message('@find_first_switchable lookup symbol: \'%s\'', lookup_symbol)
+        symbol_locations = window.lookup_symbol_in_index(symbol)
+        locations += symbol_locations
 
-        switchables_in_open_files = window.lookup_symbol_in_open_files(lookup_symbol)
-        debug_message('@find_first_switchable found %d symbol(s) in open files %s', len(switchables_in_open_files), switchables_in_open_files)  # noqa: E501
-        for open_file in switchables_in_open_files:
-            debug_message('@find_first_switchable found symbol in open file %s', open_file)
-            return open_file
+    debug_message('locations(%s)=%s', len(locations), locations)
 
-        switchables_in_index = window.lookup_symbol_in_index(lookup_symbol)
-        debug_message('@find_first_switchable found %d symbol(s) in index %s', len(switchables_in_index), switchables_in_index)  # noqa: E501
-        for index in switchables_in_index:
-            debug_message('@find_first_switchable found symbol in index %s', index)
-            return index
+    def unique_locations(locations):
+        locs = []
+        seen = set()
+        for location in locations:
+            if location[0] not in seen:
+                seen.add(location[0])
+                locs.append(location)
 
+        return locs
 
-def find_first_switchable_file(view):
-    """Return first switchable file in view; otherwise None."""
-    first_switchable = find_first_switchable(view)
-    if not first_switchable:
-        return None
+    locations = unique_locations(locations)
 
-    file = first_switchable[0]
+    if len(locations) == 0:
+        return message_dialog('PHPUnit\n\nCould not find a test case / class under test location.')
 
-    if int(version()) < 3118:
-        if platform() == "windows":
-            file = re.sub(r"/([A-Za-z])/(.+)", r"\1:/\2", file)
-            file = re.sub(r"/", r"\\", file)
+    def _on_select(index):
+        if index == -1:
+            return
 
-    return file
+        switchable = Switchable(locations[index])
+
+        if on_file is not None:
+            on_file(switchable.file)
+
+        if on_switchable is not None:
+            on_switchable(switchable)
+
+    locations, is_exact = refine_switchable_locations(locations=locations, file=file)
+
+    debug_message('is_exact=%s', is_exact)
+    debug_message('locations(%s)=%s', len(locations), locations)
+
+    if is_exact and len(locations) == 1:
+        return _on_select(0)
+
+    window.show_quick_panel(['{}:{}'.format(l[1], l[2][0]) for l in locations], _on_select)
 
 
 def put_views_side_by_side(view_a, view_b):
@@ -410,7 +535,8 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
-        panel_settings = self.window.create_output_panel('exec').settings()
+        panel = self.window.create_output_panel('exec')
+        panel_settings = panel.settings()
         panel_settings.set('rulers', [])
 
         if self.view.settings().has('phpunit.text_ui_result_font_size'):
@@ -437,27 +563,23 @@ class PHPUnit():
             if has_test_case(self.view):
                 self.run(file=file)
             else:
-                self.run(file=find_first_switchable_file(self.view))
+                find_switchable(self.view, on_file=lambda file: self.run(file=file))
         else:
             return status_message('PHPUnit: not a test file')
 
     def run_nearest(self):
         debug_message('run nearest')
-        options = {}
         if has_test_case(self.view):
-            unit_test = self.view.file_name()
+            file = self.view.file_name()
+            options = {}
             selected_test_methods = find_selected_test_methods(self.view)
             if selected_test_methods:
-                debug_message('found test selections: %s', selected_test_methods)
                 options = {'filter': build_filter_option_pattern(selected_test_methods)}
-        else:
-            debug_message('current file is not a test file')
-            unit_test = find_first_switchable_file(self.view)
 
-        if unit_test:
-            self.run(file=unit_test, options=options)
+            self.run(file=file, options=options)
+
         else:
-            return status_message('PHPUnit: not a test file')
+            find_switchable(self.view, on_file=lambda file: self.run(file=file))
 
     def results(self):
         self.window.run_command('show_panel', {'panel': 'output.exec'})
@@ -647,29 +769,14 @@ class PhpunitTestSwitchCommand(sublime_plugin.WindowCommand):
     def run(self):
         view = self.window.active_view()
         if not view:
-            return status_message('PHPUnit: view not found')
+            return
 
-        first_switchable = find_first_switchable(view)
-        if not first_switchable:
-            return status_message('PHPUnit: no switchable found')
+        def on_switchable(switchable):
+            self.window.open_file(switchable.file_with_encoded_position(view), ENCODED_POSITION)
 
-        word = view.substr(view.word(view.sel()[0].b))
-        if word[:4] == 'test':
-            word = word[4:]
-            word = word[0].lower() + word[1:]
-        else:
-            word = 'test' + word[0].upper() + word[1:]
+            put_views_side_by_side(view, self.window.active_view())
 
-        switchables_in_open_files = self.window.lookup_symbol_in_open_files(word)
-        if switchables_in_open_files:
-            for s in switchables_in_open_files:
-                if s[0] == first_switchable[0]:
-                    first_switchable = (first_switchable[0], first_switchable[1], s[2])
-                    break
-
-        self.window.open_file(first_switchable[0] + ':' + str(first_switchable[2][0]), ENCODED_POSITION)
-        debug_message('@run switch from \'%s\' to \'%s\'', view.file_name(), first_switchable)
-        put_views_side_by_side(view, self.window.active_view())
+        find_switchable(view, on_switchable=on_switchable)
 
 
 class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
