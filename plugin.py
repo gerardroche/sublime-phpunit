@@ -318,9 +318,7 @@ def build_filter_option_pattern(list):
 
 
 def filter_path(path):
-    path = os.path.expanduser(path)
-    path = os.path.expandvars(path)
-    return path
+    return os.path.expandvars(os.path.expanduser(path))
 
 
 class PHPUnit():
