@@ -1,9 +1,9 @@
-from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.tests import unittest
 from PHPUnitKit.plugin import _DEBUG
 from PHPUnitKit.plugin import is_debug
 
 
-class TestIsDebug(ViewTestCase):
+class TestIsDebug(unittest.ViewTestCase):
 
     def test_is_debug(self):
         self.view.settings().erase('debug')

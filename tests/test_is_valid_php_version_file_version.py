@@ -1,9 +1,9 @@
-from unittest import TestCase
+from PHPUnitKit.tests import unittest
 
 from PHPUnitKit.plugin import is_valid_php_version_file_version
 
 
-class TestIsValidPhpVersionFileVersion(TestCase):
+class TestIsValidPhpVersionFileVersion(unittest.TestCase):
 
     def test_invalid_values(self):
         self.assertFalse(is_valid_php_version_file_version(''))

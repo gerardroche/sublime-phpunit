@@ -1,9 +1,9 @@
-from unittest import TestCase
+from PHPUnitKit.tests import unittest
 
 from PHPUnitKit.plugin import build_filter_option_pattern
 
 
-class TestBuildFilterOptionPattern(TestCase):
+class TestBuildFilterOptionPattern(unittest.TestCase):
 
     def test_single_item(self):
         self.assertEqual('::(a)( with data set .+)?$', build_filter_option_pattern(['a']))

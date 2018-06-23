@@ -1,6 +1,6 @@
 from sublime import find_resources
 
-from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.tests import unittest
 from PHPUnitKit.plugin import find_selected_test_methods
 
 
@@ -8,7 +8,7 @@ def _is_php_syntax_using_php_grammar():
     return 'php-grammar' in find_resources('PHP.sublime-syntax')[0]
 
 
-class TestFindSelectedTestMethods(ViewTestCase):
+class TestFindSelectedTestMethods(unittest.ViewTestCase):
 
     def test_empty(self):
         self.fixture('')

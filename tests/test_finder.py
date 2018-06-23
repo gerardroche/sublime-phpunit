@@ -1,5 +1,5 @@
 import os
-from unittest import TestCase
+from PHPUnitKit.tests import unittest
 
 from PHPUnitKit.plugin import find_phpunit_configuration_file
 from PHPUnitKit.plugin import find_phpunit_working_directory
@@ -9,7 +9,7 @@ def _fixtures_path():
     return os.path.join(os.path.dirname(__file__), 'fixtures')
 
 
-class TestFinders(TestCase):
+class TestFinders(unittest.TestCase):
 
     def test_find_none(self):
         self.assertIsNone(find_phpunit_configuration_file(None, None))

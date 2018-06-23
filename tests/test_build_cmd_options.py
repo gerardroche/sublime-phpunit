@@ -1,9 +1,9 @@
-from unittest import TestCase
+from PHPUnitKit.tests import unittest
 
 from PHPUnitKit.plugin import build_cmd_options
 
 
-class TestBuildCmdOptions(TestCase):
+class TestBuildCmdOptions(unittest.TestCase):
 
     def test_empty(self):
         self.assertEqual([], build_cmd_options({}, []))

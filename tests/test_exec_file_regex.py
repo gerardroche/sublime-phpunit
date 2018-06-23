@@ -1,12 +1,12 @@
 import re
-from unittest import TestCase
+from PHPUnitKit.tests import unittest
 
 from sublime import platform
 
 from PHPUnitKit.plugin import exec_file_regex
 
 
-class TestExecFileRegex(TestCase):
+class TestExecFileRegex(unittest.TestCase):
 
     def assertNotMatch(self, test):
         self.assertFalse(bool(re.match(exec_file_regex(), test)))

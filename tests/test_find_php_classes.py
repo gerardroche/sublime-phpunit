@@ -1,8 +1,8 @@
-from PHPUnitKit.tests.utils import ViewTestCase
+from PHPUnitKit.tests import unittest
 from PHPUnitKit.plugin import find_php_classes
 
 
-class TestFindPHPClasses(ViewTestCase):
+class TestFindPHPClasses(unittest.ViewTestCase):
 
     def test_empty(self):
         self.fixture('')
