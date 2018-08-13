@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.1.0 - Unreleased
+
+### Fixed
+
+* Fixed: Tests results panel show rulers
+
 ## [3.0.0] - 2018-03-06
 
 ### Changed

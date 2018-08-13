@@ -212,7 +212,7 @@ class Switchable:
         self.location = location
         self.file = location[0]
 
-    def file_with_encoded_position(self, view):
+    def file_encoded_position(self, view):
         window = view.window()
 
         file = self.location[0]
@@ -255,11 +255,12 @@ class Switchable:
 
 
 def refine_switchable_locations(locations, file):
+    debug_message('refine location')
     if not file:
         return locations, False
 
+    debug_message('file=%s', file)
     debug_message('locations=%s', locations)
-    debug_message('file=     %s', file)
 
     files = []
     if file.endswith('Test.php'):
@@ -272,14 +273,14 @@ def refine_switchable_locations(locations, file):
         file = file.replace('.php', 'Test.php')
         files.append(file)
         files.append(re.sub('(\\/)?src\\/', '/', file))
+        files.append(re.sub('(\\/)?src\\/', '/test/', file))
 
-    debug_message('converted=%s', files)
+    debug_message('files=%s', files)
 
     if len(locations) > 1:
         common_prefix = os.path.commonprefix([l[0] for l in locations])
         if common_prefix != '/':
             files = [file.replace(common_prefix, '') for file in files]
-            debug_message('remove file common prefix prefix=%s files=%s', common_prefix, files)
 
     for location in locations:
         loc_file = location[0]
@@ -287,24 +288,22 @@ def refine_switchable_locations(locations, file):
             loc_file = re.sub('\\/[tT]ests\\/([uU]nit\\/)?', '/', loc_file)
 
         for file in files:
-            debug_message('if locfile   %s', loc_file)
-            debug_message('ends with    %s', file)
             if loc_file.endswith(file):
                 return [location], True
 
     return locations, False
 
 
-def find_switchable(view, on_file=None, on_switchable=None):
+def find_switchable(view, on_select=None):
     # Args:
     #   view (View)
-    #   on_file (callable)
+    #   on_select (callable)
     #
     # Returns:
     #   void
     window = view.window()
 
-    if on_file is None and on_switchable is None:
+    if on_select is None:
         raise ValueError('a callable is required')
 
     file = view.file_name()
@@ -314,7 +313,7 @@ def find_switchable(view, on_file=None, on_switchable=None):
     if len(classes) == 0:
         return message_dialog('PHPUnit\n\nCould not find a test case or class under test.')
 
-    debug_message('classes(%s)=%s', len(classes), classes)
+    debug_message('file contains %s class %s', len(classes), classes)
 
     locations = []
     for _class in classes:
@@ -328,7 +327,7 @@ def find_switchable(view, on_file=None, on_switchable=None):
         symbol_locations = window.lookup_symbol_in_index(symbol)
         locations += symbol_locations
 
-    debug_message('locations(%s)=%s', len(locations), locations)
+    debug_message('class has %s location %s', len(locations), locations)
 
     def unique_locations(locations):
         locs = []
@@ -343,7 +342,10 @@ def find_switchable(view, on_file=None, on_switchable=None):
     locations = unique_locations(locations)
 
     if len(locations) == 0:
-        return message_dialog('PHPUnit\n\nCould not find a test case / class under test location.')
+        if has_test_case(view):
+            return message_dialog('PHPUnit\n\nCould not find class under test.')
+        else:
+            return message_dialog('PHPUnit\n\nCould not test case.')
 
     def _on_select(index):
         if index == -1:
@@ -351,11 +353,8 @@ def find_switchable(view, on_file=None, on_switchable=None):
 
         switchable = Switchable(locations[index])
 
-        if on_file is not None:
-            on_file(switchable.file)
-
-        if on_switchable is not None:
-            on_switchable(switchable)
+        if on_select is not None:
+            on_select(switchable)
 
     locations, is_exact = refine_switchable_locations(locations=locations, file=file)
 
@@ -391,9 +390,7 @@ def put_views_side_by_side(view_a, view_b):
         else:
             window.set_view_index(view_b, 0, 0)
 
-        # Ensure focus is not
-        # lost from either
-        # view.
+        # Ensure focus is not lost from either view.
         window.focus_view(view_a)
         window.focus_view(view_b)
 
@@ -457,7 +454,7 @@ class PHPUnit():
         debug_message('view %d %s', self.view.id(), self.view.file_name())
 
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
+        debug_message('run phpunit with working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
         # Kill any currently running tests
         self.window.run_command('exec', {'kill': True})
@@ -563,7 +560,7 @@ class PHPUnit():
             if has_test_case(self.view):
                 self.run(file=file)
             else:
-                find_switchable(self.view, on_file=lambda file: self.run(file=file))
+                find_switchable(self.view, on_select=lambda switchable: self.run(file=switchable.file))
         else:
             return status_message('PHPUnit: not a test file')
 
@@ -579,15 +576,45 @@ class PHPUnit():
             self.run(file=file, options=options)
 
         else:
-            find_switchable(self.view, on_file=lambda file: self.run(file=file))
+            find_switchable(self.view, on_select=lambda switchable: self.run(file=switchable.file))
 
-    def results(self):
+    def show_results(self):
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
     def cancel(self):
         self.window.run_command('exec', {'kill': True})
 
-    def toggle(self, option):
+    def open_coverage_report(self):
+        working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
+        if not working_dir:
+            return status_message('PHPUnit: could not find a PHPUnit working directory')
+
+        coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
+        if not os.path.exists(coverage_html_index_html_file):
+            return status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
+
+        import webbrowser
+        webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
+
+    def switch(self):
+        def _on_switchable(switchable):
+            self.window.open_file(switchable.file_encoded_position(self.view), ENCODED_POSITION)
+            put_views_side_by_side(self.view, self.window.active_view())
+
+        find_switchable(self.view, on_select=_on_switchable)
+
+    def visit(self):
+        test_last = get_window_setting('phpunit._test_last', window=self.window)
+        if test_last:
+            if 'file' in test_last and 'working_dir' in test_last:
+                if test_last['file']:
+                    file = os.path.join(test_last['working_dir'], test_last['file'])
+                    if os.path.isfile(file):
+                        return self.window.open_file(file)
+
+        return status_message('PHPUnit: no tests were run so far')
+
+    def toggle_option(self, option):
         options = get_window_setting('phpunit.options', default={}, window=self.window)
         options[option] = not bool(options[option]) if option in options else True
         set_window_setting('phpunit.options', options, window=self.window)
@@ -741,7 +768,7 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnit(self.window).results()
+        PHPUnit(self.window).show_results()
 
 
 class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
@@ -753,52 +780,22 @@ class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
 class PhpunitTestVisitCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        test_last = get_window_setting('phpunit._test_last', window=self.window)
-        if test_last:
-            if 'file' in test_last and 'working_dir' in test_last:
-                if test_last['file']:
-                    file = os.path.join(test_last['working_dir'], test_last['file'])
-                    if os.path.isfile(file):
-                        return self.window.open_file(file)
-
-        return status_message('PHPUnit: no tests were run so far')
+        PHPUnit(self.window).visit()
 
 
 class PhpunitTestSwitchCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        view = self.window.active_view()
-        if not view:
-            return
-
-        def on_switchable(switchable):
-            self.window.open_file(switchable.file_with_encoded_position(view), ENCODED_POSITION)
-
-            put_views_side_by_side(view, self.window.active_view())
-
-        find_switchable(view, on_switchable=on_switchable)
+        PHPUnit(self.window).switch()
 
 
 class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 
     def run(self, option):
-        PHPUnit(self.window).toggle(option)
+        PHPUnit(self.window).toggle_option(option)
 
 
 class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        view = self.window.active_view()
-        if not view:
-            return
-
-        working_dir = find_phpunit_working_directory(view.file_name(), self.window.folders())
-        if not working_dir:
-            return status_message('PHPUnit: could not find a PHPUnit working directory')
-
-        coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
-        if not os.path.exists(coverage_html_index_html_file):
-            return status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
-
-        import webbrowser
-        webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
+        PHPUnit(self.window).open_coverage_report()
