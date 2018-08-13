@@ -14,7 +14,6 @@ import sublime_plugin
 
 _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
-
 if _DEBUG:
     def debug_message(msg, *args):
         if args:
@@ -62,7 +61,8 @@ def find_phpunit_configuration_file(file_name, folders):
     Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
     the nearest common ancestor directory in {folders}.
     """
-    debug_message('@find_phpunit_configuration_file file=\'%s\', folder(s)(%d)=%s', file_name, len(folders) if folders else 0, folders)  # noqa: E501
+    debug_message('find configuration for \'%s\'', file_name)
+    debug_message('found %d folders %s', len(folders) if folders else 0, folders)
 
     if file_name is None:
         return None
@@ -91,19 +91,19 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('@find_phpunit_configuration_file found %d common ancestor(s) %s', len(ancestor_folders), ancestor_folders)  # noqa: E501
+    debug_message('found %d common ancestors %s', len(ancestor_folders), ancestor_folders)
 
     candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
-    debug_message('@find_phpunit_configuration_file search for configuration files %s', candidate_configuration_file_names)  # noqa: E501
+    debug_message('candidate configuration files %s', candidate_configuration_file_names)
     for folder in ancestor_folders:
-        debug_message('@find_phpunit_configuration_file search in \'%s\'', folder)
+        debug_message('looking at \'%s\'', folder)
         for file_name in candidate_configuration_file_names:
             phpunit_configuration_file = os.path.join(folder, file_name)
             if os.path.isfile(phpunit_configuration_file):
-                debug_message('@find_phpunit_configuration_file found configuration file \'%s\'', phpunit_configuration_file)  # noqa: E501
+                debug_message('found file \'%s\'', phpunit_configuration_file)
                 return phpunit_configuration_file
 
-    debug_message('@find_phpunit_configuration_file not found')
+    debug_message('not found')
 
     return None
 
@@ -329,10 +329,10 @@ class PHPUnit():
         if not self.view:
             raise ValueError('view not found')
 
-        debug_message('@init view=[id=%d,file=%s]', self.view.id(), self.view.file_name())
+        debug_message('view %d %s', self.view.id(), self.view.file_name())
 
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('@run working_dir=%s, file=%s, options=%s', working_dir, file, options)
+        debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
         # Kill any currently running tests
         self.window.run_command('exec', {'kill': True})
@@ -349,7 +349,7 @@ class PHPUnit():
             if not os.path.isdir(working_dir):
                 raise ValueError('working directory does not exist or is not a valid directory')
 
-            debug_message('workingdir = %s', working_dir)
+            debug_message('workingdir \'%s\'', working_dir)
 
             php_executable = self.get_php_executable(working_dir)
             if php_executable:
@@ -358,10 +358,10 @@ class PHPUnit():
 
             phpunit_executable = self.get_phpunit_executable(working_dir)
             cmd.append(phpunit_executable)
-            debug_message('executable = %s', phpunit_executable)
+            debug_message('executable \'%s\'', phpunit_executable)
 
             options = self.filter_options(options)
-            debug_message('options = %s', options)
+            debug_message('options %s', options)
 
             cmd = build_cmd_options(options, cmd)
 
@@ -369,7 +369,7 @@ class PHPUnit():
                 if os.path.isfile(file):
                     file = os.path.relpath(file, working_dir)
                     cmd.append(file)
-                    debug_message('file = %s', file)
+                    debug_message('file %s', file)
                 else:
                     raise ValueError('test file \'%s\' not found' % file)
 
@@ -382,8 +382,8 @@ class PHPUnit():
             print('PHPUnit: \'{}\''.format(e))
             raise e
 
-        debug_message('env = %s', env)
-        debug_message('cmd = %s', cmd)
+        debug_message('env %s', env)
+        debug_message('cmd %s', cmd)
 
         if self.view.settings().get('phpunit.save_all_on_run'):
             # Write out every buffer in active
@@ -424,6 +424,7 @@ class PHPUnit():
 
     def run_last(self):
         kwargs = get_window_setting('phpunit._test_last', window=self.window)
+        debug_message('run last %s', kwargs)
         if kwargs:
             self.run(**kwargs)
         else:
@@ -431,6 +432,7 @@ class PHPUnit():
 
     def run_file(self):
         file = self.view.file_name()
+        debug_message('run file %s', file)
         if file:
             if has_test_case(self.view):
                 self.run(file=file)
@@ -440,8 +442,8 @@ class PHPUnit():
             return status_message('PHPUnit: not a test file')
 
     def run_nearest(self):
+        debug_message('run nearest')
         options = {}
-
         if has_test_case(self.view):
             unit_test = self.view.file_name()
             selected_test_methods = find_selected_test_methods(self.view)
