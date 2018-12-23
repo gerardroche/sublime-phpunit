@@ -670,19 +670,20 @@ class PHPUnit():
             return php_executable
 
     def get_phpunit_executable(self, working_dir):
-        if platform() == 'windows':
-            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
-        else:
-            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
-
-        if self.view.settings().get('phpunit.composer') and is_file_executable(composer_phpunit_executable):
-            return composer_phpunit_executable
-        else:
-            executable = shutil.which('phpunit')
-            if executable:
-                return executable
+        if self.view.settings().get('phpunit.composer'):
+            if platform() == 'windows':
+                composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
             else:
-                raise ValueError('phpunit not found')
+                composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+
+            if is_file_executable(composer_phpunit_executable):
+                return composer_phpunit_executable
+
+        executable = shutil.which('phpunit')
+        if executable:
+            return executable
+        else:
+            raise ValueError('phpunit not found')
 
     def get_auto_generated_color_scheme(self):
         color_scheme = self.view.settings().get('color_scheme')

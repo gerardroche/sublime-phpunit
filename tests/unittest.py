@@ -1,8 +1,16 @@
+import os
 from unittest import TestCase
 from unittest import mock  # noqa: F401
 
 from sublime import find_resources
 from sublime import active_window
+
+
+def fixtures_path(path=None):
+    if path is None:
+        return os.path.join(os.path.dirname(__file__), 'fixtures')
+
+    return os.path.join(os.path.dirname(__file__), 'fixtures', path)
 
 
 class ViewTestCase(TestCase):
