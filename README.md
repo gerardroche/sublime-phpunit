@@ -1,12 +1,10 @@
-# WHAT PHPUNITKIT IS
+# PHPUnitKit [![Build Status](https://img.shields.io/travis/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Coverage Status](https://img.shields.io/coveralls/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://coveralls.io/github/gerardroche/sublime-phpunit?branch=master) [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square)](https://packagecontrol.io/packages/PHPUnitKit)
 
 A Sublime Text plugin that provides an abstraction over running PHPUnit tests from the command-line.
 
-[![Build Status](https://img.shields.io/travis/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Coverage Status](https://img.shields.io/coveralls/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://coveralls.io/github/gerardroche/sublime-phpunit?branch=master) [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square)](https://packagecontrol.io/packages/PHPUnitKit) [![Author](https://img.shields.io/badge/twitter-gerardroche-blue.svg?style=flat-square)](https://twitter.com/gerardroche)
-
 ![Screenshot](screenshot.png)
 
-## OVERVIEW
+## Overview
 
 * [Features](#features)
 * [Installation](#installation)
@@ -18,7 +16,7 @@ A Sublime Text plugin that provides an abstraction over running PHPUnit tests fr
 * [Credits](#credits)
 * [License](#license)
 
-## FEATURES
+## Features
 
 * Run Nearest Test
 * Run Test File
@@ -32,11 +30,11 @@ A Sublime Text plugin that provides an abstraction over running PHPUnit tests fr
 * Jump to next and jump to previous failure
 * Switch Test File (splits window and puts test case and class under test side by side)
 
-## INSTALLATION
+## Installation
 
 ### Package Control installation
 
-The preferred method of installation is [Package Control](https://packagecontrol.io/browse/authors/gerardroche).
+The preferred method of installation is Package Control ([Search for PHPUnitKit](https://packagecontrol.io/browse/authors/gerardroche)).
 
 ### Manual installation
 
@@ -46,7 +44,7 @@ Close Sublime Text, then download or clone this repository to a directory named 
 * OSX: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/PHPUnitKit`
 * Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
 
-## COMMANDS
+## Commands
 
 Command Palette | Command | Description
 --------------- | ------- | -----------
@@ -61,13 +59,9 @@ Command Palette | Command | Description
 `:TestCoverage` | `phpunit_test_coverage` | Open code coverage in browser.
 `:ToggleOption`| `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
 
-*You can also use the [Test](https://github.com/gerardroche/sublime-test) plugin, which unifies ST testing plugin commands.*
+## Key Bindings
 
-## KEY BINDINGS
-
-Add your preferred key bindings:
-
-`Menu > Preferences > Key Bindings`
+Add your preferred key bindings: `Menu > Preferences > Key Bindings`
 
 ```json
 [
@@ -82,30 +76,72 @@ Add your preferred key bindings:
 ]
 ```
 
-Key bindings provided by default:
+Other key bindings (provided out-of-the-box by Sublime Text):
 
 Key | Description
 --- | -----------
 `F4` | Jump to Next Failure
 `Shift+F4` | Jump to Previous Failure
 
-*You can also use the [Test](https://github.com/gerardroche/sublime-test) plugin, which unifies ST testing plugin key bindings.*
+**See the [Test](https://github.com/gerardroche/sublime-test) plugin to unify test plugin key bindings.**
 
-## CONFIGURATION
+## Configuration
 
 Key | Description | Type | Default
 ----|-------------|------|--------
-`phpunit.options` | Command-line [options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) to pass to PHPUnit e.g. `{"no-coverage": true, "verbose": true}`. | `dict` | `{}`
-`phpunit.composer` | If enabled and a Composer installed PHPUnit is found then it is used to run the tests, otherwise the system PATH is used to find the PHPUnit executable. | `boolean` | `true`
-`phpunit.save_all_on_run` | Enable writing out every buffer (in the active window) with changes before running tests. | `boolean` | `true`
-`phpunit.php_executable` | The PHP executable to use when running PHPUnit. The default is to use the PHP executable found on the system PATH. Environment variables and user place-holders are expanded e.g. `~` and `$HOME`. | `string` | The PHP executable found on the system PATH.
+`phpunit.options` | A hash of command-line options to pass through to PHPUnit. | `dict` | `{}`
+`phpunit.composer` | Use the Composer installed PHPUnit executable (if it exists), otherwise the system PATH is used to find the PHPUnit executable. If disabled, then any Composer installed PHPUnit executable is ignored. | `boolean` | `true`
+`phpunit.save_all_on_run` | Write out every buffer (in the active window), that has changes, before running tests. | `boolean` | `true`
+`phpunit.php_executable` | The PHP executable used to run PHPUnit. The default is to use the executable found on the system PATH. | `string` | The PHP executable found on the system PATH.
 `phpunit.php_versions_path` | Location of `.php-version` file PHP versions. | `string` | `~/.phpenv/versions`
 
-### Composer
+### phpunit.options
 
-If enabled, and a Composer installed PHPUnit executable is found, then it is used to run the tests, otherwise the system PATH is used to find the PHPUnit executable.
+A hash of command-line options to pass through to PHPUnit.
 
-`Menu > Preferences > Settings`
+Global: `Menu > Preferences > Settings`
+
+```json
+{
+    "phpunit.options": {
+        "verbose": true,
+        "no-coverage": true,
+        "d": [
+            "display_errors=1",
+            "xdebug.scream=0"
+        ]
+    }
+}
+```
+
+Or per-project: `Menu > Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.options": {
+            "verbose": true,
+            "no-coverage": true,
+            "d": [
+                "display_errors=1",
+                "xdebug.scream=0"
+            ]
+        }
+    }
+}
+```
+
+Both of the above configurations will expand as follows:
+
+```
+phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage
+```
+
+### phpunit.composer
+
+Use the Composer installed PHPUnit executable (if it exists), otherwise the system PATH is used to find the PHPUnit executable. If disabled, then any Composer installed PHPUnit executable is ignored.
+
+Global: `Menu > Preferences > Settings`
 
 ```json
 {
@@ -113,7 +149,7 @@ If enabled, and a Composer installed PHPUnit executable is found, then it is use
 }
 ```
 
-`Menu > Project > Edit Project`
+Or per-project: `Menu > Project > Edit Project`
 
 ```json
 {
@@ -123,33 +159,53 @@ If enabled, and a Composer installed PHPUnit executable is found, then it is use
 }
 ```
 
-### PHP executable
+### phpunit.save_all_on_run
 
-The PHP executable used to run PHPUnit.
+Write out every buffer (in the active window), that has changes, before running tests.
 
-The default is to use the PHP executable found on the system PATH.
-
-Environment variables and user place-holders are expanded e.g. `$HOME` and `~`.
-
-`Menu > Preferences > Settings`
+Global: `Menu > Preferences > Settings`
 
 ```json
 {
-    "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
+    "phpunit.save_all_on_run": true
 }
 ```
 
-`Menu > Project > Edit Project`
+Or per-project: `Menu > Project > Edit Project`
 
 ```json
 {
     "settings": {
-        "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php"
+        "phpunit.save_all_on_run": true
     }
 }
 ```
 
-### PHP versions path
+### phpunit.php_executable
+
+The PHP executable used to run PHPUnit. The default is to use the executable found on the system PATH.
+
+All environment variables and user place-holders are expanded e.g. `~` and `$HOME` will expand to the user home directory.
+
+Global: `Menu > Preferences > Settings`
+
+```json
+{
+    "phpunit.php_executable": "~/.phpenv/versions/7.3.0/bin/php"
+}
+```
+
+Or per-project: `Menu > Project > Edit Project`
+
+```json
+{
+    "settings": {
+        "phpunit.php_executable": "~/.phpenv/versions/7.3.0/bin/php"
+    }
+}
+```
+
+### phpunit.php_versions_path
 
 You can set a location to find different PHP versions and use `.php-version` files to select versions per-project.
 
@@ -194,107 +250,13 @@ For example, a `.php-version` file with the contents `7.1.4` and a PHP versions 
 }
 ```
 
-### Options
-
-Command-line [options](https://phpunit.de/manual/current/en/textui.html#textui.clioptions) to pass to PHPUnit.
-
-A useful option to set by default is `no-coverage`, because your tests will run faster and you can toggle the option when needed via the Command Palette: `PHPUnit: Toggle Option --no-coverage`.
-
-`Menu > Preferences > Settings`
-
-```json
-{
-    "phpunit.options": {
-        "no-coverage": true,
-        "verbose": true
-    }
-}
-```
-
-`Menu > Project > Edit Project`
-
-```json
-{
-    "settings": {
-        "phpunit.options": {
-            "no-coverage": true,
-            "verbose": true
-        }
-    }
-}
-```
-
-Both of the above result in the command: `phpunit --verbose --no-coverage`.
-
-`Menu > Preferences > Settings`
-
-```json
-{
-    "phpunit.options": {
-        "verbose": true,
-        "no-coverage": true,
-        "d": [
-            "display_errors=1",
-            "xdebug.scream=0"
-        ]
-    }
-}
-```
-
-`Menu > Project > Edit Project`
-
-```json
-{
-    "settings": {
-        "phpunit.options": {
-            "verbose": true,
-            "no-coverage": true,
-            "d": [
-                "display_errors=1",
-                "xdebug.scream=0"
-            ]
-        }
-    }
-}
-```
-
-Both of the above result in the command: `phpunit -d "display_errors=1" -d "xdebug.scream=0" --verbose --no-coverage`
-
-### The `phpunit.xml` [configuration](https://phpunit.de/manual/current/en/appendixes.configuration.html) file.
-
-It is recommended to use your `phpunit.xml` configuration file if you want some CLI options to stick around.
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit verbose="true">
-    <php>
-        <ini name="error_reporting" value="-1" />
-        <ini name="display_errors" value="1" />
-        <ini name="xdebug.scream" value="0" />
-    </php>
-    <testsuites>
-        <testsuite>
-             <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>src</directory>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-html" target="build/coverage" />
-    </logging>
-</phpunit>
-```
-
-## CONTRIBUTING
+## Contributing
 
 Your issue reports and pull requests are welcome.
 
-### Tests
+### Testing
 
-The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run the tests. Install it, open the Command Palette, type "UnitTesting", press Enter and input "PHPUnitKit" as the package to test.
+The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run the tests. Install it, open the Command Palette, type "UnitTesting", press Enter and input **PHPUnitKit** as the package to test.
 
 ### Debugging
 
@@ -310,13 +272,7 @@ Sublime Text can be started at the Terminal with an exported environment variabl
 $ export SUBLIME_PHPUNIT_DEBUG=y; subl
 ```
 
-To set the environment permanently set it in `~/.profile` (requires restart).
-
-```
-export SUBLIME_PHPUNIT_DEBUG=y
-```
-
-Alternatively, create a [debug script (subld)](https://github.com/gerardroche/dotfiles/blob/1a27abed589f2fea9126a0496ef4d1cae0479722/src/bin/subld) with debugging environment variables enabled.
+Alternatively, create a [script](https://github.com/gerardroche/dotfiles/blob/1a27abed589f2fea9126a0496ef4d1cae0479722/src/bin/subld).
 
 #### Windows
 
@@ -326,22 +282,14 @@ Sublime Text can be started at the Command Prompt with an exported environment v
 > set SUBLIME_PHPUNIT_DEBUG=y& "C:\Program Files\Sublime Text 3\subl.exe"
 ```
 
-To set the environment permanently set it as a *system* environment variable (requires restart).
-
-1. Control Panel > System and Security > System > Advanced system settings
-2. Advanced > Environment Variables
-3. System variables > New...
-4. Add Variable name `SUBLIME_PHPUNIT_DEBUG` with Variable value `y`
-5. Restart Windows
-
-## CHANGELOG
+## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).
 
-## CREDITS
+## Credits
 
-Based initially on [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests) and [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), and also inspired by [janko-m/vim-test](https://github.com/janko-m/vim-test).
+Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests), [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), and [janko-m/vim-test](https://github.com/janko-m/vim-test).
 
-## LICENSE
+## License
 
 Released under the [BSD 3-Clause License](LICENSE).
