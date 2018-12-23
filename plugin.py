@@ -440,6 +440,23 @@ def filter_path(path):
     return os.path.expandvars(os.path.expanduser(path))
 
 
+def _get_phpunit_executable(working_dir, include_composer=True):
+    if include_composer:
+        if platform() == 'windows':
+            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
+        else:
+            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+
+        if is_file_executable(composer_phpunit_executable):
+            return composer_phpunit_executable
+
+    executable = shutil.which('phpunit')
+    if executable:
+        return executable
+    else:
+        raise ValueError('phpunit not found')
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -670,20 +687,7 @@ class PHPUnit():
             return php_executable
 
     def get_phpunit_executable(self, working_dir):
-        if self.view.settings().get('phpunit.composer'):
-            if platform() == 'windows':
-                composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
-            else:
-                composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
-
-            if is_file_executable(composer_phpunit_executable):
-                return composer_phpunit_executable
-
-        executable = shutil.which('phpunit')
-        if executable:
-            return executable
-        else:
-            raise ValueError('phpunit not found')
+        return _get_phpunit_executable(working_dir, self.view.settings().get('phpunit.composer'))
 
     def get_auto_generated_color_scheme(self):
         color_scheme = self.view.settings().get('color_scheme')
