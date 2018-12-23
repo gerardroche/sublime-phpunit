@@ -440,8 +440,8 @@ def filter_path(path):
     return os.path.expandvars(os.path.expanduser(path))
 
 
-def _get_phpunit_executable(working_dir, include_composer=True):
-    if include_composer:
+def _get_phpunit_executable(working_dir, include_composer_vendor_dir=True):
+    if include_composer_vendor_dir:
         if platform() == 'windows':
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
         else:
