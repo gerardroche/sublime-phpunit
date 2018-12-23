@@ -18,7 +18,7 @@ class TestGetPHPUnitExecutable(unittest.TestCase):
     @unittest.mock.patch('PHPUnitKit.plugin.platform')
     def test_composer_windows_executable(self, platform, shutil):
         platform.return_value = 'windows'
-        expected = unittest.fixtures_path('get_phpunit_executable/vendor/bin/phpunit.bat')
+        expected = unittest.fixtures_path('get_phpunit_executable\\vendor\\bin\\phpunit.bat')
         actual = _get_phpunit_executable(unittest.fixtures_path('get_phpunit_executable'))
 
         self.assertEqual(expected, actual)
