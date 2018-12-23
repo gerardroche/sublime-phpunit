@@ -28,8 +28,7 @@ def is_debug(view=None):
     if view:
         phpunit_debug = view.settings().get('phpunit.debug')
         return phpunit_debug or (
-            phpunit_debug is not False and
-            view.settings().get('debug')
+            phpunit_debug is not False and view.settings().get('debug')
         )
     else:
         return _DEBUG
