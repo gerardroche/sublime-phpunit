@@ -2,11 +2,15 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.1.0 - Unreleased
+## [3.1.0] - 2018-12-23
+
+### Added
+
+* Added: [#9](https://github.com/gerardroche/sublime-phpunit/issues/9): Use goto anything when more than one possible switchable
 
 ### Fixed
 
-* Fixed: Tests results panel show rulers
+* Fixed: Tests results panel should not show rulers
 
 ## [3.0.0] - 2018-03-06
 
@@ -491,6 +495,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.5.0...3.0.0
 [2.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.6...2.5.0
 [2.4.6]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.5...2.4.6
