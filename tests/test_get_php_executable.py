@@ -1,5 +1,7 @@
 import os
 
+import sublime
+
 from PHPUnitKit.plugin import _get_php_executable
 from PHPUnitKit.tests import unittest
 
@@ -8,7 +10,7 @@ class TestGetPHPExecutable(unittest.TestCase):
 
     def setUp(self):
         super().setUp()
-        self.versions_path = unittest.fixtures_path('get_php_executable/versions')
+        self.versions_path = unittest.fixtures_path(os.path.join('get_php_executable', 'versions'))
 
     def test_returns_none_when_no_executable_found(self):
         self.assertIsNone(_get_php_executable(unittest.fixtures_path('foobar'), self.versions_path))
@@ -30,7 +32,7 @@ class TestGetPHPExecutable(unittest.TestCase):
     @unittest.mock.patch('PHPUnitKit.plugin.platform')
     def test_linux_get_from_php_version_file(self, platform):
         platform.return_value = 'linux'
-        expected = unittest.fixtures_path(os.path.join('get_php_executable', 'versions', '7.3.0', 'bin/php'))
+        expected = unittest.fixtures_path(os.path.join('get_php_executable', 'versions', '7.3.0', 'bin', 'php'))
         actual = _get_php_executable(
             unittest.fixtures_path('get_php_executable'),
             self.versions_path,
@@ -64,5 +66,14 @@ class TestGetPHPExecutable(unittest.TestCase):
             _get_php_executable(unittest.fixtures_path('get_php_executable'), unittest.fixtures_path('foobar'))
 
     def test_non_executable_raises_exeption(self):
-        with self.assertRaisesRegex(ValueError, 'is not an executable file'):
-            _get_php_executable(unittest.fixtures_path('get_php_executable/not_executable'), self.versions_path)
+        if sublime.platform() == 'windows':
+            actual = _get_php_executable(
+                unittest.fixtures_path(os.path.join('get_php_executable', 'not_executable')),
+                self.versions_path)
+            expected = unittest.fixtures_path(os.path.join('get_php_executable', 'versions', '7.2.0', 'php.exe'))
+            self.assertEqual(actual, expected)
+        else:
+            with self.assertRaisesRegex(ValueError, 'is not an executable file'):
+                _get_php_executable(
+                    unittest.fixtures_path(os.path.join('get_php_executable', 'not_executable')),
+                    self.versions_path)
