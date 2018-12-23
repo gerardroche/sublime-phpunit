@@ -1,6 +1,7 @@
 import os
 from unittest import TestCase
 from unittest import mock  # noqa: F401
+from unittest import skipIf  # noqa: F401
 
 from sublime import find_resources
 from sublime import active_window
