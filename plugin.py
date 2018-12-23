@@ -432,8 +432,6 @@ def build_cmd_options(options, cmd):
     return cmd
 
 
-# TODO do we need to optimise the filter pattern?
-# TODO should the filter pattern have max size?
 def build_filter_option_pattern(list):
     return '::(' + '|'.join(sorted(list)) + ')( with data set .+)?$'
 
