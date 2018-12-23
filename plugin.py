@@ -457,6 +457,40 @@ def _get_phpunit_executable(working_dir, include_composer_vendor_dir=True):
         raise ValueError('phpunit not found')
 
 
+def _get_php_executable(working_dir, php_versions_path, php_executable=None):
+    php_version_file = os.path.join(working_dir, '.php-version')
+    if os.path.isfile(php_version_file):
+        with open(php_version_file, 'r') as f:
+            php_version_number = f.read().strip()
+
+        if not is_valid_php_version_file_version(php_version_number):
+            raise ValueError("'%s' file contents is not a valid version number" % php_version_file)
+
+        if not php_versions_path:
+            raise ValueError("'phpunit.php_versions_path' is not set")
+
+        php_versions_path = filter_path(php_versions_path)
+        if not os.path.isdir(php_versions_path):
+            raise ValueError("'phpunit.php_versions_path' '%s' does not exist or is not a valid directory" % php_versions_path)  # noqa: E501
+
+        if platform() == 'windows':
+            php_executable = os.path.join(php_versions_path, php_version_number, 'php.exe')
+        else:
+            php_executable = os.path.join(php_versions_path, php_version_number, 'bin', 'php')
+
+        if not is_file_executable(php_executable):
+            raise ValueError("php executable '%s' is not an executable file" % php_executable)
+
+        return php_executable
+
+    if php_executable:
+        php_executable = filter_path(php_executable)
+        if not is_file_executable(php_executable):
+            raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
+
+        return php_executable
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -652,42 +686,15 @@ class PHPUnit():
         return options
 
     def get_php_executable(self, working_dir):
-        php_version_file = os.path.join(working_dir, '.php-version')
-        if os.path.isfile(php_version_file):
-            with open(php_version_file, 'r') as f:
-                php_version_number = f.read().strip()
+        versions_path = self.view.settings().get('phpunit.php_versions_path')
+        executable = self.view.settings().get('phpunit.php_executable')
 
-            if not is_valid_php_version_file_version(php_version_number):
-                raise ValueError("'%s' file contents is not a valid version number" % php_version_file)
-
-            php_versions_path = self.view.settings().get('phpunit.php_versions_path')
-            if not php_versions_path:
-                raise ValueError("'phpunit.php_versions_path' is not set")
-
-            php_versions_path = filter_path(php_versions_path)
-            if not os.path.isdir(php_versions_path):
-                raise ValueError("'phpunit.php_versions_path' '%s' does not exist or is not a valid directory" % php_versions_path)  # noqa: E501
-
-            if platform() == 'windows':
-                php_executable = os.path.join(php_versions_path, php_version_number, 'php.exe')
-            else:
-                php_executable = os.path.join(php_versions_path, php_version_number, 'bin', 'php')
-
-            if not is_file_executable(php_executable):
-                raise ValueError("php executable '%s' is not an executable file" % php_executable)
-
-            return php_executable
-
-        php_executable = self.view.settings().get('phpunit.php_executable')
-        if php_executable:
-            php_executable = filter_path(php_executable)
-            if not is_file_executable(php_executable):
-                raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
-
-            return php_executable
+        return _get_php_executable(working_dir, versions_path, executable)
 
     def get_phpunit_executable(self, working_dir):
-        return _get_phpunit_executable(working_dir, self.view.settings().get('phpunit.composer'))
+        composer = self.view.settings().get('phpunit.composer')
+
+        return _get_phpunit_executable(working_dir, composer)
 
     def get_auto_generated_color_scheme(self):
         color_scheme = self.view.settings().get('color_scheme')
