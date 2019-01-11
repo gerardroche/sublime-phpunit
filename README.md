@@ -90,9 +90,9 @@ Key | Description
 Key | Description | Type | Default
 ----|-------------|------|--------
 `phpunit.options` | A hash of command-line options to pass through to PHPUnit. | `dict` | `{}`
-`phpunit.composer` | Use the Composer installed PHPUnit executable (if it exists), otherwise the system PATH is used to find the PHPUnit executable. If disabled, then any Composer installed PHPUnit executable is ignored. | `boolean` | `true`
-`phpunit.save_all_on_run` | Write out every buffer (in the active window), that has changes, before running tests. | `boolean` | `true`
-`phpunit.php_executable` | The PHP executable used to run PHPUnit. The default is to use the executable found on the system PATH. | `string` | The PHP executable found on the system PATH.
+`phpunit.composer` | Use the Composer installed PHPUnit executable (if it exists), otherwise the system PATH is used to find the PHPUnit executable. | `boolean` | `true`
+`phpunit.save_all_on_run` | Write out every buffer that has changes (in the active window), before running tests. | `boolean` | `true`
+`phpunit.php_executable` | The PHP executable to use when running PHPUnit. | `string` | PHP executable found on the system PATH.
 `phpunit.php_versions_path` | Location of `.php-version` file PHP versions. | `string` | `~/.phpenv/versions`
 
 ### phpunit.options
@@ -161,7 +161,7 @@ Or per-project: `Menu > Project > Edit Project`
 
 ### phpunit.save_all_on_run
 
-Write out every buffer (in the active window), that has changes, before running tests.
+Write out every buffer, that has changes (in the active window), before running tests.
 
 Global: `Menu > Preferences > Settings`
 
@@ -183,7 +183,7 @@ Or per-project: `Menu > Project > Edit Project`
 
 ### phpunit.php_executable
 
-The PHP executable used to run PHPUnit. The default is to use the executable found on the system PATH.
+The PHP executable used when running PHPUnit. The default is to use the executable found on the system PATH.
 
 All environment variables and user place-holders are expanded e.g. `~` and `$HOME` will expand to the user home directory.
 
