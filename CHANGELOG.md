@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.1.1] - 2019-02-05
+
+* Trivial fixes
+
 ## [3.1.0] - 2018-12-23
 
 ### Added
@@ -495,6 +499,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.1.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.5.0...3.0.0
 [2.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.6...2.5.0
