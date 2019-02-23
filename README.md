@@ -46,18 +46,18 @@ Close Sublime Text, then download or clone this repository to a directory named 
 
 ## Commands
 
-Command Palette | Command | Description
+name | command | description
 --------------- | ------- | -----------
-`:TestSuite` | `phpunit_test_suite` | Run test suite of the current file.
-`:TestFile` | `phpunit_test_file` | Run tests for the current file. If the current file is not a test file, it runs tests of the test file for the current file.
-`:TestNearest` | `phpunit_test_nearest` | Run a test nearest to the cursor (supports multiple selections). If the current file is not a test file, it runs tests of the test file for the current file.
-`:TestLast` | `phpunit_test_last` | Run the last test.
-`:TestVisit` | `phpunit_test_visit` | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-`:TestSwitch` | `phpunit_test_switch` | Splits the window and puts nearest test case and class under test side by side.
-`:TestResults` | `phpunit_test_results` | Show the test results panel.
-`:TestCancel` | `phpunit_test_cancel` | Cancels current test run.
-`:TestCoverage` | `phpunit_test_coverage` | Open code coverage in browser.
-`:ToggleOption`| `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
+Test Suite | `phpunit_test_suite` | Run test suite of the current file.
+Test File | `phpunit_test_file` | Run tests for the current file. If the current file is not a test file, it runs tests of the test file for the current file.
+Test Nearest | `phpunit_test_nearest` | Run a test nearest to the cursor (supports multiple selections). If the current file is not a test file, it runs tests of the test file for the current file.
+Test Last | `phpunit_test_last` | Run the last test.
+Test Visit | `phpunit_test_visit` | Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+Test Switch | `phpunit_test_switch` | Splits the window and puts nearest test case and class under test side by side.
+Test Results | `phpunit_test_results` | Show the test results panel.
+Test Cancel | `phpunit_test_cancel` | Cancels current test run.
+Test Coverage | `phpunit_test_coverage` | Open code coverage in browser.
+Toggle Option | `phpunit_toggle_option`  | Toggle PHPUnit CLI options.
 
 ## Key Bindings
 

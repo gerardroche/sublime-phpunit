@@ -752,8 +752,13 @@ class PHPUnit():
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
 
-    def run(self):
-        PHPUnit(self.window).run()
+    def run(self, **kwargs):
+        testsuite = kwargs.get('testsuite')
+        if testsuite:
+            if isinstance(testsuite, list):
+                testsuite = ','.join(testsuite).strip()
+
+        PHPUnit(self.window).run(options={'testsuite': testsuite} if testsuite else None)
 
 
 class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
