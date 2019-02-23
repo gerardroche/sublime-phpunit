@@ -1,0 +1,18 @@
+#!/usr/bin/osascript
+
+on run argv
+  tell application "iTerm2"
+    activate
+    set _window to (current window)
+    if _window is equal to missing value then
+      create window with default profile
+    end if
+    tell current window
+      tell current session
+        repeat with arg in argv
+          write text arg
+        end repeat
+      end tell
+    end tell
+  end tell
+end run
