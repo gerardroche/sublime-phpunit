@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.2.0 - Unreleased
+
+* Added: [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
+
 ## [3.1.1] - 2019-02-05
 
 * Trivial fixes

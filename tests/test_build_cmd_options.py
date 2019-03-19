@@ -45,3 +45,7 @@ class TestBuildCmdOptions(unittest.TestCase):
             ['-c', 'path/to/phpunit.xml'],
             sorted(build_cmd_options({'c': 'path/to/phpunit.xml'}, []))
         )
+
+    def test_key_equals_value_options(self):
+        self.assertEqual(['--colors=always'], build_cmd_options({'colors=always': True}, []))
+        self.assertEqual(['--colors=always'], build_cmd_options({'colors=': 'always'}, []))

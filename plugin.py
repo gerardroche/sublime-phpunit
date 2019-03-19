@@ -90,19 +90,18 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('found %d common ancestors %s', len(ancestor_folders), ancestor_folders)
+    debug_message('found %d ancestors %s', len(ancestor_folders), ancestor_folders)
 
     candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
     debug_message('candidate configuration files %s', candidate_configuration_file_names)
     for folder in ancestor_folders:
-        debug_message('looking at \'%s\'', folder)
         for file_name in candidate_configuration_file_names:
             phpunit_configuration_file = os.path.join(folder, file_name)
             if os.path.isfile(phpunit_configuration_file):
-                debug_message('found file \'%s\'', phpunit_configuration_file)
+                debug_message('found configuration \'%s\'', phpunit_configuration_file)
                 return phpunit_configuration_file
 
-    debug_message('not found')
+    debug_message('no configuration found')
 
     return None
 
@@ -425,9 +424,12 @@ def build_cmd_options(options, cmd):
                     if v is not True:
                         cmd.append(v)
             else:
-                cmd.append('--' + k)
-                if v is not True:
-                    cmd.append(v)
+                if k[-1] == '=':
+                    cmd.append('--' + k + v)
+                else:
+                    cmd.append('--' + k)
+                    if v is not True:
+                        cmd.append(v)
 
     return cmd
 
@@ -499,10 +501,10 @@ class PHPUnit():
         if not self.view:
             raise ValueError('view not found')
 
-        debug_message('view %d %s', self.view.id(), self.view.file_name())
+        debug_message('window %d view %d %s', self.window.id(), self.view.id(), self.view.file_name())
 
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('run phpunit with working_dir=%s, file=%s, options=%s', working_dir, file, options)
+        debug_message('phpunit.run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
         # Kill any currently running tests
         self.window.run_command('exec', {'kill': True})
@@ -519,7 +521,7 @@ class PHPUnit():
             if not os.path.isdir(working_dir):
                 raise ValueError('working directory does not exist or is not a valid directory')
 
-            debug_message('workingdir \'%s\'', working_dir)
+            debug_message('working dir \'%s\'', working_dir)
 
             php_executable = self.get_php_executable(working_dir)
             if php_executable:
@@ -528,7 +530,7 @@ class PHPUnit():
 
             phpunit_executable = self.get_phpunit_executable(working_dir)
             cmd.append(phpunit_executable)
-            debug_message('executable \'%s\'', phpunit_executable)
+            debug_message('phpunit executable \'%s\'', phpunit_executable)
 
             options = self.filter_options(options)
             debug_message('options %s', options)
@@ -539,7 +541,6 @@ class PHPUnit():
                 if os.path.isfile(file):
                     file = os.path.relpath(file, working_dir)
                     cmd.append(file)
-                    debug_message('file %s', file)
                 else:
                     raise ValueError('test file \'%s\' not found' % file)
 
@@ -594,37 +595,48 @@ class PHPUnit():
         panel_settings.set('color_scheme', color_scheme)
 
     def run_last(self):
-        kwargs = get_window_setting('phpunit._test_last', window=self.window)
-        debug_message('run last %s', kwargs)
-        if kwargs:
-            self.run(**kwargs)
-        else:
+        last_test_args = get_window_setting('phpunit._test_last', window=self.window)
+        if not last_test_args:
             return status_message('PHPUnit: no tests were run so far')
 
-    def run_file(self):
+        self.run(**last_test_args)
+
+    def run_file(self, options):
         file = self.view.file_name()
-        debug_message('run file %s', file)
-        if file:
-            if has_test_case(self.view):
-                self.run(file=file)
-            else:
-                find_switchable(self.view, on_select=lambda switchable: self.run(file=switchable.file))
-        else:
+        if not file:
             return status_message('PHPUnit: not a test file')
 
-    def run_nearest(self):
-        debug_message('run nearest')
         if has_test_case(self.view):
-            file = self.view.file_name()
-            options = {}
-            selected_test_methods = find_selected_test_methods(self.view)
-            if selected_test_methods:
-                options = {'filter': build_filter_option_pattern(selected_test_methods)}
+            self.run(file=file, options=options)
+        else:
+            find_switchable(
+                self.view,
+                on_select=lambda switchable: self.run(
+                    file=switchable.file,
+                    options=options
+                )
+            )
+
+    def run_nearest(self, options):
+        file = self.view.file_name()
+        if not file:
+            return status_message('PHPUnit: not a test file')
+
+        if has_test_case(self.view):
+            if 'filter' not in options:
+                selected_test_methods = find_selected_test_methods(self.view)
+                if selected_test_methods:
+                    options['filter'] = build_filter_option_pattern(selected_test_methods)
 
             self.run(file=file, options=options)
-
         else:
-            find_switchable(self.view, on_select=lambda switchable: self.run(file=switchable.file))
+            find_switchable(
+                self.view,
+                on_select=lambda switchable: self.run(
+                    file=switchable.file,
+                    options=options
+                )
+            )
 
     def show_results(self):
         self.window.run_command('show_panel', {'panel': 'output.exec'})
@@ -672,12 +684,14 @@ class PHPUnit():
             options = {}
 
         window_options = get_window_setting('phpunit.options', default={}, window=self.window)
+        debug_message('window options %s', window_options)
         if window_options:
             for k, v in window_options.items():
                 if k not in options:
                     options[k] = v
 
         view_options = self.view.settings().get('phpunit.options')
+        debug_message('view options %s', view_options)
         if view_options:
             for k, v in view_options.items():
                 if k not in options:
@@ -697,22 +711,17 @@ class PHPUnit():
         return _get_phpunit_executable(working_dir, composer)
 
     def get_auto_generated_color_scheme(self):
+        """Try to patch color scheme with default test result colors."""
         color_scheme = self.view.settings().get('color_scheme')
-        debug_message('checking if color scheme \'{}\' needs support'.format(color_scheme))
-
         if color_scheme.endswith('.sublime-color-scheme'):
             return color_scheme
 
         try:
-            # Try to patch color scheme with default test result colors
-
             color_scheme_resource = load_resource(color_scheme)
             if 'phpunitkit' in color_scheme_resource or 'PHPUnitKit' in color_scheme_resource:
-                debug_message('color scheme has plugin support')
                 return color_scheme
 
             if 'region.greenish' in color_scheme_resource:
-                debug_message('color scheme has region colorish support')
                 return color_scheme
 
             cs_head, cs_tail = os.path.split(color_scheme)
@@ -723,7 +732,7 @@ class PHPUnit():
             abs_file = os.path.join(cache_path(), __name__.split('.')[0], 'color-schemes', file_name)
             rel_file = 'Cache/{}/color-schemes/{}'.format(__name__.split('.')[0], file_name)
 
-            debug_message('auto generated color scheme = %s', rel_file)
+            debug_message('auto generating color scheme = %s', rel_file)
 
             if not os.path.exists(os.path.dirname(abs_file)):
                 os.makedirs(os.path.dirname(abs_file))
@@ -753,30 +762,25 @@ class PHPUnit():
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
 
     def run(self, **kwargs):
-        testsuite = kwargs.get('testsuite')
-        if testsuite:
-            if isinstance(testsuite, list):
-                testsuite = ','.join(testsuite).strip()
-
-        PHPUnit(self.window).run(options={'testsuite': testsuite} if testsuite else None)
+        PHPUnit(self.window).run(options=kwargs)
 
 
 class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
 
-    def run(self):
-        PHPUnit(self.window).run_file()
+    def run(self, **kwargs):
+        PHPUnit(self.window).run_file(options=kwargs)
 
 
 class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
 
-    def run(self):
-        PHPUnit(self.window).run_last()
+    def run(self, **kwargs):
+        PHPUnit(self.window).run_last(options=kwargs)
 
 
 class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 
-    def run(self):
-        PHPUnit(self.window).run_nearest()
+    def run(self, **kwargs):
+        PHPUnit(self.window).run_nearest(options=kwargs)
 
 
 class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
