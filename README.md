@@ -84,10 +84,8 @@ key | description
 You can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
 
 ```json
-{
-    // make test commands execute using iTerm2
-    "phpunit.strategy": "iterm"
-}
+// make test commands execute using iTerm2
+"phpunit.strategy": "iterm"
 ```
 
 Strategy | Identifier | Description
