@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.2.0 - Unreleased
+## [3.2.0] - 2019-03-19
 
 * Added: [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
 * Added: [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
@@ -504,6 +504,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.1...3.2.0
 [3.1.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.5.0...3.0.0
