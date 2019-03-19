@@ -4,6 +4,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.2.0 - Unreleased
 
+* Added: [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
 * Added: [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
 
 ## [3.1.1] - 2019-02-05

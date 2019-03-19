@@ -564,35 +564,49 @@ class PHPUnit():
                 if view.is_dirty() and view.file_name():
                     view.run_command('save')
 
-        self.window.run_command('exec', {
-            'env': env,
-            'cmd': cmd,
-            'file_regex': exec_file_regex(),
-            'quiet': not is_debug(self.view),
-            'shell': False,
-            'syntax': 'Packages/{}/res/text-ui-result.sublime-syntax'.format(__name__.split('.')[0]),
-            'word_wrap': False,
-            'working_dir': working_dir
-        })
-
         set_window_setting('phpunit._test_last', {
             'working_dir': working_dir,
             'file': file,
             'options': options
         }, window=self.window)
 
-        panel = self.window.create_output_panel('exec')
-        panel_settings = panel.settings()
-        panel_settings.set('rulers', [])
+        if self.view.settings().get('phpunit.strategy') == 'iterm':
+            osx_iterm_script = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), 'bin', 'osx_iterm')
 
-        if self.view.settings().has('phpunit.text_ui_result_font_size'):
-            panel_settings.set(
-                'font_size',
-                self.view.settings().get('phpunit.text_ui_result_font_size')
-            )
+            cmd = [osx_iterm_script] + cmd
 
-        color_scheme = self.get_auto_generated_color_scheme()
-        panel_settings.set('color_scheme', color_scheme)
+            self.window.run_command('exec', {
+                'env': env,
+                'cmd': cmd,
+                'quiet': not is_debug(self.view),
+                'shell': False,
+                'working_dir': working_dir
+            })
+        else:
+            self.window.run_command('exec', {
+                'env': env,
+                'cmd': cmd,
+                'file_regex': exec_file_regex(),
+                'quiet': not is_debug(self.view),
+                'shell': False,
+                'syntax': 'Packages/{}/res/text-ui-result.sublime-syntax'.format(__name__.split('.')[0]),
+                'word_wrap': False,
+                'working_dir': working_dir
+            })
+
+            panel = self.window.create_output_panel('exec')
+            panel_settings = panel.settings()
+            panel_settings.set('rulers', [])
+
+            if self.view.settings().has('phpunit.text_ui_result_font_size'):
+                panel_settings.set(
+                    'font_size',
+                    self.view.settings().get('phpunit.text_ui_result_font_size')
+                )
+
+            color_scheme = self.get_auto_generated_color_scheme()
+            panel_settings.set('color_scheme', color_scheme)
 
     def run_last(self):
         last_test_args = get_window_setting('phpunit._test_last', window=self.window)
