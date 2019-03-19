@@ -787,8 +787,8 @@ class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
 
 class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
 
-    def run(self, **kwargs):
-        PHPUnit(self.window).run_last(options=kwargs)
+    def run(self):
+        PHPUnit(self.window).run_last()
 
 
 class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):

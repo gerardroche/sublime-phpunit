@@ -166,7 +166,11 @@ Aside from the main commands, you can configure your own custom test runners (wh
 {"keys": ["ctrl+shift+c"], "command": "test_suite", "args": {"coverage-html": "build/coverage"}},
 ```
 
-The following commands accept CLI options: `phpunit_test_suite`, `phpunit_test_file`, `phpunit_test_nearest`, `phpunit_test_last`.
+The following commands accept CLI options:
+
+* `phpunit_test_suite`
+* `phpunit_test_file`
+* `phpunit_test_nearest`
 
 ## Contributing
 
