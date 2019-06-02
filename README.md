@@ -68,7 +68,7 @@ Add your preferred key bindings via `Menu > Preferences > Key Bindings` or use t
     { "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
     { "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
     { "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
-    { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" }
+    { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
     { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
     { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" }
 ]
