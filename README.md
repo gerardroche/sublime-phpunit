@@ -9,14 +9,13 @@ A Sublime Text wrapper for running tests on different granularities.
 ## Features
 
 * Run Test File
-* Run Last Test
 * Run Test Suite
 * Run Nearest Test
+* Run Last Test
 * Fully customisable configuration
 * Supports Composer installed PHPUnit
 * Supports colour results, diffs, errors, etc.
 * Jump to next and jump to previous failure
-* Supports the [unify "Test" key bindings](https://github.com/gerardroche/sublime-test) plugin
 
 ## Installation
 
