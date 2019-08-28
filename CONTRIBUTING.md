@@ -8,11 +8,25 @@ The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run
 
 ### Debugging
 
-Show the Sublime Text console log: `Menu > View > Show Console`.
+Show the Sublime Text console log: **Menu > View > Show Console**.
 
-Command and input logging are enabled by running the following commands in input box at the bottom of the console: `sublime.log_commands(True)` and `sublime.log_input(True)`.
+Command and input logging are enabled by running the following commands in input box at the bottom of the console:
 
-Running `$ SUBLIME_PHPUNIT_DEBUG=y; subl` (unix), `> set SUBLIME_PHPUNIT_DEBUG=y& "C:\Program Files\Sublime Text 3\subl.exe"` (windows), will run PHPUnitKit in debug mode. Debug messages are printed to the console log.
+```
+sublime.log_commands(True); sublime.log_input(True)
+```
+
+To enable plugin debugging on Unix:
+
+```
+$ SUBLIME_PHPUNIT_DEBUG=y subl
+```
+
+and on Windows:
+
+```
+> set SUBLIME_PHPUNIT_DEBUG=y& "C:\Program Files\Sublime Text 3\subl.exe"
+```
 
 ### Reverting to a freshly installed state
 
