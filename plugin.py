@@ -443,16 +443,22 @@ def filter_path(path):
 
 
 def _get_phpunit_executable(working_dir, include_composer_vendor_dir=True):
+    debug_message('get_phpunit_executable() include_composer_vendor_dir %s', include_composer_vendor_dir)
     if include_composer_vendor_dir:
         if platform() == 'windows':
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
+            debug_message('get_phpunit_executable() %s (windows)', composer_phpunit_executable)
         else:
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
+            debug_message('get_phpunit_executable() %s (unix)', composer_phpunit_executable)
 
         if is_file_executable(composer_phpunit_executable):
             return composer_phpunit_executable
 
+        debug_message('get_phpunit_executable() %s is not executable!', composer_phpunit_executable)
+
     executable = shutil.which('phpunit')
+    debug_message('executable=%s (global)', executable)
     if executable:
         return executable
     else:
@@ -721,6 +727,7 @@ class PHPUnit():
 
     def get_phpunit_executable(self, working_dir):
         composer = self.view.settings().get('phpunit.composer')
+        debug_message('config phpunit.composer=%s', composer)
 
         return _get_phpunit_executable(working_dir, composer)
 
