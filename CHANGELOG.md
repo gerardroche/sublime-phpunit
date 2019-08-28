@@ -2,9 +2,13 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.2.2] - 2019-08-29
+
+* Fixed: Various trivial issues
+
 ## [3.2.1] - 2019-03-19
 
-* Fixed : [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
+* Fixed: [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
 
 ## [3.2.0] - 2019-03-19
 
@@ -510,6 +514,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.1...3.2.2
 [3.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.1...3.2.0
 [3.1.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.0...3.1.1
