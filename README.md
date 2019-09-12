@@ -25,19 +25,21 @@ The preferred method of installation is [Package Control](https://packagecontrol
 
 ### Manual installation
 
-Close Sublime Text, then download or clone this repository to a directory named **"PHPUnitKit"** in the Sublime Text Packages directory for your platform:
+Close Sublime Text, then download or clone the [repository](https://github.com/gerardroche/sublime-phpunit) to a directory named **PHPUnitKit** in the Sublime Text **Packages directory** for your platform:
 
-* Linux: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/PHPUnitKit`
-* OSX: `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/PHPUnitKit`
-* Windows: `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
+OS | Command
+-- | -----
+Linux | `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/PHPUnitKit`
+OSX | `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/PHPUnitKit`
+Windows | `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
 
 ## Commands
 
 These commands are available through the Command Palette. To use the command palette. To use the command palette:
 
-1. Press `Ctrl+Shift+P`
-2. Select a command
-3. Press `Enter`
+1. Press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)
+2. Select a command (all PHPUnitKit commands begin with **PHPUnit:**)
+3. Press `Enter` to run the command
 
 command | description
 ------- | -----------
@@ -54,9 +56,9 @@ command | description
 
 ## Key Bindings
 
-Add your preferred key bindings via `Menu > Preferences > Key Bindings` or use the command palette:
+Add your preferred key bindings via **Menu > Preferences > Key Bindings** or use the command palette:
 
-1. Press `Ctrl+Shift+P`
+1. Press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)
 2. Select the "Preferences: Key Bindings" command
 3. Press `Enter`
 
