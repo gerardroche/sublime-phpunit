@@ -1,6 +1,6 @@
-# PHPUnitKit
+# Sublime PHPUnitKit
 
-A Sublime Text wrapper for running tests on different granularities.
+PHPUnit support for Sublime Text 3.
 
 [![Build Status](https://img.shields.io/travis/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://travis-ci.org/gerardroche/sublime-phpunit) [![Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Coverage Status](https://img.shields.io/coveralls/gerardroche/sublime-phpunit/master.svg?style=flat-square)](https://coveralls.io/github/gerardroche/sublime-phpunit?branch=master) [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Stable Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=stable)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square)](https://packagecontrol.io/packages/PHPUnitKit)
 
@@ -43,16 +43,16 @@ These commands are available through the Command Palette. To use the command pal
 
 command | description
 ------- | -----------
-`TestSuite` | Runs the whole test suite (if the current file is a test file, runs that framework's test suite).
-`TestFile` | In a test file runs all tests in the current file, otherwise runs that file's tests.
-`TestNearest` | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
-`TestLast` | Runs the last test.
-`TestVisit` | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-`TestSwitch` | In a test file opens the file under test, otherwise opens the test file.
-`TestResults` | Opens the test results panel.
-`TestCancel` | Cancels the test runner.
-`TestCoverage` | Opens the code coverage report in default browser.
-`ToggleOption` | Toggles PHPUnit options.
+**TestSuite** | Runs the whole test suite (if the current file is a test file, runs that framework's test suite).
+**TestFile** | In a test file runs all tests in the current file, otherwise runs that file's tests.
+**TestNearest** | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
+**TestLast** | Runs the last test.
+**TestVisit** | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+**TestSwitch** | In a test file opens the file under test, otherwise opens the test file.
+**TestResults** | Opens the test results panel.
+**TestCancel** | Cancels the test runner.
+**TestCoverage** | Opens the code coverage report in default browser.
+**ToggleOption** | Toggles PHPUnit options.
 
 ## Key Bindings
 
@@ -84,7 +84,7 @@ key | description
 
 You can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
 
-```json
+```
 // make test commands execute using iTerm2
 "phpunit.strategy": "iterm"
 ```
@@ -114,7 +114,7 @@ key | description | type | default
 
 When enabled, the test runner will checks if there is a Composer installed PHPUnit available, otherwise the system PATH will be used to find PHPUnit. When disabled, the Composer check is skipped. Composer support is enabled by default, but you can disabled it.
 
-```json
+```
 "phpunit.composer": false
 ```
 
@@ -122,7 +122,7 @@ When enabled, the test runner will checks if there is a Composer installed PHPUn
 
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
-```json
+```
 // The following options translates to:
 //
 //   --colors=never
@@ -143,7 +143,7 @@ If you want some CLI options to stick around, you can configure them in your glo
 
 You can instruct the test runner to use a custom PHP executable.
 
-```json
+```
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
 ```
 
@@ -151,7 +151,7 @@ You can instruct the test runner to use a custom PHP executable.
 
 Write out every buffer that has changes before running tests.
 
-```json
+```
 "phpunit.save_all_on_run": false
 ```
 
@@ -159,7 +159,7 @@ Write out every buffer that has changes before running tests.
 
 Aside from the main commands, you can configure your own custom test runners (which also accept options):
 
-```json
+```
 // Key Binding to run two specific test suites
 {"keys": ["ctrl+shift+a"], "command": "test_suite", "args": {"testsuite": "fizz,buzz"}},
 
