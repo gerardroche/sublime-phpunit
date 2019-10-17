@@ -434,8 +434,18 @@ def build_cmd_options(options, cmd):
     return cmd
 
 
-def build_filter_option_pattern(list):
-    return '::(' + '|'.join(sorted(list)) + ')( with data set .+)?$'
+def build_filter_option_pattern(methods):
+    test_methods = [m[4:] for m in methods if m.startswith('test')]
+
+    if len(test_methods) == len(methods):
+        methods = test_methods
+        f = '::test'
+    else:
+        f = '::'
+
+    f += '(' + '|'.join(sorted(methods)) + ')( with data set .+)?$'
+
+    return f
 
 
 def filter_path(path):
