@@ -2,9 +2,9 @@ import re
 import os
 import shutil
 
+from sublime import ENCODED_POSITION
 from sublime import active_window
 from sublime import cache_path
-from sublime import ENCODED_POSITION
 from sublime import load_resource
 from sublime import message_dialog
 from sublime import platform
