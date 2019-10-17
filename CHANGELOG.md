@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [3.3.0] - Unreleased
+## [3.3.0] - 2019-10-17
 
 * Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=default
 * Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=defects
@@ -531,7 +531,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
-[3.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.2...master
+[3.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.2...3.3.0
 [3.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.1...3.2.2
 [3.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.1...3.2.0
