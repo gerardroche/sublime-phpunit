@@ -4,6 +4,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## [3.3.0] - Unreleased
 
+* Added: New command: PHPUnit: Toggle Option --dont-report-useless-tests
 * Added: New command: PHPUnit: Toggle Option --reverse-list
 * Added: New command: PHPUnit: Toggle Option --disable-coverage-ignore
 

@@ -11,6 +11,7 @@
     { "caption": "PHPUnit: Toggle Option --debug", "command": "phpunit_toggle_option", "args": { "option": "debug" } },
     { "caption": "PHPUnit: Toggle Option --disallow-test-output", "command": "phpunit_toggle_option", "args": { "option": "disallow-test-output" } },
     { "caption": "PHPUnit: Toggle Option --disallow-todo-tests", "command": "phpunit_toggle_option", "args": { "option": "disallow-todo-tests" } },
+    { "caption": "PHPUnit: Toggle Option --dont-report-useless-tests", "command": "phpunit_toggle_option", "args": { "option": "dont-report-useless-tests" } },
     { "caption": "PHPUnit: Toggle Option --enforce-time-limit", "command": "phpunit_toggle_option", "args": { "option": "enforce-time-limit" } },
     { "caption": "PHPUnit: Toggle Option --no-coverage", "command": "phpunit_toggle_option", "args": { "option": "no-coverage" } },
     { "caption": "PHPUnit: Toggle Option --report-useless-tests", "command": "phpunit_toggle_option", "args": { "option": "report-useless-tests" } },
