@@ -4,6 +4,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## [3.3.0] - Unreleased
 
+* Added: New command: PHPUnit: Toggle Option --reverse-list
 * Added: New command: PHPUnit: Toggle Option --disable-coverage-ignore
 
 ## [3.2.2] - 2019-08-29
