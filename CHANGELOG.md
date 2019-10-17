@@ -4,6 +4,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## [3.3.0] - Unreleased
 
+* Added: New command: PHPUnit: Toggle Option --stop-on-warning
 * Added: New command: PHPUnit: Toggle Option --stop-on-defect
 * Added: New command: PHPUnit: Toggle Option --fail-on-warning
 * Added: New command: PHPUnit: Toggle Option --fail-on-risky

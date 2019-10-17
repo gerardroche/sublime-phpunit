@@ -25,6 +25,7 @@
     { "caption": "PHPUnit: Toggle Option --stop-on-incomplete", "command": "phpunit_toggle_option", "args": { "option": "stop-on-incomplete" } },
     { "caption": "PHPUnit: Toggle Option --stop-on-risky", "command": "phpunit_toggle_option", "args": { "option": "stop-on-risky" } },
     { "caption": "PHPUnit: Toggle Option --stop-on-skipped", "command": "phpunit_toggle_option", "args": { "option": "stop-on-skipped" } },
+    { "caption": "PHPUnit: Toggle Option --stop-on-warning", "command": "phpunit_toggle_option", "args": { "option": "stop-on-warning" } },
     { "caption": "PHPUnit: Toggle Option --strict-coverage", "command": "phpunit_toggle_option", "args": { "option": "strict-coverage" } },
     { "caption": "PHPUnit: Toggle Option --strict-global-state", "command": "phpunit_toggle_option", "args": { "option": "strict-global-state" } },
     { "caption": "PHPUnit: Toggle Option --tap", "command": "phpunit_toggle_option", "args": { "option": "tap" } },
