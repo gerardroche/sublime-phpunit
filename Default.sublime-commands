@@ -19,6 +19,7 @@
     { "caption": "PHPUnit: Toggle Option --no-coverage", "command": "phpunit_toggle_option", "args": { "option": "no-coverage" } },
     { "caption": "PHPUnit: Toggle Option --report-useless-tests", "command": "phpunit_toggle_option", "args": { "option": "report-useless-tests" } },
     { "caption": "PHPUnit: Toggle Option --reverse-list", "command": "phpunit_toggle_option", "args": { "option": "reverse-list" } },
+    { "caption": "PHPUnit: Toggle Option --stop-on-defect", "command": "phpunit_toggle_option", "args": { "option": "stop-on-defect" } },
     { "caption": "PHPUnit: Toggle Option --stop-on-error", "command": "phpunit_toggle_option", "args": { "option": "stop-on-error" } },
     { "caption": "PHPUnit: Toggle Option --stop-on-failure", "command": "phpunit_toggle_option", "args": { "option": "stop-on-failure" } },
     { "caption": "PHPUnit: Toggle Option --stop-on-incomplete", "command": "phpunit_toggle_option", "args": { "option": "stop-on-incomplete" } },
