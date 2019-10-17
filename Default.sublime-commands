@@ -9,6 +9,7 @@
     { "caption": "PHPUnit: Test Switch", "command": "phpunit_test_switch" },
     { "caption": "PHPUnit: Test Visit", "command": "phpunit_test_visit" },
     { "caption": "PHPUnit: Toggle Option --debug", "command": "phpunit_toggle_option", "args": { "option": "debug" } },
+    { "caption": "PHPUnit: Toggle Option --disallow-resource-usage", "command": "phpunit_toggle_option", "args": { "option": "disallow-resource-usage" } },
     { "caption": "PHPUnit: Toggle Option --disallow-test-output", "command": "phpunit_toggle_option", "args": { "option": "disallow-test-output" } },
     { "caption": "PHPUnit: Toggle Option --disallow-todo-tests", "command": "phpunit_toggle_option", "args": { "option": "disallow-todo-tests" } },
     { "caption": "PHPUnit: Toggle Option --dont-report-useless-tests", "command": "phpunit_toggle_option", "args": { "option": "dont-report-useless-tests" } },
