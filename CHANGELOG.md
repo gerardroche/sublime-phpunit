@@ -4,6 +4,12 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## [3.3.0] - Unreleased
 
+* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=default
+* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=defects
+* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=duration
+* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=no-depends
+* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=random
+* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=reverse
 * Added: New command: PHPUnit: Toggle Option --stop-on-warning
 * Added: New command: PHPUnit: Toggle Option --stop-on-defect
 * Added: New command: PHPUnit: Toggle Option --fail-on-warning
@@ -19,14 +25,14 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## [3.2.1] - 2019-03-19
 
-* Fixed: [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
+* Fixed [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
 
 ## [3.2.0] - 2019-03-19
 
 ### Added
 
-* Added: [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
-* Added: [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
+* Added [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
+* Added [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
 
 ## [3.1.1] - 2019-02-05
 
@@ -36,7 +42,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added: [#9](https://github.com/gerardroche/sublime-phpunit/issues/9): Use goto anything when more than one possible switchable
+* Added [#9](https://github.com/gerardroche/sublime-phpunit/issues/9): Use goto anything when more than one possible switchable
 
 ### Fixed
 
@@ -60,19 +66,19 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added: [#78](https://github.com/gerardroche/sublime-phpunit/issues/78): Add support for PHPUnit Pretty Result Printer
+* Added [#78](https://github.com/gerardroche/sublime-phpunit/issues/78): Add support for PHPUnit Pretty Result Printer
 
 ## [2.4.6] - 2017-12-08
 
 ### Fixed
 
-* Fixed: [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
+* Fixed [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
 
 ## [2.4.5] - 2017-12-05
 
 ### Fixed
 
-* Fixed: [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
+* Fixed [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
 
 ## [2.4.4] - 2017-11-23
 
@@ -84,7 +90,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed: [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
+* Fixed [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
 
 ## [2.4.2] - 2017-11-19
 
@@ -96,7 +102,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed: [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
+* Fixed [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
 
 ## [2.4.0] - 2017-08-23
 

@@ -1,4 +1,10 @@
 [
+    { "caption": "PHPUnit: Set Option --order-by=default", "command": "phpunit_toggle_option", "args": { "option": "order-by", "value": "default" } },
+    { "caption": "PHPUnit: Set Option --order-by=defects", "command": "phpunit_toggle_option", "args": { "option": "order-by", "value": "defects" } },
+    { "caption": "PHPUnit: Set Option --order-by=duration", "command": "phpunit_toggle_option", "args": { "option": "order-by", "value": "duration" } },
+    { "caption": "PHPUnit: Set Option --order-by=no-depends", "command": "phpunit_toggle_option", "args": { "option": "order-by", "value": "no-depends" } },
+    { "caption": "PHPUnit: Set Option --order-by=random", "command": "phpunit_toggle_option", "args": { "option": "order-by", "value": "random" } },
+    { "caption": "PHPUnit: Set Option --order-by=reverse", "command": "phpunit_toggle_option", "args": { "option": "order-by", "value": "reverse" } },
     { "caption": "PHPUnit: Test Cancel ", "command": "phpunit_test_cancel" },
     { "caption": "PHPUnit: Test Coverage", "command": "phpunit_test_coverage" },
     { "caption": "PHPUnit: Test File", "command": "phpunit_test_file" },
