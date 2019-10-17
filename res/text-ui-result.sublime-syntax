@@ -13,7 +13,7 @@ contexts:
 
     - include: scope:source.diff
 
-    - match: ^(?=(\.\.|\.(E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|E|F|I|R|S|W)$)
+    - match: ^(?=(\.\.|FF|\.(E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|E|F|I|R|S|W)$)
       push:
         - match: ^(?=Time|OK|FAILURES|ERRORS|WARNINGS)
           pop: true

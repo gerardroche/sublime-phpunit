@@ -60,6 +60,10 @@ F..S...W..E.
 #                     ^ test.progress.risky.phpunit-result
 #                      ^ test.progress.success.phpunit-result
 
+FF........................                                        26 / 26 (100%)
+#<- test.progress.failure.phpunit-result
+#^ test.progress.failure.phpunit-result
+
 Time: 385 ms, Memory: 5.50MB
 
 OK (45 tests, 81 assertions)
