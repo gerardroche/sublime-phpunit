@@ -80,20 +80,6 @@ key | description
 `F4` | Jump to Next Failure
 `Shift+F4` | Jump to Previous Failure
 
-## Strategies
-
-You can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
-
-```
-// make test commands execute using iTerm2
-"phpunit.strategy": "iterm"
-```
-
-Strategy | Identifier | Description
--------- | ---------- | -----------
-**Panel** (default) | `default` | Runs test commands in a panel at the bottom of your editor window.
-**iTerm2.app** | `iterm` | Sends test commands to iTerm2 >= 2.9 (useful in MacVim GUI).
-
 ## Configuration
 
 You can configure settings via **Menu > Preferences > Settings** or via the Command Palette (press `Ctrl+Shift+P`, select *Preferences: Settings* and press `Enter`).
@@ -103,6 +89,7 @@ key | description | type | default
 `phpunit.options` | Default CLI options. | `dict` | `{}`
 `phpunit.composer` | Use Composer installed PHPUnit. | `boolean` | `true`
 `phpunit.save_all_on_run` | Save dirty buffers before test run. | `boolean` | `true`
+`phpunit.strategy` | Run tests using different execution environments | `string` | `default`
 `phpunit.php_executable` | Custom PHP executable. | `string` | System PATH
 `phpunit.php_versions_path` | Location of phpenv versions. | `string` | `~/.phpenv/versions`
 
@@ -148,6 +135,19 @@ Write out all buffers that have changes *before* running tests.
 
 ```
 "phpunit.save_all_on_run": false
+```
+
+### phpunit.strategy
+
+You can run tests using different execution environments.
+
+strategy | identifier | description
+-------- | ---------- | -----------
+**Panel** | `default` | Runs test commands in a panel at the bottom of your editor window.
+**iTerm2.app** | `iterm` | Sends test commands to iTerm2 >= 2.9 (useful in MacVim GUI).
+
+```
+"phpunit.strategy": "iterm"
 ```
 
 ## Runner commands
