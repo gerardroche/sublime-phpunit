@@ -96,11 +96,7 @@ Strategy | Identifier | Description
 
 ## Configuration
 
-Configure settings via `Menu > Preferences > Settings` or by the Command Palette. To use the command palette:
-
-1. Press `Ctrl+Shift+P`
-2. Select the "Preferences: Settings" command
-3. Press `Enter`
+You can configure settings via **Menu > Preferences > Settings** or via the Command Palette (press `Ctrl+Shift+P`, select *Preferences: Settings* and press `Enter`).
 
 key | description | type | default
 --- | ----------- | ---- | -------
@@ -123,20 +119,19 @@ When enabled, the test runner will checks if there is a Composer installed PHPUn
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
 ```
-// The following options translates to:
-//
-//   --colors=never
-//   --coverage-html build/coverage
-//   -d "display_errors=1"
-//   -d "xdebug.scream=0"
-//   --no-coverage
 
 "phpunit.options": {
     "colors=never": true,
     "coverage-html": "build/coverage",
-    "d": ["display_errors=1", "xdebug.scream=0"],
-    "no-coverage": true
+    "no-coverage": true,
+    "d": ["display_errors=1", "xdebug.scream=0"]
 }
+```
+
+The option above translate to:
+
+```
+-d "display_errors=1" -d "xdebug.scream=0" --colors=never --coverage-html build/coverage --no-coverage
 ```
 
 ### phpunit.php_executable
@@ -149,7 +144,7 @@ You can instruct the test runner to use a custom PHP executable.
 
 ### phpunit.save_all_on_run
 
-Write out every buffer that has changes before running tests.
+Write out all buffers that have changes *before* running tests.
 
 ```
 "phpunit.save_all_on_run": false
