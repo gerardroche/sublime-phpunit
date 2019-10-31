@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.4.0 - Unreleased
+
+* Added [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Auto-run tests on save
+
 ## [3.3.0] - 2019-10-17
 
 * Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=default

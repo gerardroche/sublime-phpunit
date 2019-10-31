@@ -4,6 +4,12 @@
     // executable.
     "phpunit.composer": true,
 
+    // Allows you to trigger events when a file is saved.
+    // event | description
+    // ----- | -----------
+    // `run_test_file` | Runs the the "test file" command for the active view
+    "phpunit.on_post_save": [],
+
     // Command-line options to pass to PHPUnit.
     // https://phpunit.de/manual/current/en/textui.html#textui.clioptions
     // e.g. `{"no-coverage": true, "verbose": true}`

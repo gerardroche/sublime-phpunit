@@ -92,6 +92,7 @@ key | description | type | default
 `phpunit.strategy` | Run tests using different execution environments | `string` | `default`
 `phpunit.php_executable` | Custom PHP executable. | `string` | System PATH
 `phpunit.php_versions_path` | Location of phpenv versions. | `string` | `~/.phpenv/versions`
+`phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
 
 ### phpunit.composer
 
@@ -106,7 +107,6 @@ When enabled, the test runner will checks if there is a Composer installed PHPUn
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
 ```
-
 "phpunit.options": {
     "colors=never": true,
     "coverage-html": "build/coverage",
@@ -115,10 +115,22 @@ If you want some CLI options to stick around, you can configure them in your glo
 }
 ```
 
-The option above translate to:
+The option configuration above translates to:
 
 ```
 -d "display_errors=1" -d "xdebug.scream=0" --colors=never --coverage-html build/coverage --no-coverage
+```
+
+### phpunit.on_post_save
+
+The "on post save" option allows you to trigger events when a file is saved.
+
+event | description
+----- | -----------
+`run_test_file` | Runs the the "test file" command for the active view.
+
+```
+"phpunit.on_post_save": ["run_test_file"]
 ```
 
 ### phpunit.php_executable

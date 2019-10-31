@@ -621,6 +621,15 @@ class PHPUnit():
             })
 
             panel = self.window.create_output_panel('exec')
+
+            header_text = []
+            if env:
+                header_text.append("env: {}\n".format(env))
+
+            header_text.append("{}\n\n".format(' '.join(cmd)))
+
+            panel.run_command('insert', {'characters': ''.join(header_text)})
+
             panel_settings = panel.settings()
             panel_settings.set('rulers', [])
 
@@ -640,7 +649,10 @@ class PHPUnit():
 
         self.run(**last_test_args)
 
-    def run_file(self, options):
+    def run_file(self, options=None):
+        if options is None:
+            options = {}
+
         file = self.view.file_name()
         if not file:
             return status_message('PHPUnit: not a test file')
@@ -865,3 +877,18 @@ class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         PHPUnit(self.window).open_coverage_report()
+
+
+class PhpunitEvents(sublime_plugin.EventListener):
+
+    def on_post_save(self, view):
+        file_name = view.file_name()
+        if not file_name:
+            return
+
+        if not file_name.endswith('.php'):
+            return
+
+        on_post_save_events = view.settings().get('phpunit.on_post_save')
+        if 'run_test_file' in on_post_save_events:
+            PHPUnit(view.window()).run_file()
