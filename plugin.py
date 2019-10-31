@@ -6,7 +6,6 @@ from sublime import ENCODED_POSITION
 from sublime import active_window
 from sublime import cache_path
 from sublime import load_resource
-from sublime import message_dialog
 from sublime import platform
 from sublime import status_message
 import sublime_plugin
@@ -22,6 +21,16 @@ if _DEBUG:
 else:  # pragma: no cover
     def debug_message(msg, *args):
         pass
+
+
+def message(msg, *args):
+    if args:
+        msg = msg % args
+
+    msg = 'PHPUnit: ' + msg
+
+    print(msg)
+    status_message(msg)
 
 
 def is_debug(view=None):
@@ -309,7 +318,7 @@ def find_switchable(view, on_select=None):
 
     classes = find_php_classes(view, with_namespace=True)
     if len(classes) == 0:
-        return message_dialog('PHPUnit\n\nCould not find a test case or class under test.')
+        return message('could not find a test case or class under test for %s', file)
 
     debug_message('file contains %s class %s', len(classes), classes)
 
@@ -341,9 +350,9 @@ def find_switchable(view, on_select=None):
 
     if len(locations) == 0:
         if has_test_case(view):
-            return message_dialog('PHPUnit\n\nCould not find class under test.')
+            return message('could not find class under test for %s', file)
         else:
-            return message_dialog('PHPUnit\n\nCould not test case.')
+            return message('could not find test case for %s', file)
 
     def _on_select(index):
         if index == -1:
