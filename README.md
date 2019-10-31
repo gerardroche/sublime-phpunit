@@ -88,11 +88,11 @@ key | description | type | default
 --- | ----------- | ---- | -------
 `phpunit.options` | Default CLI options. | `dict` | `{}`
 `phpunit.composer` | Use Composer installed PHPUnit. | `boolean` | `true`
-`phpunit.save_all_on_run` | Save dirty buffers before test run. | `boolean` | `true`
-`phpunit.strategy` | Run tests using different execution environments | `string` | `default`
+`phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
 `phpunit.php_executable` | Custom PHP executable. | `string` | System PATH
 `phpunit.php_versions_path` | Location of phpenv versions. | `string` | `~/.phpenv/versions`
-`phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
+`phpunit.save_all_on_run` | Save dirty buffers before test run. | `boolean` | `true`
+`phpunit.strategy` | Run tests using different execution environments | `string` | `default`
 
 ### phpunit.composer
 

@@ -890,5 +890,6 @@ class PhpunitEvents(sublime_plugin.EventListener):
             return
 
         on_post_save_events = view.settings().get('phpunit.on_post_save')
+
         if 'run_test_file' in on_post_save_events:
             PHPUnit(view.window()).run_file()
