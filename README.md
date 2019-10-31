@@ -86,13 +86,13 @@ You can configure settings via **Menu > Preferences > Settings** or via the Comm
 
 key | description | type | default
 --- | ----------- | ---- | -------
-`phpunit.options` | Default CLI options. | `dict` | `{}`
-`phpunit.composer` | Use Composer installed PHPUnit. | `boolean` | `true`
+`phpunit.options` | Default options to use when running PHPUnit. | `dict` | `{}`
+`phpunit.composer` | Use PHPUnit installed by Composer? | `boolean` | `true`
 `phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
-`phpunit.php_executable` | Custom PHP executable. | `string` | System PATH
-`phpunit.php_versions_path` | Location of phpenv versions. | `string` | `~/.phpenv/versions`
-`phpunit.save_all_on_run` | Save dirty buffers before test run. | `boolean` | `true`
-`phpunit.strategy` | Run tests using different execution environments | `string` | `default`
+`phpunit.php_executable` | Path to PHP executable. | `string` | Use system PATH
+`phpunit.php_versions_path` | Path to phpenv versions. | `string` | `~/.phpenv/versions`
+`phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `boolean` | `true`
+`phpunit.strategy` | Execution environment. | `string` | `default`
 
 ### phpunit.composer
 
@@ -143,7 +143,7 @@ You can instruct the test runner to use a custom PHP executable.
 
 ### phpunit.save_all_on_run
 
-Write out all buffers that have changes *before* running tests.
+Save all dirty buffers (views that have unsaved changes) *before* running tests.
 
 ```
 "phpunit.save_all_on_run": false
