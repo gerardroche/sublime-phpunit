@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.4.0 - Unreleased
+## [3.4.0] - 2019-11-13
 
 * Added [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Auto-run tests on save
 
@@ -535,6 +535,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.2...3.3.0
 [3.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.1...3.2.2
 [3.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.0...3.2.1
