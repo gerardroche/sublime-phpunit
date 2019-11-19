@@ -35,11 +35,7 @@ Windows | `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA
 
 ## Commands
 
-These commands are available through the Command Palette. To use the command palette. To use the command palette:
-
-1. Press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)
-2. Select a command (all PHPUnitKit commands begin with **PHPUnit:**)
-3. Press `Enter` to run the command
+All of the following commands are available via the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)) and are all prefixed with "PHPUnit: ".
 
 command | description
 ------- | -----------
@@ -56,11 +52,7 @@ command | description
 
 ## Key Bindings
 
-Add your preferred key bindings via **Menu > Preferences > Key Bindings** or use the command palette:
-
-1. Press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)
-2. Select the "Preferences: Key Bindings" command
-3. Press `Enter`
+Add your preferred key bindings via **Menu > Preferences > Key Bindings** or the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X), select "Preferences: Key Bindings" and press `enter`).
 
 ```json
 [
@@ -82,7 +74,7 @@ key | description
 
 ## Configuration
 
-You can configure settings via **Menu > Preferences > Settings** or via the Command Palette (press `Ctrl+Shift+P`, select *Preferences: Settings* and press `Enter`).
+You can configure the plugin via **Menu > Preferences > Settings** or the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X), select "Preferences: Settings" and press `enter`).
 
 key | description | type | default
 --- | ----------- | ---- | -------
@@ -162,9 +154,10 @@ strategy | identifier | description
 "phpunit.strategy": "iterm"
 ```
 
-## Runner commands
+## Custom commands
 
-Aside from the main commands, you can create your own custom test runner commands. All test runner commands accepts any CLI options accepted by PHPUnit.
+Aside from the main commands out-of-the-box, you can create your own custom test commands. The commands `phpunit_test_suite`, `phpunit_test_file`, `phpunit_test_nearest` accept any CLI option accepted by PHPUnit, for example:
+
 
 ```
 // Key Binding to run two specific test suites
@@ -173,12 +166,6 @@ Aside from the main commands, you can create your own custom test runner command
 // Key Binding to run test suite with code coverage
 {"keys": ["ctrl+shift+c"], "command": "test_suite", "args": {"coverage-html": "build/coverage"}},
 ```
-
-The following commands accept CLI options:
-
-* `phpunit_test_suite`
-* `phpunit_test_file`
-* `phpunit_test_nearest`
 
 ## Contributing
 
