@@ -94,14 +94,6 @@ key | description | type | default
 `phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `boolean` | `true`
 `phpunit.strategy` | Execution environment. | `string` | `default`
 
-### phpunit.composer
-
-When enabled, the test runner will checks if there is a Composer installed PHPUnit available, otherwise the system PATH will be used to find PHPUnit. When disabled, the Composer check is skipped. Composer support is enabled by default, but you can disabled it.
-
-```
-"phpunit.composer": false
-```
-
 ### phpunit.options
 
 If you want some CLI options to stick around, you can configure them in your global preferences:
@@ -115,15 +107,23 @@ If you want some CLI options to stick around, you can configure them in your glo
 }
 ```
 
-The option configuration above translates to:
+The above transforms the options and passes them to the PHPUnit executable:
 
 ```
 -d "display_errors=1" -d "xdebug.scream=0" --colors=never --coverage-html build/coverage --no-coverage
 ```
 
+### phpunit.composer
+
+When enabled, the test runner will use the PHPUnit executable installed by Composer, otherwise the system PATH will be used to find the executable. Composer support is enabled by default.
+
+```
+"phpunit.composer": true
+```
+
 ### phpunit.on_post_save
 
-The "on post save" option allows you to trigger events when a file is saved.
+The "on post save" option allows you to trigger events after you save a file, for example you run the test file command (currently this is the only event supported). Defaults to `[]` (no events).
 
 event | description
 ----- | -----------
@@ -135,7 +135,7 @@ event | description
 
 ### phpunit.php_executable
 
-You can instruct the test runner to use a custom PHP executable.
+You can instruct the test runner to use a custom PHP executable, otherwise the system PATH is used to find the executable.
 
 ```
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
@@ -143,15 +143,15 @@ You can instruct the test runner to use a custom PHP executable.
 
 ### phpunit.save_all_on_run
 
-Save all dirty buffers (views that have unsaved changes) *before* running tests.
+You can automatically save all views that have unsaved buffers (dirty buffers) *before* tests are run. Defaults to true.
 
 ```
-"phpunit.save_all_on_run": false
+"phpunit.save_all_on_run": true
 ```
 
 ### phpunit.strategy
 
-You can run tests using different execution environments.
+You can run tests using different execution environments. Here is a table of available environments. The default is to use Sublime's builtin build panel.
 
 strategy | identifier | description
 -------- | ---------- | -----------
@@ -164,7 +164,7 @@ strategy | identifier | description
 
 ## Runner commands
 
-Aside from the main commands, you can configure your own custom test runners (which also accept options):
+Aside from the main commands, you can create your own custom test runner commands. All test runner commands accepts any CLI options accepted by PHPUnit.
 
 ```
 // Key Binding to run two specific test suites
