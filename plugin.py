@@ -90,7 +90,7 @@ def find_phpunit_configuration_file(file_name, folders):
     if not len(folders) > 0:
         return None
 
-    ancestor_folders = []
+    ancestor_folders = []  # type: list
     common_prefix = os.path.commonprefix(folders)
     parent = os.path.dirname(file_name)
     while parent not in ancestor_folders and parent.startswith(common_prefix):
@@ -322,7 +322,7 @@ def find_switchable(view, on_select=None):
 
     debug_message('file contains %s class %s', len(classes), classes)
 
-    locations = []
+    locations = []  # type: list
     for _class in classes:
         class_name = _class['class']
 
@@ -338,7 +338,7 @@ def find_switchable(view, on_select=None):
 
     def unique_locations(locations):
         locs = []
-        seen = set()
+        seen = set()  # type: set
         for location in locations:
             if location[0] not in seen:
                 seen.add(location[0])
