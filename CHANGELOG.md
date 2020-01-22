@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.5.0 - Unreleased
+
+* Added: Support for ST4
+
 ## [3.4.0] - 2019-11-13
 
 * Added [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Auto-run tests on save

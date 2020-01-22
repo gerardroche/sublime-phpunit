@@ -179,7 +179,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
                     $this->assertTrue(true);
                 }
 
-                pu|blic function testOne()
+                public fun|ction testOne()
                 {
                     $this->assertTrue(true);
                 }
