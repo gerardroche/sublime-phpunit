@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.5.0 - Unreleased
+## [3.5.0] - 2020-01-22
 
 * Added: Support for ST4
 
@@ -539,6 +539,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.4.0...3.5.0
 [3.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.2...3.3.0
 [3.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.1...3.2.2
