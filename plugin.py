@@ -69,8 +69,8 @@ def find_phpunit_configuration_file(file_name, folders):
     Finds either phpunit.xml or phpunit.xml.dist, in {file_name} directory or
     the nearest common ancestor directory in {folders}.
     """
-    debug_message('find configuration for \'%s\'', file_name)
-    debug_message('found %d folders %s', len(folders) if folders else 0, folders)
+    debug_message('find configuration for \'%s\' ...', file_name)
+    debug_message('  found %d folders %s', len(folders) if folders else 0, folders)
 
     if file_name is None:
         return None
@@ -99,18 +99,18 @@ def find_phpunit_configuration_file(file_name, folders):
 
     ancestor_folders.sort(reverse=True)
 
-    debug_message('found %d ancestors %s', len(ancestor_folders), ancestor_folders)
+    debug_message('  found %d possible locations %s', len(ancestor_folders), ancestor_folders)
 
     candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
-    debug_message('candidate configuration files %s', candidate_configuration_file_names)
+    debug_message('  looking for %s ...', candidate_configuration_file_names)
     for folder in ancestor_folders:
         for file_name in candidate_configuration_file_names:
             phpunit_configuration_file = os.path.join(folder, file_name)
             if os.path.isfile(phpunit_configuration_file):
-                debug_message('found configuration \'%s\'', phpunit_configuration_file)
+                debug_message('  found configuration \'%s\'', phpunit_configuration_file)
                 return phpunit_configuration_file
 
-    debug_message('no configuration found')
+    debug_message('  no configuration found')
 
     return None
 
@@ -462,22 +462,22 @@ def filter_path(path):
 
 
 def _get_phpunit_executable(working_dir, include_composer_vendor_dir=True):
-    debug_message('get_phpunit_executable() include_composer_vendor_dir %s', include_composer_vendor_dir)
+    debug_message('find phpunit executable composer=%s', include_composer_vendor_dir)
     if include_composer_vendor_dir:
         if platform() == 'windows':
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
-            debug_message('get_phpunit_executable() %s (windows)', composer_phpunit_executable)
+            debug_message('  found \'%s\' (windows)', composer_phpunit_executable)
         else:
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
-            debug_message('get_phpunit_executable() %s (unix)', composer_phpunit_executable)
+            debug_message('  found \'%s\' (unix)', composer_phpunit_executable)
 
         if is_file_executable(composer_phpunit_executable):
             return composer_phpunit_executable
 
-        debug_message('get_phpunit_executable() %s is not executable!', composer_phpunit_executable)
+        debug_message('  Warning: \'%s\' is not executable!', composer_phpunit_executable)
 
     executable = shutil.which('phpunit')
-    debug_message('executable=%s (global)', executable)
+    debug_message('  found \'%s\' (global)', executable)
     if executable:
         return executable
     else:
@@ -526,10 +526,10 @@ class PHPUnit():
         if not self.view:
             raise ValueError('view not found')
 
-        debug_message('window %d view %d %s', self.window.id(), self.view.id(), self.view.file_name())
+        debug_message('init %s', self.view.file_name())
 
     def run(self, working_dir=None, file=None, options=None):
-        debug_message('phpunit.run working_dir=%s, file=%s, options=%s', working_dir, file, options)
+        debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
         # Kill any currently running tests
         self.window.run_command('exec', {'kill': True})
@@ -551,7 +551,7 @@ class PHPUnit():
             php_executable = self.get_php_executable(working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
-                debug_message('php executable = %s', php_executable)
+                debug_message('php executable \'%s\'', php_executable)
 
             phpunit_executable = self.get_phpunit_executable(working_dir)
             cmd.append(phpunit_executable)
@@ -766,7 +766,7 @@ class PHPUnit():
 
     def get_phpunit_executable(self, working_dir):
         composer = self.view.settings().get('phpunit.composer')
-        debug_message('config phpunit.composer=%s', composer)
+        debug_message('phpunit.composer = %s', composer)
 
         return _get_phpunit_executable(working_dir, composer)
 
