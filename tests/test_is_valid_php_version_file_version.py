@@ -33,6 +33,11 @@ class TestIsValidPhpVersionFileVersion(unittest.TestCase):
         self.assertTrue(is_valid_php_version_file_version('7.0.0'))
         self.assertTrue(is_valid_php_version_file_version('7.1.19'))
 
+    def test_minor_versions(self):
+        self.assertTrue(is_valid_php_version_file_version('5.6'))
+        self.assertTrue(is_valid_php_version_file_version('7.1'))
+        self.assertTrue(is_valid_php_version_file_version('7.2'))
+
     def test_major_dot_x_versions(self):
         self.assertTrue(is_valid_php_version_file_version('5.x'))
         self.assertTrue(is_valid_php_version_file_version('6.x'))

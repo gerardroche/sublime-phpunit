@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.5.1 - Unreleased
+
+* Fixed: `.php-version` files should accept minor version formats e.g. 7.4
+
 ## [3.5.0] - 2020-01-22
 
 * Added: Support for ST4
