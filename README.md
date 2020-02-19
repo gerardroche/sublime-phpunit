@@ -1,4 +1,4 @@
-# Sublime PHPUnitKit
+# PHPUnit
 
 PHPUnit support for Sublime Text.
 
