@@ -768,6 +768,12 @@ class PHPUnit():
         composer = self.view.settings().get('phpunit.composer')
         debug_message('phpunit.composer = %s', composer)
 
+        executable = self.view.settings().get('phpunit.executable')
+        if executable:
+            executable = filter_path(executable)
+            debug_message('phpunit.executable = %s', executable)
+            return executable
+
         return _get_phpunit_executable(working_dir, composer)
 
     def get_auto_generated_color_scheme(self):

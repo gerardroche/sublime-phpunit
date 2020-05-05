@@ -4,6 +4,13 @@
     // executable.
     "phpunit.composer": true,
 
+    // The PHPUnit executable to use when running tests. The default is to look
+    // for a composer installed phpunit executable, if phpunit.composer is
+    // enabled, or to look for one on the system PATH. Environment variables and
+    // user place-holders are expanded e.g. $HOME and ~ will be replaced with
+    // the user home directory.
+    // "phpunit.executable": "~/path/to/bin/phpunit",
+
     // Allows you to trigger events when a file is saved.
     // event | description
     // ----- | -----------
@@ -15,9 +22,10 @@
     // e.g. `{"no-coverage": true, "verbose": true}`
     "phpunit.options": {},
 
-    // // The PHP executable to use when running PHPUnit. The default is to use the
-    // // PHP executable found on the system PATH. Environment variables and user
-    // // place-holders are expanded e.g. `~` and `$HOME`.
+    // The PHP executable to use when running tests. The default is to look for
+    // a PHP executable found on the system PATH. Environment variables and user
+    // place-holders are expanded e.g. $HOME and ~ will be replaced with the
+    // user home directory.
     // "phpunit.php_executable": "~/.phpenv/versions/7.x/bin/php",
 
     // Path to find php versions. The expected location of the PHP executables

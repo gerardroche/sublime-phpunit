@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.6.0 - Unreleased
+
+### Added
+
+* Added [#98](https://github.com/gerardroche/sublime-phpunit/issues/98): Add `phpunit.executable` setting to set custom phpunit path
+
 ## [3.5.1] - 2020-01-24
 
 * Fixed: `.php-version` files should accept minor version formats e.g. 7.4

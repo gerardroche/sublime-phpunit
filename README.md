@@ -1,8 +1,8 @@
 # PHPUnit
 
-PHPUnit support for Sublime Text.
-
 [![Travis CI Build Status](https://img.shields.io/travis/gerardroche/sublime-phpunit/master.svg?style=flat-square&label=travisci)](https://travis-ci.org/gerardroche/sublime-phpunit) [![AppVeyor Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square&label=appveyor)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Coveralls Coverage Status](https://img.shields.io/coveralls/gerardroche/sublime-phpunit/master.svg?style=flat-square&label=coveralls)](https://coveralls.io/github/gerardroche/sublime-phpunit?branch=master) [![Codecov Coverage Status](https://img.shields.io/codecov/c/github/gerardroche/sublime-phpunit/master?style=flat-square&label=codecov)](https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master) [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=version)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square)](https://packagecontrol.io/packages/PHPUnitKit)
+
+PHPUnit support for Sublime Text.
 
 ![Screenshot](screenshot.png)
 
@@ -80,11 +80,11 @@ key | description | type | default
 --- | ----------- | ---- | -------
 `phpunit.options` | Default options to use when running PHPUnit. | `dict` | `{}`
 `phpunit.composer` | Use PHPUnit installed by Composer? | `boolean` | `true`
+`phpunit.executable` | Path to PHPUnit executable. | `string` | Auto discover using Composer or the system PATH
 `phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
-`phpunit.php_executable` | Path to PHP executable. | `string` | Use system PATH
-`phpunit.php_versions_path` | Path to phpenv versions. | `string` | `~/.phpenv/versions`
+`phpunit.php_executable` | Path to PHP executable. | `string` | Auto discover using the system PATH
 `phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `boolean` | `true`
-`phpunit.strategy` | Execution environment. | `string` | `default`
+`phpunit.strategy` | Execution environment. | `string` | `default` (output panel)
 
 ### phpunit.options
 
@@ -113,6 +113,14 @@ When enabled, the test runner will use the PHPUnit executable installed by Compo
 "phpunit.composer": true
 ```
 
+### phpunit.executable
+
+You can instruct the test runner to use a custom PHPUnit executable. The default is to auto discover one using Composer, if `phpunit.composer` is enabled, or using the system PATH.
+
+```
+"phpunit.executable": "~/path/to/bin/phpunit"
+```
+
 ### phpunit.on_post_save
 
 The "on post save" option allows you to trigger events after you save a file, for example you run the test file command (currently this is the only event supported). Defaults to `[]` (no events).
@@ -127,7 +135,7 @@ event | description
 
 ### phpunit.php_executable
 
-You can instruct the test runner to use a custom PHP executable, otherwise the system PATH is used to find the executable.
+You can instruct the test runner to use a custom PHP executable. The default is to auto discover one using the system PATH.
 
 ```
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
@@ -156,8 +164,7 @@ strategy | identifier | description
 
 ## Custom commands
 
-Aside from the main commands out-of-the-box, you can create your own custom test commands. The commands `phpunit_test_suite`, `phpunit_test_file`, `phpunit_test_nearest` accept any CLI option accepted by PHPUnit, for example:
-
+Aside from the main commands out-of-the-box, you can create your own custom test commands. The commands `phpunit_test_suite`, `phpunit_test_file`, `phpunit_test_nearest` accept any CLI option accepted by PHPUnit:
 
 ```
 // Key Binding to run two specific test suites
