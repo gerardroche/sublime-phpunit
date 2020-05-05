@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.6.0 - Unreleased
+## [3.6.0] - 2020-05-05
 
 ### Added
 
@@ -549,6 +549,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.6.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.5.1...3.6.0
 [3.5.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.5.0...3.5.1
 [3.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.4.0...3.5.0
 [3.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.3.0...3.4.0
