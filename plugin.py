@@ -294,7 +294,7 @@ def refine_switchable_locations(locations, file):
     debug_message('files=%s', files)
 
     if len(locations) > 1:
-        common_prefix = os.path.commonprefix([l[0] for l in locations])
+        common_prefix = os.path.commonprefix([loc[0] for loc in locations])
         if common_prefix != '/':
             files = [file.replace(common_prefix, '') for file in files]
 
@@ -380,7 +380,7 @@ def find_switchable(view, on_select=None):
     if is_exact and len(locations) == 1:
         return _on_select(0)
 
-    window.show_quick_panel(['{}:{}'.format(l[1], l[2][0]) for l in locations], _on_select)
+    window.show_quick_panel(['{}:{}'.format(loc[1], loc[2][0]) for loc in locations], _on_select)
 
 
 def put_views_side_by_side(view_a, view_b):
