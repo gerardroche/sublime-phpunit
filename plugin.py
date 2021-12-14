@@ -270,6 +270,82 @@ class Switchable:
         return file + encoded_postion
 
 
+def find_switchable(view, on_select=None):
+    # Args:
+    #   view (View)
+    #   on_select (callable)
+    #
+    # Returns:
+    #   void
+    window = view.window()
+
+    if on_select is None:
+        raise ValueError('a callable is required')
+
+    file = view.file_name()
+    debug_message('switch: %s', file)
+
+    classes = find_php_classes(view, with_namespace=True)
+    if len(classes) == 0:
+        return message('could not find a test case or class under test for %s', file)
+
+    debug_message('found %s class in switch: %s', len(classes), classes)
+
+    locations = []  # type: list
+    for _class in classes:
+        class_name = _class['class']
+
+        if class_name[-4:] == 'Test':
+            symbol = class_name[:-4]
+        else:
+            symbol = class_name + 'Test'
+
+        symbol_locations = window.lookup_symbol_in_index(symbol)
+        locations += symbol_locations
+
+    debug_message('found %s possible locations to switch to: %s', len(locations), locations)
+
+    def unique_locations(locations):
+        locs = []
+        seen = set()  # type: set
+        for location in locations:
+            if location[0] not in seen:
+                seen.add(location[0])
+                locs.append(location)
+
+        return locs
+
+    locations = unique_locations(locations)
+
+    if len(locations) == 0:
+        if has_test_case(view):
+            return message('could not find class under test for %s', file)
+        else:
+            return message('could not find test case for %s', file)
+
+    def _on_select(index):
+        if index == -1:
+            return
+
+        switchable = Switchable(locations[index])
+
+        if on_select is not None:
+            on_select(switchable)
+
+    if len(locations) == 1:
+        return _on_select(0)
+
+    locations, is_exact = refine_switchable_locations(locations=locations, file=file)
+
+    debug_message('is_exact=%s', is_exact)
+    debug_message('locations(%s)=%s', len(locations), locations)
+
+    if is_exact and len(locations) == 1:
+        return _on_select(0)
+
+    window.show_quick_panel(['{}:{}'.format(loc[1], loc[2][0]) for loc in locations], _on_select)
+
+
 def refine_switchable_locations(locations, file):
     debug_message('refine location')
     if not file:
@@ -308,79 +384,6 @@ def refine_switchable_locations(locations, file):
                 return [location], True
 
     return locations, False
-
-
-def find_switchable(view, on_select=None):
-    # Args:
-    #   view (View)
-    #   on_select (callable)
-    #
-    # Returns:
-    #   void
-    window = view.window()
-
-    if on_select is None:
-        raise ValueError('a callable is required')
-
-    file = view.file_name()
-    debug_message('file=%s', file)
-
-    classes = find_php_classes(view, with_namespace=True)
-    if len(classes) == 0:
-        return message('could not find a test case or class under test for %s', file)
-
-    debug_message('file contains %s class %s', len(classes), classes)
-
-    locations = []  # type: list
-    for _class in classes:
-        class_name = _class['class']
-
-        if class_name[-4:] == 'Test':
-            symbol = class_name[:-4]
-        else:
-            symbol = class_name + 'Test'
-
-        symbol_locations = window.lookup_symbol_in_index(symbol)
-        locations += symbol_locations
-
-    debug_message('class has %s location %s', len(locations), locations)
-
-    def unique_locations(locations):
-        locs = []
-        seen = set()  # type: set
-        for location in locations:
-            if location[0] not in seen:
-                seen.add(location[0])
-                locs.append(location)
-
-        return locs
-
-    locations = unique_locations(locations)
-
-    if len(locations) == 0:
-        if has_test_case(view):
-            return message('could not find class under test for %s', file)
-        else:
-            return message('could not find test case for %s', file)
-
-    def _on_select(index):
-        if index == -1:
-            return
-
-        switchable = Switchable(locations[index])
-
-        if on_select is not None:
-            on_select(switchable)
-
-    locations, is_exact = refine_switchable_locations(locations=locations, file=file)
-
-    debug_message('is_exact=%s', is_exact)
-    debug_message('locations(%s)=%s', len(locations), locations)
-
-    if is_exact and len(locations) == 1:
-        return _on_select(0)
-
-    window.show_quick_panel(['{}:{}'.format(loc[1], loc[2][0]) for loc in locations], _on_select)
 
 
 def put_views_side_by_side(view_a, view_b):
