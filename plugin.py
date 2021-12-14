@@ -43,6 +43,15 @@ def is_debug(view=None):
         return _DEBUG
 
 
+def get_active_view(window):
+    active_view = window.active_view()
+
+    if not active_view:
+        raise ValueError('view not found')
+
+    return active_view
+
+
 def get_window_setting(key, default=None, window=None):
     if not window:
         window = active_window()
@@ -518,48 +527,37 @@ def _get_php_executable(working_dir, php_versions_path, php_executable=None):
         return php_executable
 
 
+def kill_any_running_tests(window) -> None:
+    window.run_command('exec', {'kill': True})
+
+
 class PHPUnit():
 
     def __init__(self, window):
         self.window = window
-        self.view = self.window.active_view()
-        if not self.view:
-            raise ValueError('view not found')
-
-        debug_message('init %s', self.view.file_name())
+        self.view = get_active_view(window)
+        debug_message('init %s', None)
 
     def run(self, working_dir=None, file=None, options=None):
         debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
-        # Kill any currently running tests
-        self.window.run_command('exec', {'kill': True})
+        kill_any_running_tests(self.window)
 
         env = {}
-        cmd = []
 
         try:
-            if not working_dir:
-                working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
-                if not working_dir:
-                    raise ValueError('working directory not found')
-
-            if not os.path.isdir(working_dir):
-                raise ValueError('working directory does not exist or is not a valid directory')
-
-            debug_message('working dir \'%s\'', working_dir)
-
+            working_dir = self.get_working_dir(working_dir)
             php_executable = self.get_php_executable(working_dir)
+
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
-                debug_message('php executable \'%s\'', php_executable)
 
             phpunit_executable = self.get_phpunit_executable(working_dir)
-            cmd.append(phpunit_executable)
-            debug_message('phpunit executable \'%s\'', phpunit_executable)
 
             options = self.filter_options(options)
-            debug_message('options %s', options)
 
+            cmd = []
+            cmd.append(phpunit_executable)
             cmd = build_cmd_options(options, cmd)
 
             if file:
@@ -578,8 +576,15 @@ class PHPUnit():
             print('PHPUnit: \'{}\''.format(e))
             raise e
 
-        debug_message('env %s', env)
-        debug_message('cmd %s', cmd)
+        debug_message(
+            '*** Configuration ***\n  working dir: %s\n  php: %s\n  phpunit: %s\n  options: %s\n  env: %s\n  cmd: %s',
+            working_dir,
+            php_executable,
+            phpunit_executable,
+            options,
+            env,
+            cmd
+        )
 
         if self.view.settings().get('phpunit.save_all_on_run'):
             # Write out every buffer in active
@@ -641,6 +646,17 @@ class PHPUnit():
 
             color_scheme = self.get_auto_generated_color_scheme()
             panel_settings.set('color_scheme', color_scheme)
+
+    def get_working_dir(self, working_dir) -> str:
+        if not working_dir:
+            working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
+            if not working_dir:
+                raise ValueError('working directory not found')
+
+        if not os.path.isdir(working_dir):
+            raise ValueError('working directory does not exist or is not a valid directory')
+
+        return working_dir
 
     def run_last(self):
         last_test_args = get_window_setting('phpunit._test_last', window=self.window)
@@ -766,12 +782,12 @@ class PHPUnit():
 
     def get_phpunit_executable(self, working_dir):
         composer = self.view.settings().get('phpunit.composer')
-        debug_message('phpunit.composer = %s', composer)
+        debug_message('phpunit.composer: %s', composer)
 
         executable = self.view.settings().get('phpunit.executable')
         if executable:
             executable = filter_path(executable)
-            debug_message('phpunit.executable = %s', executable)
+            debug_message('phpunit.executable: %s', executable)
             return executable
 
         return _get_phpunit_executable(working_dir, composer)
