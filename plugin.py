@@ -637,6 +637,7 @@ class PHPUnit():
 
             panel_settings = panel.settings()
             panel_settings.set('rulers', [])
+            panel_settings.set('highlight_line', False)
 
             if self.view.settings().has('phpunit.text_ui_result_font_size'):
                 panel_settings.set(
