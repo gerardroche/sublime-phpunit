@@ -4,9 +4,9 @@
 
 [![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=version)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square)](https://packagecontrol.io/packages/PHPUnitKit)
 
-PHPUnit support for Sublime Text.
+PHPUnit support for [Sublime Text](https://sublimetext.com).
 
-![Screenshot](screenshot.png)
+![PHPUnitKit Screenshot](screenshot.png)
 
 ## Features
 
