@@ -15,6 +15,10 @@
     // event | description
     // ----- | -----------
     // `run_test_file` | Runs the the "test file" command for the active view
+    //
+    // == Example
+    //
+    // "phpunit.on_post_save": ["run_test_file"]
     "phpunit.on_post_save": [],
 
     // Command-line options to pass to PHPUnit.
