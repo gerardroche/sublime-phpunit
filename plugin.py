@@ -360,13 +360,19 @@ def refine_switchable_locations(locations, file):
         file = file.replace('Test.php', '.php')
         files.append(re.sub('(\\/)?[tT]ests\\/([uU]nit\\/)?', '/', file))
         files.append(re.sub('(\\/)?[tT]ests\\/', '/src/', file))
+        files.append(re.sub('(\\/)?[tT]ests\\/Unit/', '/app/', file))
+        files.append(re.sub('(\\/)?[tT]ests\\/Integration/', '/app/', file))
     else:
         file_is_test_case = False
         file = file.replace('.php', 'Test.php')
         files.append(file)
+        files.append(re.sub('(\\/)?app\\/', '/tests/', file))
+        files.append(re.sub('(\\/)?app\\/', '/tests/Unit/', file))
+        files.append(re.sub('(\\/)?app\\/', '/tests/Integration/', file))
         files.append(re.sub('(\\/)?src\\/', '/', file))
         files.append(re.sub('(\\/)?src\\/', '/test/', file))
 
+    files = list(set(files))
     debug_message('files=%s', files)
 
     if len(locations) > 1:

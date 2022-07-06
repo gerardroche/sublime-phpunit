@@ -18,8 +18,16 @@ class TestSwitchable(unittest.TestCase):
 
 class TestRefineSwitchableLocations(unittest.TestCase):
 
-    def assertLocation(self, file, location):
-        self.assertEqual(refine_switchable_locations(locations=[location], file=file), ([location], True))
+    def assertLocation(self, file, locations, expected=None):
+        if not isinstance(locations, list):
+            locations = [locations]
+
+        if expected is None:
+            expected = (locations, True)
+        else:
+            expected = expected
+
+        self.assertEqual(refine_switchable_locations(locations=locations, file=file), expected)
 
     def assertNotLocation(self, file, location):
         self.assertEqual(refine_switchable_locations(locations=[location], file=file), ([location], False))
@@ -49,6 +57,23 @@ class TestRefineSwitchableLocations(unittest.TestCase):
         self.assertLocation('/path/to/Tests/Unit/NameTest.php',         ('/path/to/Name.php', 'to/Name.php', (0, 0)))  # noqa: E241,E501
         self.assertLocation('/path/to/Tests/unit/NameTest.php',         ('/path/to/Name.php', 'to/Name.php', (0, 0)))  # noqa: E241,E501
         self.assertLocation('/path/to/a/lib/x/y/src/Name.php',          ('/path/to/a/lib/x/y/tests/NameTest.php', 'a/lib/x/y/tests/NameTest.php', (5, 13)))  # noqa: E241,E501
+
+    def test_test_complicated(self):
+        self.assertLocation(
+            file='/p/x/tests/Unit/A/S/T/B/NameTest.php',
+            locations=[
+                ('/p/x/app/A/B/T/S/Name.php', 'x/app/A/B/T/S/Name.php', (15, 13)),
+                ('/p/x/app/A/S/T/B/Name.php', 'x/app/A/S/T/B/Name.php', (15, 13))],
+            expected=([
+                ('/p/x/app/A/S/T/B/Name.php', 'x/app/A/S/T/B/Name.php', (15, 13))], True))
+
+        self.assertLocation(
+            file='/p/x/app/A/S/T/B/Name.php',
+            locations=[
+                ('/p/x/tests/Unit/A/B/T/S/NameTest.php', 'x/tests/Unit/A/B/T/S/NameTest.php', (18, 13)),
+                ('/p/x/tests/Unit/A/S/T/B/NameTest.php', 'x/tests/Unit/A/S/T/B/NameTest.php', (16, 13))],
+            expected=([
+                ('/p/x/tests/Unit/A/S/T/B/NameTest.php', 'x/tests/Unit/A/S/T/B/NameTest.php', (16, 13))], True))
 
     def test_no_match(self):
         expected = ('/vendor/x/y/tests/a/b/FooTest.php', 'x/y/tests/a/b/FooTest.php', (5, 7))
