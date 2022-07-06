@@ -1,6 +1,11 @@
 #!/usr/bin/osascript
 
 on run argv
+  set cmd to ""
+  repeat with arg in argv
+    set cmd to cmd & " " & quoted form of arg
+  end repeat
+
   tell application "iTerm2"
     activate
     set _window to (current window)
@@ -9,9 +14,7 @@ on run argv
     end if
     tell current window
       tell current session
-        repeat with arg in argv
-          write text arg
-        end repeat
+        write text cmd
       end tell
     end tell
   end tell
