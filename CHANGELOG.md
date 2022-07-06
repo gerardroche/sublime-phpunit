@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.6.2] - 2022-07-06
+
+* Fixed: Switching misses matching switchable and displays overlay
+
 ## [3.6.1] - 2021-12-14
 
 * Fixed: Switching should go straight to file when only one result
