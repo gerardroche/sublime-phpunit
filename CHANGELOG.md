@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.6.3] - 2022-07-06
+
+* Added [#101](https://github.com/gerardroche/sublime-phpunit/issues/29): Remaining arguments are lost when running on iterm (OSX)
+
 ## [3.6.2] - 2022-07-06
 
 * Fixed: Switching misses matching switchable and displays overlay
@@ -557,6 +561,8 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Initial import; PHPUnit support
 
+[3.6.3]: https://github.com/gerardroche/sublime-phpunit/compare/3.6.2...3.6.3
+[3.6.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.6.1...3.6.2
 [3.6.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.6.0...3.6.1
 [3.6.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.5.1...3.6.0
 [3.5.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.5.0...3.5.1
