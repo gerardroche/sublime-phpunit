@@ -622,6 +622,16 @@ class PHPUnit():
                 'shell': False,
                 'working_dir': working_dir
             })
+        elif self.view.settings().get('phpunit.strategy') == 'kitty':
+            cmd = ['kitty', '--hold'] + cmd
+
+            self.window.run_command('exec', {
+                'env': env,
+                'cmd': cmd,
+                'quiet': not is_debug(self.view),
+                'shell': False,
+                'working_dir': working_dir
+            })
         else:
             self.window.run_command('exec', {
                 'env': env,
