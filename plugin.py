@@ -149,7 +149,7 @@ def find_php_classes(view, with_namespace=False):
 
     # See https://github.com/sublimehq/sublime_text/issues/5499
     if int(version()) >= 4134:
-        namespace_selector = 'embedding.php meta.namespace meta.path,'
+        namespace_selector = 'embedding.php meta.namespace meta.path'
         class_as_regions_selector = 'embedding.php entity.name.class - meta.use'
     else:
         namespace_selector = 'source.php entity.name.namespace'
