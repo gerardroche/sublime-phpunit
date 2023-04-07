@@ -557,6 +557,7 @@ class PHPUnit():
         try:
             working_dir = self.get_working_dir(working_dir)
             php_executable = self.get_php_executable(working_dir)
+            prepend_cmd = self.view.settings().get('phpunit.prepend_cmd')
 
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
@@ -592,7 +593,7 @@ class PHPUnit():
             phpunit_executable,
             options,
             env,
-            cmd
+            prepend_cmd + cmd
         )
 
         if self.view.settings().get('phpunit.save_all_on_run'):
@@ -613,7 +614,7 @@ class PHPUnit():
             osx_iterm_script = os.path.join(
                 os.path.dirname(os.path.realpath(__file__)), 'bin', 'osx_iterm')
 
-            cmd = [osx_iterm_script] + cmd
+            cmd = prepend_cmd + [osx_iterm_script] + cmd
 
             self.window.run_command('exec', {
                 'env': env,
@@ -623,6 +624,8 @@ class PHPUnit():
                 'working_dir': working_dir
             })
         else:
+            cmd = prepend_cmd + cmd
+
             self.window.run_command('exec', {
                 'env': env,
                 'cmd': cmd,
