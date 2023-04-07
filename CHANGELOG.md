@@ -2,9 +2,15 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.7.0 - Unreleased
+
+### Fixed
+
+* Fixed [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): Support for syntax updates in build `>=` 4134
+
 ## [3.6.3] - 2022-07-06
 
-* Added [#101](https://github.com/gerardroche/sublime-phpunit/issues/29): Remaining arguments are lost when running on iterm (OSX)
+* Added [#101](https://github.com/gerardroche/sublime-phpunit/issues/101): Remaining arguments are lost when running on iterm (OSX)
 
 ## [3.6.2] - 2022-07-06
 

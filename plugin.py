@@ -8,6 +8,7 @@ from sublime import cache_path
 from sublime import load_resource
 from sublime import platform
 from sublime import status_message
+from sublime import version
 import sublime_plugin
 
 
@@ -146,12 +147,20 @@ def find_php_classes(view, with_namespace=False):
     """Return list of class names defined in the view."""
     classes = []
 
+    # See https://github.com/sublimehq/sublime_text/issues/5499
+    if int(version()) >= 4134:
+        namespace_selector = 'embedding.php meta.namespace meta.path,'
+        class_as_regions_selector = 'embedding.php entity.name.class - meta.use'
+    else:
+        namespace_selector = 'source.php entity.name.namespace'
+        class_as_regions_selector = 'source.php entity.name.class - meta.use'
+
     namespace = None
-    for namespace_region in view.find_by_selector('source.php entity.name.namespace'):
+    for namespace_region in view.find_by_selector(namespace_selector):
         namespace = view.substr(namespace_region)
         break  # TODO handle files with multiple namespaces
 
-    for class_as_region in view.find_by_selector('source.php entity.name.class - meta.use'):
+    for class_as_region in view.find_by_selector(class_as_regions_selector):
         class_as_string = view.substr(class_as_region)
         if is_valid_php_identifier(class_as_string):
             if with_namespace:
@@ -162,12 +171,12 @@ def find_php_classes(view, with_namespace=False):
             else:
                 classes.append(class_as_string)
 
-    # BC: < 3114
-    if not classes:  # pragma: no cover
-        for class_as_region in view.find_by_selector('source.php entity.name.type.class - meta.use'):
-            class_as_string = view.substr(class_as_region)
-            if is_valid_php_identifier(class_as_string):
-                classes.append(class_as_string)
+    if int(version()) <= 3114:  # pragma: no cover
+        if not classes:
+            for class_as_region in view.find_by_selector('source.php entity.name.type.class - meta.use'):
+                class_as_string = view.substr(class_as_region)
+                if is_valid_php_identifier(class_as_string):
+                    classes.append(class_as_string)
 
     return classes
 
