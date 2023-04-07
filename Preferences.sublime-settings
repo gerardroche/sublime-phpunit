@@ -41,5 +41,8 @@
 
     // Enable writing out every buffer (in the active window) with changes
     // before running tests.
-    "phpunit.save_all_on_run": true
+    "phpunit.save_all_on_run": true,
+
+    // Prepends given command to the test command.
+    "phpunit.prepend_cmd": [],
 }
