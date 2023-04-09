@@ -72,6 +72,10 @@ def set_window_setting(key: str, value, window) -> None:
     window.settings().set(key, value)
 
 
+def get_setting(view, name: str):
+    return view.settings().get('phpunit.%s' % name)
+
+
 def find_phpunit_configuration_file(file_name, folders):
     """
     Find the first PHPUnit configuration file.
@@ -664,8 +668,8 @@ class PHPUnit():
             options = self.filter_options(options)
 
             cmd = []
-            cmd += self.view.settings().get('phpunit.prepend_cmd')
-            if self.view.settings().get('phpunit.strategy') == 'iterm':
+            cmd += get_setting(self.view, 'prepend_cmd')
+            if get_setting(self.view, 'strategy') == 'iterm':
                 cmd.append(get_osx_term_script_path())
             cmd += phpunit_executable
             cmd = build_cmd_options(options, cmd)
@@ -696,7 +700,7 @@ class PHPUnit():
             cmd
         )
 
-        if self.view.settings().get('phpunit.save_all_on_run'):
+        if get_setting(self.view, 'save_all_on_run'):
             save_all_views(self.window)
 
         set_window_setting('phpunit._test_last', {
@@ -705,7 +709,7 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
-        if self.view.settings().get('phpunit.strategy') == 'iterm':
+        if get_setting(self.view, 'strategy') == 'iterm':
             self.window.run_command('exec', {
                 'env': env,
                 'cmd': cmd,
@@ -845,7 +849,7 @@ class PHPUnit():
                 if k not in options:
                     options[k] = v
 
-        view_options = self.view.settings().get('phpunit.options')
+        view_options = get_setting(self.view, 'options')
         debug_message('view options %s', view_options)
         if view_options:
             for k, v in view_options.items():
@@ -855,16 +859,16 @@ class PHPUnit():
         return options
 
     def get_php_executable(self, working_dir):
-        versions_path = self.view.settings().get('phpunit.php_versions_path')
-        executable = self.view.settings().get('phpunit.php_executable')
+        versions_path = get_setting(self.view, 'php_versions_path')
+        executable = get_setting(self.view, 'php_executable')
 
         return _get_php_executable(working_dir, versions_path, executable)
 
     def get_phpunit_executable(self, working_dir: str) -> list:
-        composer = self.view.settings().get('phpunit.composer')
+        composer = get_setting(self.view, 'composer')
         debug_message('phpunit.composer: %s', composer)
 
-        executable = self.view.settings().get('phpunit.executable')
+        executable = get_setting(self.view, 'executable')
         if executable:
             executable = filter_path(executable)
             debug_message('phpunit.executable: %s', executable)
