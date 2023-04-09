@@ -10,15 +10,15 @@ class TestPHPUnitGetPHPUnitExecutable(unittest.ViewTestCase):
     def test_get_user_phpunit_executable(self):
         phpunit = PHPUnit(self.view.window())
         self.view.settings().set('phpunit.executable', 'fizz')
-        self.assertEqual('fizz', phpunit.get_phpunit_executable(working_dir='foo'))
+        self.assertEqual(['fizz'], phpunit.get_phpunit_executable(working_dir='foo'))
 
     def test_get_user_phpunit_executable_is_filtered(self):
         phpunit = PHPUnit(self.view.window())
         home = os.path.expanduser('~')
         self.view.settings().set('phpunit.executable', '~')
-        self.assertEqual(home, phpunit.get_phpunit_executable(working_dir='foo'))
+        self.assertEqual([home], phpunit.get_phpunit_executable(working_dir='foo'))
         self.view.settings().set('phpunit.executable', '$HOME')
-        self.assertEqual(home, phpunit.get_phpunit_executable(working_dir='foo'))
+        self.assertEqual([home], phpunit.get_phpunit_executable(working_dir='foo'))
 
     def test_get_user_phpunit_executable_allows_executable_as_list(self):
         phpunit = PHPUnit(self.view.window())

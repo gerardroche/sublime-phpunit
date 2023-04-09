@@ -809,7 +809,7 @@ class PHPUnit():
         if executable:
             executable = filter_path(executable)
             debug_message('phpunit.executable: %s', executable)
-            return executable
+            return executable if isinstance(executable, list) else [executable]
 
         return [_get_phpunit_executable(working_dir, composer)]
 
