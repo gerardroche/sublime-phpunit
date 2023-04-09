@@ -860,14 +860,14 @@ class PHPUnit():
         return _get_php_executable(working_dir, versions_path, executable)
 
     def get_phpunit_executable(self, working_dir: str) -> list:
-        composer = get_setting(self.view, 'composer')
-        debug_message('phpunit.composer: %s', composer)
-
         executable = get_setting(self.view, 'executable')
         if executable:
             executable = filter_path(executable)
             debug_message('phpunit.executable: %s', executable)
             return executable if isinstance(executable, list) else [executable]
+
+        composer = get_setting(self.view, 'composer')
+        debug_message('phpunit.composer: %s', composer)
 
         return [_get_phpunit_executable(working_dir, composer)]
 
