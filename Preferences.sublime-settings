@@ -1,7 +1,6 @@
 {
     // If enabled and a Composer installed PHPUnit is found then it is used to
-    // run the tests, otherwise the system PATH is used to find the PHPUnit
-    // executable.
+    // run the tests, otherwise the system PATH is used to find PHPUnit.
     "phpunit.composer": true,
 
     // The PHPUnit executable to use when running tests. The default is to look
@@ -11,15 +10,15 @@
     // the user home directory.
     // "phpunit.executable": "~/path/to/bin/phpunit",
 
-    // Allows you to trigger events when a file is saved.
-    // event | description
-    // ----- | -----------
-    // `run_test_file` | Runs the the "test file" command for the active view
+    // Trigger events when a file is saved.
     //
-    // == Example
+    // Event         | Description
+    // ------------- | -----------------------------------------------------
+    // run_test_file | Automatically runs "Test File" when the view is saved
     //
-    // "phpunit.on_post_save": ["run_test_file"]
-    "phpunit.on_post_save": [],
+    "phpunit.on_post_save": [
+        // "run_test_file"
+    ],
 
     // Command-line options to pass to PHPUnit.
     // https://phpunit.de/manual/current/en/textui.html#textui.clioptions
