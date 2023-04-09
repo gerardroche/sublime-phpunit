@@ -681,7 +681,9 @@ class PHPUnit():
         except Exception as e:
             status_message('PHPUnit: {}'.format(e))
             print('PHPUnit: \'{}\''.format(e))
-            raise e
+            if is_debug(self.view):
+                raise e
+            return
 
         debug_message(
             '*** Configuration ***\n  working dir: %s\n  php: %s\n  phpunit: %s\n  options: %s\n  env: %s\n  cmd: %s',
