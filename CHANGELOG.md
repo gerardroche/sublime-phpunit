@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.8.0 - Unreleased
+
+### Added
+
+* Added [#107](https://github.com/gerardroche/sublime-phpunit/issues/107): Support PHPUnit 10 dist file name `phpunit.dist.xml`
+
 ## 3.7.0 - 2023-04-07
 
 ### Added

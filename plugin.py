@@ -111,7 +111,7 @@ def find_phpunit_configuration_file(file_name, folders):
 
     debug_message('  found %d possible locations %s', len(ancestor_folders), ancestor_folders)
 
-    candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist']
+    candidate_configuration_file_names = ['phpunit.xml', 'phpunit.xml.dist', 'phpunit.dist.xml']
     debug_message('  looking for %s ...', candidate_configuration_file_names)
     for folder in ancestor_folders:
         for file_name in candidate_configuration_file_names:

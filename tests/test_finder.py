@@ -55,6 +55,23 @@ class TestFinders(unittest.TestCase):
         expected = os.path.dirname(expected)
         self.assertEqual(expected, find_phpunit_working_directory(file, folders))
 
+    def test_find_phpunit_dist_xml(self):
+        base_file_dir = os.path.join(unittest.fixtures_path(), 'common_prefix_parent', 'has_phpunit_dist_xml')
+
+        file = os.path.join(base_file_dir, 'src', 'Has', 'PHPUnitDistXml.php')
+
+        folders = [
+            os.path.join(unittest.fixtures_path(), 'common_prefix_parent'),
+            os.path.join(unittest.fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml'),
+            os.path.join(unittest.fixtures_path(), 'common_prefix_parent', 'has_phpunit_dist_xml')
+        ]
+
+        expected = os.path.join(base_file_dir, 'phpunit.dist.xml')
+        self.assertEqual(expected, find_phpunit_configuration_file(file, folders))
+
+        expected = os.path.dirname(expected)
+        self.assertEqual(expected, find_phpunit_working_directory(file, folders))
+
     def test_find_phpunit_xml_before_phpunit_xml_dist(self):
         base_file_dir = os.path.join(unittest.fixtures_path(), 'common_prefix_parent', 'has_phpunit_xml')
 
