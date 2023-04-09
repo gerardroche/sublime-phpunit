@@ -569,7 +569,6 @@ class PHPUnit():
         try:
             working_dir = self.get_working_dir(working_dir)
             php_executable = self.get_php_executable(working_dir)
-            prepend_cmd = self.view.settings().get('phpunit.prepend_cmd')
 
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
@@ -598,6 +597,8 @@ class PHPUnit():
             print('PHPUnit: \'{}\''.format(e))
             raise e
 
+        cmd_prefix = self.view.settings().get('phpunit.prepend_cmd')
+
         debug_message(
             '*** Configuration ***\n  working dir: %s\n  php: %s\n  phpunit: %s\n  options: %s\n  env: %s\n  cmd: %s',
             working_dir,
@@ -605,7 +606,7 @@ class PHPUnit():
             phpunit_executable,
             options,
             env,
-            prepend_cmd + cmd
+            cmd_prefix + cmd
         )
 
         if self.view.settings().get('phpunit.save_all_on_run'):
@@ -626,21 +627,17 @@ class PHPUnit():
             osx_iterm_script = os.path.join(
                 os.path.dirname(os.path.realpath(__file__)), 'bin', 'osx_iterm')
 
-            cmd = prepend_cmd + [osx_iterm_script] + cmd
-
             self.window.run_command('exec', {
                 'env': env,
-                'cmd': cmd,
+                'cmd': cmd_prefix + [osx_iterm_script] + cmd,
                 'quiet': not is_debug(self.view),
                 'shell': False,
                 'working_dir': working_dir
             })
         else:
-            cmd = prepend_cmd + cmd
-
             self.window.run_command('exec', {
                 'env': env,
-                'cmd': cmd,
+                'cmd': cmd_prefix + cmd,
                 'file_regex': exec_file_regex(),
                 'quiet': not is_debug(self.view),
                 'shell': False,
