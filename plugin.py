@@ -558,6 +558,12 @@ def get_osx_term_script_path() -> str:
         'osx_iterm')
 
 
+def save_all_views(window) -> None:
+    for view in window.views():
+        if view.is_dirty() and view.file_name():
+            view.run_command('save')
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -616,12 +622,7 @@ class PHPUnit():
         )
 
         if self.view.settings().get('phpunit.save_all_on_run'):
-            # Write out every buffer in active
-            # window that has changes and is
-            # a real file on disk.
-            for view in self.window.views():
-                if view.is_dirty() and view.file_name():
-                    view.run_command('save')
+            save_all_views(self.window)
 
         set_window_setting('phpunit._test_last', {
             'working_dir': working_dir,
