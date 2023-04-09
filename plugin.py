@@ -551,6 +551,13 @@ def kill_any_running_tests(window) -> None:
     window.run_command('exec', {'kill': True})
 
 
+def get_osx_term_script_path() -> str:
+    return os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'bin',
+        'osx_iterm')
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -623,12 +630,9 @@ class PHPUnit():
         }, window=self.window)
 
         if self.view.settings().get('phpunit.strategy') == 'iterm':
-            osx_iterm_script = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), 'bin', 'osx_iterm')
-
             self.window.run_command('exec', {
                 'env': env,
-                'cmd': cmd_prefix + [osx_iterm_script] + cmd,
+                'cmd': cmd_prefix + [get_osx_term_script_path()] + cmd,
                 'quiet': not is_debug(self.view),
                 'shell': False,
                 'working_dir': working_dir
