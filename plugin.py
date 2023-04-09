@@ -590,6 +590,8 @@ class PHPUnit():
             options = self.filter_options(options)
 
             cmd = []
+            if self.view.settings().get('phpunit.strategy') == 'iterm':
+                cmd.append(get_osx_term_script_path())
             cmd += phpunit_executable
             cmd = build_cmd_options(options, cmd)
 
@@ -633,7 +635,7 @@ class PHPUnit():
         if self.view.settings().get('phpunit.strategy') == 'iterm':
             self.window.run_command('exec', {
                 'env': env,
-                'cmd': cmd_prefix + [get_osx_term_script_path()] + cmd,
+                'cmd': cmd_prefix + cmd,
                 'quiet': not is_debug(self.view),
                 'shell': False,
                 'working_dir': working_dir
