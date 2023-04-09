@@ -590,6 +590,7 @@ class PHPUnit():
             options = self.filter_options(options)
 
             cmd = []
+            cmd += self.view.settings().get('phpunit.prepend_cmd')
             if self.view.settings().get('phpunit.strategy') == 'iterm':
                 cmd.append(get_osx_term_script_path())
             cmd += phpunit_executable
@@ -611,8 +612,6 @@ class PHPUnit():
             print('PHPUnit: \'{}\''.format(e))
             raise e
 
-        cmd_prefix = self.view.settings().get('phpunit.prepend_cmd')
-
         debug_message(
             '*** Configuration ***\n  working dir: %s\n  php: %s\n  phpunit: %s\n  options: %s\n  env: %s\n  cmd: %s',
             working_dir,
@@ -620,7 +619,7 @@ class PHPUnit():
             phpunit_executable,
             options,
             env,
-            cmd_prefix + cmd
+            cmd
         )
 
         if self.view.settings().get('phpunit.save_all_on_run'):
@@ -635,7 +634,7 @@ class PHPUnit():
         if self.view.settings().get('phpunit.strategy') == 'iterm':
             self.window.run_command('exec', {
                 'env': env,
-                'cmd': cmd_prefix + cmd,
+                'cmd': cmd,
                 'quiet': not is_debug(self.view),
                 'shell': False,
                 'working_dir': working_dir
@@ -643,7 +642,7 @@ class PHPUnit():
         else:
             self.window.run_command('exec', {
                 'env': env,
-                'cmd': cmd_prefix + cmd,
+                'cmd': cmd,
                 'file_regex': exec_file_regex(),
                 'quiet': not is_debug(self.view),
                 'shell': False,
