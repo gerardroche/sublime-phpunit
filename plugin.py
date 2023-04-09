@@ -15,16 +15,16 @@ import sublime_plugin
 _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
 if _DEBUG:
-    def debug_message(msg, *args):
+    def debug_message(msg, *args) -> None:
         if args:
             msg = msg % args
         print('PHPUnit: ' + msg)
 else:  # pragma: no cover
-    def debug_message(msg, *args):
+    def debug_message(msg, *args) -> None:
         pass
 
 
-def message(msg, *args):
+def message(msg, *args) -> None:
     if args:
         msg = msg % args
 
@@ -34,7 +34,7 @@ def message(msg, *args):
     status_message(msg)
 
 
-def is_debug(view=None):
+def is_debug(view=None) -> bool:
     if view:
         phpunit_debug = view.settings().get('phpunit.debug')
         return phpunit_debug or (
@@ -68,7 +68,7 @@ def get_window_setting(key, default=None, window=None):
     return default
 
 
-def set_window_setting(key, value, window):
+def set_window_setting(key: str, value, window) -> None:
     window.settings().set(key, value)
 
 
@@ -131,11 +131,11 @@ def find_phpunit_working_directory(file_name, folders):
         return os.path.dirname(configuration_file)
 
 
-def is_valid_php_identifier(string):
-    return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string)
+def is_valid_php_identifier(string: str) -> bool:
+    return bool(re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string))
 
 
-def has_test_case(view):
+def has_test_case(view) -> bool:
     """Return True if the view contains a valid PHPUnit test case."""
     for php_class in find_php_classes(view):
         if php_class[-4:] == 'Test':
@@ -143,8 +143,7 @@ def has_test_case(view):
     return False
 
 
-def find_php_classes(view, with_namespace=False):
-    """Return list of class names defined in the view."""
+def find_php_classes(view, with_namespace: bool = False) -> list:
     classes = []
 
     # See https://github.com/sublimehq/sublime_text/issues/5499
@@ -181,7 +180,7 @@ def find_php_classes(view, with_namespace=False):
     return classes
 
 
-def find_selected_test_methods(view):
+def find_selected_test_methods(view) -> list:
     """
     Return a list of selected test method names.
 
@@ -401,7 +400,7 @@ def refine_switchable_locations(locations, file):
     return locations, False
 
 
-def put_views_side_by_side(view_a, view_b):
+def put_views_side_by_side(view_a, view_b) -> None:
     if view_a == view_b:
         return
 
@@ -470,7 +469,7 @@ def build_cmd_options(options: dict, cmd: list) -> list:
     return cmd
 
 
-def build_filter_option_pattern(methods):
+def build_filter_option_pattern(methods: list) -> str:
     test_methods = [m[4:] for m in methods if m.startswith('test')]
 
     if len(test_methods) == len(methods):
@@ -559,7 +558,7 @@ class PHPUnit():
         self.view = get_active_view(window)
         debug_message('init %s', None)
 
-    def run(self, working_dir=None, file=None, options=None):
+    def run(self, working_dir=None, file=None, options=None) -> None:
         debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
         kill_any_running_tests(self.window)
@@ -680,14 +679,14 @@ class PHPUnit():
 
         return working_dir
 
-    def run_last(self):
+    def run_last(self) -> None:
         last_test_args = get_window_setting('phpunit._test_last', window=self.window)
         if not last_test_args:
             return status_message('PHPUnit: no tests were run so far')
 
         self.run(**last_test_args)
 
-    def run_file(self, options=None):
+    def run_file(self, options=None) -> None:
         if options is None:
             options = {}
 
@@ -706,7 +705,7 @@ class PHPUnit():
                 )
             )
 
-    def run_nearest(self, options):
+    def run_nearest(self, options) -> None:
         file = self.view.file_name()
         if not file:
             return status_message('PHPUnit: not a test file')
@@ -727,13 +726,13 @@ class PHPUnit():
                 )
             )
 
-    def show_results(self):
+    def show_results(self) -> None:
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
-    def cancel(self):
+    def cancel(self) -> None:
         self.window.run_command('exec', {'kill': True})
 
-    def open_coverage_report(self):
+    def open_coverage_report(self) -> None:
         working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
         if not working_dir:
             return status_message('PHPUnit: could not find a PHPUnit working directory')
@@ -745,14 +744,14 @@ class PHPUnit():
         import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
 
-    def switch(self):
+    def switch(self) -> None:
         def _on_switchable(switchable):
             self.window.open_file(switchable.file_encoded_position(self.view), ENCODED_POSITION)
             put_views_side_by_side(self.view, self.window.active_view())
 
         find_switchable(self.view, on_select=_on_switchable)
 
-    def visit(self):
+    def visit(self) -> None:
         test_last = get_window_setting('phpunit._test_last', window=self.window)
         if test_last:
             if 'file' in test_last and 'working_dir' in test_last:
@@ -763,7 +762,7 @@ class PHPUnit():
 
         return status_message('PHPUnit: no tests were run so far')
 
-    def toggle_option(self, option, value=None):
+    def toggle_option(self, option, value=None) -> None:
         options = get_window_setting('phpunit.options', default={}, window=self.window)
 
         if value is None:
@@ -776,7 +775,7 @@ class PHPUnit():
 
         set_window_setting('phpunit.options', options, window=self.window)
 
-    def filter_options(self, options):
+    def filter_options(self, options) -> dict:
         if options is None:
             options = {}
 
