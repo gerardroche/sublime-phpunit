@@ -805,12 +805,9 @@ class PHPUnit():
         composer = self.view.settings().get('phpunit.composer')
         debug_message('phpunit.composer: %s', composer)
 
-        custom_commands = self.view.settings().get('phpunit.replace_phpunit_cmd_if_key_exists')
+        phpunit_replacement_cmd = self.get_phpunit_replacement_cmd(working_dir)
 
-        for k, v in custom_commands.items():
-            if not os.path.exists(k):
-                continue
-            return [cmd.replace('$WORK_DIR', working_dir) for cmd in v]
+        if phpunit_replacement_cmd: return phpunit_replacement_cmd
 
         executable = self.view.settings().get('phpunit.executable')
         if executable:
@@ -819,6 +816,16 @@ class PHPUnit():
             return [executable]
 
         return [_get_phpunit_executable(working_dir, composer)]
+
+    def get_phpunit_replacement_cmd(self, working_dir):
+        custom_commands = self.view.settings().get('phpunit.replace_phpunit_cmd_if_key_exists')
+
+        for k, v in custom_commands.items():
+            if not os.path.exists(k):
+                continue
+            return [cmd.replace('$WORK_DIR', working_dir) for cmd in v]
+
+        return False
 
     def get_auto_generated_color_scheme(self):
         """Try to patch color scheme with default test result colors."""
