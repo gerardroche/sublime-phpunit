@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
+* Added [#108](https://github.com/NeoVintageous/NeoVintageous/issues/108): Allow `phpunit.executable` to be set as `list`
 * Added [#107](https://github.com/gerardroche/sublime-phpunit/issues/107): Support PHPUnit 10 dist file name `phpunit.dist.xml`
 
 ## 3.7.0 - 2023-04-07

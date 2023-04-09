@@ -429,25 +429,25 @@ def put_views_side_by_side(view_a, view_b):
         window.focus_view(view_b)
 
 
-def exec_file_regex():
+def exec_file_regex() -> str:
     if platform() == 'windows':
         return '((?:[a-zA-Z]\\:)?\\\\[a-zA-Z0-9 \\.\\/\\\\_-]+)(?: on line |\\:)([0-9]+)'
     else:
         return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\\:)([0-9]+)'
 
 
-def is_file_executable(file):
+def is_file_executable(file: str) -> bool:
     return os.path.isfile(file) and os.access(file, os.X_OK)
 
 
-def is_valid_php_version_file_version(version):
+def is_valid_php_version_file_version(version: str) -> bool:
     return bool(re.match(
         '^(?:master|[1-9](?:\\.[0-9]+)?(?:snapshot|\\.[0-9]+(?:snapshot)?)|[1-9]\\.x|[1-9]\\.[0-9]+\\.x)$',
         version
     ))
 
 
-def build_cmd_options(options, cmd):
+def build_cmd_options(options: dict, cmd: list) -> list:
     for k, v in options.items():
         if v:
             if len(k) == 1:
@@ -485,10 +485,13 @@ def build_filter_option_pattern(methods):
 
 
 def filter_path(path):
+    if isinstance(path, list):
+        return [filter_path(p) for p in path]
+
     return os.path.expandvars(os.path.expanduser(path))
 
 
-def _get_phpunit_executable(working_dir, include_composer_vendor_dir=True):
+def _get_phpunit_executable(working_dir: str, include_composer_vendor_dir: bool = True) -> str:
     debug_message('find phpunit executable composer=%s', include_composer_vendor_dir)
     if include_composer_vendor_dir:
         if platform() == 'windows':
@@ -576,7 +579,7 @@ class PHPUnit():
             options = self.filter_options(options)
 
             cmd = []
-            cmd.append(phpunit_executable)
+            cmd += phpunit_executable
             cmd = build_cmd_options(options, cmd)
 
             if file:
@@ -802,7 +805,7 @@ class PHPUnit():
 
         return _get_php_executable(working_dir, versions_path, executable)
 
-    def get_phpunit_executable(self, working_dir):
+    def get_phpunit_executable(self, working_dir: str) -> list:
         composer = self.view.settings().get('phpunit.composer')
         debug_message('phpunit.composer: %s', composer)
 
@@ -812,7 +815,7 @@ class PHPUnit():
             debug_message('phpunit.executable: %s', executable)
             return executable
 
-        return _get_phpunit_executable(working_dir, composer)
+        return [_get_phpunit_executable(working_dir, composer)]
 
     def get_auto_generated_color_scheme(self):
         """Try to patch color scheme with default test result colors."""
