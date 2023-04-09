@@ -564,6 +564,80 @@ def save_all_views(window) -> None:
             view.run_command('save')
 
 
+def create_exec_output_panel(view, env, cmd) -> None:
+    panel = view.window().create_output_panel('exec')
+
+    header_text = []
+    if env:
+        header_text.append("env: {}\n".format(env))
+
+    header_text.append("{}\n\n".format(' '.join(cmd)))
+
+    panel.run_command('insert', {'characters': ''.join(header_text)})
+
+    panel_settings = panel.settings()
+    panel_settings.set('rulers', [])
+    panel_settings.set('highlight_line', False)
+
+    if view.settings().has('phpunit.text_ui_result_font_size'):
+        panel_settings.set(
+            'font_size',
+            view.settings().get('phpunit.text_ui_result_font_size')
+        )
+
+    color_scheme = get_auto_generated_color_scheme(view)
+    panel_settings.set('color_scheme', color_scheme)
+
+
+def get_auto_generated_color_scheme(view):
+    """Try to patch color scheme with default test result colors."""
+    color_scheme = view.settings().get('color_scheme')
+    if color_scheme.endswith('.sublime-color-scheme'):
+        return color_scheme
+
+    try:
+        color_scheme_resource = load_resource(color_scheme)
+        if 'phpunitkit' in color_scheme_resource or 'PHPUnitKit' in color_scheme_resource:
+            return color_scheme
+
+        if 'region.greenish' in color_scheme_resource:
+            return color_scheme
+
+        cs_head, cs_tail = os.path.split(color_scheme)
+        cs_package = os.path.split(cs_head)[1]
+        cs_name = os.path.splitext(cs_tail)[0]
+
+        file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
+        abs_file = os.path.join(cache_path(), __name__.split('.')[0], 'color-schemes', file_name)
+        rel_file = 'Cache/{}/color-schemes/{}'.format(__name__.split('.')[0], file_name)
+
+        debug_message('auto generating color scheme = %s', rel_file)
+
+        if not os.path.exists(os.path.dirname(abs_file)):
+            os.makedirs(os.path.dirname(abs_file))
+
+        color_scheme_resource_partial = load_resource(
+            'Packages/{}/res/text-ui-result-theme-partial.txt'.format(__name__.split('.')[0]))
+
+        with open(abs_file, 'w', encoding='utf8') as f:
+            f.write(re.sub(
+                '</array>\\s*'
+                '((<!--\\s*)?<key>.*</key>\\s*<string>[^<]*</string>\\s*(-->\\s*)?)*'
+                '</dict>\\s*</plist>\\s*'
+                '$',
+
+                color_scheme_resource_partial + '\\n</array></dict></plist>',
+                color_scheme_resource
+            ))
+
+        return rel_file
+    except Exception as e:
+        print('PHPUnit: an error occurred trying to patch color'
+              ' scheme with PHPUnit test results colors: {}'.format(str(e)))
+
+        return color_scheme
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -651,28 +725,7 @@ class PHPUnit():
                 'working_dir': working_dir
             })
 
-            panel = self.window.create_output_panel('exec')
-
-            header_text = []
-            if env:
-                header_text.append("env: {}\n".format(env))
-
-            header_text.append("{}\n\n".format(' '.join(cmd)))
-
-            panel.run_command('insert', {'characters': ''.join(header_text)})
-
-            panel_settings = panel.settings()
-            panel_settings.set('rulers', [])
-            panel_settings.set('highlight_line', False)
-
-            if self.view.settings().has('phpunit.text_ui_result_font_size'):
-                panel_settings.set(
-                    'font_size',
-                    self.view.settings().get('phpunit.text_ui_result_font_size')
-                )
-
-            color_scheme = self.get_auto_generated_color_scheme()
-            panel_settings.set('color_scheme', color_scheme)
+            create_exec_output_panel(self.view, env, cmd)
 
     def get_working_dir(self, working_dir) -> str:
         if not working_dir:
@@ -818,54 +871,6 @@ class PHPUnit():
             return executable if isinstance(executable, list) else [executable]
 
         return [_get_phpunit_executable(working_dir, composer)]
-
-    def get_auto_generated_color_scheme(self):
-        """Try to patch color scheme with default test result colors."""
-        color_scheme = self.view.settings().get('color_scheme')
-        if color_scheme.endswith('.sublime-color-scheme'):
-            return color_scheme
-
-        try:
-            color_scheme_resource = load_resource(color_scheme)
-            if 'phpunitkit' in color_scheme_resource or 'PHPUnitKit' in color_scheme_resource:
-                return color_scheme
-
-            if 'region.greenish' in color_scheme_resource:
-                return color_scheme
-
-            cs_head, cs_tail = os.path.split(color_scheme)
-            cs_package = os.path.split(cs_head)[1]
-            cs_name = os.path.splitext(cs_tail)[0]
-
-            file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
-            abs_file = os.path.join(cache_path(), __name__.split('.')[0], 'color-schemes', file_name)
-            rel_file = 'Cache/{}/color-schemes/{}'.format(__name__.split('.')[0], file_name)
-
-            debug_message('auto generating color scheme = %s', rel_file)
-
-            if not os.path.exists(os.path.dirname(abs_file)):
-                os.makedirs(os.path.dirname(abs_file))
-
-            color_scheme_resource_partial = load_resource(
-                'Packages/{}/res/text-ui-result-theme-partial.txt'.format(__name__.split('.')[0]))
-
-            with open(abs_file, 'w', encoding='utf8') as f:
-                f.write(re.sub(
-                    '</array>\\s*'
-                    '((<!--\\s*)?<key>.*</key>\\s*<string>[^<]*</string>\\s*(-->\\s*)?)*'
-                    '</dict>\\s*</plist>\\s*'
-                    '$',
-
-                    color_scheme_resource_partial + '\\n</array></dict></plist>',
-                    color_scheme_resource
-                ))
-
-            return rel_file
-        except Exception as e:
-            print('PHPUnit: an error occurred trying to patch color'
-                  ' scheme with PHPUnit test results colors: {}'.format(str(e)))
-
-            return color_scheme
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
