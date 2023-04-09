@@ -494,27 +494,32 @@ def filter_path(path):
     return os.path.expandvars(os.path.expanduser(path))
 
 
-def _get_phpunit_executable(working_dir: str, include_composer_vendor_dir: bool = True) -> str:
-    debug_message('find phpunit executable composer=%s', include_composer_vendor_dir)
-    if include_composer_vendor_dir:
+def _get_phpunit_executable(view, working_dir: str) -> list:
+    executable = get_setting(view, 'executable')
+    if executable:
+        executable = filter_path(executable)
+        return executable if isinstance(executable, list) else [executable]
+
+    if get_setting(view, 'composer'):
         if platform() == 'windows':
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
-            debug_message('  found \'%s\' (windows)', composer_phpunit_executable)
+            debug_message('  found windows executable: \'%s\'', composer_phpunit_executable)
         else:
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
-            debug_message('  found \'%s\' (unix)', composer_phpunit_executable)
+            debug_message('  found unix executable: \'%s\'', composer_phpunit_executable)
 
         if is_file_executable(composer_phpunit_executable):
-            return composer_phpunit_executable
+            return [composer_phpunit_executable]
+        else:
+            debug_message('  Warning: \'%s\' is not executable!', composer_phpunit_executable)
 
-        debug_message('  Warning: \'%s\' is not executable!', composer_phpunit_executable)
-
-    executable = shutil.which('phpunit')
-    debug_message('  found \'%s\' (global)', executable)
-    if executable:
-        return executable
-    else:
+    system_path_executable = shutil.which('phpunit')
+    if not system_path_executable:
         raise ValueError('phpunit not found')
+
+    debug_message('  found system path executable \'%s\'', system_path_executable)
+
+    return [system_path_executable]
 
 
 def _get_php_executable(working_dir, php_versions_path, php_executable=None):
@@ -663,7 +668,7 @@ class PHPUnit():
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
 
-            phpunit_executable = self.get_phpunit_executable(working_dir)
+            phpunit_executable = _get_phpunit_executable(self.view, working_dir)
 
             options = self.filter_options(options)
 
@@ -858,18 +863,6 @@ class PHPUnit():
         executable = get_setting(self.view, 'php_executable')
 
         return _get_php_executable(working_dir, versions_path, executable)
-
-    def get_phpunit_executable(self, working_dir: str) -> list:
-        executable = get_setting(self.view, 'executable')
-        if executable:
-            executable = filter_path(executable)
-            debug_message('phpunit.executable: %s', executable)
-            return executable if isinstance(executable, list) else [executable]
-
-        composer = get_setting(self.view, 'composer')
-        debug_message('phpunit.composer: %s', composer)
-
-        return [_get_phpunit_executable(working_dir, composer)]
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
