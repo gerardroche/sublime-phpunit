@@ -675,11 +675,8 @@ class PHPUnit():
             cmd = build_cmd_options(options, cmd)
 
             if file:
-                if os.path.isfile(file):
-                    file = os.path.relpath(file, working_dir)
-                    cmd.append(file)
-                else:
-                    raise ValueError('test file \'%s\' not found' % file)
+                file = os.path.relpath(file, working_dir)
+                cmd.append(file)
 
         except ValueError as e:
             status_message('PHPUnit: {}'.format(e))
