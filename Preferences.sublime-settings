@@ -22,7 +22,7 @@
 
     // Command-line options to pass to PHPUnit.
     // https://phpunit.de/manual/current/en/textui.html#textui.clioptions
-    // e.g. `{"no-coverage": true, "verbose": true}`
+    // e.g. `{"no-coverage": true, "verbose": true, "colors=never": true}`
     "phpunit.options": {},
 
     // The PHP executable to use when running tests. The default is to look for
@@ -38,10 +38,16 @@
     // configuration file is located).
     "phpunit.php_versions_path": "~/.phpenv/versions",
 
+    // Prepends given command to the test command.
+    "phpunit.prepend_cmd": [],
+
     // Enable writing out every buffer (in the active window) with changes
     // before running tests.
     "phpunit.save_all_on_run": true,
 
-    // Prepends given command to the test command.
-    "phpunit.prepend_cmd": [],
+    // Strategy | Description
+    // -------- | -----------
+    // default  | Runs test commands in a panel at the bottom of your editor window.
+    // iterm    | Sends test commands to iTerm2 >= 2.9 (useful in MacVim GUI).
+    "phpunit.strategy": "default",
 }
