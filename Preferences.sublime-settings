@@ -45,4 +45,11 @@
 
     // Prepends given command to the test command.
     "phpunit.prepend_cmd": [],
+
+    // Replaces phpunit command with your custom command(in value) if
+    // specified file(in key) exists in current working directory.
+    // $WORK_DIR in commands will be replaced with current working directory.
+    "phpunit.replace_phpunit_cmd_if_key_exists": {
+        "artisan": ["$WORK_DIR/artisan", "test"]
+    }
 }

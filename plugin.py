@@ -575,8 +575,7 @@ class PHPUnit():
 
             options = self.filter_options(options)
 
-            cmd = []
-            cmd.append(phpunit_executable)
+            cmd = phpunit_executable
             cmd = build_cmd_options(options, cmd)
 
             if file:
@@ -806,13 +805,20 @@ class PHPUnit():
         composer = self.view.settings().get('phpunit.composer')
         debug_message('phpunit.composer: %s', composer)
 
+        custom_commands = self.view.settings().get('phpunit.replace_phpunit_cmd_if_key_exists')
+
+        for k, v in custom_commands.items():
+            if not os.path.exists(k):
+                continue
+            return [cmd.replace('$WORK_DIR', working_dir) for cmd in v]
+
         executable = self.view.settings().get('phpunit.executable')
         if executable:
             executable = filter_path(executable)
             debug_message('phpunit.executable: %s', executable)
-            return executable
+            return [executable]
 
-        return _get_phpunit_executable(working_dir, composer)
+        return [_get_phpunit_executable(working_dir, composer)]
 
     def get_auto_generated_color_scheme(self):
         """Try to patch color scheme with default test result colors."""
