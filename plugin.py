@@ -678,10 +678,6 @@ class PHPUnit():
                 file = os.path.relpath(file, working_dir)
                 cmd.append(file)
 
-        except ValueError as e:
-            status_message('PHPUnit: {}'.format(e))
-            print('PHPUnit: {}'.format(e))
-            return
         except Exception as e:
             status_message('PHPUnit: {}'.format(e))
             print('PHPUnit: \'{}\''.format(e))
