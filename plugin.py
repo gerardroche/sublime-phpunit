@@ -525,7 +525,6 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
 def _get_php_executable(view, working_dir: str):
     php_versions_path = get_setting(view, 'php_versions_path')
     php_executable = get_setting(view, 'php_executable')
-
     php_version_file = os.path.join(working_dir, '.php-version')
     if os.path.isfile(php_version_file):
         with open(php_version_file, 'r') as f:
@@ -650,6 +649,27 @@ def get_auto_generated_color_scheme(view):
         return color_scheme
 
 
+def _get_phpunit_options(view, options) -> dict:
+    if options is None:
+        options = {}
+
+    window_options = get_window_setting('phpunit.options', default={}, window=view.window())
+    debug_message('window options %s', window_options)
+    if window_options:
+        for k, v in window_options.items():
+            if k not in options:
+                options[k] = v
+
+    view_options = get_setting(view, 'options')
+    debug_message('view options %s', view_options)
+    if view_options:
+        for k, v in view_options.items():
+            if k not in options:
+                options[k] = v
+
+    return options
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -666,14 +686,11 @@ class PHPUnit():
 
         try:
             working_dir = self.get_working_dir(working_dir)
-
             php_executable = _get_php_executable(self.view, working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
-
             phpunit_executable = _get_phpunit_executable(self.view, working_dir)
-
-            options = self.filter_options(options)
+            options = _get_phpunit_options(self.view, options)
 
             cmd = []
             cmd += get_setting(self.view, 'prepend_cmd')
@@ -840,26 +857,6 @@ class PHPUnit():
                 options[option] = value
 
         set_window_setting('phpunit.options', options, window=self.window)
-
-    def filter_options(self, options) -> dict:
-        if options is None:
-            options = {}
-
-        window_options = get_window_setting('phpunit.options', default={}, window=self.window)
-        debug_message('window options %s', window_options)
-        if window_options:
-            for k, v in window_options.items():
-                if k not in options:
-                    options[k] = v
-
-        view_options = get_setting(self.view, 'options')
-        debug_message('view options %s', view_options)
-        if view_options:
-            for k, v in view_options.items():
-                if k not in options:
-                    options[k] = v
-
-        return options
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
