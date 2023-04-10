@@ -522,7 +522,10 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
     return [system_path_executable]
 
 
-def _get_php_executable(working_dir, php_versions_path, php_executable=None):
+def _get_php_executable(view, working_dir: str):
+    php_versions_path = get_setting(view, 'php_versions_path')
+    php_executable = get_setting(view, 'php_executable')
+
     php_version_file = os.path.join(working_dir, '.php-version')
     if os.path.isfile(php_version_file):
         with open(php_version_file, 'r') as f:
@@ -663,8 +666,8 @@ class PHPUnit():
 
         try:
             working_dir = self.get_working_dir(working_dir)
-            php_executable = self.get_php_executable(working_dir)
 
+            php_executable = _get_php_executable(self.view, working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
 
@@ -857,12 +860,6 @@ class PHPUnit():
                     options[k] = v
 
         return options
-
-    def get_php_executable(self, working_dir):
-        versions_path = get_setting(self.view, 'php_versions_path')
-        executable = get_setting(self.view, 'php_executable')
-
-        return _get_php_executable(working_dir, versions_path, executable)
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
