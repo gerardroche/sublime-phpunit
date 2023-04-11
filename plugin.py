@@ -708,7 +708,7 @@ class PHPUnit():
             if get_setting(self.view, 'strategy') == 'iterm':
                 cmd.append(get_osx_term_script_path())
             cmd += phpunit_executable
-            cmd = build_cmd_options(options, cmd)
+            build_cmd_options(options, cmd)
 
             if file:
                 file = os.path.relpath(file, working_dir)
