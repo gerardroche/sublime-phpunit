@@ -783,9 +783,7 @@ class PHPUnit():
                 self.view,
                 on_select=lambda switchable: self.run(
                     file=switchable.file,
-                    options=options
-                )
-            )
+                    options=options))
 
     def run_nearest(self, options) -> None:
         file = self.view.file_name()
@@ -804,9 +802,7 @@ class PHPUnit():
                 self.view,
                 on_select=lambda switchable: self.run(
                     file=switchable.file,
-                    options=options
-                )
-            )
+                    options=options))
 
     def show_results(self) -> None:
         self.window.run_command('show_panel', {'panel': 'output.exec'})
