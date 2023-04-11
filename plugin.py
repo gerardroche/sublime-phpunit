@@ -711,8 +711,7 @@ class PHPUnit():
             build_cmd_options(options, cmd)
 
             if file:
-                file = os.path.relpath(file, working_dir)
-                cmd.append(file)
+                cmd.append(os.path.relpath(file, working_dir))
 
         except Exception as e:
             status_message('PHPUnit: {}'.format(e))
