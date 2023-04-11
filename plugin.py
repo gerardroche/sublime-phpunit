@@ -670,6 +670,18 @@ def _get_phpunit_options(view, options) -> dict:
     return options
 
 
+def _get_working_dir(view, working_dir) -> str:
+    if not working_dir:
+        working_dir = find_phpunit_working_directory(view.file_name(), view.window().folders())
+        if not working_dir:
+            raise ValueError('working directory not found')
+
+    if not os.path.isdir(working_dir):
+        raise ValueError('working directory does not exist or is not a valid directory')
+
+    return working_dir
+
+
 class PHPUnit():
 
     def __init__(self, window):
@@ -684,7 +696,7 @@ class PHPUnit():
         env = {}
 
         try:
-            working_dir = self.get_working_dir(working_dir)
+            working_dir = _get_working_dir(self.view, working_dir)
             php_executable = _get_php_executable(self.view, working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
@@ -749,17 +761,6 @@ class PHPUnit():
             })
 
             create_exec_output_panel(self.view, env, cmd)
-
-    def get_working_dir(self, working_dir) -> str:
-        if not working_dir:
-            working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
-            if not working_dir:
-                raise ValueError('working directory not found')
-
-        if not os.path.isdir(working_dir):
-            raise ValueError('working directory does not exist or is not a valid directory')
-
-        return working_dir
 
     def run_last(self) -> None:
         last_test_args = get_window_setting('phpunit._test_last', window=self.window)
