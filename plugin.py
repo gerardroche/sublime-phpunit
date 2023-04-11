@@ -670,7 +670,7 @@ def _get_phpunit_options(view, options) -> dict:
     return options
 
 
-def _get_working_dir(view, working_dir) -> str:
+def _resolve_working_dir(view, working_dir) -> str:
     if not working_dir:
         working_dir = find_phpunit_working_directory(view.file_name(), view.window().folders())
         if not working_dir:
@@ -696,7 +696,7 @@ class PHPUnit():
         env = {}
 
         try:
-            working_dir = _get_working_dir(self.view, working_dir)
+            working_dir = _resolve_working_dir(self.view, working_dir)
             php_executable = _get_php_executable(self.view, working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
