@@ -558,24 +558,24 @@ def _get_php_executable(view, working_dir: str):
         return php_executable
 
 
-def kill_any_running_tests(window) -> None:
+def _kill_any_running_tests(window) -> None:
     window.run_command('exec', {'kill': True})
 
 
-def get_osx_term_script_path() -> str:
+def _get_osx_term_script_path() -> str:
     return os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         'bin',
         'osx_iterm')
 
 
-def save_views(window) -> None:
+def _save_views(window) -> None:
     for view in window.views():
         if view.is_dirty() and view.file_name():
             view.run_command('save')
 
 
-def create_exec_output_panel(view, env, cmd) -> None:
+def _create_exec_output_panel(view, env, cmd) -> None:
     panel = view.window().create_output_panel('exec')
 
     header_text = []
@@ -596,11 +596,11 @@ def create_exec_output_panel(view, env, cmd) -> None:
             view.settings().get('phpunit.text_ui_result_font_size')
         )
 
-    color_scheme = get_auto_generated_color_scheme(view)
+    color_scheme = _get_auto_generated_color_scheme(view)
     panel_settings.set('color_scheme', color_scheme)
 
 
-def get_auto_generated_color_scheme(view):
+def _get_auto_generated_color_scheme(view):
     """Try to patch color scheme with default test result colors."""
     color_scheme = view.settings().get('color_scheme')
     if color_scheme.endswith('.sublime-color-scheme'):
@@ -691,7 +691,7 @@ class PHPUnit():
     def run(self, working_dir=None, file=None, options=None) -> None:
         debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
-        kill_any_running_tests(self.window)
+        _kill_any_running_tests(self.window)
 
         env = {}
 
@@ -706,7 +706,7 @@ class PHPUnit():
             cmd = []
             cmd += get_setting(self.view, 'prepend_cmd')
             if get_setting(self.view, 'strategy') == 'iterm':
-                cmd.append(get_osx_term_script_path())
+                cmd.append(_get_osx_term_script_path())
             cmd += phpunit_executable
             build_cmd_options(options, cmd)
 
@@ -731,7 +731,7 @@ class PHPUnit():
         )
 
         if get_setting(self.view, 'save_all_on_run'):
-            save_views(self.window)
+            _save_views(self.window)
 
         set_window_setting('phpunit._test_last', {
             'working_dir': working_dir,
@@ -759,7 +759,7 @@ class PHPUnit():
                 'working_dir': working_dir
             })
 
-            create_exec_output_panel(self.view, env, cmd)
+            _create_exec_output_panel(self.view, env, cmd)
 
     def run_last(self) -> None:
         last_test_args = get_window_setting('phpunit._test_last', window=self.window)
