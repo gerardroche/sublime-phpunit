@@ -569,7 +569,7 @@ def get_osx_term_script_path() -> str:
         'osx_iterm')
 
 
-def save_all_views(window) -> None:
+def save_views(window) -> None:
     for view in window.views():
         if view.is_dirty() and view.file_name():
             view.run_command('save')
@@ -731,7 +731,7 @@ class PHPUnit():
         )
 
         if get_setting(self.view, 'save_all_on_run'):
-            save_all_views(self.window)
+            save_views(self.window)
 
         set_window_setting('phpunit._test_last', {
             'working_dir': working_dir,
