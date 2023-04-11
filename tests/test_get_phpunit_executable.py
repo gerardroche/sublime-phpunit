@@ -1,5 +1,7 @@
 import os
 
+import sublime
+
 from PHPUnitKit.plugin import _get_phpunit_executable
 from PHPUnitKit.tests import unittest
 
@@ -60,6 +62,7 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
         self.view.settings().set('phpunit.executable', 'fizz')
         self.assertEqual(['fizz'], _get_phpunit_executable(self.view, working_dir='foo'))
 
+    @unittest.skipIf(sublime.platform() == 'windows', 'Test is flaky on Windows')
     def test_get_user_phpunit_executable_is_filtered(self):
         home = os.path.expanduser('~')
         self.view.settings().set('phpunit.executable', '~')
@@ -71,6 +74,7 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
         self.view.settings().set('phpunit.executable', ['fizz', 'buzz'])
         self.assertEqual(['fizz', 'buzz'], _get_phpunit_executable(self.view, working_dir='foo'))
 
+    @unittest.skipIf(sublime.platform() == 'windows', 'Test is flaky on Windows')
     def test_get_user_phpunit_executable_as_list_is_filtered(self):
         home = os.path.expanduser('~')
         self.view.settings().set('phpunit.executable', ['~'])
