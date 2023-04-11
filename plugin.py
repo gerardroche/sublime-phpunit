@@ -675,7 +675,6 @@ class PHPUnit():
     def __init__(self, window):
         self.window = window
         self.view = get_active_view(window)
-        debug_message('init %s', None)
 
     def run(self, working_dir=None, file=None, options=None) -> None:
         debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
