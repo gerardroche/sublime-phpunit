@@ -4,9 +4,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.9.0 - Unreleased
 
-### Change
+### Added
 
-* Change [#109](https://github.com/NeoVintageous/NeoVintageous/issues/109): env and cmd information in now only displayed in debug mode
+* Added [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Add color output for Pest runner
+
+### Changed
+
+* Changed [#109](https://github.com/NeoVintageous/NeoVintageous/issues/109): env and cmd information in now only displayed in debug mode
 
 ## 3.8.0 - 2023-04-09
 

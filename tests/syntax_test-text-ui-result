@@ -147,3 +147,53 @@ There was 1 skipped test:
 
 1) App\AppName\RiskyTest::testSkip
 skipped
+
+==================== PEST
+
+   PASS  BasicTest
+# ^^^^^^ region.greenish phpunitkit test.footer.ok.phpunit-result
+  ✓ one
+# ^ markup.inserted
+  ✓ two
+  - skip
+# ^ markup.changed
+  ✓ three
+  ✓ four
+
+   FAIL  BasicTest
+# ^^^^^^ region.redish phpunitkit test.footer.fail.phpunit-result
+  ⨯ one
+# ^ markup.deleted
+  ✓ six
+
+  ---
+
+  • BasicTest > one
+   PHPUnit\Framework\ExceptionWrapper
+
+  Undefined variable $b
+
+  at test/unit/BasicTest.php:12
+      8▕     }
+      9▕
+     10▕     public function testOne()
+     11▕     {
+  ➜  12▕         $b = $b;
+# ^ markup.deleted
+     13▕         $this->assertTrue(true);
+     14▕     }
+     15▕
+     16▕     public function foobar2()
+
+  ✓ x debug
+hello!
+   WARN  GerardRoche\SublimePHPUnitKitTesting\RiskyTest
+# ^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
+  ✓ disallow todo tests
+
+  Tests:  1 failed, 1 incomplete, 1 skipped, 24 passed, 2 pending
+#         ^^^^^^^^ markup.deleted
+#                   ^^^^^^^^^^^^ markup.changed
+#                                 ^^^^^^^^^ markup.changed
+#                                            ^^^^^^^^^ markup.inserted
+  Time:   0.04s

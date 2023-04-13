@@ -32,8 +32,8 @@ contexts:
         - match: W
           scope: region.orangish phpunitkit test.progress.warning.phpunit-result
 
-    # Pretty Printer support
-    - match: ^\s*==>.{43}
+    # e.g. Pretty printer, Pest
+    - match: ^(\s*==>.{43}|  (?=. ))
       push:
         - match: $
           pop: true
@@ -41,13 +41,13 @@ contexts:
         - match: ✓
           scope: markup.inserted
 
-        - match: ✖
+        - match: (✖|⨯|➜)
           scope: markup.deleted
 
         - match: ⚈
           scope: markup.deleted
 
-        - match: ➦
+        - match: (➦|-)
           scope: markup.changed
 
         - match: ℹ
@@ -88,3 +88,22 @@ contexts:
         - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
           scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true
+
+    # Pest
+    - match: '^  ( PASS ).+'
+      captures:
+        1: region.greenish phpunitkit test.footer.ok.phpunit-result
+    - match: '^  ( FAIL ).+'
+      captures:
+        1: region.redish phpunitkit test.footer.fail.phpunit-result
+    - match: '^  ( WARN ).+'
+      captures:
+        1: region.orangish phpunitkit test.footer.warn.phpunit-result
+    - match: '\d+ failed'
+      scope: markup.deleted
+    - match: '\d+ skipped'
+      scope: markup.changed
+    - match: '\d+ incomplete'
+      scope: markup.changed
+    - match: '\d+ passed'
+      scope: markup.inserted
