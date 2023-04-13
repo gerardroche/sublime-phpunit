@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.10.0 - Unreleased
+
+### Added
+
+* Added [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Support for Artisan: `artisan test`
+
 ## 3.9.0 - 2023-04-13
 
 ### Added

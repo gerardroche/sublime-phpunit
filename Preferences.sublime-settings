@@ -1,4 +1,8 @@
 {
+    // Enable Artisan test runner.
+    // See https://laravel.com.
+    "phpunit.artisan": false,
+
     // If enabled and a Composer installed PHPUnit is found then it is used to
     // run the tests, otherwise the system PATH is used to find PHPUnit.
     "phpunit.composer": true,
