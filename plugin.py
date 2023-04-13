@@ -597,8 +597,7 @@ def _create_exec_output_panel(view, env, cmd) -> None:
     if has_setting(view, 'text_ui_result_font_size'):
         panel_settings.set('font_size', get_setting(view, 'text_ui_result_font_size'))
 
-    color_scheme = _get_auto_generated_color_scheme(view)
-    panel_settings.set('color_scheme', color_scheme)
+    panel_settings.set('color_scheme', _get_auto_generated_color_scheme(view))
 
 
 def _get_auto_generated_color_scheme(view):
