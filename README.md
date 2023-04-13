@@ -174,18 +174,6 @@ When enabled, the test runner will use the PHPUnit executable installed by Compo
 "phpunit.composer": true
 ```
 
-## Custom commands
-
-Aside from the main commands out-of-the-box, you can create your own custom test commands. The commands `phpunit_test_suite`, `phpunit_test_file`, `phpunit_test_nearest` accept any CLI option accepted by PHPUnit:
-
-```
-// Key Binding to run two specific test suites
-{"keys": ["ctrl+shift+a"], "command": "test_suite", "args": {"testsuite": "fizz,buzz"}},
-
-// Key Binding to run test suite with code coverage
-{"keys": ["ctrl+shift+c"], "command": "test_suite", "args": {"coverage-html": "build/coverage"}},
-```
-
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
