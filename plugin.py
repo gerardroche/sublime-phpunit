@@ -443,7 +443,7 @@ def exec_file_regex() -> str:
         return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\\:)([0-9]+)'
 
 
-def is_file_executable(file: str) -> bool:
+def file_exists_and_is_executable(file: str) -> bool:
     return os.path.isfile(file) and os.access(file, os.X_OK)
 
 
@@ -518,7 +518,7 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         else:
             executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
 
-        if is_file_executable(executable):
+        if file_exists_and_is_executable(executable):
             return [executable]
         else:
             debug_message('  Warning: \'%s\' is not executable!', executable)
@@ -553,14 +553,14 @@ def _get_php_executable(view, working_dir: str):
         else:
             php_executable = os.path.join(php_versions_path, php_version_number, 'bin', 'php')
 
-        if not is_file_executable(php_executable):
+        if not file_exists_and_is_executable(php_executable):
             raise ValueError("php executable '%s' is not an executable file" % php_executable)
 
         return php_executable
 
     if php_executable:
         php_executable = filter_path(php_executable)
-        if not is_file_executable(php_executable):
+        if not file_exists_and_is_executable(php_executable):
             raise ValueError("'phpunit.php_executable' '%s' is not an executable file" % php_executable)
 
         return php_executable
