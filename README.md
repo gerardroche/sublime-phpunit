@@ -115,8 +115,9 @@ The above transforms the options and passes them to the PHPUnit executable:
 You can instruct the test runner to use a custom PHPUnit executable. The default is to auto discover one using Composer, if `phpunit.composer` is enabled, or using the system PATH.
 
 ```
-"phpunit.executable": "~/path/to/bin/phpunit"
-"phpunit.executable": ["~/path/to/bin/phpunit"]
+"phpunit.executable": "vendor/bin/phpunit"
+"phpunit.executable": ["vendor/bin/phpunit"]
+"phpunit.executable": "~/path-to/phpunit"
 "phpunit.executable": ["artisan", "test"]
 ```
 
