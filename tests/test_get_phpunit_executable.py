@@ -110,6 +110,28 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
 
     @unittest.mock.patch('shutil.which')
     @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_pest_only_if_exists(self, platform, shutil_which):
+        platform.return_value = 'linux'
+        self.view.settings().set('phpunit.pest', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable_only')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'phpunit'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_pest_only_if_exists_on_windows(self, platform, shutil_which):
+        platform.return_value = 'windows'
+        self.view.settings().set('phpunit.pest', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable_only')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'phpunit.bat'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
     def test_enable_artisan(self, platform, shutil_which):
         platform.return_value = 'linux'
         self.view.settings().set('phpunit.artisan', True)
@@ -127,5 +149,27 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
         working_dir = unittest.fixtures_path('get_phpunit_executable')
         self.assertEqual(
             [unittest.fixtures_path(os.path.join(working_dir, 'artisan.bat')), 'test'],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_artisan_if_exists(self, platform, shutil_which):
+        platform.return_value = 'linux'
+        self.view.settings().set('phpunit.artisan', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable_only')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'phpunit'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_artisan_if_exists_on_window(self, platform, shutil_which):
+        platform.return_value = 'windows'
+        self.view.settings().set('phpunit.artisan', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable_only')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'phpunit.bat'))],
             _get_phpunit_executable(self.view, working_dir))
         self.assertEqual(shutil_which.call_count, 0)

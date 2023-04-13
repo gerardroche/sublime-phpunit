@@ -510,7 +510,8 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         else:
             artisan_executable = os.path.join(working_dir, os.path.join('artisan'))
 
-        return [artisan_executable, 'test']
+        if file_exists_and_is_executable(artisan_executable):
+            return [artisan_executable, 'test']
 
     if get_setting(view, 'pest') and get_setting(view, 'composer'):
         if platform() == 'windows':
@@ -518,7 +519,8 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         else:
             pest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'pest'))
 
-        return [pest_executable]
+        if file_exists_and_is_executable(pest_executable):
+            return [pest_executable]
 
     if get_setting(view, 'composer'):
         if platform() == 'windows':
@@ -528,8 +530,6 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
 
         if file_exists_and_is_executable(executable):
             return [executable]
-        else:
-            debug_message('  Warning: \'%s\' is not executable!', executable)
 
     executable = shutil.which('phpunit')
     if executable:
