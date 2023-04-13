@@ -514,16 +514,14 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
 
     if get_setting(view, 'composer'):
         if platform() == 'windows':
-            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
-            debug_message('  found windows executable: \'%s\'', composer_phpunit_executable)
+            executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
         else:
-            composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
-            debug_message('  found unix executable: \'%s\'', composer_phpunit_executable)
+            executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
 
-        if is_file_executable(composer_phpunit_executable):
-            return [composer_phpunit_executable]
+        if is_file_executable(executable):
+            return [executable]
         else:
-            debug_message('  Warning: \'%s\' is not executable!', composer_phpunit_executable)
+            debug_message('  Warning: \'%s\' is not executable!', executable)
 
     system_path_executable = shutil.which('phpunit')
     if not system_path_executable:
