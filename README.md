@@ -86,8 +86,8 @@ key | description | type | default
 `phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
 `phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `boolean` | `true`
 `phpunit.prepend_cmd` | Prepends test runner command. | `list` | `[]`
-`phpunit.strategy` | Output. | `string:iterm\|panel` | `panel`
-`phpunit.composer` | Use PHPUnit installed by Composer? | `boolean` | `true`
+`phpunit.strategy` | Output type. | `string:iterm\|panel` | `panel`
+`phpunit.composer` | Use PHPUnit installed by Composer if it exists. | `boolean` | `true`
 `phpunit.artisan` | Use Artisan test runner if it exists. | `boolean` | `false`
 `phpunit.pest` | Use Pest test runner if it exists. | `boolean` | `false`
 
