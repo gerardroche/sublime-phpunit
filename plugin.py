@@ -524,12 +524,10 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
             debug_message('  Warning: \'%s\' is not executable!', executable)
 
     system_path_executable = shutil.which('phpunit')
-    if not system_path_executable:
-        raise ValueError('phpunit not found')
+    if system_path_executable:
+        return [system_path_executable]
 
-    debug_message('  found system path executable \'%s\'', system_path_executable)
-
-    return [system_path_executable]
+    raise ValueError('phpunit not found')
 
 
 def _get_php_executable(view, working_dir: str):
