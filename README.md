@@ -88,8 +88,8 @@ key | description | type | default
 `phpunit.prepend_cmd` | Prepends test runner command. | `list` | `[]`.
 `phpunit.strategy` | Output. | `string:iterm|panel` | `panel`.
 `phpunit.composer` | Use PHPUnit installed by Composer? | `boolean` | `true`
-`phpunit.artisan` | Use Artisan test runner if it exists. | `boolean` | `true`
-`phpunit.pest` | Use Pest test runner if it exists. | `boolean` | `true`
+`phpunit.artisan` | Use Artisan test runner if it exists. | `boolean` | `false`
+`phpunit.pest` | Use Pest test runner if it exists. | `boolean` | `false`
 
 ### phpunit.options
 
