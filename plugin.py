@@ -582,13 +582,12 @@ def _save_views(window) -> None:
 def _create_exec_output_panel(view, env, cmd) -> None:
     panel = view.window().create_output_panel('exec')
 
-    header_text = []
-    if env:
-        header_text.append("env: {}\n".format(env))
-
-    header_text.append("{}\n\n".format(' '.join(cmd)))
-
-    panel.run_command('insert', {'characters': ''.join(header_text)})
+    if is_debug(view):
+        header_text = []
+        if env:
+            header_text.append("env: {}\n".format(env))
+        header_text.append("{}\n\n".format(' '.join(cmd)))
+        panel.run_command('insert', {'characters': ''.join(header_text)})
 
     panel_settings = panel.settings()
     panel_settings.set('rulers', [])
