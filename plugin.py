@@ -523,9 +523,9 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         else:
             debug_message('  Warning: \'%s\' is not executable!', executable)
 
-    system_path_executable = shutil.which('phpunit')
-    if system_path_executable:
-        return [system_path_executable]
+    executable = shutil.which('phpunit')
+    if executable:
+        return [executable]
 
     raise ValueError('phpunit not found')
 
