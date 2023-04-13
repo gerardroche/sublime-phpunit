@@ -85,3 +85,25 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
         self.assertEqual([home], _get_phpunit_executable(self.view, working_dir='foo'))
         self.view.settings().set('phpunit.executable', ['$HOME', '$HOME'])
         self.assertEqual([home, home], _get_phpunit_executable(self.view, working_dir='foo'))  # noqa: E501
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_pest(self, platform, shutil_which):
+        platform.return_value = 'linux'
+        self.view.settings().set('phpunit.pest', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'pest'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_pest_windows(self, platform, shutil_which):
+        platform.return_value = 'windows'
+        self.view.settings().set('phpunit.pest', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'pest.bat'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)

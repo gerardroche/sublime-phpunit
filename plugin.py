@@ -504,6 +504,14 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         executable = filter_path(executable)
         return executable if isinstance(executable, list) else [executable]
 
+    if get_setting(view, 'pest') and get_setting(view, 'composer'):
+        if platform() == 'windows':
+            pest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'pest.bat'))
+        else:
+            pest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'pest'))
+
+        return [pest_executable]
+
     if get_setting(view, 'composer'):
         if platform() == 'windows':
             composer_phpunit_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
@@ -665,6 +673,12 @@ def _get_phpunit_options(view, options) -> dict:
         for k, v in view_options.items():
             if k not in options:
                 options[k] = v
+
+    # Workaround some of the color output issues in Pest.
+    # See https://github.com/pestphp/pest/issues/778
+    # See https://github.com/gerardroche/sublime-phpunit/issues/103
+    if get_setting(view, 'pest'):
+        options['colors=never'] = True
 
     return options
 

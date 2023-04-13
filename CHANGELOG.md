@@ -6,7 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Add color output for Pest runner
+* Added [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Support for Pest
 
 ### Changed
 
