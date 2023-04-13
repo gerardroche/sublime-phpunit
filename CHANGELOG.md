@@ -34,7 +34,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Fixed [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): `phpunit.prepend_cmd` option
+* Added [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): `phpunit.prepend_cmd` option
 
 ### Fixed
 
@@ -42,7 +42,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.6.3 - 2022-07-06
 
-* Added [#101](https://github.com/gerardroche/sublime-phpunit/issues/101): Remaining arguments are lost when running on iterm (OSX)
+* Fixed [#101](https://github.com/gerardroche/sublime-phpunit/issues/101): Remaining arguments are lost when running on iterm (OSX)
 
 ## 3.6.2 - 2022-07-06
 
