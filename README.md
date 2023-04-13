@@ -57,7 +57,7 @@ Close Sublime Text, then download or clone the [repository](https://github.com/g
 
 `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
 
-## Commands
+## Command Palette
 
 All of the following commands are available via the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)) and are all prefixed with "PHPUnit: ".
 
