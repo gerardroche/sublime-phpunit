@@ -40,37 +40,37 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Fixed [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): Support for syntax updates in build `>=` 4134
 
-## [3.6.3] - 2022-07-06
+## 3.6.3 - 2022-07-06
 
 * Added [#101](https://github.com/gerardroche/sublime-phpunit/issues/101): Remaining arguments are lost when running on iterm (OSX)
 
-## [3.6.2] - 2022-07-06
+## 3.6.2 - 2022-07-06
 
 * Fixed: Switching misses matching switchable and displays overlay
 
-## [3.6.1] - 2021-12-14
+## 3.6.1 - 2021-12-14
 
 * Fixed: Switching should go straight to file when only one result
 
-## [3.6.0] - 2020-05-05
+## 3.6.0 - 2020-05-05
 
 ### Added
 
 * Added [#98](https://github.com/gerardroche/sublime-phpunit/issues/98): Add `phpunit.executable` setting to set custom phpunit path
 
-## [3.5.1] - 2020-01-24
+## 3.5.1 - 2020-01-24
 
 * Fixed: `.php-version` files should accept minor version formats e.g. 7.4
 
-## [3.5.0] - 2020-01-22
+## 3.5.0 - 2020-01-22
 
 * Added: Support for ST4
 
-## [3.4.0] - 2019-11-13
+## 3.4.0 - 2019-11-13
 
 * Added [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Auto-run tests on save
 
-## [3.3.0] - 2019-10-17
+## 3.3.0 - 2019-10-17
 
 * Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=default
 * Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=defects
@@ -87,26 +87,26 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Added: New command: PHPUnit: Toggle Option --reverse-list
 * Added: New command: PHPUnit: Toggle Option --disable-coverage-ignore
 
-## [3.2.2] - 2019-08-29
+## 3.2.2 - 2019-08-29
 
 * Fixed: Various trivial issues
 
-## [3.2.1] - 2019-03-19
+## 3.2.1 - 2019-03-19
 
 * Fixed [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
 
-## [3.2.0] - 2019-03-19
+## 3.2.0 - 2019-03-19
 
 ### Added
 
 * Added [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
 * Added [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
 
-## [3.1.1] - 2019-02-05
+## 3.1.1 - 2019-02-05
 
 * Trivial fixes
 
-## [3.1.0] - 2018-12-23
+## 3.1.0 - 2018-12-23
 
 ### Added
 
@@ -116,7 +116,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Fixed: Tests results panel should not show rulers
 
-## [3.0.0] - 2018-03-06
+## 3.0.0 - 2018-03-06
 
 ### Changed
 
@@ -130,55 +130,55 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Removed: Deprecated command `phpunit_switch_file`, use `phpunit_test_switch` instead
 * Removed: Deprecated command `phpunit_open_code_coverage`, use `phpunit_test_coverage` instead
 
-## [2.5.0] - 2018-03-03
+## 2.5.0 - 2018-03-03
 
 ### Added
 
 * Added [#78](https://github.com/gerardroche/sublime-phpunit/issues/78): Add support for PHPUnit Pretty Result Printer
 
-## [2.4.6] - 2017-12-08
+## 2.4.6 - 2017-12-08
 
 ### Fixed
 
 * Fixed [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
 
-## [2.4.5] - 2017-12-05
+## 2.4.5 - 2017-12-05
 
 ### Fixed
 
 * Fixed [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
 
-## [2.4.4] - 2017-11-23
+## 2.4.4 - 2017-11-23
 
 ### Fixed
 
 * Fixed: Workaround [Base ApplicationCommand registered in application_command_classes](https://github.com/SublimeTextIssues/Core/issues/2044)
 
-## [2.4.3] - 2017-11-20
+## 2.4.3 - 2017-11-20
 
 ### Fixed
 
 * Fixed [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
 
-## [2.4.2] - 2017-11-19
+## 2.4.2 - 2017-11-19
 
 ### Fixed
 
 * Fixed: Support for new Sublime Text color scheme format
 
-## [2.4.1] - 2017-08-23
+## 2.4.1 - 2017-08-23
 
 ### Fixed
 
 * Fixed [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
 
-## [2.4.0] - 2017-08-23
+## 2.4.0 - 2017-08-23
 
 ### Added
 
 * Added [#69](https://github.com/gerardroche/sublime-phpunit/issues/69): Can I adjust the font size of the test result panel
 
-## [2.3.0] - 2017-08-23
+## 2.3.0 - 2017-08-23
 
 ### Added
 
@@ -211,19 +211,19 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
   `F4` | Jump to Next Failure
   `Shift+F4` | Jump to Previous Failure
 
-## [2.2.2] - 2017-08-11
+## 2.2.2 - 2017-08-11
 
 ### Fixed
 
 * Fixed [#66](https://github.com/gerardroche/sublime-phpunit/issues/66): PHPUnit: 'NoneType' object has no attribute 'items'
 
-## [2.2.1] - 2017-06-13
+## 2.2.1 - 2017-06-13
 
 ### Fixed
 
 * Fixed: TypeError: object of type 'NoneType' has no len()
 
-## [2.2.0] - 2017-06-13
+## 2.2.0 - 2017-06-13
 
 ### Added
 
@@ -243,7 +243,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * The command "phpunit_open_code_coverage" is deprecated and will be removed in v3.0.0; use "phpunit_test_coverage" instead
 * The command "phpunit_switch_file" is deprecated and will be removed in v3.0.0; use "phpunit_test_switch" instead
 
-## [2.1.0] - 2017-05-17
+## 2.1.0 - 2017-05-17
 
 ### Added
 
@@ -260,13 +260,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Fixed: All status messages should be prefixed with "PHPUnit: "
 * Fixed: No status messages in some edge cases
 
-## [2.0.3] - 2017-04-19
+## 2.0.3 - 2017-04-19
 
 ### Fixed
 
 * Fixed [#63](https://github.com/gerardroche/sublime-phpunit/issues/63): Switches to wrong test
 
-## [2.0.2] - 2017-04-13
+## 2.0.2 - 2017-04-13
 
 ### Fixed
 
@@ -279,13 +279,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Fixed: Running tests now terminates any currently running tests before running tests
 * Fixed: .php-version file version is no longer overridden by the default executable 'phpunit.php_executable'
 
-## [2.0.1] - 2017-03-29
+## 2.0.1 - 2017-03-29
 
 ### Fixed
 
 * Fixed [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv/versions path doesn't exist
 
-## [2.0.0] - 2017-03-24
+## 2.0.0 - 2017-03-24
 
 ### Added
 
@@ -326,13 +326,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Fixed [#57](https://github.com/gerardroche/sublime-phpunit/issues/57): Find next / previous failure keymaps (Windows)
 
-## [1.2.1] - 2017-02-27
+## 1.2.1 - 2017-02-27
 
 ### Fixed
 
 * Fixed: Open settings command file path
 
-## [1.2.0] - 2017-02-02
+## 1.2.0 - 2017-02-02
 
 ### Changed
 
@@ -342,7 +342,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Minor fixes
 
-## [1.1.0] - 2016-09-21
+## 1.1.0 - 2016-09-21
 
 ### Added
 
@@ -352,49 +352,49 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Deprecated [#41](https://github.com/gerardroche/sublime-phpunit/issues/41): The `phpunit.vi_keymaps` configuration setting. Use `phpunit.keymaps.vi` instead.
 
-## [1.0.3] - 2016-09-21
+## 1.0.3 - 2016-09-21
 
 ### Fixed
 
 * Fixed [#46](https://github.com/gerardroche/sublime-phpunit/issues/46): (Windows) Cannot run single test from class under test
 
-## [1.0.2] - 2016-09-20
+## 1.0.2 - 2016-09-20
 
 ### Fixed
 
 * Fixed [#40](https://github.com/gerardroche/sublime-phpunit/issues/40): Cannot specify short Command-Line Options
 
-## [1.0.1] - 2016-09-20
+## 1.0.1 - 2016-09-20
 
 ### Fixed
 
 * Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): (Windows) Cannot run Composer installed PHPUnit
 
-## [1.0.0] - 2016-09-19
+## 1.0.0 - 2016-09-19
 
 ### Fixed
 
 * Fixed: README
 
-## [1.0.0-beta2] - 2016-08-11
+## 1.0.0-beta2 - 2016-08-11
 
 ### Fixed
 
 * Fixed: README
 
-## [1.0.0-beta1] - 2016-07-29
+## 1.0.0-beta1 - 2016-07-29
 
 ### Fixed
 
 * Fixed: README
 
-## [0.15.1] - 2016-06-08
+## 0.15.1 - 2016-06-08
 
 ### Fixed
 
 * Fixed: README
 
-## [0.15.0] - 2016-06-03
+## 0.15.0 - 2016-06-03
 
 ### Changed
 
@@ -402,13 +402,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
   - If you previously installed manually then remove the installation and install via Package Control. Search for phpunitkit.
   - If you prefer to keep your manual installation then rename or move your installation to "phpunitkit".
 
-## [0.14.1] - 2016-05-16
+## 0.14.1 - 2016-05-16
 
 ### Fixed
 
 * Fixed [#35](https://github.com/gerardroche/sublime-phpunit/issues/35): Cannot run "Run Single Test" with the latest build of Sublime Text (build 3114)
 
-## [0.14.0] - 2016-05-15
+## 0.14.0 - 2016-05-15
 
 ### Added
 
@@ -418,19 +418,19 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Changed: Renamed package from "phpunit" to "php_phpunit". This was needed in order to provide the plugin via Package Control. If you are having issues then either remove your existing plugin installation and install via Package Control, making sure to install the plugin by me, PHP PHPUnit (gerardroche), or rename your existing installation to "phpunit".
 
-## [0.13.0] - 2016-01-29
+## 0.13.0 - 2016-01-29
 
 ### Added
 
 * Added [#34](https://github.com/gerardroche/sublime-phpunit/issues/34): Option to disable composer support (phpunit.composer). Defaults to true.
 
-## [0.12.0] - 2016-01-12
+## 0.12.0 - 2016-01-12
 
 ### Changed
 
 * Changed: switch file command caption is now "PHPUnit: Switch Test Case / Class Under Test"
 
-## [0.11.0] - 2015-11-13
+## 0.11.0 - 2015-11-13
 
 ### Added
 
@@ -438,13 +438,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Added: Toggle No Coverage "--no-coverage" command
 * Added: "phpunit.options" setting to allow configuring a default list of options for PHPUnit to use
 
-## [0.10.1] - 2015-09-30
+## 0.10.1 - 2015-09-30
 
 ### Fixed
 
 * Fixed: incorrect file path to settings when opening from the command palette
 
-## [0.10.0] - 2015-09-30
+## 0.10.0 - 2015-09-30
 
 ### Added
 
@@ -491,14 +491,14 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Changed: renamed setting "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
 * Changed: To enable vi keymaps both "phpunit.keymaps" and "phpunit.vi_keymaps" need to be set to true, previously only the vi_keymaps needed to be set to true
 
-## [0.9.0] - 2015-07-06
+## 0.9.0 - 2015-07-06
 
 ### Added
 
 * Added: "Open HTML Code Coverage in Browser" command #23
 * Added: Switch and put class and test-case side-by-side #8
 
-## [0.8.0] - 2015-06-18
+## 0.8.0 - 2015-06-18
 
 ### Added
 
@@ -511,7 +511,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Fixed: Command palette captions are now capitalised
 * Fixed: Goto next/last failure now matches all files/line-numbers in stack traces
 
-## [0.7.0] - 2015-06-11
+## 0.7.0 - 2015-06-11
 
 ### Added
 
@@ -521,14 +521,14 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Removed: Several deprecated behaviours
 
-## [0.6.0] - 2015-05-27
+## 0.6.0 - 2015-05-27
 
 ### Added
 
 * Added: "PHPUnit: Cancel Test Run" to command palette
 * Added: ST3 Requirements check. Now raises a runtime exception if trying to load in < Sublime Text 3
 
-## [0.5.0] - 2015-05-16
+## 0.5.0 - 2015-05-16
 
 ### Added
 
@@ -552,13 +552,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Fixed: error when there is no active window and/or view
 * Fixed: test results not displaying colour when there are risky tests
 
-## [0.4.0] - 2015-05-03
+## 0.4.0 - 2015-05-03
 
 ### Added
 
 * Added: option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item. #30
 
-## [0.3.0] - 2015-02-04
+## 0.3.0 - 2015-02-04
 
 ### Added
 
@@ -574,7 +574,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Fixed: Running single test runs all tests with the same prefix #25
 * Fixed: Some minor test result progress syntax highlighting bugs
 
-## [0.2.0] - 2015-01-21
+## 0.2.0 - 2015-01-21
 
 ### Added
 
@@ -598,61 +598,3 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 ### 0.1.0 - 2015-01-07
 
 * Initial import; PHPUnit support
-
-[3.6.3]: https://github.com/gerardroche/sublime-phpunit/compare/3.6.2...3.6.3
-[3.6.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.6.1...3.6.2
-[3.6.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.6.0...3.6.1
-[3.6.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.5.1...3.6.0
-[3.5.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.5.0...3.5.1
-[3.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.4.0...3.5.0
-[3.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.3.0...3.4.0
-[3.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.2...3.3.0
-[3.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.1...3.2.2
-[3.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.2.0...3.2.1
-[3.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.1...3.2.0
-[3.1.1]: https://github.com/gerardroche/sublime-phpunit/compare/3.1.0...3.1.1
-[3.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/3.0.0...3.1.0
-[3.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.5.0...3.0.0
-[2.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.6...2.5.0
-[2.4.6]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.5...2.4.6
-[2.4.5]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.4...2.4.5
-[2.4.4]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.3...2.4.4
-[2.4.3]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.2...2.4.3
-[2.4.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.1...2.4.2
-[2.4.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.4.0...2.4.1
-[2.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.3.0...2.4.0
-[2.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.2...2.3.0
-[2.2.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.1...2.2.2
-[2.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.2.0...2.2.1
-[2.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.1.0...2.2.0
-[2.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.3...2.1.0
-[2.0.3]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.2...2.0.3
-[2.0.2]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.1...2.0.2
-[2.0.1]: https://github.com/gerardroche/sublime-phpunit/compare/2.0.0...2.0.1
-[2.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.2.1...2.0.0
-[1.2.1]: https://github.com/gerardroche/sublime-phpunit/compare/1.2.0...1.2.1
-[1.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.1.0...1.2.0
-[1.1.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.3...1.1.0
-[1.0.3]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.2...1.0.3
-[1.0.2]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.1...1.0.2
-[1.0.1]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.0...1.0.1
-[1.0.0]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.0-beta2...1.0.0
-[1.0.0-beta2]: https://github.com/gerardroche/sublime-phpunit/compare/1.0.0-beta1...1.0.0-beta2
-[1.0.0-beta1]: https://github.com/gerardroche/sublime-phpunit/compare/0.15.1...1.0.0-beta1
-[0.15.1]: https://github.com/gerardroche/sublime-phpunit/compare/0.15.0...0.15.0
-[0.15.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.14.1...0.15.0
-[0.14.1]: https://github.com/gerardroche/sublime-phpunit/compare/0.14.0...0.14.1
-[0.14.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.13.0...0.14.0
-[0.13.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.12.0...0.13.0
-[0.12.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.11.0...0.12.0
-[0.11.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.10.1...0.11.0
-[0.10.1]: https://github.com/gerardroche/sublime-phpunit/compare/0.10.0...0.10.1
-[0.10.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.9.0...0.10.0
-[0.9.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.8.0...0.9.0
-[0.8.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.7.0...0.8.0
-[0.7.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.6.0...0.7.0
-[0.6.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.5.0...0.6.0
-[0.5.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.4.0...0.5.0
-[0.4.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.3.0...0.4.0
-[0.3.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.2.0...0.3.0
-[0.2.0]: https://github.com/gerardroche/sublime-phpunit/compare/0.1.0...0.2.0
