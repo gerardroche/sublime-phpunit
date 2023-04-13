@@ -4,7 +4,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.10.1 - 2023-04-13
 
-* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Only use Artisan runner if enabled and it exists
+* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Only use the Artisan runner if enabled and it exists
 * Fixed [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Only use the Pest runner if enabled and it exists
 
 ## 3.10.0 - 2023-04-13
