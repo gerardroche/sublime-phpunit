@@ -80,11 +80,11 @@ You can configure the plugin via **Menu > Preferences > Settings** or the Comman
 
 key | description | type | default
 --- | ----------- | ---- | -------
-`phpunit.options` | Default options to use when running PHPUnit. | `dict` | `{}`
+`phpunit.options` | Options to use when running tests. | `dict` | `{}`
 `phpunit.executable` | Path to PHPUnit executable. | `string\|list` | Auto discovered.
 `phpunit.php_executable` | Path to PHP executable. | `string` | Auto discovered.
-`phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
 `phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `bool` | `true`
+`phpunit.on_post_save` | Events to trigger when a file is saved. | `list:run_test_file` | `[]`
 `phpunit.prepend_cmd` | Prepends test runner command. | `list` | `[]`
 `phpunit.strategy` | Output type. | `string:iterm\|panel` | `panel`
 `phpunit.composer` | Use PHPUnit installed by Composer if it exists. | `bool` | `true`
