@@ -29,11 +29,33 @@ The preferred method of installation is [Package Control](https://packagecontrol
 
 Close Sublime Text, then download or clone the [repository](https://github.com/gerardroche/sublime-phpunit) to a directory named **PHPUnitKit** in the Sublime Text **Packages directory** for your platform:
 
-OS | Command
--- | -----
-Linux | `git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/PHPUnitKit`
-OSX | `git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/PHPUnitKit`
-Windows | `git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
+#### Sublime Text 4
+
+**Linux**
+
+`git clone https://github.com/gerardroche/sublie-phpunit.git ~/.config/sublime-text/Packages/PHPUnitKit`
+
+**OSX**
+
+`git clone https://github.com/gerardroche/sublie-phpunit.git ~/Library/Application\ Support/Sublime\ Text/Packages/PHPUnitKit`
+
+**Windows**
+
+`git clone https://github.com/gerardroche/sublie-phpunit.git %APPDATA%\Sublime/ Text/Packages/PHPUnitKit`
+
+#### Sublime Text 3
+
+**Linux**
+
+`git clone https://github.com/gerardroche/sublie-phpunit.git ~/.config/sublime-text-3/Packages/PHPUnitKit`
+
+**OSX**
+
+`git clone https://github.com/gerardroche/sublie-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/PHPUnitKit`
+
+**Windows**
+
+`git clone https://github.com/gerardroche/sublie-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
 
 ## Commands
 
