@@ -43,10 +43,10 @@ command | description
 ------- | -----------
 **TestSuite** | Runs the whole test suite (if the current file is a test file, runs that framework's test suite).
 **TestFile** | In a test file runs all tests in the current file, otherwise runs that file's tests.
-**TestNearest** | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
 **TestLast** | Runs the last test.
-**TestVisit** | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+**TestNearest** | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
 **TestSwitch** | In a test file opens the file under test, otherwise opens the test file.
+**TestVisit** | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
 **TestResults** | Opens the test results panel.
 **TestCancel** | Cancels the test runner.
 **TestCoverage** | Opens the code coverage report in default browser.
@@ -81,12 +81,15 @@ You can configure the plugin via **Menu > Preferences > Settings** or the Comman
 key | description | type | default
 --- | ----------- | ---- | -------
 `phpunit.options` | Default options to use when running PHPUnit. | `dict` | `{}`
-`phpunit.composer` | Use PHPUnit installed by Composer? | `boolean` | `true`
-`phpunit.executable` | Path to PHPUnit executable. | `string` | Auto discover using Composer or the system PATH
+`phpunit.executable` | Path to PHPUnit executable. | `string|list` | Auto discovered.
+`phpunit.php_executable` | Path to PHP executable. | `string` | Auto discovered.
 `phpunit.on_post_save` | List of events to trigger when a file is saved. | `list` | `[]`
-`phpunit.php_executable` | Path to PHP executable. | `string` | Auto discover using the system PATH
 `phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `boolean` | `true`
-`phpunit.strategy` | Execution environment. | `string` | `default` (output panel)
+`phpunit.prepend_cmd` | Prepends test runner command. | `list` | `[]`.
+`phpunit.strategy` | Output. | `string:iterm|panel` | `panel`.
+`phpunit.composer` | Use PHPUnit installed by Composer? | `boolean` | `true`
+`phpunit.artisan` | Use Artisan test runner if it exists. | `boolean` | `true`
+`phpunit.pest` | Use Pest test runner if it exists. | `boolean` | `true`
 
 ### phpunit.options
 
@@ -94,9 +97,9 @@ If you want some CLI options to stick around, you can configure them in your glo
 
 ```
 "phpunit.options": {
+    "no-coverage": true,
     "colors=never": true,
     "coverage-html": "build/coverage",
-    "no-coverage": true,
     "d": ["display_errors=1", "xdebug.scream=0"]
 }
 ```
@@ -104,7 +107,7 @@ If you want some CLI options to stick around, you can configure them in your glo
 The above transforms the options and passes them to the PHPUnit executable:
 
 ```
--d "display_errors=1" -d "xdebug.scream=0" --colors=never --coverage-html build/coverage --no-coverage
+-d "display_errors=1" -d "xdebug.scream=0" --no-coverage --colors=never --coverage-html build/coverage
 ```
 
 ### phpunit.composer
@@ -121,6 +124,8 @@ You can instruct the test runner to use a custom PHPUnit executable. The default
 
 ```
 "phpunit.executable": "~/path/to/bin/phpunit"
+"phpunit.executable": ["~/path/to/bin/phpunit"]
+"phpunit.executable": ["artisan", "test"]
 ```
 
 ### phpunit.on_post_save
