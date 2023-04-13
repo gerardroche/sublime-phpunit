@@ -84,7 +84,7 @@ key | description | type | default
 `phpunit.executable` | Path to PHPUnit executable. | `string\|list` | Auto discovered.
 `phpunit.php_executable` | Path to PHP executable. | `string` | Auto discovered.
 `phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `bool` | `true`
-`phpunit.on_post_save` | Events to trigger when a file is saved. | `list:run_test_file` | `[]`
+`phpunit.on_post_save` | Events to trigger when a file is saved. | `list` | `[]`
 `phpunit.prepend_cmd` | Prepends test runner command. | `list` | `[]`
 `phpunit.strategy` | Output type. | `string:iterm\|panel` | `panel`
 `phpunit.composer` | Use PHPUnit installed by Composer if it exists. | `bool` | `true`
@@ -110,14 +110,6 @@ The above transforms the options and passes them to the PHPUnit executable:
 -d "display_errors=1" -d "xdebug.scream=0" --no-coverage --colors=never --coverage-html build/coverage
 ```
 
-### phpunit.composer
-
-When enabled, the test runner will use the PHPUnit executable installed by Composer, otherwise the system PATH will be used to find the executable. Composer support is enabled by default.
-
-```
-"phpunit.composer": true
-```
-
 ### phpunit.executable
 
 You can instruct the test runner to use a custom PHPUnit executable. The default is to auto discover one using Composer, if `phpunit.composer` is enabled, or using the system PATH.
@@ -126,18 +118,6 @@ You can instruct the test runner to use a custom PHPUnit executable. The default
 "phpunit.executable": "~/path/to/bin/phpunit"
 "phpunit.executable": ["~/path/to/bin/phpunit"]
 "phpunit.executable": ["artisan", "test"]
-```
-
-### phpunit.on_post_save
-
-The "on post save" option allows you to trigger events after you save a file, for example you run the test file command (currently this is the only event supported). Defaults to `[]` (no events).
-
-event | description
------ | -----------
-`run_test_file` | Runs the the "test file" command for the active view.
-
-```
-"phpunit.on_post_save": ["run_test_file"]
 ```
 
 ### phpunit.php_executable
@@ -156,6 +136,18 @@ You can automatically save all views that have unsaved buffers (dirty buffers) *
 "phpunit.save_all_on_run": true
 ```
 
+### phpunit.on_post_save
+
+The "on post save" option allows you to trigger events after you save a file, for example you run the test file command (currently this is the only event supported). Defaults to `[]` (no events).
+
+event | description
+----- | -----------
+`run_test_file` | Runs the the "test file" command for the active view.
+
+```
+"phpunit.on_post_save": ["run_test_file"]
+```
+
 ### phpunit.strategy
 
 You can run tests using different execution environments. Here is a table of available environments. The default is to use Sublime's builtin build panel.
@@ -167,6 +159,14 @@ strategy | identifier | description
 
 ```
 "phpunit.strategy": "iterm"
+```
+
+### phpunit.composer
+
+When enabled, the test runner will use the PHPUnit executable installed by Composer, otherwise the system PATH will be used to find the executable. Composer support is enabled by default.
+
+```
+"phpunit.composer": true
 ```
 
 ## Custom commands
