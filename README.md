@@ -15,9 +15,9 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run Nearest Test
 * Run Last Test
 * Fully customisable configuration
-* Supports Composer installed PHPUnit
-* Supports colour results, diffs, errors, etc.
-* Jump to next and jump to previous failure
+* Supports Composer, Pest, and Artisan
+* Supports colour output including diffs
+* Supports jump-to-next and jump-to-previous failure
 
 ## Installation
 
