@@ -139,32 +139,36 @@ You can automatically save all views that have unsaved buffers (dirty buffers) *
 
 ### phpunit.on_post_save
 
-The "on post save" option allows you to trigger events after you save a file, for example you run the test file command (currently this is the only event supported). Defaults to `[]` (no events).
-
-event | description
------ | -----------
-`run_test_file` | Runs the the "test file" command for the active view.
+The `on_post_save` setting allows you to trigger events after you save a file. For example you can run the test file command after a file is saved:
 
 ```
 "phpunit.on_post_save": ["run_test_file"]
 ```
 
+Available events:
+
+event | description
+----- | -----------
+`run_test_file` | Runs the the "test file" command for the active view.
+
 ### phpunit.strategy
 
-You can run tests using different execution environments. Here is a table of available environments. The default is to use Sublime's builtin build panel.
-
-strategy | identifier | description
--------- | ---------- | -----------
-**Panel** | `default` | Runs test commands in a panel at the bottom of your editor window.
-**iTerm2.app** | `iterm` | Sends test commands to iTerm2 >= 2.9 (useful in MacVim GUI).
+You can run tests in different execution environments. The default is to use the Sublime Text exec output panel. For example on OSX you can use iTerm:
 
 ```
 "phpunit.strategy": "iterm"
 ```
 
+Available strategies:
+
+Strategy | Description
+---------- | -----------
+`panel` | Runs test commands in a panel at the bottom of your editor window.
+`iterm` | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
+
 ### phpunit.composer
 
-When enabled, the test runner will use the PHPUnit executable installed by Composer, otherwise the system PATH will be used to find the executable. Composer support is enabled by default.
+When enabled, the test runner will use the PHPUnit executable installed by Composer if it exists, otherwise the system PATH will be used to find the executable. Composer support is enabled by default.
 
 ```
 "phpunit.composer": true
