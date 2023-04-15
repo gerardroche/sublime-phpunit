@@ -18,7 +18,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run Test Nearest
 * Run Test Last
 * Switch Test
-* Supports Composer, Pest, and Artisan
+* Supports Artisan, Composer, iTerm2, Kitty, Pest
 * Supports jump-to-next and jump-to-previous failure
 
 ## Installation
