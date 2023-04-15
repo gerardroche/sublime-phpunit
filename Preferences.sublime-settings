@@ -23,6 +23,7 @@
     "phpunit.options": {},
 
     // Enable Paratest test runner.
+    // See https://github.com/paratestphp/paratest.
     "phpunit.paratest": false,
 
     // Enable Pest test runner.
