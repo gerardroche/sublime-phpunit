@@ -22,6 +22,9 @@
     // e.g. `{"no-coverage": true, "verbose": true, "colors=never": true}`
     "phpunit.options": {},
 
+    // Enable Paratest test runner.
+    "phpunit.paratest": false,
+
     // Enable Pest test runner.
     // See https://pestphp.com.
     "phpunit.pest": false,

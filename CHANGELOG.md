@@ -2,9 +2,13 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.12.0 - Unreleased
+
+* Fixed [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
+
 ## 3.11.2 - 2023-04-15
 
-* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/104): Build output syntax
+* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Build output syntax
 
 ## 3.11.1 - 2023-04-15
 
@@ -12,7 +16,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.11.0 - 2023-04-15
 
-* Added [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): Kitty execution strategy
+* Added [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): [Kitty](https://github.com/kovidgoyal/kitty) execution strategy
 
 ## 3.10.1 - 2023-04-13
 

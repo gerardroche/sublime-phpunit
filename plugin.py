@@ -504,6 +504,15 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         executable = filter_path(executable)
         return executable if isinstance(executable, list) else [executable]
 
+    if get_setting(view, 'paratest'):
+        if platform() == 'windows':
+            paratest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'paratest.bat'))
+        else:
+            paratest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'paratest'))
+
+        if file_exists_and_is_executable(paratest_executable):
+            return [paratest_executable]
+
     if get_setting(view, 'artisan'):
         if platform() == 'windows':
             artisan_executable = os.path.join(working_dir, os.path.join('artisan.bat'))

@@ -19,7 +19,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run Test Last
 * Switch between test and file under test
 * Supports jump-to-next and jump-to-previous failure
-* Supports Artisan, Composer, iTerm2, Kitty, Pest, and much more
+* Supports Artisan, Composer, iTerm2, [Kitty], [ParaTest], [Pest], and more
 
 ## Installation
 
@@ -97,6 +97,7 @@ Setting                     | Description                                       
 `phpunit.strategy`          | Output type.                                      | `string`              | `basic`
 `phpunit.composer`          | Use PHPUnit installed by Composer if it exists.   | `bool`                | `true`
 `phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
+`phpunit.paratest`          | Use ParaTest test runner if it exists.                | `bool`                | `false`
 `phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
 
 ### CLI Options
@@ -164,3 +165,5 @@ Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https:/
 Released under the [BSD 3-Clause License](LICENSE).
 
 [Kitty]: https://github.com/kovidgoyal/kitty
+[ParaTest]: https://github.com/paratestphp/paratest
+[Pest]: https://pestphp.com
