@@ -4,7 +4,7 @@
 # See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c35359287fa6b0adb17391/src/TextUI/ResultPrinter.php#L344
 name: PHPUnit Text UI Result
 scope: text.phpunit-result
-hidden: true
+hidden: false
 contexts:
   main:
 
@@ -41,16 +41,10 @@ contexts:
         - match: ✓
           scope: markup.inserted
 
-        - match: (✖|⨯|➜)
+        - match: (✖|⨯|➜|⚈)
           scope: markup.deleted
 
-        - match: ⚈
-          scope: markup.deleted
-
-        - match: (➦|-)
-          scope: markup.changed
-
-        - match: ℹ
+        - match: (ℹ|➦|-|\!)
           scope: markup.changed
 
         - match: \bR\b
@@ -89,21 +83,38 @@ contexts:
           scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true
 
-    # Pest
+    - match: '^\s+at ([^ ]+\.php)(\:)([0-9]+)$'
+      captures:
+        1: entity.name.filename
+        2: punctuation
+        3: constant.numeric.line-number
+
+    # Artisan / Pest
+
     - match: '^  ( PASS ).+'
       captures:
         1: region.greenish phpunitkit test.footer.ok.phpunit-result
-    - match: '^  ( FAIL ).+'
+
+    - match: ^  ─{76}$
+      scope: markup.deleted
+
+    - match: '^  ( (FAIL|FAILED) )'
       captures:
         1: region.redish phpunitkit test.footer.fail.phpunit-result
-    - match: '^  ( WARN ).+'
+
+    - match: '( Error\s?)\s*$'
+      captures:
+        1: region.redish phpunitkit test.footer.fail.phpunit-result
+
+    - match: '^  ( (WARN|DEPR) ).+'
       captures:
         1: region.orangish phpunitkit test.footer.warn.phpunit-result
+
     - match: '\d+ failed'
       scope: markup.deleted
-    - match: '\d+ skipped'
+
+    - match: '\d+ (skipped|incomplete|deprecated)'
       scope: markup.changed
-    - match: '\d+ incomplete'
-      scope: markup.changed
+
     - match: '\d+ passed'
       scope: markup.inserted

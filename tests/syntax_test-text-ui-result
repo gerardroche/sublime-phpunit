@@ -148,10 +148,70 @@ There was 1 skipped test:
 1) App\AppName\RiskyTest::testSkip
 skipped
 
-==================== PEST
+
+
+                                Artisan
+================================================================================
+
+   FAIL  Path\To\ClassTest
+# ^^^^^^ region.redish
+  ⨯ test fail title                                                      0.65s
+# ^ markup.deleted
+  ✓ test pass title                                                      0.02s
+# ^ markup.inserted
+
+   DEPR  ClassTest
+# ^^^^^^ region.orangish
+  ! create fixture → Creation of dynamic property TheClassTest::$fixtur… 0.17s
+# ^ markup.changed
+
+   PASS  Path\To\ClassTest
+# ^^^^^^ region.greenish
+  ✓ test pass title                                                      0.12s
+# ^ markup.inserted
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Path\To\Class\XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX…
+# ^^^^^^^^ region.redish
+   FAILED  Path\To\Class\XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX…  Error
+# ^^^^^^^^ region.redish
+#                                                                      ^^^^^^ region.redish
+  Call to undefined method PHPUnit\Framework\MockObject\Builder\InvocationMocker::withConsecutive()
+
+  ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   FAILED  Path\To\Class\XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX…  Error
+# ^^^^^^^^ region.redish
+#                                                                      ^^^^^^ region.redish
+  Call to undefined method PHPUnit\Framework\MockObject\Builder\InvocationMocker::withConsecutive()
+
+  at path/to/some/class/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ClassTest.php:74
+#    ^^^ entity.name.filename
+#                                                                                         ^^ constant.numeric.line-number
+     70▕         $abcd->variabl = ['xy' => 123, 'abcd' => 'x', 'abcdefghi' => 123];
+     71▕
+     72▕         $abcd->abcdefghi->jklmnop($this->exactly(2))
+     73▕             ->method('abcdefghijklmnopqrstuvwxyzab')
+  ➜  74▕             ->withConsecutive(
+# ^ markup.deleted
+     75▕                 [$this->identicalTo(123), 'abcdefgh'],
+     76▕                 [$this->identicalTo(456), 'abcdefgh'],
+     77▕             )->willReturn($abcd, $efgh);
+     78▕
+
+  1   path/To/Class/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ClassTest.php:74
+
+  Tests:    28 deprecated, 3 failed, 341 passed (867 assertions)
+#           ^^^^^^^^^^^^^ markup.changed
+#                          ^^^^^^^^ markup.deleted
+#                                    ^^^^^^^^^^ markup.inserted
+  Duration: 22.41s
+
+
+                                Pest
+================================================================================
 
    PASS  BasicTest
-# ^^^^^^ region.greenish phpunitkit test.footer.ok.phpunit-result
+# ^^^^^^ region.greenish
   ✓ one
 # ^ markup.inserted
   ✓ two
