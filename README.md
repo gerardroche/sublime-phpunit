@@ -1,4 +1,4 @@
-# PHPUnit
+# PHPUnitKit
 
 <p>
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
@@ -13,13 +13,13 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 
 ## Features
 
+* Run Test Nearest
 * Run Test File
 * Run Test Suite
-* Run Test Nearest
 * Run Test Last
-* Switch Test
+* Switch between test and file under test
 * Supports jump-to-next and jump-to-previous failure
-* Supports Artisan, Composer, iTerm2, Kitty, Pest
+* Supports Artisan, Composer, iTerm2, Kitty, Pest, and much more
 
 ## Installation
 
@@ -48,23 +48,23 @@ You can execute all commands from the Command Palette. All commands are prefixed
 
 Command                 | Description
 :---------------------- | :----------
-**Test&nbsp;Suite**     | Runs the whole test suite (if the current file is a test file, runs that framework's test suite).
-**Test&nbsp;File**      | In a test file runs all tests in the current file, otherwise runs that file's tests.
+**Test&nbsp;Nearest**   | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
+**Test&nbsp;File**      | In a test file runs all tests in the current file, otherwise runs test for the current file.
+**Test&nbsp;Suite**     | Runs the whole test suite.
 **Test&nbsp;Last**      | Runs the last test.
-**Test&nbsp;Nearest**   | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
 **Test&nbsp;Switch**    | In a test file opens the file under test, otherwise opens the test file.
 **Test&nbsp;Visit**     | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-**Test&nbsp;Results**   | Opens the test results panel.
-**Test&nbsp;Cancel**    | Cancels the test runner.
-**Test&nbsp;Coverage**  | Opens the code coverage report in default browser.
-**Toggle&nbsp;Option**  | Toggles PHPUnit options.
+**Test&nbsp;Results**   | Opens the exec test output panel.
+**Test&nbsp;Cancel**    | Cancels any currently running test.
+**Test&nbsp;Coverage**  | Opens code coverage in browser.
+**Toggle&nbsp;Option**  | Toggles various PHPUnit options.
 
 ## Key Bindings
 
 Key         | Description
 :---        | :----------
 `F4`        | Jump to next failure
-`Shift+F4`  | Jump to previous failure
+`SHIFT+F4`  | Jump to previous failure
 
 ## Strategies
 
@@ -99,7 +99,7 @@ Setting                     | Description                                       
 `phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
 `phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
 
-### Options
+### CLI Options
 
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
@@ -112,7 +112,7 @@ If you want some CLI options to stick around, you can configure them in your glo
 }
 ```
 
-The above options would be pass to PHPUnit as the following CLI options:
+The above configuration would be passed to PHPUnit as the following CLI options:
 
 ```
 -d "display_errors=1" -d "xdebug.scream=0" --no-coverage --colors=never --coverage-html build/coverage
