@@ -149,6 +149,23 @@ There was 1 skipped test:
 skipped
 
 
+There was 1 failure:
+
+1) FileNameTest::testBasic
+Failed asserting that false is true.
+
+/path/to/unit/tests/FileNameTest.php:42
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.filename
+#                                    ^^ constant.numeric.line-number
+
+
+
+
+
+
+
+
+
 
                                 Artisan
 ================================================================================
@@ -184,9 +201,9 @@ skipped
 #                                                                      ^^^^^^ region.redish
   Call to undefined method PHPUnit\Framework\MockObject\Builder\InvocationMocker::withConsecutive()
 
-  at path/to/some/class/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ClassTest.php:74
-#    ^^^ entity.name.filename
-#                                                                                         ^^ constant.numeric.line-number
+  at path/to/some/ClassTest.php:74
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.filename
+#                               ^^ constant.numeric.line-number
      70▕         $abcd->variabl = ['xy' => 123, 'abcd' => 'x', 'abcdefghi' => 123];
      71▕
      72▕         $abcd->abcdefghi->jklmnop($this->exactly(2))
@@ -198,13 +215,21 @@ skipped
      77▕             )->willReturn($abcd, $efgh);
      78▕
 
-  1   path/To/Class/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ClassTest.php:74
+  1   path/To/ClassTest.php:74
 
   Tests:    28 deprecated, 3 failed, 341 passed (867 assertions)
 #           ^^^^^^^^^^^^^ markup.changed
 #                          ^^^^^^^^ markup.deleted
 #                                    ^^^^^^^^^^ markup.inserted
   Duration: 22.41s
+
+
+
+
+
+
+
+
 
 
                                 Pest
