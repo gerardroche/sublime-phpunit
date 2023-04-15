@@ -1,82 +1,33 @@
 # PHPUnit
 
-[![Continuous Integration](https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg)](https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml) [![AppVeyor Build status](https://img.shields.io/appveyor/ci/gerardroche/sublime-phpunit/master.svg?style=flat-square&label=appveyor)](https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master) [![Coveralls Coverage Status](https://img.shields.io/coveralls/gerardroche/sublime-phpunit/master.svg?style=flat-square&label=coveralls)](https://coveralls.io/github/gerardroche/sublime-phpunit?branch=master) [![Codecov Coverage Status](https://img.shields.io/codecov/c/github/gerardroche/sublime-phpunit/master?style=flat-square&label=codecov)](https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master)
-
-[![Minimum Sublime Version](https://img.shields.io/badge/sublime-%3E%3D%203.0-brightgreen.svg?style=flat-square)](https://sublimetext.com) [![Latest Version](https://img.shields.io/github/tag/gerardroche/sublime-phpunit.svg?style=flat-square&label=version)](https://github.com/gerardroche/sublime-phpunit/tags) [![GitHub stars](https://img.shields.io/github/stars/gerardroche/sublime-phpunit.svg?style=flat-square)](https://github.com/gerardroche/sublime-phpunit/stargazers) [![Downloads](https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square)](https://packagecontrol.io/packages/PHPUnitKit)
+<p>
+    <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
+    <a href="https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master"><img alt="AppVeyor CI Status" src="https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true"></a>
+    <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK" alt="CodeCov Coverage Status" /></a>
+    <a href="https://packagecontrol.io/packages/PHPUnitKit"><img alt="Downloads" src="https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square"></a>
+</p>
 
 PHPUnit support for [Sublime Text](https://sublimetext.com).
 
-![PHPUnitKit Screenshot](screenshot.png)
+<img src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585" alt="Screenshot">
 
 ## Features
 
 * Run Test File
 * Run Test Suite
-* Run Nearest Test
-* Run Last Test
-* Fully customisable configuration
+* Run Test Nearest
+* Run Test Last
+* Switch Test
 * Supports Composer, Pest, and Artisan
-* Supports colour output including diffs
 * Supports jump-to-next and jump-to-previous failure
 
 ## Installation
 
-### Package Control installation
+Install PHPUnitKit via [Package Control](https://packagecontrol.io/packages/PHPUnitKit).
 
-The preferred method of installation is [Package Control](https://packagecontrol.io/packages/PHPUnitKit).
+## Setup
 
-### Manual installation
-
-Close Sublime Text, then download or clone the [repository](https://github.com/gerardroche/sublime-phpunit) to a directory named **PHPUnitKit** in the Sublime Text **Packages directory** for your platform:
-
-#### Sublime Text 4
-
-**Linux**
-
-`git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text/Packages/PHPUnitKit`
-
-**OSX**
-
-`git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text/Packages/PHPUnitKit`
-
-**Windows**
-
-`git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/Packages/PHPUnitKit`
-
-#### Sublime Text 3
-
-**Linux**
-
-`git clone https://github.com/gerardroche/sublime-phpunit.git ~/.config/sublime-text-3/Packages/PHPUnitKit`
-
-**OSX**
-
-`git clone https://github.com/gerardroche/sublime-phpunit.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/PHPUnitKit`
-
-**Windows**
-
-`git clone https://github.com/gerardroche/sublime-phpunit.git %APPDATA%\Sublime/ Text/ 3/Packages/PHPUnitKit`
-
-## Command Palette
-
-All of the following commands are available via the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X)) and are all prefixed with "PHPUnit: ".
-
-command | description
-------- | -----------
-**TestSuite** | Runs the whole test suite (if the current file is a test file, runs that framework's test suite).
-**TestFile** | In a test file runs all tests in the current file, otherwise runs that file's tests.
-**TestLast** | Runs the last test.
-**TestNearest** | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
-**TestSwitch** | In a test file opens the file under test, otherwise opens the test file.
-**TestVisit** | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-**TestResults** | Opens the test results panel.
-**TestCancel** | Cancels the test runner.
-**TestCoverage** | Opens the code coverage report in default browser.
-**ToggleOption** | Toggles PHPUnit options.
-
-## Key Bindings
-
-Add your preferred key bindings via **Menu > Preferences > Key Bindings** or the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X), select "Preferences: Key Bindings" and press `enter`).
+Add your preferred key bindings via Menu &gt; Preferences &gt; Key Bindings:
 
 ```json
 [
@@ -87,14 +38,48 @@ Add your preferred key bindings via **Menu > Preferences > Key Bindings** or the
     { "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
     { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
     { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
-    { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" }
+    { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
 ]
 ```
 
-key | description
---- | -----------
-`F4` | Jump to Next Failure
-`Shift+F4` | Jump to Previous Failure
+## Commands
+
+You can execute all commands from the Command Palette. All commands are prefixed with "PHPUnit: ".
+
+Command                 | Description
+:---------------------- | :----------
+**Test&nbsp;Suite**     | Runs the whole test suite (if the current file is a test file, runs that framework's test suite).
+**Test&nbsp;File**      | In a test file runs all tests in the current file, otherwise runs that file's tests.
+**Test&nbsp;Last**      | Runs the last test.
+**Test&nbsp;Nearest**   | In a test file runs the test nearest to the cursor, otherwise runs that file's tests.
+**Test&nbsp;Switch**    | In a test file opens the file under test, otherwise opens the test file.
+**Test&nbsp;Visit**     | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+**Test&nbsp;Results**   | Opens the test results panel.
+**Test&nbsp;Cancel**    | Cancels the test runner.
+**Test&nbsp;Coverage**  | Opens the code coverage report in default browser.
+**Toggle&nbsp;Option**  | Toggles PHPUnit options.
+
+## Key Bindings
+
+Key         | Description
+:---        | :----------
+`F4`        | Jump to next failure
+`Shift+F4`  | Jump to previous failure
+
+## Strategies
+
+PHPUnitKit can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
+
+```json
+{
+    "phpunit.strategy": "iterm"
+}
+```
+
+| Strategy              | Identifier    | Description
+| :------:              | :--------:    | :----------
+| **Basic** (default)   | `basic`       | Runs tests commands with Sublime Text exec command.
+| **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 
 ## Configuration
 
@@ -172,21 +157,6 @@ Available events:
 event | description
 ----- | -----------
 `run_test_file` | Runs the the "test file" command for the active view.
-
-### phpunit.strategy
-
-You can run tests in different execution environments. The default is to use the Sublime Text exec output panel. For example on OSX you can use iTerm:
-
-```
-"phpunit.strategy": "iterm"
-```
-
-Available strategies:
-
-Strategy | Description
----------- | -----------
-`panel` | Runs test commands in a panel at the bottom of your editor window.
-`iterm` | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 
 ### phpunit.composer
 

@@ -7,21 +7,14 @@
     // run the tests, otherwise the system PATH is used to find PHPUnit.
     "phpunit.composer": true,
 
-    // The PHPUnit executable to use when running tests. The default is to look
-    // for a composer installed phpunit executable, if phpunit.composer is
-    // enabled, or to look for one on the system PATH. Environment variables and
-    // user place-holders are expanded e.g. $HOME and ~ will be replaced with
-    // the user home directory.
-    // "phpunit.executable": "~/path/to/bin/phpunit",
+    // The PHPUnit executable to use when running tests. Environment variables
+    // and user home directory ~ placeholder are expanded. The executable can
+    // be a string or a list.
+    // "phpunit.executable": "vendor/bin/phpunit",
 
-    // Trigger events when a file is saved.
-    //
-    // Event         | Description
-    // ------------- | -----------------------------------------------------
-    // run_test_file | Automatically runs "Test File" when the view is saved
-    //
+    // Events to execute when a view is saved.
     "phpunit.on_post_save": [
-        // "run_test_file"
+        // "run_test_file" // Automatically run "Test File" command
     ],
 
     // Command-line options to pass to PHPUnit.
@@ -53,9 +46,7 @@
     // before running tests.
     "phpunit.save_all_on_run": true,
 
-    // Strategy | Description
-    // -------- | -----------
-    // default  | Runs test commands in a panel at the bottom of your editor window.
-    // iterm    | Sends test commands to iTerm2 >= 2.9 (useful in MacVim GUI).
-    "phpunit.strategy": "default",
+    // Run tests using different execution environments.
+    // (basic|iterm)
+    "phpunit.strategy": "basic",
 }
