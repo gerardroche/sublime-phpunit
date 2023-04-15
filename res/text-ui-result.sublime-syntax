@@ -4,7 +4,7 @@
 # See https://github.com/sebastianbergmann/phpunit/blob/0b78eddd0519dd9bf7c35359287fa6b0adb17391/src/TextUI/ResultPrinter.php#L344
 name: PHPUnit Text UI Result
 scope: text.phpunit-result
-hidden: false
+hidden: true
 contexts:
   main:
 

@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.11.2 - 2023-04-15
+
+* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/104): Build output syntax
+
 ## 3.11.1 - 2023-04-15
 
 * Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/104): Artisan and Pest color output
