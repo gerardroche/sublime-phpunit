@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.11.0 - Unreleased
+## 3.11.0 - 2023-04-15
 
 * Added [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): [Kitty](https://github.com/gerardroche/sublime-phpunit/pull/104) execution strategy
 
