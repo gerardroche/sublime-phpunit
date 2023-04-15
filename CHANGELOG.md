@@ -4,7 +4,8 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.12.0 - Unreleased
 
-* Fixed [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
+* Added [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
+* Added [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
 
 ## 3.11.2 - 2023-04-15
 
