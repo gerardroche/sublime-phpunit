@@ -137,7 +137,7 @@ You can instruct the test runner to use a custom PHP executable. The default is 
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
 ```
 
-### Auto run test file command on save
+### Auto run Test File on save
 
 The `on_post_save` setting allows you to run the test file command immediatley after you save a file:
 
@@ -146,10 +146,6 @@ The `on_post_save` setting allows you to run the test file command immediatley a
     "run_test_file"
 ]
 ```
-
-Event | Description
-:---- | :----------
-`run_test_file` | Runs the the "test file" command for the active view.
 
 ## Contributing
 
