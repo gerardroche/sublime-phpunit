@@ -724,6 +724,8 @@ class PHPUnit():
 
             cmd = []
             cmd += get_setting(self.view, 'prepend_cmd')
+            if get_setting(self.view, 'strategy') == 'kitty':
+                cmd += ['kitty', '--hold']
             if get_setting(self.view, 'strategy') == 'iterm':
                 cmd.append(_get_osx_term_script_path())
             cmd += phpunit_executable
@@ -758,7 +760,7 @@ class PHPUnit():
             'options': options
         }, window=self.window)
 
-        if get_setting(self.view, 'strategy') == 'iterm':
+        if get_setting(self.view, 'strategy') in ('iterm', 'kitty'):
             self.window.run_command('exec', {
                 'env': env,
                 'cmd': cmd,

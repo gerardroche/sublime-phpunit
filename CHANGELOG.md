@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.11.0 - Unreleased
+
+* Added [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): [Kitty](https://github.com/gerardroche/sublime-phpunit/pull/104) execution strategy
+
 ## 3.10.1 - 2023-04-13
 
 * Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Only use the Artisan runner if enabled and it exists

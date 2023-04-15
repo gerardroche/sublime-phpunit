@@ -47,6 +47,6 @@
     "phpunit.save_all_on_run": true,
 
     // Run tests using different execution environments.
-    // (basic|iterm)
+    // (basic|iterm|kitty)
     "phpunit.strategy": "basic",
 }

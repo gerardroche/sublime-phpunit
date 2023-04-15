@@ -80,6 +80,7 @@ PHPUnitKit can run tests using different execution environments called "strategi
 | :------:              | :--------:    | :----------
 | **Basic** (default)   | `basic`       | Runs tests commands with Sublime Text exec command.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
+| **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
 
 ## Configuration
 
@@ -181,3 +182,5 @@ Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https:/
 ## License
 
 Released under the [BSD 3-Clause License](LICENSE).
+
+[Kitty]: https://github.com/kovidgoyal/kitty
