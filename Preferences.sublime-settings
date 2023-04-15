@@ -12,7 +12,7 @@
     // be a string or a list.
     // "phpunit.executable": "vendor/bin/phpunit",
 
-    // Events to execute when a view is saved.
+    // Auto run test file command on save
     "phpunit.on_post_save": [
         // "run_test_file" // Automatically run "Test File" command
     ],

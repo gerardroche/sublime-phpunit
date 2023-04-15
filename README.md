@@ -4,7 +4,7 @@
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
     <a href="https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master"><img alt="AppVeyor CI Status" src="https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true"></a>
     <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK" alt="CodeCov Coverage Status" /></a>
-    <a href="https://packagecontrol.io/packages/PHPUnitKit"><img alt="Downloads" src="https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg?style=flat-square"></a>
+    <a href="https://packagecontrol.io/packages/PHPUnitKit"><img alt="Downloads" src="https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg"></a>
 </p>
 
 PHPUnit support for [Sublime Text](https://sublimetext.com).
@@ -82,24 +82,24 @@ PHPUnitKit can run tests using different execution environments called "strategi
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
 
-## Configuration
+## Configuring
 
-You can configure the plugin via **Menu > Preferences > Settings** or the Command Palette (press `Ctrl+Shift+p` (Win, Linux) or `Cmd+Shift+p` (OS X), select "Preferences: Settings" and press `enter`).
+Edit settings via Menu &gt; Preferences &gt; Settings:
 
-key | description | type | default
---- | ----------- | ---- | -------
-`phpunit.options` | Options to use when running tests. | `dict` | `{}`
-`phpunit.executable` | Path to PHPUnit executable. | `string\|list` | Auto discovered.
-`phpunit.php_executable` | Path to PHP executable. | `string` | Auto discovered.
-`phpunit.save_all_on_run` | Save all dirty buffers before running tests. | `bool` | `true`
-`phpunit.on_post_save` | Events to trigger when a file is saved. | `list` | `[]`
-`phpunit.prepend_cmd` | Prepends test runner command. | `list` | `[]`
-`phpunit.strategy` | Output type. | `string:iterm\|panel` | `panel`
-`phpunit.composer` | Use PHPUnit installed by Composer if it exists. | `bool` | `true`
-`phpunit.artisan` | Use Artisan test runner if it exists. | `bool` | `false`
-`phpunit.pest` | Use Pest test runner if it exists. | `bool` | `false`
+Setting                     | Description                                       | Type                  | Default
+:---                        | :----------                                       | :---                  | :------
+`phpunit.options`           | Options to use when running tests.                | `dict`                | `{}`
+`phpunit.executable`        | Path to PHPUnit executable.                       | `string\|list`        | Auto discovered.
+`phpunit.php_executable`    | Path to PHP executable.                           | `string`              | Auto discovered.
+`phpunit.save_all_on_run`   | Save all dirty buffers before running tests.      | `bool`                | `true`
+`phpunit.on_post_save`      | Events to trigger when a file is saved.           | `list`                | `[]`
+`phpunit.prepend_cmd`       | Prepends test runner command.                     | `list`                | `[]`
+`phpunit.strategy`          | Output type.                                      | `string`              | `basic`
+`phpunit.composer`          | Use PHPUnit installed by Composer if it exists.   | `bool`                | `true`
+`phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
+`phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
 
-### phpunit.options
+### Options
 
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
@@ -112,15 +112,15 @@ If you want some CLI options to stick around, you can configure them in your glo
 }
 ```
 
-The above transforms the options and passes them to the PHPUnit executable:
+The above options would be pass to PHPUnit as the following CLI options:
 
 ```
 -d "display_errors=1" -d "xdebug.scream=0" --no-coverage --colors=never --coverage-html build/coverage
 ```
 
-### phpunit.executable
+### PHPUnit Executable
 
-You can instruct the test runner to use a custom PHPUnit executable. The default is to auto discover one using Composer, if `phpunit.composer` is enabled, or using the system PATH.
+You can instruct the test runner to use a custom PHPUnit executable. The default is auto discovery.
 
 ```
 "phpunit.executable": "vendor/bin/phpunit"
@@ -129,43 +129,27 @@ You can instruct the test runner to use a custom PHPUnit executable. The default
 "phpunit.executable": ["artisan", "test"]
 ```
 
-### phpunit.php_executable
+### PHP Executable
 
-You can instruct the test runner to use a custom PHP executable. The default is to auto discover one using the system PATH.
+You can instruct the test runner to use a custom PHP executable. The default is auto discovery.
 
 ```
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
 ```
 
-### phpunit.save_all_on_run
+### Auto run test file command on save
 
-You can automatically save all views that have unsaved buffers (dirty buffers) *before* tests are run. Defaults to true.
-
-```
-"phpunit.save_all_on_run": true
-```
-
-### phpunit.on_post_save
-
-The `on_post_save` setting allows you to trigger events after you save a file. For example you can run the test file command after a file is saved:
+The `on_post_save` setting allows you to run the test file command immediatley after you save a file:
 
 ```
-"phpunit.on_post_save": ["run_test_file"]
+"phpunit.on_post_save": [
+    "run_test_file"
+]
 ```
 
-Available events:
-
-event | description
------ | -----------
+Event | Description
+:---- | :----------
 `run_test_file` | Runs the the "test file" command for the active view.
-
-### phpunit.composer
-
-When enabled, the test runner will use the PHPUnit executable installed by Composer if it exists, otherwise the system PATH will be used to find the executable. Composer support is enabled by default.
-
-```
-"phpunit.composer": true
-```
 
 ## Contributing
 
