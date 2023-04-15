@@ -829,7 +829,7 @@ class PHPUnit():
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
     def cancel(self) -> None:
-        self.window.run_command('exec', {'kill': True})
+        _kill_any_running_tests(self.window)
 
     def open_coverage_report(self) -> None:
         working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
