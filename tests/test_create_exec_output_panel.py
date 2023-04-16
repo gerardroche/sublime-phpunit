@@ -21,7 +21,6 @@ class TestCreateExecOutputPanel(unittest.ViewTestCase):
     def test_basic_exec_output_panel(self):
         font_size = self.view.settings().get('font_size')
         color_scheme = self.view.settings().get('color_scheme')
-        print('color_scheme =', color_scheme)
         self.assertIsNone(_create_exec_output_panel(self.view, {'envx': 'envy'}, 'thecmd'))
         view = self.getExecOutputPanel()
         self.assertEqual('', self.getExecOutputPanelContent())

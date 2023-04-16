@@ -76,10 +76,6 @@ def get_setting(view, name: str):
     return view.settings().get('phpunit.%s' % name)
 
 
-def has_setting(view, name: str) -> bool:
-    return view.settings().has('phpunit.%s' % name)
-
-
 def find_phpunit_configuration_file(file_name, folders):
     """
     Find the first PHPUnit configuration file.
@@ -614,8 +610,9 @@ def _create_exec_output_panel(view, env, cmd) -> None:
     panel_settings.set('rulers', [])
     panel_settings.set('highlight_line', False)
 
-    if has_setting(view, 'text_ui_result_font_size'):
-        panel_settings.set('font_size', get_setting(view, 'text_ui_result_font_size'))
+    font_size = get_setting(view, 'text_ui_result_font_size')
+    if font_size:
+        panel_settings.set('font_size', int(font_size))
 
     panel_settings.set('color_scheme', _get_auto_generated_color_scheme(view))
 

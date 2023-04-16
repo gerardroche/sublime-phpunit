@@ -12,6 +12,9 @@
     // be a string or a list.
     // "phpunit.executable": "vendor/bin/phpunit",
 
+    // Configure font size of PHPUnit output.
+    "phpunit.font_size": null,
+
     // Auto run test file command on save
     "phpunit.on_post_save": [
         // "run_test_file" // Automatically run "Test File" command
