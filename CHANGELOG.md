@@ -9,6 +9,10 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Added [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
 * Added [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
 
+### Changed
+
+* Changed [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Renamed setting `phpunit.text_ui_result_font_size` to `phpunit.font_size`
+
 ### Fixed
 
 * Fixed [#113](https://github.com/NeoVintageous/NeoVintageous/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners

@@ -610,7 +610,7 @@ def _create_exec_output_panel(view, env, cmd) -> None:
     panel_settings.set('rulers', [])
     panel_settings.set('highlight_line', False)
 
-    font_size = get_setting(view, 'text_ui_result_font_size')
+    font_size = get_setting(view, 'font_size')
     if font_size:
         panel_settings.set('font_size', int(font_size))
 

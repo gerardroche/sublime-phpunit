@@ -32,7 +32,7 @@ class TestCreateExecOutputPanel(unittest.ViewTestCase):
     def test_can_set_exec_output_panel_font_size(self):
         font_size = self.view.settings().get('font_size')
         font_size_config = font_size + 1
-        self.view.settings().set('phpunit.text_ui_result_font_size', font_size_config)
+        self.view.settings().set('phpunit.font_size', font_size_config)
         _create_exec_output_panel(self.view, {'envx': 'envy'}, 'thecmd')
         self.assertEqual(font_size_config, self.getExecOutputPanel().settings().get('font_size'))
 
