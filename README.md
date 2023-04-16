@@ -78,7 +78,7 @@ PHPUnitKit can run tests using different execution environments called "strategi
 
 | Strategy              | Identifier    | Description
 | :------:              | :--------:    | :----------
-| **Basic** (default)   | `basic`       | Runs tests commands with Sublime Text exec command.
+| **Basic** (default)   | `basic`       | Sends test commands to Sublime Text exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
 
@@ -88,16 +88,16 @@ Edit settings via Menu &gt; Preferences &gt; Settings:
 
 Setting                     | Description                                       | Type                  | Default
 :---                        | :----------                                       | :---                  | :------
-`phpunit.options`           | Options to use when running tests.                | `dict`                | `{}`
 `phpunit.executable`        | Path to PHPUnit executable.                       | `string\|list`        | Auto discovered.
 `phpunit.php_executable`    | Path to PHP executable.                           | `string`              | Auto discovered.
+`phpunit.options`           | CLI Options to pass to the PHPUnit executable.    | `dict`                | `{}`
 `phpunit.save_all_on_run`   | Save all dirty buffers before running tests.      | `bool`                | `true`
-`phpunit.on_post_save`      | Events to trigger when a file is saved.           | `list`                | `[]`
+`phpunit.on_post_save`      | Auto commands when views are saved.               | `list`                | `[]`
 `phpunit.prepend_cmd`       | Prepends test runner command.                     | `list`                | `[]`
-`phpunit.strategy`          | Output type.                                      | `string`              | `basic`
-`phpunit.composer`          | Use PHPUnit installed by Composer if it exists.   | `bool`                | `true`
+`phpunit.strategy`          | Execution environment to run tests.               | `string`              | `basic`
+`phpunit.composer`          | Use Composer installed executable if it exists.   | `bool`                | `true`
 `phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
-`phpunit.paratest`          | Use ParaTest test runner if it exists.                | `bool`                | `false`
+`phpunit.paratest`          | Use ParaTest test runner if it exists.            | `bool`                | `false`
 `phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
 
 ### CLI Options
