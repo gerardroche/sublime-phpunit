@@ -83,7 +83,7 @@ contexts:
           scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true
 
-    - match: '^(?:  at )?([^ ]+\.php)(\:)([0-9]+)$'
+    - match: '^(?:  at )?([^ ]+(?:\.php)?)(\:)([0-9]+)$'
       captures:
         1: entity.name.filename
         2: punctuation

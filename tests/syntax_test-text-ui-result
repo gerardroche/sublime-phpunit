@@ -154,11 +154,16 @@ There was 1 failure:
 1) FileNameTest::testBasic
 Failed asserting that false is true.
 
+/path/to/test/unit/FileNameTest.php:7
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.filename
+#                                   ^ constant.numeric.line-number
 /path/to/unit/tests/FileNameTest.php:42
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.filename
 #                                    ^^ constant.numeric.line-number
 
-
+/path/to/vendor/pestphp/pest/bin/pest:91
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.filename
+#                                     ^^ constant.numeric.line-number
 
 
 
