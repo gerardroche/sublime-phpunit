@@ -121,7 +121,7 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
 
     @unittest.mock.patch('shutil.which')
     @unittest.mock.patch('PHPUnitKit.plugin.platform')
-    def test_enable_pest_only_if_exists_on_windows(self, platform, shutil_which):
+    def test_enable_pest_only_if_exists_on_windows_platform(self, platform, shutil_which):
         platform.return_value = 'windows'
         self.view.settings().set('phpunit.pest', True)
         working_dir = unittest.fixtures_path('get_phpunit_executable_only')
@@ -143,7 +143,7 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
 
     @unittest.mock.patch('shutil.which')
     @unittest.mock.patch('PHPUnitKit.plugin.platform')
-    def test_enable_artisan_on_window(self, platform, shutil_which):
+    def test_enable_artisan_on_windows_platform(self, platform, shutil_which):
         platform.return_value = 'windows'
         self.view.settings().set('phpunit.artisan', True)
         working_dir = unittest.fixtures_path('get_phpunit_executable')
@@ -165,11 +165,33 @@ class TestGetPHPUnitExecutable(unittest.ViewTestCase):
 
     @unittest.mock.patch('shutil.which')
     @unittest.mock.patch('PHPUnitKit.plugin.platform')
-    def test_enable_artisan_if_exists_on_window(self, platform, shutil_which):
+    def test_enable_artisan_if_exists_on_windows_platform(self, platform, shutil_which):
         platform.return_value = 'windows'
         self.view.settings().set('phpunit.artisan', True)
         working_dir = unittest.fixtures_path('get_phpunit_executable_only')
         self.assertEqual(
             [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'phpunit.bat'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_paratest(self, platform, shutil_which):
+        platform.return_value = 'linux'
+        self.view.settings().set('phpunit.paratest', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'paratest'))],
+            _get_phpunit_executable(self.view, working_dir))
+        self.assertEqual(shutil_which.call_count, 0)
+
+    @unittest.mock.patch('shutil.which')
+    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    def test_enable_paratest_on_windows_platform(self, platform, shutil_which):
+        platform.return_value = 'windows'
+        self.view.settings().set('phpunit.paratest', True)
+        working_dir = unittest.fixtures_path('get_phpunit_executable')
+        self.assertEqual(
+            [unittest.fixtures_path(os.path.join(working_dir, 'vendor', 'bin', 'paratest.bat'))],
             _get_phpunit_executable(self.view, working_dir))
         self.assertEqual(shutil_which.call_count, 0)
