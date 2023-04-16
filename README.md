@@ -99,6 +99,7 @@ Setting                     | Description                                       
 `phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
 `phpunit.paratest`          | Use ParaTest test runner if it exists.            | `bool`                | `false`
 `phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
+`phpunit.font_size`         | Font size of PHPUnit output.                      | `int`                 | Editor default.
 
 ### CLI Options
 

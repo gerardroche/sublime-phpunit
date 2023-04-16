@@ -6,6 +6,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
+* Added [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Support for PHPUnit output font size: `phpunit.font_size`
 * Added [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
 * Added [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
 
