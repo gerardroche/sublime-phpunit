@@ -780,6 +780,9 @@ class PHPUnit():
                 'shell': False,
                 'working_dir': working_dir
             })
+
+            # Don't display exec output panel.
+            self.window.run_command('hide_panel', {'panel': 'output.exec'})
         else:
             self.window.run_command('exec', {
                 'env': env,

@@ -6,12 +6,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
 * Added [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
+* Added [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
 
 ### Fixed
 
-* Added [#113](https://github.com/NeoVintageous/NeoVintageous/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
+* Fixed [#113](https://github.com/NeoVintageous/NeoVintageous/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
+* Fixed [#112](https://github.com/NeoVintageous/NeoVintageous/issues/112): Don't show build panel when using stategies like Kitty
 
 ## 3.11.2 - 2023-04-15
 
