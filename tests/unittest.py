@@ -7,11 +7,11 @@ from sublime import find_resources
 from sublime import active_window
 
 
-def fixtures_path(path=None):
+def fixtures_path(*path) -> str:
     if path is None:
         return os.path.join(os.path.dirname(__file__), 'fixtures')
 
-    return os.path.join(os.path.dirname(__file__), 'fixtures', path)
+    return os.path.join(os.path.dirname(__file__), 'fixtures', *path)
 
 
 class ViewTestCase(TestCase):

@@ -623,16 +623,24 @@ def _create_exec_output_panel(view, env, cmd) -> None:
 def _get_auto_generated_color_scheme(view):
     """Try to patch color scheme with default test result colors."""
     color_scheme = view.settings().get('color_scheme')
+
+    # If the color scheme is using the new system then it is good.
     if color_scheme.endswith('.sublime-color-scheme'):
         return color_scheme
 
     try:
         color_scheme_resource = load_resource(color_scheme)
+
+        # If the color scheme has PHPUnitKit specific rules then it is good.
         if 'phpunitkit' in color_scheme_resource or 'PHPUnitKit' in color_scheme_resource:
             return color_scheme
 
+        # If the color scheme has region.*ish rules then it is good.
         if 'region.greenish' in color_scheme_resource:
             return color_scheme
+
+        # Try to generate a patched color scheme from the current one with
+        # additional rules for PHPUnit exec output panel color output.
 
         cs_head, cs_tail = os.path.split(color_scheme)
         cs_package = os.path.split(cs_head)[1]
