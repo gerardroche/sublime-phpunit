@@ -692,8 +692,11 @@ def _get_phpunit_options(view, options) -> dict:
     # See https://github.com/gerardroche/sublime-phpunit/issues/103
     # See https://github.com/gerardroche/sublime-phpunit/issues/102
     # See https://github.com/laravel/framework/issues/46759
-    if get_setting(view, 'pest') or get_setting(view, 'artisan'):
-        options['colors=never'] = True
+    if get_setting(view, 'strategy') == 'basic':
+        if get_setting(view, 'pest') or get_setting(view, 'artisan'):
+            options['colors=never'] = True
+
+    debug_message('options %s', options)
 
     return options
 
