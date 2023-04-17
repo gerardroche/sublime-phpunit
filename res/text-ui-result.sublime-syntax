@@ -48,7 +48,7 @@ contexts:
         - match: (✖|⨯|➜|⚈)
           scope: markup.deleted
 
-        - match: (ℹ|➦|-|\!)
+        - match: (ℹ|➦|-|\!|…)
           scope: markup.changed
 
         - match: \bR\b

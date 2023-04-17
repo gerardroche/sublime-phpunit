@@ -333,3 +333,8 @@ hello!
 # ^ markup.inserted
   ✓ two
 # ^ markup.inserted
+
+   WARN  NS\ClassTest
+# ^^^^^^ region.orangish
+  … incomplete                                                           0.02s
+# ^ markup.changed
