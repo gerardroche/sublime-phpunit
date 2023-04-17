@@ -15,12 +15,14 @@ contexts:
 
     - include: scope:source.diff
 
-    - match: ^(?=(\.\.|FF|\.(E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|E|F|I|R|S|W)$)
+    - match: ^(?=(\.\.|FF|\.(D|E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|D|E|F|I|R|S|W)$)
       push:
         - match: ^(?=Time|OK|FAILURES|ERRORS|WARNINGS)
           pop: true
         - match: \.
           scope: test.progress.success.phpunit-result
+        - match: D
+          scope: region.orangish phpunitkit test.progress.deprecated.phpunit-result
         - match: E
           scope: region.redish phpunitkit test.progress.error.phpunit-result
         - match: F
@@ -61,6 +63,13 @@ contexts:
     - match: '^(?:\e\[[0-9;]+m)?OK, but incomplete, skipped, or risky tests\!(?:\e\[[0-9;]+m)?$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
+    - match: '^(?:\e\[[0-9;]+m)?OK, but there are issues\!(?:\e\[[0-9;]+m)?$'
+      scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+      push:
+        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+          scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+          pop: true
+
     - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Incomplete|Skipped|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
@@ -81,7 +90,7 @@ contexts:
     - match: '^(?:\e\[[0-9;]+m)?ERRORS\!(?:\e\[[0-9;]+m\s*)?$'
       scope: region.redish phpunitkit test.footer.error.phpunit-result
       push:
-        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
           scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true
 

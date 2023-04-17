@@ -8,6 +8,9 @@ Configuration:  /path/to/project/phpunit.xml.dist
 .
 #<- test.progress.success.phpunit-result
 
+D
+#<- test.progress.deprecated.phpunit-result
+
 E
 #<- test.progress.error.phpunit-result
 
@@ -26,14 +29,15 @@ S
 W
 #<- test.progress.warning.phpunit-result
 
-.EFIRSW
+.DEFIRSW
 #<- test.progress.success.phpunit-result
-#^ test.progress.error.phpunit-result
-# ^ test.progress.failure.phpunit-result
-#  ^ test.progress.incomplete.phpunit-result
-#   ^ test.progress.risky.phpunit-result
-#    ^ test.progress.skipped.phpunit-result
-#     ^ test.progress.warning.phpunit-result
+#^ test.progress.deprecated.phpunit-result
+# ^ test.progress.error.phpunit-result
+#  ^ test.progress.failure.phpunit-result
+#   ^ test.progress.incomplete.phpunit-result
+#    ^ test.progress.risky.phpunit-result
+#     ^ test.progress.skipped.phpunit-result
+#      ^ test.progress.warning.phpunit-result
 ..
 #<- test.progress.success.phpunit-result
 #^ test.progress.success.phpunit-result
@@ -81,6 +85,20 @@ Tests: 1, Assertions: 0, Skipped: 1.
 #<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
+OK, but there are issues!
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+Tests: 83, Assertions: 79, Warnings: 4, Risky: 4.
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+
+OK, but there are issues!
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+Tests: 81, Assertions: 81, Deprecations: 4.
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+
 FAILURES!
 #<- region.redish phpunitkit test.footer.fail.phpunit-result
 #^^^^^^^^ region.redish phpunitkit test.footer.fail.phpunit-result
@@ -102,6 +120,13 @@ Tests: 18, Assertions: 16, Errors: 1, Skipped: 1, Risky: 1.
 #<- region.redish phpunitkit test.footer.error.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
 
+ERRORS!
+#<- region.redish phpunitkit test.footer.error.phpunit-result
+#^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
+Tests: 120, Assertions: 100, Errors: 4, Failures: 4, Warnings: 4, Deprecations: 4, Skipped: 4, Incomplete: 4, Risky: 8.
+#<- region.redish phpunitkit test.footer.error.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
+
 WARNINGS!
 #<- region.orangish phpunitkit test.footer.warn.phpunit-result
 #^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
@@ -114,16 +139,20 @@ There was 1 failure:
 1) AppNamespace\AppName\MethodTest::annotated_underscore_test_method
 Failed asserting that two arrays are equal.
 --- Expected
+#^^ meta.diff
 #   ^^^^^^^^ meta.diff
 +++ Actual
+#^^ meta.diff
 #   ^^^^^^ meta.diff
 @@ @@
  Array (
 -    0 => 'expected'
+#<- markup.deleted.diff
 #    ^ markup.deleted.diff
 #      ^^ markup.deleted.diff
 #         ^^^^^^^^^^ markup.deleted.diff
 +    0 => 'actual'
+#<- markup.inserted.diff
 #    ^ markup.inserted.diff
 #      ^^ markup.inserted.diff
 #         ^^^^^^^^ markup.inserted.diff
