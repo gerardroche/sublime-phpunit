@@ -194,10 +194,167 @@ Failed asserting that false is true.
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ entity.name.filename
 #                                     ^^ constant.numeric.line-number
 
+Basic
+ ✔ One
+#^ markup.inserted
+ ✔ Two
+#^ markup.inserted
 
+Deep Thought (NS\DeepThought)
+ ✔ The answer to the ultimate question of life the universe and everything
+#^ markup.inserted
 
+Be Strict About Tests That Do Not Test Anything (NS\BeStrictAboutTestsThatDoNotTestAnything)
+ ☢ Be strict about tests that do not test anything
+#^ markup.warning
+ ✔ Pass
+#^ markup.inserted
+ ☢ Be strict about tests that do not test anything
+#^ markup.warning
+ ☢ Be strict about tests that do not test anything
+#^ markup.warning
+ ☢ Be strict about tests that do not test anything
+#^ markup.warning
 
+Incomplete (NS\Incomplete)
+ ∅ Incomplete
+#^ markup.warning
+   │
+   │
+   │ /path/to/test/risky/IncompleteTest.php:12
+   │
+ ✔ Pass
+#^ markup.inserted
+ ∅ Incomplete
+#^ markup.warning
+   │
+   │
+   │ /path/to/test/risky/IncompleteTest.php:24
+   │
+ ∅ Incomplete
+#^ markup.warning
+   │
+   │
+   │ /path/to/test/risky/IncompleteTest.php:30
+   │
+ ∅ Incomplete
+#^ markup.warning
+   │
+   │
+   │ /path/to/test/risky/IncompleteTest.php:36
+   │
 
+Skip (NS\Skip)
+ ↩ Skip
+#^ storage.type
+ ✔ Pass
+#^ markup.inserted
+ ↩ Skip
+#^ storage.type
+ ↩ Skip
+#^ storage.type
+ ↩ Skip
+#^ storage.type
+
+Deprecated (NS\Deprecated)
+ ✔ Deprecated
+#^ markup.inserted
+ ✔ Pass
+#^ markup.inserted
+ ✔ Deprecated
+#^ markup.inserted
+ ✔ Deprecated
+#^ markup.inserted
+ ✔ Deprecated
+#^ markup.inserted
+
+Warning (NS\Warning)
+ ☢ Warning
+#^ markup.warning
+ ✔ Pass
+#^ markup.inserted
+ ☢ Warning
+#^ markup.warning
+ ☢ Warning
+#^ markup.warning
+ ☢ Warning
+#^ markup.warning
+ ✔ Pass
+#^ markup.inserted
+ ✔ Pass
+#^ markup.inserted
+
+Failure (NS\Failure)
+ ✘ Failure
+#^ markup.deleted
+   │
+   │ Failed asserting that false is true.
+   │
+   │ /path/to/test/failure/FailureTest.php:11
+   │
+ ✔ Pass
+#^ markup.inserted
+ ✘ Failure
+#^ markup.deleted
+   │
+   │ Failed asserting that false is true.
+   │
+   │ /path/to/test/failure/FailureTest.php:21
+   │
+ ✘ Failure
+#^ markup.deleted
+   │
+   │ Failed asserting that false is true.
+   │
+   │ /path/to/test/failure/FailureTest.php:26
+   │
+ ✘ Failure
+#^ markup.deleted
+   │
+   │ Failed asserting that two arrays are equal.
+   │ --- Expected
+   │ +++ Actual
+   │ @@ @@
+   │  Array (
+   │ -    0 => 'x'
+   │ +    0 => 'y'
+   │  )
+   │  )
+   │
+   │ /path/to/test/failure/FailureTest.php:31
+   │
+
+Error (NS\Error)
+ ✘ Error
+#^ markup.deleted
+   │
+   │ Error: Call to undefined function NS\foobar()
+   │
+   │ /path/to/test/error/ErrorTest.php:11
+   │
+ ✔ Pass
+#^ markup.inserted
+ ✘ Error
+#^ markup.deleted
+   │
+   │ Error: Call to undefined function NS\foobar()
+   │
+   │ /path/to/test/error/ErrorTest.php:21
+   │
+ ✘ Error
+#^ markup.deleted
+   │
+   │ Error: Call to undefined function NS\foobar()
+   │
+   │ /path/to/test/error/ErrorTest.php:26
+   │
+ ✘ Error
+#^ markup.deleted
+   │
+   │ Error: Call to undefined function NS\foobar()
+   │
+   │ /path/to/test/error/ErrorTest.php:31
+   │
 
 
 
@@ -249,7 +406,7 @@ Failed asserting that false is true.
      77▕             )->willReturn($abcd, $efgh);
      78▕
 
-  1   path/To/ClassTest.php:74
+  1   path/To/ClassTest.php:42
 
   Tests:    28 deprecated, 3 failed, 341 passed (867 assertions)
 #           ^^^^^^^^^^^^^ markup.changed
@@ -306,7 +463,7 @@ Failed asserting that false is true.
 
   ✓ x debug
 hello!
-   WARN  GerardRoche\SublimePHPUnitKitTesting\RiskyTest
+   WARN  NS\RiskyTest
 # ^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
   ✓ disallow todo tests
 

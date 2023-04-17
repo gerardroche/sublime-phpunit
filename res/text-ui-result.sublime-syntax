@@ -54,6 +54,27 @@ contexts:
         - match: \bR\b
           scope: markup.changed
 
+    - match: ^ (?=✔|☢|∅|↩|✘)
+      push:
+        - match: $
+          pop: true
+        - match: ✔
+          scope: markup.inserted
+        - match: (☢|∅)
+          scope: markup.warning
+        - match: (✘)
+          scope: markup.deleted
+        - match: (↩)
+          scope: storage.type
+
+    - match: '^   │ (Failed asserting that .+)'
+      captures:
+        1: region.redish phpunitkit
+
+    - match: '^   │ (Error\: .+)'
+      captures:
+        1: region.orangish phpunitkit
+
     - match: '^(?:\e\[[0-9;]+m)?No tests executed\!(?:\e\[[0-9;]+m)?$'
       scope: region.orangish phpunitkit test.footer.none-executed.phpunit-result
 
@@ -94,7 +115,7 @@ contexts:
           scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true
 
-    - match: '^(?:  at )?([^ ]+(?:\.php)?)(\:)([0-9]+)$'
+    - match: '^(?:  at |   │ )?([^ ]+(?:\.php)?)(\:)([0-9]+)$'
       captures:
         1: entity.name.filename
         2: punctuation
