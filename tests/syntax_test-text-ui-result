@@ -316,3 +316,20 @@ hello!
 #                                 ^^^^^^^^^ markup.changed
 #                                            ^^^^^^^^^ markup.inserted
   Time:   0.04s
+
+......
+   PASS  BasicTest
+# ^^^^^^ region.greenish
+  ✓ one
+# ^ markup.inserted
+  ✓ two
+# ^ markup.inserted
+  ✓ three
+# ^ markup.inserted
+...
+   PASS  AnotherTest
+# ^^^^^^ region.greenish
+  ✓ one
+# ^ markup.inserted
+  ✓ two
+# ^ markup.inserted

@@ -17,7 +17,7 @@ contexts:
 
     - match: ^(?=(\.\.|FF|\.(D|E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|D|E|F|I|R|S|W)$)
       push:
-        - match: ^(?=Time|OK|FAILURES|ERRORS|WARNINGS)
+        - match: ^(?=Time|OK|FAILURES|ERRORS|WARNINGS|  .)
           pop: true
         - match: \.
           scope: test.progress.success.phpunit-result
