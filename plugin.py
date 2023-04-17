@@ -139,7 +139,7 @@ def is_valid_php_identifier(string: str) -> bool:
     return bool(re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', string))
 
 
-def has_test_case(view) -> bool:
+def has_test(view) -> bool:
     for php_class in find_php_classes(view):
         if php_class[-4:] == 'Test':
             return True
@@ -335,7 +335,7 @@ def find_switchable(view, on_select=None):
     locations = unique_locations(locations)
 
     if len(locations) == 0:
-        if has_test_case(view):
+        if has_test(view):
             return message('could not find class under test for %s', file)
         else:
             return message('could not find test case for %s', file)
@@ -822,7 +822,7 @@ class PHPUnit():
         if not file:
             return status_message('PHPUnit: not a test file')
 
-        if has_test_case(self.view):
+        if has_test(self.view):
             self.run(file=file, options=options)
         else:
             find_switchable(
@@ -836,7 +836,7 @@ class PHPUnit():
         if not file:
             return status_message('PHPUnit: not a test file')
 
-        if has_test_case(self.view):
+        if has_test(self.view):
             if 'filter' not in options:
                 selected_test_methods = find_selected_test_methods(self.view)
                 if selected_test_methods:
