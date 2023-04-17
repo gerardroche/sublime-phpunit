@@ -5,6 +5,8 @@
 name: PHPUnit Text UI Result
 scope: text.phpunit-result
 hidden: true
+hidden_file_extensions:
+    - phpunit-report
 contexts:
   main:
 
