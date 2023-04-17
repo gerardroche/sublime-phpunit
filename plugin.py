@@ -140,10 +140,15 @@ def is_valid_php_identifier(string: str) -> bool:
 
 
 def has_test_case(view) -> bool:
-    """Return True if the view contains a valid PHPUnit test case."""
     for php_class in find_php_classes(view):
         if php_class[-4:] == 'Test':
             return True
+
+    if get_setting(view, 'pest'):
+        has_test = view.find('^\\s*(it|test|senario)\\(("|\')(.*)("|\')', 0)
+        if has_test:
+            return True
+
     return False
 
 

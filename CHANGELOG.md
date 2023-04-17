@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.12.1 - 2023-04-17
+
+* Fixed [#114](https://github.com/NeoVintageous/NeoVintageous/issues/114): Test nearest and file is missing for Pest
+
 ## 3.12.0 - 2023-04-16
 
 ### Added
