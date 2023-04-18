@@ -179,7 +179,7 @@ def find_php_classes(view, with_namespace: bool = False) -> list:
             else:
                 classes.append(class_as_string)
 
-    if int(version()) <= 3114:  # pragma: no cover
+    if int(version()) <= 3114:
         if not classes:
             for class_as_region in view.find_by_selector('source.php entity.name.type.class - meta.use'):
                 class_as_string = view.substr(class_as_region)
@@ -220,19 +220,19 @@ def find_selected_test_methods(view) -> list:
                 method_names.append(word)
             break
 
-    # BC: < 3114
-    if not method_names:  # pragma: no cover
-        for region in view.sel():
-            word_region = view.word(region)
-            word = view.substr(word_region)
-            if not is_valid_php_identifier(word):
-                return []
+    if int(version()) <= 3114:
+        if not method_names:
+            for region in view.sel():
+                word_region = view.word(region)
+                word = view.substr(word_region)
+                if not is_valid_php_identifier(word):
+                    return []
 
-            scope_score = view.score_selector(word_region.begin(), 'entity.name.function.php')
-            if scope_score > 0:
-                method_names.append(word)
-            else:
-                return []
+                scope_score = view.score_selector(word_region.begin(), 'entity.name.function.php')
+                if scope_score > 0:
+                    method_names.append(word)
+                else:
+                    return []
 
     ignore_methods = ['setup', 'teardown']
 
