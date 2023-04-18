@@ -145,7 +145,7 @@ def has_test(view) -> bool:
             return True
 
     if get_setting(view, 'pest'):
-        has_test = view.find('^\\s*(it|test|senario)\\(("|\')(.*)("|\')', 0)
+        has_test = view.find('^\\s*(it|test)\\(("|\')(.*)("|\')', 0)
         if has_test:
             return True
 

@@ -28,8 +28,6 @@ class TestHasTest(unittest.ViewTestCase):
         self.assertTrue(has_test(self.view))
         self.fixture('<?php\nit(\'sum\', function () {\n})')
         self.assertTrue(has_test(self.view))
-        self.fixture('<?php\nsenario(\'sum\', function () {\n})')
-        self.assertTrue(has_test(self.view))
 
     def test_pest_no_test(self):
         self.view.settings().set('phpunit.pest', True)
@@ -42,14 +40,10 @@ class TestHasTest(unittest.ViewTestCase):
         self.assertTrue(has_test(self.view))
         self.fixture('<?php\n    test(\'sum\', function () {\n})')
         self.assertTrue(has_test(self.view))
-        self.fixture('<?php\n    senario(\'sum\', function () {\n})')
-        self.assertTrue(has_test(self.view))
 
     def test_pest_tests_with_double_quote(self):
         self.view.settings().set('phpunit.pest', True)
         self.fixture('<?php\n    it("sum", function () {\n})')
         self.assertTrue(has_test(self.view))
         self.fixture('<?php\n    test("sum", function () {\n})')
-        self.assertTrue(has_test(self.view))
-        self.fixture('<?php\n    senario("sum", function () {\n})')
         self.assertTrue(has_test(self.view))
