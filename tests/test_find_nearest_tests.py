@@ -1,7 +1,7 @@
 from sublime import find_resources
 
 from PHPUnitKit.tests import unittest
-from PHPUnitKit.plugin import find_selected_test_methods
+from PHPUnitKit.plugin import find_nearest_tests
 
 
 def _is_php_syntax_using_php_grammar():
@@ -12,11 +12,11 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
 
     def test_empty(self):
         self.fixture('')
-        self.assertEqual([], find_selected_test_methods(self.view))
+        self.assertEqual([], find_nearest_tests(self.view))
 
     def test_none_when_plain_text(self):
         self.fixture('foo|bar')
-        self.assertEqual([], find_selected_test_methods(self.view))
+        self.assertEqual([], find_nearest_tests(self.view))
 
     def test_none_when_bof(self):
         self.fixture("""|<?php
@@ -33,7 +33,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
 
         """)
 
-        self.assertEqual([], find_selected_test_methods(self.view))
+        self.assertEqual([], find_nearest_tests(self.view))
 
     def test_one(self):
         self.fixture("""<?php
@@ -60,7 +60,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
 
         """)
 
-        self.assertEqual(['testOne'], find_selected_test_methods(self.view))
+        self.assertEqual(['testOne'], find_nearest_tests(self.view))
 
     def test_underscore_test_methods(self):
         self.fixture("""<?php
@@ -89,7 +89,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['test_one_underscore', 'test_two_under_scored'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_annotated_test_methods(self):
         self.fixture("""<?php
@@ -116,7 +116,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['one', 'two'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_many(self):
         self.fixture("""<?php
@@ -164,7 +164,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_many_when_cursor_is_anywhere_on_method_declarations(self):
         if _is_php_syntax_using_php_grammar():
@@ -213,7 +213,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_many_when_cursor_is_anywhere_inside_method_declarations(self):
         if _is_php_syntax_using_php_grammar():
@@ -265,7 +265,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['testOne', 'testTwo', 'testThree'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_setup_and_teardown_methods_should_be_ignored(self):
         self.fixture("""<?php
@@ -283,7 +283,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['test_x', 'testY'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_issue_76_setup_method_is_not_a_test_method(self):
         self.fixture("""<?php
@@ -321,7 +321,7 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
         """)
 
         self.assertEqual(['guests_may_not_create_threads'],
-                         find_selected_test_methods(self.view))
+                         find_nearest_tests(self.view))
 
     def test_issue_76_list_index_out_of_range(self):
         self.fixture("""<?php
@@ -335,4 +335,4 @@ class TestFindSelectedTestMethods(unittest.ViewTestCase):
             }
         """)
 
-        self.assertEqual(['x_y_z'], find_selected_test_methods(self.view))
+        self.assertEqual(['x_y_z'], find_nearest_tests(self.view))

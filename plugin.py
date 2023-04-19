@@ -191,9 +191,9 @@ def find_php_classes(view, with_namespace: bool = False) -> list:
     return classes
 
 
-def find_selected_test_methods(view) -> list:
+def find_nearest_tests(view) -> list:
     """
-    Return a list of selected test method names.
+    Return a list of tests nearest to cursor.
 
     Return an empty list if no selections found.
 
@@ -876,7 +876,7 @@ class PHPUnit():
 
         if has_test(self.view):
             if 'filter' not in options:
-                selected_test_methods = find_selected_test_methods(self.view)
+                selected_test_methods = find_nearest_tests(self.view)
                 if selected_test_methods:
                     options['filter'] = build_filter_option_pattern(self.view, selected_test_methods)
 
