@@ -14,6 +14,8 @@ import sublime_plugin
 
 _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
+_PEST_TEST_PATTERN = '^\\s*(it|test)\\(("|\')(.*)("|\')'
+
 if _DEBUG:
     def debug_message(msg, *args) -> None:
         if args:
@@ -145,7 +147,7 @@ def has_test(view) -> bool:
             return True
 
     if get_setting(view, 'pest'):
-        has_test = view.find('^\\s*(it|test)\\(("|\')(.*)("|\')', 0)
+        has_test = view.find(_PEST_TEST_PATTERN, 0)
         if has_test:
             return True
 
@@ -199,6 +201,17 @@ def find_selected_test_methods(view) -> list:
     """
     method_names = []
 
+    if get_setting(view, 'pest'):
+        for sel in view.sel():
+            finder_start_pt = view.line(sel.b).end()
+            test = view_rfind(view, _PEST_TEST_PATTERN, finder_start_pt)
+            if test:
+                parsed_test = re.match(_PEST_TEST_PATTERN, view.substr(test))
+                if parsed_test:
+                    method_names.append(parsed_test.group(3))
+
+        return method_names
+
     function_regions = view.find_by_selector('entity.name.function')
     function_areas = []
     # Only include areas that contain function declarations.
@@ -237,6 +250,28 @@ def find_selected_test_methods(view) -> list:
     ignore_methods = ['setup', 'teardown']
 
     return [m for m in method_names if m.lower() not in ignore_methods]
+
+
+# Polyfill: There is no API to find a pattern in reverse direction.
+# @see https://github.com/SublimeTextIssues/Core/issues/245
+def view_rfind_all(view, pattern: str, start_pt: int, flags: int = 0):
+    matches = view.find_all(pattern, flags)
+    for region in matches:
+        if region.b > start_pt:
+            return reversed(matches[:matches.index(region)])
+
+    return reversed(matches)
+
+
+# Polyfill: There is no API to find a pattern in reverse direction.
+# @see https://github.com/SublimeTextIssues/Core/issues/245
+def view_rfind(view, pattern: str, start_pt: int, flags: int = 0):
+    matches = view_rfind_all(view, pattern, start_pt, flags)
+    if matches:
+        try:
+            return next(matches)
+        except StopIteration:
+            pass
 
 
 class Switchable:
@@ -478,7 +513,10 @@ def build_cmd_options(options: dict, cmd: list) -> list:
     return cmd
 
 
-def build_filter_option_pattern(methods: list) -> str:
+def build_filter_option_pattern(view, methods: list) -> str:
+    if get_setting(view, 'pest'):
+        return '(' + '|'.join(methods) + ')'
+
     test_methods = [m[4:] for m in methods if m.startswith('test')]
 
     if len(test_methods) == len(methods):
@@ -840,7 +878,7 @@ class PHPUnit():
             if 'filter' not in options:
                 selected_test_methods = find_selected_test_methods(self.view)
                 if selected_test_methods:
-                    options['filter'] = build_filter_option_pattern(selected_test_methods)
+                    options['filter'] = build_filter_option_pattern(self.view, selected_test_methods)
 
             self.run(file=file, options=options)
         else:
