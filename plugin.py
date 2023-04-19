@@ -513,19 +513,19 @@ def build_cmd_options(options: dict, cmd: list) -> list:
     return cmd
 
 
-def build_filter_option(view, methods: list) -> str:
+def build_filter_option(view, tests: list) -> str:
     if get_setting(view, 'pest'):
-        return '(' + '|'.join(methods) + ')'
+        return '(' + '|'.join(tests) + ')'
 
-    test_methods = [m[4:] for m in methods if m.startswith('test')]
+    tests_without_test_prefix = [m[4:] for m in tests if m.startswith('test')]
 
-    if len(test_methods) == len(methods):
-        methods = test_methods
+    if len(tests_without_test_prefix) == len(tests):
+        tests = tests_without_test_prefix
         f = '::test'
     else:
         f = '::'
 
-    f += '(' + '|'.join(sorted(methods)) + ')( with data set .+)?$'
+    f += '(' + '|'.join(sorted(tests)) + ')( with data set .+)?$'
 
     return f
 
@@ -876,9 +876,9 @@ class PHPUnit():
 
         if has_test(self.view):
             if 'filter' not in options:
-                selected_test_methods = find_nearest_tests(self.view)
-                if selected_test_methods:
-                    options['filter'] = build_filter_option(self.view, selected_test_methods)
+                nearest_tests = find_nearest_tests(self.view)
+                if nearest_tests:
+                    options['filter'] = build_filter_option(self.view, nearest_tests)
 
             self.run(file=file, options=options)
         else:
