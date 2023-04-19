@@ -1,5 +1,5 @@
-import re
 import os
+import re
 import shutil
 
 from sublime import ENCODED_POSITION
@@ -181,7 +181,7 @@ def find_php_classes(view, with_namespace: bool = False) -> list:
             else:
                 classes.append(class_as_string)
 
-    if int(version()) <= 3114:
+    if int(version()) <= 3114:  # no pragma
         if not classes:
             for class_as_region in view.find_by_selector('source.php entity.name.type.class - meta.use'):
                 class_as_string = view.substr(class_as_region)
@@ -231,7 +231,7 @@ def find_nearest_tests(view) -> list:
                 method_names.append(word)
             break
 
-    if int(version()) <= 3114:
+    if int(version()) <= 3114:  # no pragma
         if not method_names:
             for region in view.sel():
                 word_region = view.word(region)
