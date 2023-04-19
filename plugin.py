@@ -513,7 +513,7 @@ def build_cmd_options(options: dict, cmd: list) -> list:
     return cmd
 
 
-def build_filter_option_pattern(view, methods: list) -> str:
+def build_filter_option(view, methods: list) -> str:
     if get_setting(view, 'pest'):
         return '(' + '|'.join(methods) + ')'
 
@@ -878,7 +878,7 @@ class PHPUnit():
             if 'filter' not in options:
                 selected_test_methods = find_nearest_tests(self.view)
                 if selected_test_methods:
-                    options['filter'] = build_filter_option_pattern(self.view, selected_test_methods)
+                    options['filter'] = build_filter_option(self.view, selected_test_methods)
 
             self.run(file=file, options=options)
         else:
