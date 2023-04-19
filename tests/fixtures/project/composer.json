@@ -1,0 +1,15 @@
+{
+    "name": "gerardroche/phpunitkittest",
+    "type": "project",
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "GerardRoche\\PHPUnitKitTest\\": "src/"
+        }
+    }
+}

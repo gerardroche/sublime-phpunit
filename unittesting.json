@@ -5,5 +5,7 @@
     "deferred": true,
     "verbosity": 2,
     "capture_console": false,
-    "output": null
+    "output": null,
+    "show_reload_progress": false,
+    "reload_package_on_testing": false,
 }

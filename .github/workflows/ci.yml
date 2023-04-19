@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 env:
   PACKAGE: PHPUnitKit
+  SUBLIME_PHPUNIT_DEBUG: 1
+  SUBLIME_PHPUNIT_END_TO_END_TESTS: 1
 
 jobs:
   tests:
@@ -12,10 +14,24 @@ jobs:
       matrix:
         st-version: [3, 4]
         os: ["ubuntu-latest", "windows-latest"]
+        php-versions: ['8.2']
+        coverage: ['xdebug']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: ${{ matrix.coverage }}
+          tools: composer
+
+      - name: Install Composer deps
+        run: |
+          cd tests/fixtures/project
+          composer install --no-progress --optimize-autoloader
 
       - name: Setup
         uses: SublimeText/UnitTesting/actions/setup@v1
@@ -27,10 +43,13 @@ jobs:
         uses: SublimeText/UnitTesting/actions/run-tests@v1
         with:
           coverage: ${{ matrix.os == 'ubuntu-latest' && matrix.st-version == 3 }}
-          codecov-upload: ${{ matrix.os == 'ubuntu-latest' && matrix.st-version == 3 }}
 
       - name: Syntax Tests
         uses: SublimeText/UnitTesting/actions/run-syntax-tests@v1
+
+      - name: Upload Codecov
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.st-version == 3 }}
+        uses: codecov/codecov-action@v3
 
       - name: Coding guidelines check
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.st-version == 4 }}

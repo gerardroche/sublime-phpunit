@@ -31,7 +31,6 @@ class PhpunitTestSetupFixtureCommand(TextCommand):
         #       File "/home/code/.config/sublime-text-3/Packages/PHPUnitKit/tests/commands.py", line 11, in run
         #         self.view.replace(edit, Region(0, self.view.size()), text)
         #     TypeError: 'NoneType' object is not callable
-
         from sublime import Region  # noqa: F401
 
         self.view.replace(edit, Region(0, self.view.size()), text)
@@ -47,3 +46,10 @@ class PhpunitTestSetupFixtureCommand(TextCommand):
                         Region(cursor_placeholder.begin() - i, cursor_placeholder.end() - i),
                         ''
                     )
+
+
+class PhpunitTestEraseCommand(TextCommand):
+    def run(self, edit):
+        # See comments above about why this import is inline.
+        from sublime import Region  # noqa: F401
+        self.view.erase(edit, Region(0, self.view.size()))
