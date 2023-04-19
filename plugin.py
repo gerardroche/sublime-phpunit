@@ -541,6 +541,20 @@ def filter_path(path):
     return os.path.expandvars(os.path.expanduser(path))
 
 
+def _get_executable(working_dir: str, path: str):
+    if platform() == 'windows':
+        path += '.bat'
+
+    executable = os.path.join(working_dir, path)
+
+    if file_exists_and_is_executable(executable):
+        return executable
+
+
+def _get_vendor_executable(working_dir: str, name: str) -> str:
+    return _get_executable(working_dir, os.path.join('vendor', 'bin', name))
+
+
 def _get_phpunit_executable(view, working_dir: str) -> list:
     executable = get_setting(view, 'executable')
     if executable:
@@ -548,39 +562,23 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
         return executable if isinstance(executable, list) else [executable]
 
     if get_setting(view, 'paratest'):
-        if platform() == 'windows':
-            paratest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'paratest.bat'))
-        else:
-            paratest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'paratest'))
-
-        if file_exists_and_is_executable(paratest_executable):
+        paratest_executable = _get_vendor_executable(working_dir, 'paratest')
+        if paratest_executable:
             return [paratest_executable]
 
     if get_setting(view, 'artisan'):
-        if platform() == 'windows':
-            artisan_executable = os.path.join(working_dir, os.path.join('artisan.bat'))
-        else:
-            artisan_executable = os.path.join(working_dir, os.path.join('artisan'))
-
-        if file_exists_and_is_executable(artisan_executable):
+        artisan_executable = _get_executable(working_dir, 'artisan')
+        if artisan_executable:
             return [artisan_executable, 'test']
 
     if get_setting(view, 'pest') and get_setting(view, 'composer'):
-        if platform() == 'windows':
-            pest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'pest.bat'))
-        else:
-            pest_executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'pest'))
-
-        if file_exists_and_is_executable(pest_executable):
+        pest_executable = _get_vendor_executable(working_dir, 'pest')
+        if pest_executable:
             return [pest_executable]
 
     if get_setting(view, 'composer'):
-        if platform() == 'windows':
-            executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit.bat'))
-        else:
-            executable = os.path.join(working_dir, os.path.join('vendor', 'bin', 'phpunit'))
-
-        if file_exists_and_is_executable(executable):
+        executable = _get_vendor_executable(working_dir, 'phpunit')
+        if executable:
             return [executable]
 
     executable = shutil.which('phpunit')
