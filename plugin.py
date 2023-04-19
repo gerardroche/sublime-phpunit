@@ -203,12 +203,10 @@ def find_nearest_tests(view) -> list:
 
     if get_setting(view, 'pest'):
         for sel in view.sel():
-            finder_start_pt = view.line(sel.b).end()
-            test = view_rfind(view, _PEST_TEST_PATTERN, finder_start_pt)
+            test_pattern_start_pt = view.line(sel.b).end()
+            test = view_rmatch(view, _PEST_TEST_PATTERN, test_pattern_start_pt)
             if test:
-                parsed_test = re.match(_PEST_TEST_PATTERN, view.substr(test))
-                if parsed_test:
-                    method_names.append(parsed_test.group(3))
+                method_names.append(test.group(3))
 
         return method_names
 
@@ -272,6 +270,12 @@ def view_rfind(view, pattern: str, start_pt: int, flags: int = 0):
             return next(matches)
         except StopIteration:
             pass
+
+
+def view_rmatch(view, pattern: str, start_pt: int, flags: int = 0):
+    match = view_rfind(view, pattern, start_pt, flags)
+    if match:
+        return re.match(pattern, view.substr(match))
 
 
 class Switchable:
