@@ -21,6 +21,8 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Supports jump-to-next and jump-to-previous failure
 * Supports Artisan, Composer, iTerm2, [Kitty], [ParaTest], [Pest], and more
 
+Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction of usage.
+
 ## Installation
 
 Install PHPUnitKit via [Package Control](https://packagecontrol.io/packages/PHPUnitKit).
