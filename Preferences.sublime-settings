@@ -17,7 +17,7 @@
 
     // Auto run test file command on save
     "phpunit.on_post_save": [
-        // "run_test_file" // Automatically run "Test File" command
+        // "phpunit_test_file" // Automatically run "Test File" command
     ],
 
     // Command-line options to pass to PHPUnit.

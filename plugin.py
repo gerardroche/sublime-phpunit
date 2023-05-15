@@ -1010,7 +1010,8 @@ class PhpunitEvents(sublime_plugin.EventListener):
         if not file_name.endswith('.php'):
             return
 
-        on_post_save_events = view.settings().get('phpunit.on_post_save')
-
-        if 'run_test_file' in on_post_save_events:
-            PHPUnit(view.window()).run_file()
+        post_save_commands = view.settings().get('phpunit.on_post_save')
+        # 'run_test_file' is deprecated since 3.12.4; use 'phpunit_test_file' instead
+        for command in ('phpunit_test_file', 'run_test_file'):
+            if command in post_save_commands:
+                PHPUnit(view.window()).run_file()

@@ -143,7 +143,7 @@ You can configure `on_post_save` to run the Test File command when views are sav
 
 ```js
 "phpunit.on_post_save": [
-    "run_test_file"
+    "phpunit_test_file"
 ]
 ```
 
