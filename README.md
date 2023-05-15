@@ -88,12 +88,12 @@ Setting                     | Description                                       
 :---                        | :----------                                       | :---                  | :------
 `phpunit.executable`        | Path to PHPUnit executable.                       | `string\|list`        | Auto discovered.
 `phpunit.php_executable`    | Path to PHP executable.                           | `string`              | Auto discovered.
-`phpunit.options`           | CLI Options to pass to the PHPUnit executable.    | `dict`                | `{}`
+`phpunit.options`           | CLI Options to pass to PHPUnit.                   | `dict`                | `{}`
 `phpunit.save_all_on_run`   | Save all dirty buffers before running tests.      | `bool`                | `true`
 `phpunit.on_post_save`      | Auto commands when views are saved.               | `list`                | `[]`
 `phpunit.prepend_cmd`       | Prepends test runner command.                     | `list`                | `[]`
 `phpunit.strategy`          | Execution environment to run tests.               | `string`              | `basic`
-`phpunit.composer`          | Use Composer installed executable if it exists.   | `bool`                | `true`
+`phpunit.composer`          | Use Composer installed executables if they exist. | `bool`                | `true`
 `phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
 `phpunit.paratest`          | Use ParaTest test runner if it exists.            | `bool`                | `false`
 `phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
