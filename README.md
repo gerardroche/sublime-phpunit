@@ -31,17 +31,15 @@ Install PHPUnitKit via [Package Control](https://packagecontrol.io/packages/PHPU
 
 Add your preferred key bindings via Menu &gt; Preferences &gt; Key Bindings:
 
-```json
-[
-    { "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
-    { "keys": ["ctrl+shift+c"], "command": "phpunit_test_cancel" },
-    { "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
-    { "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
-    { "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
-    { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
-    { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
-    { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
-]
+```js
+{ "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
+{ "keys": ["ctrl+shift+c"], "command": "phpunit_test_cancel" },
+{ "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
+{ "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
+{ "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
+{ "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
+{ "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
+{ "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
 ```
 
 ## Commands
@@ -72,10 +70,8 @@ Key         | Description
 
 PHPUnitKit can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
 
-```json
-{
-    "phpunit.strategy": "iterm"
-}
+```js
+"phpunit.strategy": "iterm"
 ```
 
 | Strategy              | Identifier    | Description
@@ -107,7 +103,7 @@ Setting                     | Description                                       
 
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
-```
+```js
 "phpunit.options": {
     "no-coverage": true,
     "colors=never": true,
@@ -118,7 +114,7 @@ If you want some CLI options to stick around, you can configure them in your glo
 
 The above configuration would be passed to PHPUnit as the following CLI options:
 
-```
+```shell
 -d "display_errors=1" -d "xdebug.scream=0" --no-coverage --colors=never --coverage-html build/coverage
 ```
 
@@ -126,7 +122,7 @@ The above configuration would be passed to PHPUnit as the following CLI options:
 
 You can instruct the test runner to use a custom PHPUnit executable. The default is auto discovery.
 
-```
+```js
 "phpunit.executable": "vendor/bin/phpunit"
 "phpunit.executable": ["vendor/bin/phpunit"]
 "phpunit.executable": "~/path-to/phpunit"
@@ -137,7 +133,7 @@ You can instruct the test runner to use a custom PHPUnit executable. The default
 
 You can instruct the test runner to use a custom PHP executable. The default is auto discovery.
 
-```
+```js
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
 ```
 
@@ -145,7 +141,7 @@ You can instruct the test runner to use a custom PHP executable. The default is 
 
 You can configure `on_post_save` to run the Test File command when views are saved:
 
-```
+```js
 "phpunit.on_post_save": [
     "run_test_file"
 ]
