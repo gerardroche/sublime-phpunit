@@ -1,10 +1,8 @@
 {
-    // Enable Artisan test runner.
-    // See https://laravel.com.
+    // Enable Artisan test runner. See https://laravel.com.
     "phpunit.artisan": false,
 
-    // If enabled and a Composer installed PHPUnit is found then it is used to
-    // run the tests, otherwise the system PATH is used to find PHPUnit.
+    // Use Composer installed executables if they exist.
     "phpunit.composer": true,
 
     // The PHPUnit executable to use when running tests. Environment variables
@@ -12,12 +10,12 @@
     // be a string or a list.
     // "phpunit.executable": "vendor/bin/phpunit",
 
-    // Configure font size of PHPUnit output.
+    // Font size of PHPUnit output.
     "phpunit.font_size": null,
 
-    // Auto run test file command on save
+    // Commands to run when a file is saved.
     "phpunit.on_post_save": [
-        // "phpunit_test_file" // Automatically run "Test File" command
+        // "phpunit_test_file",
     ],
 
     // Command-line options to pass to PHPUnit.
@@ -25,12 +23,10 @@
     // e.g. `{"no-coverage": true, "verbose": true, "colors=never": true}`
     "phpunit.options": {},
 
-    // Enable Paratest test runner.
-    // See https://github.com/paratestphp/paratest.
+    // Enable Paratest test runner. See https://github.com/paratestphp/paratest.
     "phpunit.paratest": false,
 
-    // Enable Pest test runner.
-    // See https://pestphp.com.
+    // Enable Pest test runner. See https://pestphp.com.
     "phpunit.pest": false,
 
     // The PHP executable to use when running tests. The default is to look for
@@ -46,14 +42,12 @@
     // configuration file is located).
     "phpunit.php_versions_path": "~/.phpenv/versions",
 
-    // Prepends given command to the test command.
+    // Prepends test runner command.
     "phpunit.prepend_cmd": [],
 
-    // Enable writing out every buffer (in the active window) with changes
-    // before running tests.
+    // Save all dirty buffers before running tests.
     "phpunit.save_all_on_run": true,
 
-    // Run tests using different execution environments.
-    // (basic|iterm|kitty)
+    // Execution environment to run tests. Valid values: basic|iterm|kitty
     "phpunit.strategy": "basic",
 }
