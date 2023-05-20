@@ -11,6 +11,8 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 
 <img src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585" alt="PHPUnitKit">
 
+Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction of usage.
+
 ## Features
 
 * Run Test Nearest
@@ -20,8 +22,6 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Switch between test and file under test
 * Supports jump-to-next and jump-to-previous failure
 * Supports Artisan, Composer, iTerm2, [Kitty], [ParaTest], [Pest], and more
-
-Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction of usage.
 
 ## Installation
 
