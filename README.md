@@ -1,6 +1,6 @@
-# PHPUnitKit
+<h1 align="center">PHPUnitKit</h1>
 
-<p>
+<p align="center">
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
     <a href="https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master"><img alt="AppVeyor CI Status" src="https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true"></a>
     <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK" alt="CodeCov Coverage Status" /></a>
@@ -9,7 +9,7 @@
 
 PHPUnit support for [Sublime Text](https://sublimetext.com).
 
-<img src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585" alt="Screenshot">
+<img src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585" alt="PHPUnitKit">
 
 ## Features
 
@@ -25,7 +25,7 @@ Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/20
 
 ## Installation
 
-Install PHPUnitKit via [Package Control](https://packagecontrol.io/packages/PHPUnitKit).
+Install via [Package Control](https://packagecontrol.io/packages/PHPUnitKit).
 
 ## Setup
 
@@ -158,10 +158,6 @@ See [CHANGELOG.md](CHANGELOG.md).
 ## Credits
 
 Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests), [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), and [janko-m/vim-test](https://github.com/janko-m/vim-test).
-
-## License
-
-Released under the [BSD 3-Clause License](LICENSE).
 
 [Kitty]: https://github.com/kovidgoyal/kitty
 [ParaTest]: https://github.com/paratestphp/paratest
