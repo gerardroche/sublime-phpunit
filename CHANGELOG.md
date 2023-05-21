@@ -602,7 +602,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added: option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences > Settings - User` menu item. #30
+* Added: option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences → Settings - User` menu item. #30
 
 ## 0.3.0 - 2015-02-04
 
@@ -612,7 +612,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Added: command palette toggle - report test progress TestDox format #24 #2
 * Added: command palette toggle - report test progress TAP format #24 #28
 * Added: Switching class-under-test/test-case now splits window into two views with both side-by-side *if* the current window only has one group.
-* Added: Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences > Settings - User` menu item.
+* Added: Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences → Settings - User` menu item.
 
 ### Fixed
 
@@ -627,8 +627,8 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Added: Composer installed PHPUnit support #13
 * Added: Saving all files on run can now be disabled. It can also be set on a per-project basis #12
 * Added: Command Palette commands #17
-* Added: Package Settings menu "Preferences > Package Settings > PHPUnit" #14
-* Added: Example Vintage/Vintageous keymaps in the default key bindings: "Preferences > Package Settings > PHPUnit > Key Bindings - Default" #10
+* Added: Package Settings menu "Preferences → Package Settings → PHPUnit" #14
+* Added: Example Vintage/Vintageous keymaps in the default key bindings: "Preferences → Package Settings → PHPUnit → Key Bindings - Default" #10
 
 ### Changed
 

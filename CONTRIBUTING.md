@@ -8,7 +8,7 @@ The [UnitTesting](https://github.com/randy3k/UnitTesting) package is used to run
 
 ### Debugging
 
-Show the Sublime Text console log: **Menu > View > Show Console**.
+Show the Sublime Text console log: **Menu → View → Show Console**.
 
 Command and input logging are enabled by running the following commands in input box at the bottom of the console:
 
