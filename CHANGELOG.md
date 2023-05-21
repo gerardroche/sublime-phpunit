@@ -235,7 +235,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * The default key bindings have been removed, instead add your preferred key bindings:
 
-  `Menu > Preferences > Key Bindings`
+  **Menu → Preferences → Key Bindings**
 
   ```json
   [
@@ -507,7 +507,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
     1) Project Specific
 
-    Example: Menu > Project > Edit Project
+    Example: Menu → Project → Edit Project
 
     ```
     {
@@ -519,7 +519,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
     2) User
 
-    Example: Menu > Preferences > Settings - User
+    Example: Menu → Preferences → Settings - User
 
     ```
     {
