@@ -164,3 +164,7 @@ Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https:/
 [Kitty]: https://github.com/kovidgoyal/kitty
 [ParaTest]: https://github.com/paratestphp/paratest
 [Pest]: https://pestphp.com
+
+## License
+
+Released under the [GPL-3.0-or-later License](LICENSE).
