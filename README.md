@@ -25,7 +25,7 @@ Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/20
 
 ## Installation
 
-Install via [Package Control](https://packagecontrol.io/packages/PHPUnitKit).
+Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package Control.
 
 ## Setup
 
