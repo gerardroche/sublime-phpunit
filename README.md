@@ -46,20 +46,18 @@ Add your preferred key bindings.
 
 ## Commands
 
-You can execute all commands from the Command Palette. All commands are prefixed with "PHPUnit: ".
-
-Command                 | Description
-:---------------------- | :----------
-**Test&nbsp;Nearest**   | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
-**Test&nbsp;File**      | In a test file runs all tests in the current file, otherwise runs test for the current file.
-**Test&nbsp;Suite**     | Runs the whole test suite.
-**Test&nbsp;Last**      | Runs the last test.
-**Test&nbsp;Switch**    | In a test file opens the file under test, otherwise opens the test file.
-**Test&nbsp;Visit**     | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-**Test&nbsp;Results**   | Opens the exec test output panel.
-**Test&nbsp;Cancel**    | Cancels any currently running test.
-**Test&nbsp;Coverage**  | Opens code coverage in browser.
-**Toggle&nbsp;Option**  | Toggles various PHPUnit options.
+Command                               | Description
+:------------------------------------ | :----------
+PHPUnit:&nbsp;Test&nbsp;Nearest   | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
+PHPUnit:&nbsp;Test&nbsp;File      | In a test file runs all tests in the current file, otherwise runs test for the current file.
+PHPUnit:&nbsp;Test&nbsp;Suite     | Runs the whole test suite.
+PHPUnit:&nbsp;Test&nbsp;Last      | Runs the last test.
+PHPUnit:&nbsp;Test&nbsp;Switch    | In a test file opens the file under test, otherwise opens the test file.
+PHPUnit:&nbsp;Test&nbsp;Visit     | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+PHPUnit:&nbsp;Test&nbsp;Results   | Opens the exec test output panel.
+PHPUnit:&nbsp;Test&nbsp;Cancel    | Cancels any currently running test.
+PHPUnit:&nbsp;Test&nbsp;Coverage  | Opens code coverage in browser.
+PHPUnit:&nbsp;Toggle&nbsp;Option  | Toggles various PHPUnit options.
 
 ## Key Bindings
 
