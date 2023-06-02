@@ -11,8 +11,6 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 
 <img src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585" alt="PHPUnitKit">
 
-Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction of usage.
-
 ## Features
 
 * Run Test Nearest
@@ -23,13 +21,13 @@ Read [Running PHPUnit tests within Sublime Text](https://blog.gerardroche.com/20
 * Supports jump-to-next and jump-to-previous failure
 * Supports Artisan, Composer, iTerm2, [Kitty], [ParaTest], [Pest], and more
 
+Read [Running PHPUnit tests from within Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
+
 ## Installation
 
 Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package Control.
 
 ## Setup
-
-Add your preferred key bindings.
 
 **Menu → Preferences → Key Bindings**
 
@@ -46,8 +44,8 @@ Add your preferred key bindings.
 
 ## Commands
 
-Command                               | Description
-:------------------------------------ | :----------
+Command                           | Description
+:------                           | :----------
 PHPUnit:&nbsp;Test&nbsp;Nearest   | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
 PHPUnit:&nbsp;Test&nbsp;File      | In a test file runs all tests in the current file, otherwise runs test for the current file.
 PHPUnit:&nbsp;Test&nbsp;Suite     | Runs the whole test suite.
@@ -64,7 +62,7 @@ PHPUnit:&nbsp;Toggle&nbsp;Option  | Toggles various PHPUnit options.
 Key         | Description
 :---        | :----------
 `F4`        | Jump to next failure
-`SHIFT+F4`  | Jump to previous failure
+`Shift+F4`  | Jump to previous failure
 
 ## Strategies
 
