@@ -1,4 +1,4 @@
-<h1 align="center">PHPUnitKit</h1>
+<h1 align="center">PHPUnit Kit</h1>
 
 <p align="center">
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
