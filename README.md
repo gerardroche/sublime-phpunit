@@ -13,21 +13,33 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 
 ## Features
 
-* Run Test Nearest
-* Run Test File
-* Run Test Suite
-* Run Test Last
-* Switch between test and file under test
-* Supports jump-to-next and jump-to-previous failure
-* Supports Artisan, Composer, iTerm2, [Kitty], [ParaTest], [Pest], and more
+* Run a test method
+* Run a test file
+* Run the test suite
+* Run the nearest test
+* Run the last test
+* Run multiple test methods using a multiple cursor
+* Auto run test on save
+* Colour output
+* Fast jump to next and previous failure
+* Fast switch between test and file-under-test
+* Support for
+    - [Artisan] - Artisan is the command line interface included with Laravel.
+    - [Composer] - Composer is a Dependency Manager for PHP.
+    - [iTerm2] - iTerm2 brings the terminal into the modern age.
+    - [Kitty] - Kitt is a fast, feature-rich, cross-platform, GPU based terminal.
+    - [ParaTest] - ParaTest adds parallel testing support in PHPUnit.
+    - [Pest] - Pest is a testing framework with a focus on simplicity.
 
-Read [Running PHPUnit tests from within Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
+Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
 
 ## Installation
 
 Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package Control.
 
 ## Setup
+
+*Optional*
 
 **Menu → Preferences → Key Bindings**
 
@@ -44,18 +56,18 @@ Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package 
 
 ## Commands
 
-Command                           | Description
-:------                           | :----------
-PHPUnit:&nbsp;Test&nbsp;Nearest   | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
-PHPUnit:&nbsp;Test&nbsp;File      | In a test file runs all tests in the current file, otherwise runs test for the current file.
-PHPUnit:&nbsp;Test&nbsp;Suite     | Runs the whole test suite.
-PHPUnit:&nbsp;Test&nbsp;Last      | Runs the last test.
-PHPUnit:&nbsp;Test&nbsp;Switch    | In a test file opens the file under test, otherwise opens the test file.
-PHPUnit:&nbsp;Test&nbsp;Visit     | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-PHPUnit:&nbsp;Test&nbsp;Results   | Opens the exec test output panel.
-PHPUnit:&nbsp;Test&nbsp;Cancel    | Cancels any currently running test.
-PHPUnit:&nbsp;Test&nbsp;Coverage  | Opens code coverage in browser.
-PHPUnit:&nbsp;Toggle&nbsp;Option  | Toggles various PHPUnit options.
+Command                              | Description
+:------                              | :----------
+**PHPUnit:&nbsp;Test&nbsp;Nearest**  | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
+**PHPUnit:&nbsp;Test&nbsp;File**     | In a test file runs all tests in the current file, otherwise runs test for the current file.
+**PHPUnit:&nbsp;Test&nbsp;Suite**    | Runs the whole test suite.
+**PHPUnit:&nbsp;Test&nbsp;Last**     | Runs the last test.
+**PHPUnit:&nbsp;Test&nbsp;Switch**   | In a test file opens the file under test, otherwise opens the test file.
+**PHPUnit:&nbsp;Test&nbsp;Visit**    | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
+**PHPUnit:&nbsp;Test&nbsp;Results**  | Opens the exec test output panel.
+**PHPUnit:&nbsp;Test&nbsp;Cancel**   | Cancels any currently running test.
+**PHPUnit:&nbsp;Test&nbsp;Coverage** | Opens code coverage in browser.
+**PHPUnit:&nbsp;Toggle&nbsp;Option** | Toggles PHPUnit options.
 
 ## Key Bindings
 
@@ -137,7 +149,7 @@ You can instruct the test runner to use a custom PHP executable. The default is 
 
 ### Autocommands
 
-You can configure `on_post_save` to run the Test File command when views are saved:
+You can configure `on_post_save` to run the "Test File" command when views are saved:
 
 ```js
 "phpunit.on_post_save": [
@@ -157,10 +169,13 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests), [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), and [janko-m/vim-test](https://github.com/janko-m/vim-test).
 
-[Kitty]: https://github.com/kovidgoyal/kitty
-[ParaTest]: https://github.com/paratestphp/paratest
-[Pest]: https://pestphp.com
-
 ## License
 
 Released under the [GPL-3.0-or-later License](LICENSE).
+
+[Artisan]: https://laravel.com/docs/artisan
+[Composer]: https://getcomposer.org
+[Kitty]: https://github.com/kovidgoyal/kitty
+[ParaTest]: https://github.com/paratestphp/paratest
+[Pest]: https://pestphp.com
+[iTerm2]: https://iterm2.com
