@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.14.0 - Unreleased
+## 3.14.0 - 2023-07-22
 
 ### Added
 
@@ -30,7 +30,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed arious tests results colour output issues (PHPUnit, Pest)
+* Fixed various tests results colour output issues (PHPUnit, Pest)
 * Fixed `--orderby=` toggle commands doesn't work
 * Fixed command captions "PHPUnit: Set Option ..." → "PHPUnit: Toggle ..."
 
