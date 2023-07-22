@@ -672,6 +672,8 @@ def _create_exec_output_panel(view, env, cmd) -> None:
     panel_settings = panel.settings()
     panel_settings.set('rulers', [])
     panel_settings.set('highlight_line', False)
+    panel_settings.set('draw_indent_guides', False)
+    panel_settings.set('draw_white_space', [])
 
     font_size = get_setting(view, 'font_size')
     if font_size:
