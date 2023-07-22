@@ -4,6 +4,26 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.14.0 - Unreleased
 
+### Added
+
+* Add "PHPUnit: Toggle --display-deprecations"
+* Add "PHPUnit: Toggle --display-errors"
+* Add "PHPUnit: Toggle --display-incomplete"
+* Add "PHPUnit: Toggle --display-notices"
+* Add "PHPUnit: Toggle --display-skipped"
+* Add "PHPUnit: Toggle --display-warnings"
+* Add "PHPUnit: Toggle --fail-on-deprecation"
+* Add "PHPUnit: Toggle --fail-on-incomplete"
+* Add "PHPUnit: Toggle --fail-on-notice"
+* Add "PHPUnit: Toggle --fail-on-skipped"
+* Add "PHPUnit: Toggle --no-output"
+* Add "PHPUnit: Toggle --no-progress"
+* Add "PHPUnit: Toggle --no-results"
+* Add "PHPUnit: Toggle --order-by=depends"
+* Add "PHPUnit: Toggle --order-by=size"
+* Add "PHPUnit: Toggle --stop-on-deprecation"
+* Add "PHPUnit: Toggle --stop-on-notice"
+
 ### Changed
 
 * Renamed command captions "PHPUnit: Toggle Option ..." → "PHPUnit: Toggle ..."
