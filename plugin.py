@@ -943,7 +943,7 @@ class PHPUnit():
 
         return status_message('PHPUnit: no tests were run so far')
 
-    def toggle_option(self, option, value=None) -> None:
+    def toggle(self, option, value=None) -> None:
         options = get_window_setting('phpunit.options', default={}, window=self.window)
 
         if value is None:
@@ -1008,7 +1008,7 @@ class PhpunitTestSwitchCommand(sublime_plugin.WindowCommand):
 class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 
     def run(self, option, value=None):
-        PHPUnit(self.window).toggle_option(option, value)
+        PHPUnit(self.window).toggle(option, value)
 
 
 class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
