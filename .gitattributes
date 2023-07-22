@@ -7,7 +7,10 @@
 /.coveragerc            export-ignore
 /.flake8                export-ignore
 /.gitattributes         export-ignore
+/.github/               export-ignore
 /.gitignore             export-ignore
 /appveyor.yml           export-ignore
+/mypy.ini               export-ignore
+/screenshot*.png        export-ignore
 /tests/                 export-ignore
 /unittesting.json       export-ignore
