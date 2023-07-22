@@ -67,7 +67,7 @@ Command                              | Description
 **PHPUnit:&nbsp;Test&nbsp;Results**  | Opens the exec test output panel.
 **PHPUnit:&nbsp;Test&nbsp;Cancel**   | Cancels any currently running test.
 **PHPUnit:&nbsp;Test&nbsp;Coverage** | Opens code coverage in browser.
-**PHPUnit:&nbsp;Toggle&nbsp;Option** | Toggles PHPUnit options.
+**PHPUnit:&nbsp;Toggle**             | Toggle PHPUnit option.
 
 ## Key Bindings
 

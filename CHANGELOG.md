@@ -2,6 +2,17 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.14.0 - Unreleased
+
+### Changed
+
+* Renamed command captions "PHPUnit: Toggle Option ..." → "PHPUnit: Toggle ..."
+
+### Fixed
+
+* Fixed `--orderby=` toggle commands don't work
+* Fixed command captions "PHPUnit: Set Option ..." → "PHPUnit: Toggle ..."
+
 ## 3.13.0 - 2023-05-15
 
 * Changed [#83](https://github.com/NeoVintageous/NeoVintageous/issues/83): Autocommand test file on save renamed `phpunit_test_file` to `run_test_file`
