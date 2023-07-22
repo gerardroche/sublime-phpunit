@@ -10,7 +10,8 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed `--orderby=` toggle commands don't work
+* Fixed arious tests results colour output issues (PHPUnit, Pest)
+* Fixed `--orderby=` toggle commands doesn't work
 * Fixed command captions "PHPUnit: Set Option ..." → "PHPUnit: Toggle ..."
 
 ## 3.13.0 - 2023-05-15

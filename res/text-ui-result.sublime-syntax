@@ -7,6 +7,11 @@ scope: text.phpunit-result
 hidden: true
 hidden_file_extensions:
     - phpunit-report
+
+variables:
+  cc: '(?:\e\[[0-9;]+m)?'
+  ce: '(?:\e\[[0-9;]+m\s*)?'
+
 contexts:
   main:
 
@@ -15,7 +20,7 @@ contexts:
 
     - include: scope:source.diff
 
-    - match: ^(?=(\.\.|FF|\.(D|E|F|I|R|S|W)|(E|F|I|R|S|W)\.)|(\.|D|E|F|I|R|S|W)$)
+    - match: ^(?=(\.\.|FF|\.(D|E|F|I|N|R|S|W)|(E|F|I|N|R|S|W)\.)|(\.|D|E|F|I|N|R|S|W)$)
       push:
         - match: ^(?=Time|OK|FAILURES|ERRORS|WARNINGS|  .)
           pop: true
@@ -29,6 +34,8 @@ contexts:
           scope: region.redish phpunitkit test.progress.failure.phpunit-result
         - match: I
           scope: region.orangish phpunitkit test.progress.incomplete.phpunit-result
+        - match: N
+          scope: region.orangish phpunitkit test.progress.notice.phpunit-result
         - match: R
           scope: region.orangish phpunitkit test.progress.risky.phpunit-result
         - match: S
@@ -48,11 +55,11 @@ contexts:
         - match: (✖|⨯|➜|⚈)
           scope: markup.deleted
 
-        - match: (ℹ|➦|-|\!|…)
-          scope: markup.changed
+        - match: (ℹ|➦|-|\!|…|→ (?:notice|Deprecated|.+))
+          scope: markup.changed markup.warning
 
         - match: \bR\b
-          scope: markup.changed
+          scope: markup.changed markup.warning
 
     - match: ^ (?=✔|☢|∅|↩|✘)
       push:
@@ -61,7 +68,7 @@ contexts:
         - match: ✔
           scope: markup.inserted
         - match: (☢|∅)
-          scope: markup.warning
+          scope: markup.changed markup.warning
         - match: (✘)
           scope: markup.deleted
         - match: (↩)
@@ -75,43 +82,43 @@ contexts:
       captures:
         1: region.orangish phpunitkit
 
-    - match: '^(?:\e\[[0-9;]+m)?No tests executed\!(?:\e\[[0-9;]+m)?$'
+    - match: '^{{cc}}No tests executed\!{{cc}}$'
       scope: region.orangish phpunitkit test.footer.none-executed.phpunit-result
 
-    - match: '^(?:\e\[[0-9;]+m)?OK \(\d+ test(?:s)?, \d+ assertion(?:s)?\)(?:\e\[[0-9;]+m)?$'
+    - match: '^{{cc}}OK \(\d+ test(?:s)?, \d+ assertion(?:s)?\){{cc}}$'
       scope: region.greenish phpunitkit test.footer.ok.phpunit-result
 
-    - match: '^(?:\e\[[0-9;]+m)?OK, but incomplete, skipped, or risky tests\!(?:\e\[[0-9;]+m)?$'
+    - match: '^{{cc}}OK, but incomplete, skipped, or risky tests\!{{cc}}$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
-    - match: '^(?:\e\[[0-9;]+m)?OK, but there are issues\!(?:\e\[[0-9;]+m)?$'
+    - match: '^{{cc}}OK, but there are issues\!{{cc}}$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
       push:
-        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+        - match: '^{{cc}}Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Notices|Skipped|Incomplete|Risky)\: \d+)+\.{{cc}}$'
           scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
           pop: true
 
-    - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Incomplete|Skipped|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+    - match: '^{{cc}}Tests\: \d+, Assertions\: \d+(?:, (?:Incomplete|Notices|Skipped|Risky)\: \d+)+\.{{cc}}$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
-    - match: '^(?:\e\[[0-9;]+m)?WARNINGS\!(?:\e\[[0-9;]+m\s*)?$'
+    - match: '^{{cc}}WARNINGS\!(?:\e\[[0-9;]+m\s*)?$'
       scope: region.orangish phpunitkit test.footer.warn.phpunit-result
       push:
-        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+        - match: '^{{cc}}Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Notices|Skipped|Incomplete|Risky)\: \d+)+\.{{cc}}$'
           scope: region.orangish phpunitkit test.footer.warn.phpunit-result
           pop: true
 
-    - match: '^(?:\e\[[0-9;]+m)?FAILURES\!(?:\e\[[0-9;]+m\s*)?$'
+    - match: '^{{cc}}FAILURES\!{{ce}}$'
       scope: region.redish phpunitkit test.footer.fail.phpunit-result
       push:
-        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+        - match: '^{{cc}}Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Notices|Skipped|Incomplete|Risky)\: \d+)+\.{{cc}}$'
           scope: region.redish phpunitkit test.footer.fail.phpunit-result
           pop: true
 
-    - match: '^(?:\e\[[0-9;]+m)?ERRORS\!(?:\e\[[0-9;]+m\s*)?$'
+    - match: '^{{cc}}ERRORS\!{{ce}}$'
       scope: region.redish phpunitkit test.footer.error.phpunit-result
       push:
-        - match: '^(?:\e\[[0-9;]+m)?Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Skipped|Incomplete|Risky)\: \d+)+\.(?:\e\[[0-9;]+m)?$'
+        - match: '^{{cc}}Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Notices|Skipped|Incomplete|Risky)\: \d+)+\.{{cc}}$'
           scope: region.redish phpunitkit test.footer.error.phpunit-result
           pop: true
 
@@ -138,15 +145,15 @@ contexts:
       captures:
         1: region.redish phpunitkit test.footer.fail.phpunit-result
 
-    - match: '^  ( (WARN|DEPR) ).+'
+    - match: '^  ( (WARN|DEPR|NOTI) ).+'
       captures:
         1: region.orangish phpunitkit test.footer.warn.phpunit-result
+
+    - match: '\d+ passed'
+      scope: markup.inserted
 
     - match: '\d+ failed'
       scope: markup.deleted
 
-    - match: '\d+ (skipped|incomplete|deprecated)'
-      scope: markup.changed
-
-    - match: '\d+ passed'
-      scope: markup.inserted
+    - match: '\d+ (deprecated|incomplete|notice|risky|skipped)'
+      scope: markup.changed markup.warning

@@ -20,6 +20,9 @@ F
 I
 #<- test.progress.incomplete.phpunit-result
 
+N
+#<- test.progress.notice.phpunit-result
+
 R
 #<- test.progress.risky.phpunit-result
 
@@ -29,15 +32,16 @@ S
 W
 #<- test.progress.warning.phpunit-result
 
-.DEFIRSW
+.DEFINRSW
 #<- test.progress.success.phpunit-result
 #^ test.progress.deprecated.phpunit-result
 # ^ test.progress.error.phpunit-result
 #  ^ test.progress.failure.phpunit-result
 #   ^ test.progress.incomplete.phpunit-result
-#    ^ test.progress.risky.phpunit-result
-#     ^ test.progress.skipped.phpunit-result
-#      ^ test.progress.warning.phpunit-result
+#    ^ test.progress.notice.phpunit-result
+#     ^ test.progress.risky.phpunit-result
+#      ^ test.progress.skipped.phpunit-result
+#       ^ test.progress.warning.phpunit-result
 ..
 #<- test.progress.success.phpunit-result
 #^ test.progress.success.phpunit-result
@@ -45,7 +49,7 @@ W
 #<- test.progress.success.phpunit-result
 #^^^^^^ test.progress.success.phpunit-result
 
-F..S...W..E.
+F..S...W..E.N.
 #<- test.progress.failure.phpunit-result
 #^^ test.progress.success.phpunit-result
 #  ^ test.progress.skipped.phpunit-result
@@ -54,6 +58,7 @@ F..S...W..E.
 #       ^^ test.progress.success.phpunit-result
 #         ^ test.progress.error.phpunit-result
 #          ^ test.progress.success.phpunit-result
+#           ^ test.progress.notice.phpunit-result
 
 ......F.......S.hello!R.                                                18 / 18 (100%)
 # ^^^^ test.progress.success.phpunit-result
@@ -127,12 +132,19 @@ Tests: 120, Assertions: 100, Errors: 4, Failures: 4, Warnings: 4, Deprecations: 
 #<- region.redish phpunitkit test.footer.error.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.error.phpunit-result
 
+FAILURES!
+Tests: 19, Assertions: 15, Failures: 2, Warnings: 4, Deprecations: 4, Notices: 1, Risky: 4.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.redish phpunitkit test.footer.fail.phpunit-result
+
 WARNINGS!
 #<- region.orangish phpunitkit test.footer.warn.phpunit-result
 #^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
 Tests: 1, Assertions: 0, Warnings: 1.
 #<- region.orangish phpunitkit test.footer.warn.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
+
+Tests: 4, Assertions: 4, Notices: 1.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
 There was 1 failure:
 
@@ -423,7 +435,7 @@ Error (NS\Error)
 
 
 
-                                Pest
+Pest
 ================================================================================
 
    PASS  BasicTest
@@ -436,11 +448,27 @@ Error (NS\Error)
   ✓ three
   ✓ four
 
-   FAIL  BasicTest
+   NOTI  X\Y
+# ^^^^^^ region.orangish
+  ✓ should pass                                                          0.04s
+  ! should emit notice → notice // tests/notice/NoticeTest.php:17        0.01s
+#                      ^^^^^^^^ markup.changed markup.warning
+#                               ^ -markup.changed
+#                               ^ -markup.warning
+
+   DEPR  X\Y
+# ^^^^^^ region.orangish
+  ✓ should pass                                                          0.04s
+  ! should emit notice → Deprecated // tests/deprecated/DeprecatedTest.… 0.01s
+#                      ^^^^^^^^^^^^ markup.changed markup.warning
+#                                   ^ -markup.changed
+#                                   ^ -markup.warning
+
+   FAIL  X
 # ^^^^^^ region.redish phpunitkit test.footer.fail.phpunit-result
-  ⨯ one
+  ⨯ should fail
 # ^ markup.deleted
-  ✓ six
+  ✓ should pass
 
   ---
 
@@ -466,12 +494,21 @@ hello!
    WARN  NS\RiskyTest
 # ^^^^^^ region.orangish phpunitkit test.footer.warn.phpunit-result
   ✓ disallow todo tests
+  ! should emit warning → This test did not perform any assertions                   0.01s
+#                       ^^^^^^ markup.changed markup.warning
 
   Tests:  1 failed, 1 incomplete, 1 skipped, 24 passed, 2 pending
 #         ^^^^^^^^ markup.deleted
-#                   ^^^^^^^^^^^^ markup.changed
-#                                 ^^^^^^^^^ markup.changed
+#                   ^^^^^^^^^^^^ markup.changed markup.warning
+#                                 ^^^^^^^^^ markup.changed markup.warning
 #                                            ^^^^^^^^^ markup.inserted
+
+  Tests:    1 notice, 3 passed (4 assertions)
+#           ^^^^^^^^ markup.changed markup.warning
+
+  Tests:    4 deprecated, 4 risky, 1 notice, 7 passed (12 assertions)
+#                         ^^^^^^^ markup.changed markup.warning
+
   Time:   0.04s
 
 ......
@@ -494,4 +531,4 @@ hello!
    WARN  NS\ClassTest
 # ^^^^^^ region.orangish
   … incomplete                                                           0.02s
-# ^ markup.changed
+# ^ markup.changed markup.warning
