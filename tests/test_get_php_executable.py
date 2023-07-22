@@ -55,7 +55,7 @@ class TestGetPHPExecutable(unittest.ViewTestCase):
             _get_php_executable(self.view, unittest.fixtures_path('get_php_executable/invalid'))
 
     def test_no_versions_path_raises_exception(self):
-        self.view.settings().set('phpunit.php_versions_path', None)
+        self.view.settings().set('phpunit.php_versions_path', None)  # type: ignore[arg-type]
         with self.assertRaisesRegex(ValueError, 'is not set'):
             _get_php_executable(self.view, unittest.fixtures_path('get_php_executable'))
 

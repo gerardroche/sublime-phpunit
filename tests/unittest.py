@@ -9,7 +9,7 @@ from sublime import active_window
 
 def fixtures_path(*path) -> str:
     if path is None:
-        return os.path.join(os.path.dirname(__file__), 'fixtures')
+        return os.path.join(os.path.dirname(__file__), 'fixtures')  # type: ignore[unreachable]
 
     return os.path.join(os.path.dirname(__file__), 'fixtures', *path)
 
