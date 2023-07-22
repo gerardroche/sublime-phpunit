@@ -18,6 +18,7 @@
 import os
 import re
 import shutil
+import webbrowser
 
 from sublime import ENCODED_POSITION
 from sublime import active_window
@@ -907,7 +908,7 @@ class PHPUnit():
                     file=switchable.file,
                     options=options))
 
-    def show_results(self) -> None:
+    def show(self) -> None:
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
     def cancel(self) -> None:
@@ -922,7 +923,6 @@ class PHPUnit():
         if not os.path.exists(coverage_html_index_html_file):
             return status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
 
-        import webbrowser
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
 
     def switch(self) -> None:
@@ -984,7 +984,7 @@ class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnit(self.window).show_results()
+        PHPUnit(self.window).show()
 
 
 class PhpunitTestCancelCommand(sublime_plugin.WindowCommand):
