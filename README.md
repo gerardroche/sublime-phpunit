@@ -44,7 +44,7 @@ Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package 
 
 Zero configuration required. Optional: add your preferred key bindings.
 
-**Menu → Preferences → Key Bindings**
+Menu → Preferences → Key Bindings
 
 ```js
 { "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
