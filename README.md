@@ -23,6 +23,8 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Colour output
 * Fast jump to next and previous failure
 * Fast switch between test and file-under-test
+* Toggle options on demand
+* Fully customized CLI options configuration
 * Support for
     - [Artisan] - Artisan is the command line interface included with Laravel.
     - [Composer] - Composer is a Dependency Manager for PHP.
@@ -30,6 +32,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
     - [Kitty] - Kitt is a fast, feature-rich, cross-platform, GPU based terminal.
     - [ParaTest] - ParaTest adds parallel testing support in PHPUnit.
     - [Pest] - Pest is a testing framework with a focus on simplicity.
+- Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
 
@@ -39,7 +42,7 @@ Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package 
 
 ## Setup
 
-*Optional*
+Zero configuration required. Optional: add your preferred key bindings.
 
 **Menu → Preferences → Key Bindings**
 
@@ -111,7 +114,7 @@ Setting                     | Description                                       
 
 ### CLI Options
 
-If you want some CLI options to stick around, you can configure them in your global preferences:
+If you want some CLI options to stick around, you can configure them in your settings.
 
 Menu → Preferences → Settings
 
@@ -126,7 +129,7 @@ Menu → Preferences → Settings
 }
 ```
 
-The above configuration will be passed to PHPUnit as the following CLI options:
+The above options will be passed to PHPUnit as CLI options:
 
 ```shell
 -d "display_errors=1" \
@@ -136,6 +139,22 @@ The above configuration will be passed to PHPUnit as the following CLI options:
 --colors=never \
 --order-by=defects \
 --coverage-html build/coverage
+```
+
+**Disabling code coverage by default**
+
+For instance, disable coverage by default and toggle it on when you need it. This will help keep your tests fast.
+
+```js
+"phpunit.options": {
+    "no-coverage": true,
+}
+```
+
+Toggle coverage on demand.
+
+```
+Command Palette → PHPUnit: Toggle --no-coverage
 ```
 
 ### PHPUnit Executable
