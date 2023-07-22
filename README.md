@@ -94,43 +94,55 @@ PHPUnitKit can run tests using different execution environments called "strategi
 
 **Menu → Preferences → Settings**
 
-Setting                     | Description                                       | Type                  | Default
-:---                        | :----------                                       | :---                  | :------
-`phpunit.executable`        | Path to PHPUnit executable.                       | `string\|list`        | Auto discovered.
-`phpunit.php_executable`    | Path to PHP executable.                           | `string`              | Auto discovered.
-`phpunit.options`           | CLI Options to pass to PHPUnit.                   | `dict`                | `{}`
-`phpunit.save_all_on_run`   | Save all dirty buffers before running tests.      | `bool`                | `true`
-`phpunit.on_post_save`      | Auto commands when views are saved.               | `list`                | `[]`
-`phpunit.prepend_cmd`       | Prepends test runner command.                     | `list`                | `[]`
-`phpunit.strategy`          | Execution environment to run tests.               | `string`              | `basic`
-`phpunit.composer`          | Use Composer installed executables if they exist. | `bool`                | `true`
-`phpunit.artisan`           | Use Artisan test runner if it exists.             | `bool`                | `false`
-`phpunit.paratest`          | Use ParaTest test runner if it exists.            | `bool`                | `false`
-`phpunit.pest`              | Use Pest test runner if it exists.                | `bool`                | `false`
-`phpunit.font_size`         | Font size of PHPUnit output.                      | `int`                 | Editor default.
+Setting                     | Description                                        | Type             | Default
+:---                        | :----------                                        | :---             | :------
+`phpunit.executable`        | Path to PHPUnit executable.                        | `string\|list`   | Auto discovered.
+`phpunit.php_executable`    | Path to PHP executable.                            | `string`         | Auto discovered.
+`phpunit.options`           | CLI Options to pass to PHPUnit.                    | `dict`           | `{}`
+`phpunit.save_all_on_run`   | Save all dirty buffers before running tests.       | `bool`           | `true`
+`phpunit.on_post_save`      | Auto commands when views are saved.                | `list`           | `[]`
+`phpunit.prepend_cmd`       | Prepends test runner command.                      | `list`           | `[]`
+`phpunit.strategy`          | Execution environment to run tests.                | `string`         | `basic`
+`phpunit.composer`          | Use Composer installed executables, if they exist. | `bool`           | `true`
+`phpunit.artisan`           | Use Artisan to run tests, if it exists.            | `bool`           | `false`
+`phpunit.paratest`          | Use ParaTest to run tests, if it exists.           | `bool`           | `false`
+`phpunit.pest`              | Use Pest to run tests, if it exists.               | `bool`           | `false`
+`phpunit.font_size`         | Font size of PHPUnit output.                       | `int`            | Editor default.
 
 ### CLI Options
 
 If you want some CLI options to stick around, you can configure them in your global preferences:
 
+Menu → Preferences → Settings
+
 ```js
 "phpunit.options": {
     "no-coverage": true,
+    "no-progress": true,
     "colors=never": true,
+    "order-by=": "defects",
     "coverage-html": "build/coverage",
-    "d": ["display_errors=1", "xdebug.scream=0"]
+    "d": ["display_errors=1", "xdebug.scream=0"],
 }
 ```
 
-The above configuration would be passed to PHPUnit as the following CLI options:
+The above configuration will be passed to PHPUnit as the following CLI options:
 
 ```shell
--d "display_errors=1" -d "xdebug.scream=0" --no-coverage --colors=never --coverage-html build/coverage
+-d "display_errors=1" \
+-d "xdebug.scream=0" \
+--no-coverage \
+--no-progress \
+--colors=never \
+--order-by=defects \
+--coverage-html build/coverage
 ```
 
 ### PHPUnit Executable
 
 You can instruct the test runner to use a custom PHPUnit executable. The default is auto discovery.
+
+Menu → Preferences → Settings
 
 ```js
 "phpunit.executable": "vendor/bin/phpunit"
@@ -143,6 +155,8 @@ You can instruct the test runner to use a custom PHPUnit executable. The default
 
 You can instruct the test runner to use a custom PHP executable. The default is auto discovery.
 
+Menu → Preferences → Settings
+
 ```js
 "phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
 ```
@@ -150,6 +164,8 @@ You can instruct the test runner to use a custom PHP executable. The default is 
 ### Autocommands
 
 You can configure `on_post_save` to run the "Test File" command when views are saved:
+
+Menu → Preferences → Settings
 
 ```js
 "phpunit.on_post_save": [
