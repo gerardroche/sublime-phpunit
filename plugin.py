@@ -916,7 +916,7 @@ class PHPUnit():
     def cancel(self) -> None:
         _kill_any_running_tests(self.window)
 
-    def open_coverage_report(self) -> None:
+    def coverage(self) -> None:
         working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
         if not working_dir:
             return status_message('PHPUnit: could not find a PHPUnit working directory')
@@ -1016,7 +1016,7 @@ class PhpunitToggleOptionCommand(sublime_plugin.WindowCommand):
 class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        PHPUnit(self.window).open_coverage_report()
+        PHPUnit(self.window).coverage()
 
 
 class PhpunitEvents(sublime_plugin.EventListener):

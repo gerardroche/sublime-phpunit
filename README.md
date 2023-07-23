@@ -143,7 +143,7 @@ The above options will be passed to PHPUnit as CLI options:
 
 **Disabling code coverage by default**
 
-For instance, disable coverage by default and toggle it on when you need it. This will help keep your tests fast.
+For instance, you can disable coverage by default and toggle it on when you need it. This will help keep your tests fast.
 
 ```js
 "phpunit.options": {
