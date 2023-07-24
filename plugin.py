@@ -39,9 +39,18 @@ if _DEBUG:
         if args:
             msg = msg % args
         print('PHPUnit: ' + msg)
-else:  # pragma: no cover
+
+    def is_debug(view) -> bool:
+        return True
+else:
     def debug_message(msg, *args) -> None:
         pass
+
+    def is_debug(view) -> bool:
+        if view:
+            return view.settings().get('phpunit.debug')
+
+        return False
 
 
 def message(msg, *args) -> None:
@@ -52,16 +61,6 @@ def message(msg, *args) -> None:
 
     print(msg)
     status_message(msg)
-
-
-def is_debug(view=None) -> bool:
-    if view:
-        phpunit_debug = view.settings().get('phpunit.debug')
-        return phpunit_debug or (
-            phpunit_debug is not False and view.settings().get('debug')
-        )
-    else:
-        return _DEBUG
 
 
 def get_active_view(window):

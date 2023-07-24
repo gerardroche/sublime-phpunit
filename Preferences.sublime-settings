@@ -5,6 +5,9 @@
     // Use Composer installed executables if they exist.
     "phpunit.composer": true,
 
+    // Prints extra verbose messages about environment.
+    "phpunit.debug": false,
+
     // The PHPUnit executable to use when running tests. Environment variables
     // and user home directory ~ placeholder are expanded. The executable can
     // be a string or a list.

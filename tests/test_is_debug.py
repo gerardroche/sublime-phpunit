@@ -9,7 +9,7 @@ class TestIsDebug(unittest.ViewTestCase):
         self.view.settings().set('phpunit.debug', False)
         self.view.settings().set('debug', False)
 
-        self.assertEqual(_DEBUG, is_debug())
+        self.assertEqual(_DEBUG, is_debug(self.view))
 
         self.view.settings().set('phpunit.debug', True)
         self.assertTrue(is_debug(self.view))
