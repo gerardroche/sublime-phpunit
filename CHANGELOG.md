@@ -2,36 +2,49 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.14.1 - Unreleased
+## 3.15.1 - Unreleased
 
-* Fixed: Session options, e.g. toggled options, should be cleared on restart
-* Fixed: Session options loading edge-case issues
-* Fixed: Toggle options edge-case issues
-* Fixed: `phpunit.debug` should be documented in preferences
-* Fixed: Disable white-space characters in results output #117
-* Fixed: Disable indent guides in results output #116
+### Added
+
+* New Command: "PHPUnit: Toggle --cache-result" - Write test results to cache file
+* New Command: "PHPUnit: Toggle --do-not-cache-result" - Do not write test results to cache file
+* New Command: "PHPUnit: Toggle --globals-backup" - Backup and restore `$GLOBALS` for each test
+* New Command: "PHPUnit: Toggle --no-logging" - Ignore logging configured in the XML configuration file
+* New Command: "PHPUnit: Toggle --path-coverage" - Report path coverage in addition to line coverage
+* New Command: "PHPUnit: Toggle --process-isolation" - Run each test in a separate PHP process
+* New Command: "PHPUnit: Toggle --static-backup" - Backup and restore static properties for each test
+* New Command: "PHPUnit: Toggle --teamcity" - Replace default progress and result output with TeamCity format
+
+### Fixed
+
+* Session options, e.g. toggled options, should be cleared on restart
+* Session options loading edge-case issues
+* Toggle options edge-case issues
+* `phpunit.debug` should be documented in preferences
+* Disable white-space characters in results output #117
+* Disable indent guides in results output #116
 
 ## 3.14.0 - 2023-07-22
 
 ### Added
 
-* Add "PHPUnit: Toggle --display-deprecations"
-* Add "PHPUnit: Toggle --display-errors"
-* Add "PHPUnit: Toggle --display-incomplete"
-* Add "PHPUnit: Toggle --display-notices"
-* Add "PHPUnit: Toggle --display-skipped"
-* Add "PHPUnit: Toggle --display-warnings"
-* Add "PHPUnit: Toggle --fail-on-deprecation"
-* Add "PHPUnit: Toggle --fail-on-incomplete"
-* Add "PHPUnit: Toggle --fail-on-notice"
-* Add "PHPUnit: Toggle --fail-on-skipped"
-* Add "PHPUnit: Toggle --no-output"
-* Add "PHPUnit: Toggle --no-progress"
-* Add "PHPUnit: Toggle --no-results"
-* Add "PHPUnit: Toggle --order-by=depends"
-* Add "PHPUnit: Toggle --order-by=size"
-* Add "PHPUnit: Toggle --stop-on-deprecation"
-* Add "PHPUnit: Toggle --stop-on-notice"
+* New Command: "PHPUnit: Toggle --display-incomplete" - Display details for incomplete tests
+* New Command: "PHPUnit: Toggle --display-skipped" - Display details for skipped tests
+* New Command: "PHPUnit: Toggle --display-deprecations" - Display details for deprecations triggered by tests
+* New Command: "PHPUnit: Toggle --display-errors" - Display details for errors triggered by tests
+* New Command: "PHPUnit: Toggle --display-notices" - Display details for notices triggered by tests
+* New Command: "PHPUnit: Toggle --display-warnings" - Display details for warnings triggered by tests
+* New Command: "PHPUnit: Toggle --fail-on-skipped" - Signal failure using shell exit code when a test was skipped
+* New Command: "PHPUnit: Toggle --fail-on-notice" - Signal failure using shell exit code when a notice was triggered
+* New Command: "PHPUnit: Toggle --fail-on-incomplete" - Signal failure using shell exit code when a test was marked incomplete
+* New Command: "PHPUnit: Toggle --fail-on-deprecation" - Signal failure using shell exit code when a deprecation was triggered
+* New Command: "PHPUnit: Toggle --no-output" - Disable all output
+* New Command: "PHPUnit: Toggle --no-progress" - Disable output of test execution progress
+* New Command: "PHPUnit: Toggle --no-results" - Disable output of test results
+* New Command: "PHPUnit: Toggle --order-by=depends" - Run tests in order: depends
+* New Command: "PHPUnit: Toggle --order-by=size" - Run tests in order: size
+* New Command: "PHPUnit: Toggle --stop-on-deprecation" - Stop after first test that triggered a deprecation
+* New Command: "PHPUnit: Toggle --stop-on-notice" - Stop after first test that triggered a notice
 
 ### Changed
 
