@@ -2,10 +2,14 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.15.0 - Unreleased
+## 3.14.1 - Unreleased
 
-* Fixed [#117](https://github.com/NeoVintageous/NeoVintageous/issues/117): Disable white-space characters in results output
-* Fixed [#116](https://github.com/NeoVintageous/NeoVintageous/issues/116): Disable indent guides in results output
+* Fixed: Session options, e.g. toggled options, should be cleared on restart
+* Fixed: Session options loading edge-case issues
+* Fixed: Toggle options edge-case issues
+* Fixed: `phpunit.debug` should be documented in preferences
+* Fixed: Disable white-space characters in results output #117
+* Fixed: Disable indent guides in results output #116
 
 ## 3.14.0 - 2023-07-22
 

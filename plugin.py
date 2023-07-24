@@ -21,7 +21,6 @@ import shutil
 import webbrowser
 
 from sublime import ENCODED_POSITION
-from sublime import active_window
 from sublime import cache_path
 from sublime import load_resource
 from sublime import platform
@@ -33,6 +32,8 @@ import sublime_plugin
 _DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
 _PEST_TEST_PATTERN = '^\\s*(it|test)\\(("|\')(.*)("|\')'
+
+_session = {}  # type: dict
 
 if _DEBUG:
     def debug_message(msg, *args) -> None:
@@ -72,23 +73,20 @@ def get_active_view(window):
     return active_view
 
 
-def get_window_setting(key, default=None, window=None):
-    if not window:
-        window = active_window()
-
-    if window.settings().has(key):
-        return window.settings().get(key)
-
-    view = window.active_view()
-
-    if view and view.settings().has(key):
-        return view.settings().get(key)
-
-    return default
+def get_session(key: str):
+    return _session.get(key)
 
 
-def set_window_setting(key: str, value, window) -> None:
-    window.settings().set(key, value)
+def set_session(key: str, value) -> None:
+    _session[key] = value
+
+
+def get_last_run():
+    return get_session('last_run')
+
+
+def set_last_run(args: dict):
+    return set_session('last_run', args)
 
 
 def get_setting(view, name: str):
@@ -738,14 +736,14 @@ def _get_auto_generated_color_scheme(view):
         return color_scheme
 
 
-def _get_phpunit_options(view, options) -> dict:
+def _get_phpunit_options(view, options=None) -> dict:
     if options is None:
         options = {}
 
-    window_options = get_window_setting('phpunit.options', default={}, window=view.window())
-    debug_message('window options %s', window_options)
-    if window_options:
-        for k, v in window_options.items():
+    session_options = get_session('options')
+    debug_message('session options %s', session_options)
+    if session_options:
+        for k, v in session_options.items():
             if k not in options:
                 options[k] = v
 
@@ -835,11 +833,11 @@ class PHPUnit():
         if get_setting(self.view, 'save_all_on_run'):
             _save_views(self.window)
 
-        set_window_setting('phpunit._test_last', {
+        set_last_run({
             'working_dir': working_dir,
             'file': file,
             'options': options
-        }, window=self.window)
+        })
 
         if get_setting(self.view, 'strategy') in ('iterm', 'kitty'):
             self.window.run_command('exec', {
@@ -867,7 +865,7 @@ class PHPUnit():
             _create_exec_output_panel(self.view, env, cmd)
 
     def run_last(self) -> None:
-        last_test_args = get_window_setting('phpunit._test_last', window=self.window)
+        last_test_args = get_last_run()
         if not last_test_args:
             return status_message('PHPUnit: no tests were run so far')
 
@@ -934,7 +932,7 @@ class PHPUnit():
         find_switchable(self.view, on_select=_on_switchable)
 
     def visit(self) -> None:
-        test_last = get_window_setting('phpunit._test_last', window=self.window)
+        test_last = get_last_run()
         if test_last:
             if 'file' in test_last and 'working_dir' in test_last:
                 if test_last['file']:
@@ -944,18 +942,32 @@ class PHPUnit():
 
         return status_message('PHPUnit: no tests were run so far')
 
-    def toggle(self, option, value=None) -> None:
-        options = get_window_setting('phpunit.options', default={}, window=self.window)
+    def toggle(self, option: str, value=None) -> None:
+        options = _get_phpunit_options(self.view)
+        new_options = options.copy()
 
         if value is None:
-            options[option] = not bool(options[option]) if option in options else True
+            # Option is a boolean, toggle it.
+            # Default to true if no current value,
+            # Otherwise negate it.
+            cur_value = options.get(option)
+            new_value = True if cur_value is None else not cur_value
+            new_options[option] = new_value
         else:
             if option in options and options[option] == value:
-                del options[option]
-            else:
-                options[option] = value
+                value = None
+            new_options[option] = value
 
-        set_window_setting('phpunit.options', options, window=self.window)
+        # Diff out session values that are the same user settings. This is
+        # better because it means if the user changes the setting in their
+        # settings file it will take imediate effect.
+        view_options = get_setting(self.view, 'options')
+        for name, value in view_options.items():
+            if name in new_options:
+                if new_options[name] == value:
+                    del new_options[name]
+
+        set_session('options', new_options)
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):

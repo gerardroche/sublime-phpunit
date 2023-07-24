@@ -49,3 +49,10 @@ class TestBuildCmdOptions(unittest.TestCase):
     def test_key_equals_value_options(self):
         self.assertEqual(['--colors=always'], build_cmd_options({'colors=always': True}, []))
         self.assertEqual(['--colors=always'], build_cmd_options({'colors=': 'always'}, []))
+
+    def test_required_string_value_option_imits_option_if_value_is_none(self):
+        self.assertEqual([], build_cmd_options({'colors=always': False}, []))
+        self.assertEqual([], build_cmd_options({'colors=': None}, []))
+        self.assertEqual([], build_cmd_options({'colors': None}, []))
+        self.assertEqual(['--colors=always'], build_cmd_options({'colors=': "always"}, []))
+        self.assertEqual(['--colors', 'always'], build_cmd_options({'colors': 'always'}, []))

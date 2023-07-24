@@ -20,10 +20,16 @@ class ViewTestCase(TestCase):
         self.view = active_window().new_file()
         self.view.set_syntax_file(find_resources('PHP.sublime-syntax')[0])
 
+    def run_window_command(self, command: str, args=None) -> None:
+        self.view.window().run_command(command, args)  # type: ignore[union-attr]
+
     def tearDown(self) -> None:
         if self.view:
             self.view.set_scratch(True)
             self.view.close()
 
-    def fixture(self, text):
+    def fixturePath(self, *path) -> str:
+        return fixtures_path(*path)
+
+    def fixture(self, text) -> None:
         self.view.run_command('phpunit_test_setup_fixture', {'text': text})
