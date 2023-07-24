@@ -150,7 +150,8 @@ For instance, you can disable coverage by default and toggle it on when you need
 Menu → Preferences → Settings
 
 ```js
-"phpunit.options": {
+"phpunit.options":
+{
     "no-coverage": true,
 }
 ```
@@ -167,8 +168,9 @@ If you want to always pass an option like `--stop-on-defect` to PHPUnit, add it 
 
 Menu → Preferences → Settings
 
-```
-"phpunit.options": {
+```js
+"phpunit.options":
+{
     "stop-on-defect": true
 }
 ```
@@ -180,6 +182,27 @@ Command Palette → PHPUnit: Toggle --stop-on-defect
 ```
 
 There are many other command palette toggles. Pretty much any option available in PHPUnit is available as a command palette toggle. If there is any missing, please open an issue and I can add it.
+
+**Disabling progress and output**
+
+If you are migrating from PHPUnit to Pest you may want to disable progress and output to avoid superfluous output.
+
+Menu → Preferences → Settings
+
+```js
+"phpunit.options":
+{
+    "no-progress": true,
+    "no-output": true,
+}
+```
+
+You can also toggle these from the command palette.
+
+```
+Command Palette → PHPUnit: Toggle --no-output
+Command Palette → PHPUnit: Toggle --no-progress
+```
 
 ### PHPUnit Executable
 
