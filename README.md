@@ -23,7 +23,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Colour output
 * Fast jump to next and previous failure
 * Fast switch between test and file-under-test
-* Toggle options on demand
+* Toggle CLI options from the command palette
 * Fully customized CLI options configuration
 * Support for
     - [Artisan] - Artisan is the command line interface included with Laravel.
@@ -42,7 +42,9 @@ Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package 
 
 ## Setup
 
-Zero configuration required. Optional: add your preferred key bindings.
+Zero configuration required.
+
+Optional. Add your preferred key bindings.
 
 Menu → Preferences → Key Bindings
 
@@ -70,7 +72,7 @@ Command                              | Description
 **PHPUnit:&nbsp;Test&nbsp;Results**  | Opens the exec test output panel.
 **PHPUnit:&nbsp;Test&nbsp;Cancel**   | Cancels any currently running test.
 **PHPUnit:&nbsp;Test&nbsp;Coverage** | Opens code coverage in browser.
-**PHPUnit:&nbsp;Toggle**             | Toggle PHPUnit option.
+**PHPUnit:&nbsp;Toggle...**             | Toggle PHPUnit options.
 
 ## Key Bindings
 
@@ -95,22 +97,22 @@ PHPUnitKit can run tests using different execution environments called "strategi
 
 ## Configuring
 
-**Menu → Preferences → Settings**
+Menu → Preferences → Settings
 
-Setting                     | Description                                        | Type             | Default
-:---                        | :----------                                        | :---             | :------
-`phpunit.executable`        | Path to PHPUnit executable.                        | `string\|list`   | Auto discovered.
-`phpunit.php_executable`    | Path to PHP executable.                            | `string`         | Auto discovered.
-`phpunit.options`           | CLI Options to pass to PHPUnit.                    | `dict`           | `{}`
-`phpunit.save_all_on_run`   | Save all dirty buffers before running tests.       | `bool`           | `true`
-`phpunit.on_post_save`      | Auto commands when views are saved.                | `list`           | `[]`
-`phpunit.prepend_cmd`       | Prepends test runner command.                      | `list`           | `[]`
-`phpunit.strategy`          | Execution environment to run tests.                | `string`         | `basic`
-`phpunit.composer`          | Use Composer installed executables, if they exist. | `bool`           | `true`
-`phpunit.artisan`           | Use Artisan to run tests, if it exists.            | `bool`           | `false`
-`phpunit.paratest`          | Use ParaTest to run tests, if it exists.           | `bool`           | `false`
-`phpunit.pest`              | Use Pest to run tests, if it exists.               | `bool`           | `false`
-`phpunit.font_size`         | Font size of PHPUnit output.                       | `int`            | Editor default.
+| Setting                   | Type               | Default          | Description
+| :------------------------ | :----------------- | :--------------- | :----------
+| `phpunit.executable`      | `string` or `list` | Auto discovered. | Path to PHPUnit executable.
+| `phpunit.php_executable`  | `string`           | Auto discovered. | Path to PHP executable.
+| `phpunit.options`         | `dict`             | `{}`             | CLI Options to pass to PHPUnit.
+| `phpunit.save_all_on_run` | `boolean`          | `true`           | Save all dirty buffers before running tests.
+| `phpunit.on_post_save`    | `list`             | `[]`             | Auto commands when views are saved.
+| `phpunit.prepend_cmd`     | `list`             | `[]`             | Prepends test runner command.
+| `phpunit.strategy`        | `string`           | `basic`          | Execution environment to run tests.
+| `phpunit.composer`        | `boolean`          | `true`           | Use Composer installed executables, if they exist.
+| `phpunit.artisan`         | `boolean`          | `false`          | Use Artisan to run tests, if it exists.
+| `phpunit.paratest`        | `boolean`          | `false`          | Use ParaTest to run tests, if it exists.
+| `phpunit.pest`            | `boolean`          | `false`          | Use Pest to run tests, if it exists.
+| `phpunit.font_size`       | `integer`          | Editor default.  | Font size of PHPUnit output.
 
 ### CLI Options
 
@@ -145,21 +147,45 @@ The above options will be passed to PHPUnit as CLI options:
 
 For instance, you can disable coverage by default and toggle it on when you need it. This will help keep your tests fast.
 
+Menu → Preferences → Settings
+
 ```js
 "phpunit.options": {
     "no-coverage": true,
 }
 ```
 
-Toggle coverage on demand.
+Then toggle coverage on and off from the command palette.
 
 ```
 Command Palette → PHPUnit: Toggle --no-coverage
 ```
 
+**Stopping on defect by default**
+
+If you want to always pass an option like `--stop-on-defect` to PHPUnit, add it to the options hash in settings.
+
+Menu → Preferences → Settings
+
+```
+"phpunit.options": {
+    "stop-on-defect": true
+}
+```
+
+And/Or toggle it on and off from the command palette when you need it.
+
+```
+Command Palette → PHPUnit: Toggle --stop-on-defect
+```
+
+There are many other command palette toggles. Pretty much any option available in PHPUnit is available as a command palette toggle. If there is any missing, please open an issue and I can add it.
+
 ### PHPUnit Executable
 
 You can instruct the test runner to use a custom PHPUnit executable. The default is auto discovery.
+
+Generally you won't need to change this.
 
 Menu → Preferences → Settings
 
@@ -182,7 +208,7 @@ Menu → Preferences → Settings
 
 ### Autocommands
 
-You can configure `on_post_save` to run the "Test File" command when views are saved:
+You can configure the `on_post_save` event to run the "Test File" command when views are saved. This will instruct the runner to automatically run a test every time it is saved.
 
 Menu → Preferences → Settings
 
@@ -202,7 +228,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Credits
 
-Based initially on, and inspired by, [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests), [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), and [janko-m/vim-test](https://github.com/janko-m/vim-test).
+Based initially on, and inspired by the awesome work of [maltize/sublime-text-2-ruby-tests](https://github.com/maltize/sublime-text-2-ruby-tests), [stuartherbert/sublime-phpunit](https://github.com/stuartherbert/sublime-phpunit), [janko-m/vim-test](https://github.com/janko-m/vim-test), and many others.
 
 ## License
 
