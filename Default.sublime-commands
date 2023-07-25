@@ -70,4 +70,9 @@
     { "caption": "Preferences: PHPUnit Settings – User", "command": "open_file", "args": { "file": "${packages}/User/Preferences.sublime-settings" } },
     { "caption": "Preferences: PHPUnit Settings", "command": "edit_settings", "args": { "base_file": "${packages}/PHPUnitKit/Preferences.sublime-settings","user_file": "${packages}/User/Preferences.sublime-settings", "default": "{\n\t$0\n}\n" } },
 
+    {
+        "caption": "PHPUnit: Changelog",
+        "command": "open_file",
+        "args": {"file": "${packages}/PHPUnitKit/CHANGELOG.md"}
+    }
 ]
