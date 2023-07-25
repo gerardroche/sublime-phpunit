@@ -371,6 +371,24 @@ Menu → Preferences → Key Bindings
 ]
 ```
 
+## NeoVintageous Mappings
+
+[NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) is a Vim emulator for Sublime Text.
+
+Add your preferred mappings to your `.neovintageousrc` file.
+
+Command Palette → NeoVintageous: Open .neovinageousrc
+
+```vim
+nnoremap <leader>t :TestNearest<CR>
+nnoremap <leader>T :TestFile<CR>
+nnoremap <leader>a :TestSuite<CR>
+nnoremap <leader>l :TestLast<CR>
+nnoremap <leader>g :TestVisit<CR>
+```
+
+Command Palette → NeoVintageous: Reload .neovinageousrc
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
