@@ -66,8 +66,6 @@
     { "caption": "PHPUnit: Toggle --testdox",                   "command": "phpunit_toggle_option", "args": { "option": "testdox" } },
     { "caption": "PHPUnit: Toggle --verbose",                   "command": "phpunit_toggle_option", "args": { "option": "verbose" } },
 
-    { "caption": "Preferences: PHPUnit Settings – Default", "command": "open_file", "args": { "file": "${packages}/PHPUnitKit/Preferences.sublime-settings" } },
-    { "caption": "Preferences: PHPUnit Settings – User", "command": "open_file", "args": { "file": "${packages}/User/Preferences.sublime-settings" } },
     { "caption": "Preferences: PHPUnit Settings", "command": "edit_settings", "args": { "base_file": "${packages}/PHPUnitKit/Preferences.sublime-settings","user_file": "${packages}/User/Preferences.sublime-settings", "default": "{\n\t$0\n}\n" } },
 
     {
