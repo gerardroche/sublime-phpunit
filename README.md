@@ -32,6 +32,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
     - [Kitty] - Kitt is a fast, feature-rich, cross-platform, GPU based terminal.
     - [ParaTest] - ParaTest adds parallel testing support in PHPUnit.
     - [Pest] - Pest is a testing framework with a focus on simplicity.
+    - [xterm] - A terminal emulator for the X Window System.
 - Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
@@ -86,7 +87,7 @@ Key         | Description
 PHPUnitKit can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
 
 ```js
-"phpunit.strategy": "iterm"
+"phpunit.strategy": "kitty"
 ```
 
 | Strategy              | Identifier    | Description
@@ -94,6 +95,7 @@ PHPUnitKit can run tests using different execution environments called "strategi
 | **Basic** (default)   | `basic`       | Sends test commands to Sublime Text exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
+| **[xterm]**           | `xterm`       | Sends test commands to xterm terminal.
 
 ## Configuring
 
@@ -411,3 +413,4 @@ Released under the [GPL-3.0-or-later License](LICENSE).
 [ParaTest]: https://github.com/paratestphp/paratest
 [Pest]: https://pestphp.com
 [iTerm2]: https://iterm2.com
+[xterm]: https://invisible-island.net/xterm/

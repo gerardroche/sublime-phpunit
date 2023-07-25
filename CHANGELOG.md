@@ -2,6 +2,13 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.16.0 - Unreleased
+
+### Added
+
+* [#120](https://github.com/NeoVintageous/NeoVintageous/issues/120): New strategy: `xterm` - Sends test commands to xterm terminal.
+* New Command: Changelog
+
 ## 3.15.0 - 2023-07-24
 
 ### Added
@@ -14,7 +21,6 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * New Command: "PHPUnit: Toggle --process-isolation" - Run each test in a separate PHP process
 * New Command: "PHPUnit: Toggle --static-backup" - Backup and restore static properties for each test
 * New Command: "PHPUnit: Toggle --teamcity" - Replace default progress and result output with TeamCity format
-* New Command: Changelog
 
 ### Fixed
 

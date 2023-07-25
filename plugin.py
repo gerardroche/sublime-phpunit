@@ -803,10 +803,15 @@ class PHPUnit():
 
             cmd = []
             cmd += get_setting(self.view, 'prepend_cmd')
+
+            # Strategy
             if get_setting(self.view, 'strategy') == 'kitty':
                 cmd += ['kitty', '--hold']
-            if get_setting(self.view, 'strategy') == 'iterm':
+            elif get_setting(self.view, 'strategy') == 'iterm':
                 cmd.append(_get_osx_term_script_path())
+            elif get_setting(self.view, 'strategy') == 'xterm':
+                cmd += ['xterm', '-hold', '-e']
+
             cmd += phpunit_executable
             build_cmd_options(options, cmd)
 
@@ -839,7 +844,7 @@ class PHPUnit():
             'options': options
         })
 
-        if get_setting(self.view, 'strategy') in ('iterm', 'kitty'):
+        if get_setting(self.view, 'strategy') in ('iterm', 'kitty', 'xterm'):
             self.window.run_command('exec', {
                 'env': env,
                 'cmd': cmd,
