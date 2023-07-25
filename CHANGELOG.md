@@ -1,4 +1,4 @@
-# PHPUNITKIT CHANGELOG
+# Changelog
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
@@ -58,232 +58,264 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.13.0 - 2023-05-15
 
-* Changed [#83](https://github.com/NeoVintageous/NeoVintageous/issues/83): Autocommand test file on save renamed `phpunit_test_file` to `run_test_file`
+### Changed
+
+* [#83](https://github.com/NeoVintageous/NeoVintageous/issues/83): Autocommand test file on save renamed `phpunit_test_file` to `run_test_file`
 
 ## 3.12.3 - 2023-04-19
 
-* Fixed [#115](https://github.com/NeoVintageous/NeoVintageous/issues/115): Test nearest, tests whole pest file
+### Fixed
+
+* [#115](https://github.com/NeoVintageous/NeoVintageous/issues/115): Test nearest, tests whole pest file
 
 ## 3.12.2 - 2023-04-18
 
-* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Some Pest exec output colors not correct
-* Fixed [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Some Artisan exec output colors not correct
+### Fixed
+
+* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Some Pest exec output colors not correct
+* [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Some Artisan exec output colors not correct
 
 ## 3.12.1 - 2023-04-17
 
-* Fixed [#114](https://github.com/NeoVintageous/NeoVintageous/issues/114): Test nearest and file is missing for Pest
+### Fixed
+
+* [#114](https://github.com/NeoVintageous/NeoVintageous/issues/114): Test nearest and file is missing for Pest
 
 ## 3.12.0 - 2023-04-16
 
 ### Added
 
-* Added [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Support for PHPUnit output font size: `phpunit.font_size`
-* Added [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
-* Added [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
+* [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Support for PHPUnit output font size: `phpunit.font_size`
+* [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
+* [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
 
 ### Changed
 
-* Changed [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Renamed setting `phpunit.text_ui_result_font_size` to `phpunit.font_size`
+* [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Renamed setting `phpunit.text_ui_result_font_size` to `phpunit.font_size`
 
 ### Fixed
 
-* Fixed [#113](https://github.com/NeoVintageous/NeoVintageous/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
-* Fixed [#112](https://github.com/NeoVintageous/NeoVintageous/issues/112): Don't show build panel when using stategies like Kitty
+* [#113](https://github.com/NeoVintageous/NeoVintageous/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
+* [#112](https://github.com/NeoVintageous/NeoVintageous/issues/112): Don't show build panel when using stategies like Kitty
 
 ## 3.11.2 - 2023-04-15
 
-* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Build output syntax
+### Fixed
+
+* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Build output syntax
 
 ## 3.11.1 - 2023-04-15
 
-* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/104): Artisan and Pest color output
+### Fixed
+
+* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/104): Artisan and Pest color output
 
 ## 3.11.0 - 2023-04-15
 
-* Added [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): [Kitty](https://github.com/kovidgoyal/kitty) execution strategy
+* [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): [Kitty](https://github.com/kovidgoyal/kitty) execution strategy
 
 ## 3.10.1 - 2023-04-13
 
-* Fixed [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Only use the Artisan runner if enabled and it exists
-* Fixed [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Only use the Pest runner if enabled and it exists
+### Fixed
+
+* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Only use the Artisan runner if enabled and it exists
+* [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Only use the Pest runner if enabled and it exists
 
 ## 3.10.0 - 2023-04-13
 
 ### Added
 
-* Added [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Support for Artisan: `artisan test`
+* [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Support for Artisan: `artisan test`
 
 ## 3.9.0 - 2023-04-13
 
 ### Added
 
-* Added [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Support for Pest
+* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Support for Pest
 
 ### Changed
 
-* Changed [#109](https://github.com/NeoVintageous/NeoVintageous/issues/109): env and cmd information in now only displayed in debug mode
+* [#109](https://github.com/NeoVintageous/NeoVintageous/issues/109): env and cmd information in now only displayed in debug mode
 
 ## 3.8.0 - 2023-04-09
 
 ### Added
 
-* Added [#108](https://github.com/NeoVintageous/NeoVintageous/issues/108): Allow `phpunit.executable` to be set as `list`
-* Added [#107](https://github.com/gerardroche/sublime-phpunit/issues/107): Support PHPUnit 10 dist file name `phpunit.dist.xml`
+* [#108](https://github.com/NeoVintageous/NeoVintageous/issues/108): Allow `phpunit.executable` to be set as `list`
+* [#107](https://github.com/gerardroche/sublime-phpunit/issues/107): Support PHPUnit 10 dist file name `phpunit.dist.xml`
 
 ## 3.7.0 - 2023-04-07
 
 ### Added
 
-* Added [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): `phpunit.prepend_cmd` option
+* [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): `phpunit.prepend_cmd` option
 
 ### Fixed
 
-* Fixed [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): Support for syntax updates in build `>=` 4134
+* [#105](https://github.com/gerardroche/sublime-phpunit/issues/105): Support for syntax updates in build `>=` 4134
 
 ## 3.6.3 - 2022-07-06
 
-* Fixed [#101](https://github.com/gerardroche/sublime-phpunit/issues/101): Remaining arguments are lost when running on iterm (OSX)
+### Fixed
+
+* [#101](https://github.com/gerardroche/sublime-phpunit/issues/101): Remaining arguments are lost when running on iterm (OSX)
 
 ## 3.6.2 - 2022-07-06
 
-* Fixed: Switching misses matching switchable and displays overlay
+### Fixed
+
+* Switching misses matching switchable and displays overlay
 
 ## 3.6.1 - 2021-12-14
 
-* Fixed: Switching should go straight to file when only one result
+### Fixed
+
+* Switching should go straight to file when only one result
 
 ## 3.6.0 - 2020-05-05
 
 ### Added
 
-* Added [#98](https://github.com/gerardroche/sublime-phpunit/issues/98): Add `phpunit.executable` setting to set custom phpunit path
+* [#98](https://github.com/gerardroche/sublime-phpunit/issues/98): Add `phpunit.executable` setting to set custom phpunit path
 
 ## 3.5.1 - 2020-01-24
 
-* Fixed: `.php-version` files should accept minor version formats e.g. 7.4
+### Fixed
+
+* `.php-version` files should accept minor version formats e.g. 7.4
 
 ## 3.5.0 - 2020-01-22
 
-* Added: Support for ST4
+### Added
+
+* Support for ST4
 
 ## 3.4.0 - 2019-11-13
 
-* Added [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Auto-run tests on save
+### Added
+
+* [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Auto-run tests on save
 
 ## 3.3.0 - 2019-10-17
 
-* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=default
-* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=defects
-* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=duration
-* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=no-depends
-* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=random
-* Added [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=reverse
-* Added: New command: PHPUnit: Toggle Option --stop-on-warning
-* Added: New command: PHPUnit: Toggle Option --stop-on-defect
-* Added: New command: PHPUnit: Toggle Option --fail-on-warning
-* Added: New command: PHPUnit: Toggle Option --fail-on-risky
-* Added: New command: PHPUnit: Toggle Option --disallow-resource-usage
-* Added: New command: PHPUnit: Toggle Option --dont-report-useless-tests
-* Added: New command: PHPUnit: Toggle Option --reverse-list
-* Added: New command: PHPUnit: Toggle Option --disable-coverage-ignore
+* [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=default
+* [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=defects
+* [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=duration
+* [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=no-depends
+* [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=random
+* [#29](https://github.com/gerardroche/sublime-phpunit/issues/29): New Command: PHPUnit: Set Option --order-by=reverse
+* New command: PHPUnit: Toggle Option --stop-on-warning
+* New command: PHPUnit: Toggle Option --stop-on-defect
+* New command: PHPUnit: Toggle Option --fail-on-warning
+* New command: PHPUnit: Toggle Option --fail-on-risky
+* New command: PHPUnit: Toggle Option --disallow-resource-usage
+* New command: PHPUnit: Toggle Option --dont-report-useless-tests
+* New command: PHPUnit: Toggle Option --reverse-list
+* New command: PHPUnit: Toggle Option --disable-coverage-ignore
 
 ## 3.2.2 - 2019-08-29
 
-* Fixed: Various trivial issues
+### Fixed
+
+* Various trivial issues
 
 ## 3.2.1 - 2019-03-19
 
-* Fixed [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
+### Fixed
+
+* [#89](https://github.com/gerardroche/sublime-phpunit/issues/89): "Test Last" is broken
 
 ## 3.2.0 - 2019-03-19
 
 ### Added
 
-* Added [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
-* Added [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
+* [#86](https://github.com/gerardroche/sublime-phpunit/issues/86): Support running tests in iTerm
+* [#81](https://github.com/gerardroche/sublime-phpunit/issues/81): Command to run a full test suite
 
 ## 3.1.1 - 2019-02-05
 
-* Trivial fixes
+### Fixed
+
+* Minor fixes
 
 ## 3.1.0 - 2018-12-23
 
 ### Added
 
-* Added [#9](https://github.com/gerardroche/sublime-phpunit/issues/9): Use goto anything when more than one possible switchable
+* [#9](https://github.com/gerardroche/sublime-phpunit/issues/9): Use goto anything when more than one possible switchable
 
 ### Fixed
 
-* Fixed: Tests results panel should not show rulers
+* Tests results panel should not show rulers
 
 ## 3.0.0 - 2018-03-06
 
 ### Changed
 
-* Changed: Renamed plugin from "phpunitkit" to "PHPUnitKit"
+* Renamed plugin from "phpunitkit" to "PHPUnitKit"
 
   If you manually installed the package then you will need to rename the folder where you installed it from "phpunitkit" to "PHPUnitKit".
 
-### Removed
+### Deprecated
 
-* Removed: Deprecated color schemes (color schemes are auto generated based on the active color scheme)
-* Removed: Deprecated command `phpunit_switch_file`, use `phpunit_test_switch` instead
-* Removed: Deprecated command `phpunit_open_code_coverage`, use `phpunit_test_coverage` instead
+* Color schemes (color schemes are auto generated based on the active color scheme)
+* Command `phpunit_switch_file`, use `phpunit_test_switch` instead
+* Command `phpunit_open_code_coverage`, use `phpunit_test_coverage` instead
 
 ## 2.5.0 - 2018-03-03
 
 ### Added
 
-* Added [#78](https://github.com/gerardroche/sublime-phpunit/issues/78): Add support for PHPUnit Pretty Result Printer
+* [#78](https://github.com/gerardroche/sublime-phpunit/issues/78): Add support for PHPUnit Pretty Result Printer
 
 ## 2.4.6 - 2017-12-08
 
 ### Fixed
 
-* Fixed [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
+* [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
 
 ## 2.4.5 - 2017-12-05
 
 ### Fixed
 
-* Fixed [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
+* [#76](https://github.com/gerardroche/sublime-phpunit/issues/76): Testing nearest doesn't always work
 
 ## 2.4.4 - 2017-11-23
 
 ### Fixed
 
-* Fixed: Workaround [Base ApplicationCommand registered in application_command_classes](https://github.com/SublimeTextIssues/Core/issues/2044)
+* Workaround [Base ApplicationCommand registered in application_command_classes](https://github.com/SublimeTextIssues/Core/issues/2044)
 
 ## 2.4.3 - 2017-11-20
 
 ### Fixed
 
-* Fixed [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
+* [#75](https://github.com/gerardroche/sublime-phpunit/issues/75): Test results colors don't work
 
 ## 2.4.2 - 2017-11-19
 
 ### Fixed
 
-* Fixed: Support for new Sublime Text color scheme format
+* Support for new Sublime Text color scheme format
 
 ## 2.4.1 - 2017-08-23
 
 ### Fixed
 
-* Fixed [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
+* [#70](https://github.com/gerardroche/sublime-phpunit/issues/70): Tests results don't have colors anymore
 
 ## 2.4.0 - 2017-08-23
 
 ### Added
 
-* Added [#69](https://github.com/gerardroche/sublime-phpunit/issues/69): Can I adjust the font size of the test result panel
+* [#69](https://github.com/gerardroche/sublime-phpunit/issues/69): Can I adjust the font size of the test result panel
 
 ## 2.3.0 - 2017-08-23
 
 ### Added
 
-* Added: Improved color scheme support for test results
-* Added: `:TestSwitch` now positions cursor at the row of the class definition
+* Improved color scheme support for test results
+* `:TestSwitch` now positions cursor at the row of the class definition
 
 ### Removed
 
@@ -315,28 +347,28 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed [#66](https://github.com/gerardroche/sublime-phpunit/issues/66): PHPUnit: 'NoneType' object has no attribute 'items'
+* [#66](https://github.com/gerardroche/sublime-phpunit/issues/66): PHPUnit: 'NoneType' object has no attribute 'items'
 
 ## 2.2.1 - 2017-06-13
 
 ### Fixed
 
-* Fixed: TypeError: object of type 'NoneType' has no len()
+* TypeError: object of type 'NoneType' has no len()
 
 ## 2.2.0 - 2017-06-13
 
 ### Added
 
-* Added [#38](https://github.com/gerardroche/sublime-phpunit/issues/38): Command "PHPUnit: Test Visit" (phpunit_test_visit) Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests)
-* Added: Command "phpunit_test_cancel" for cancelling tests
-* Added: Command "phpunit_test_results" for opening the test results panel
+* [#38](https://github.com/gerardroche/sublime-phpunit/issues/38): Command "PHPUnit: Test Visit" (phpunit_test_visit) Open the last run test in the current window (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests)
+* Command "phpunit_test_cancel" for cancelling tests
+* Command "phpunit_test_results" for opening the test results panel
 
 ### Changed
 
-* Renamed: Command "PHPUnit: Cancel Test" to "PHPUnit: Test Cancel"
-* Renamed: Command "PHPUnit: Show Results" to "PHPUnit: Test Results"
-* Renamed: Command "PHPUnit: Open Code Coverage" to "PHPUnit: Test Coverage"
-* Renamed: Command "PHPUnit: Switch File" to "PHPUnit: Test Switch"
+* Renamed command "PHPUnit: Cancel Test" to "PHPUnit: Test Cancel"
+* Renamed command "PHPUnit: Show Results" to "PHPUnit: Test Results"
+* Renamed command "PHPUnit: Open Code Coverage" to "PHPUnit: Test Coverage"
+* Renamed command "PHPUnit: Switch File" to "PHPUnit: Test Switch"
 
 ### Deprecated
 
@@ -347,56 +379,56 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added: New syntax definition format for test results panel
-* Added: Test File command will now also run the test case for current file
+* New syntax definition format for test results panel
+* Test File command will now also run the test case for current file
 
 ### Deprecated
 
-* Deprecated: Colour schemes are deprecated and will be removed in v3.0.0
+* Colour schemes are deprecated and will be removed in v3.0.0
 
 ### Fixed
 
-* Fixed: .travis.yml is not needed in release package
-* Fixed: All status messages should be prefixed with "PHPUnit: "
-* Fixed: No status messages in some edge cases
+* .travis.yml is not needed in release package
+* All status messages should be prefixed with "PHPUnit: "
+* No status messages in some edge cases
 
 ## 2.0.3 - 2017-04-19
 
 ### Fixed
 
-* Fixed [#63](https://github.com/gerardroche/sublime-phpunit/issues/63): Switches to wrong test
+* [#63](https://github.com/gerardroche/sublime-phpunit/issues/63): Switches to wrong test
 
 ## 2.0.2 - 2017-04-13
 
 ### Fixed
 
-* Fixed [#59](https://github.com/gerardroche/sublime-phpunit/issues/59): Error when trying to run PHPUnit with a PHP executable (Windows)
-* Fixed: Error when trying to run a global install of PHPUnit with a PHP executable
-* Fixed: Errors when some paths contained characters like spaces
-* Fixed: Environment variables now work in path settings like "phpunit.php_executable" and "phpunit.php_versions_path"
-* Fixed: Project PHP version file (.php-version) version number not working for some version numbers
-* Fixed: Jump to next/previous error didn't work in some cases where file paths contained characters like spaces
-* Fixed: Running tests now terminates any currently running tests before running tests
-* Fixed: .php-version file version is no longer overridden by the default executable 'phpunit.php_executable'
+* [#59](https://github.com/gerardroche/sublime-phpunit/issues/59): Error when trying to run PHPUnit with a PHP executable (Windows)
+* Error when trying to run a global install of PHPUnit with a PHP executable
+* Errors when some paths contained characters like spaces
+* Environment variables now work in path settings like "phpunit.php_executable" and "phpunit.php_versions_path"
+* Project PHP version file (.php-version) version number not working for some version numbers
+* Jump to next/previous error didn't work in some cases where file paths contained characters like spaces
+* Running tests now terminates any currently running tests before running tests
+* .php-version file version is no longer overridden by the default executable 'phpunit.php_executable'
 
 ## 2.0.1 - 2017-03-29
 
 ### Fixed
 
-* Fixed [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv/versions path doesn't exist
+* [#58](https://github.com/gerardroche/sublime-phpunit/issues/58): Error when ~/.phpenv/versions path doesn't exist
 
 ## 2.0.0 - 2017-03-24
 
 ### Added
 
-* Added [#56](https://github.com/gerardroche/sublime-phpunit/issues/56): Support for .php-version file to specify PHP version to use for running PHPUnit
-* Added [#55](https://github.com/gerardroche/sublime-phpunit/issues/55): Use different PHP executable
-* Added [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now enabled by default
-* Added [#52](https://github.com/gerardroche/sublime-phpunit/issues/52): Test File command
+* [#56](https://github.com/gerardroche/sublime-phpunit/issues/56): Support for .php-version file to specify PHP version to use for running PHPUnit
+* [#55](https://github.com/gerardroche/sublime-phpunit/issues/55): Use different PHP executable
+* [#53](https://github.com/gerardroche/sublime-phpunit/issues/53): Vi keymaps are now enabled by default
+* [#52](https://github.com/gerardroche/sublime-phpunit/issues/52): Test File command
 
 ### Changed
 
-* Changed [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Commands
+* [#42](https://github.com/gerardroche/sublime-phpunit/issues/42): Commands
 
     Old name | new name
     -------- | --------
@@ -408,7 +440,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
     Cancel Test Run | Cancel Test
     Show Test Results | Show Results
 
-* Changed [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vim keymaps
+* [#54](https://github.com/gerardroche/sublime-phpunit/issues/54): Vim keymaps
 
     Old keymap | New keymap | Description
     ---------- | ---------- | -----------
@@ -416,7 +448,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
     `,r` | `,t` | Test Single
     `,e` | `,l` | Test Last
 
-* Changed: settings
+* settings
 
     Old setting | new setting
     ----------- | -----------
@@ -424,13 +456,13 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed [#57](https://github.com/gerardroche/sublime-phpunit/issues/57): Find next / previous failure keymaps (Windows)
+* [#57](https://github.com/gerardroche/sublime-phpunit/issues/57): Find next / previous failure keymaps (Windows)
 
 ## 1.2.1 - 2017-02-27
 
 ### Fixed
 
-* Fixed: Open settings command file path
+* Open settings command file path
 
 ## 1.2.0 - 2017-02-02
 
@@ -446,7 +478,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* Added [#39](https://github.com/gerardroche/sublime-phpunit/issues/39): Command Palette Command-Line Option toggles
+* [#39](https://github.com/gerardroche/sublime-phpunit/issues/39): Command Palette Command-Line Option toggles
 
 ### Deprecated
 
@@ -456,49 +488,49 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed [#46](https://github.com/gerardroche/sublime-phpunit/issues/46): (Windows) Cannot run single test from class under test
+* [#46](https://github.com/gerardroche/sublime-phpunit/issues/46): (Windows) Cannot run single test from class under test
 
 ## 1.0.2 - 2016-09-20
 
 ### Fixed
 
-* Fixed [#40](https://github.com/gerardroche/sublime-phpunit/issues/40): Cannot specify short Command-Line Options
+* [#40](https://github.com/gerardroche/sublime-phpunit/issues/40): Cannot specify short Command-Line Options
 
 ## 1.0.1 - 2016-09-20
 
 ### Fixed
 
-* Fixed [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): (Windows) Cannot run Composer installed PHPUnit
+* [#43](https://github.com/gerardroche/sublime-phpunit/issues/43): (Windows) Cannot run Composer installed PHPUnit
 
 ## 1.0.0 - 2016-09-19
 
 ### Fixed
 
-* Fixed: README
+* README
 
 ## 1.0.0-beta2 - 2016-08-11
 
 ### Fixed
 
-* Fixed: README
+* README
 
 ## 1.0.0-beta1 - 2016-07-29
 
 ### Fixed
 
-* Fixed: README
+* README
 
 ## 0.15.1 - 2016-06-08
 
 ### Fixed
 
-* Fixed: README
+* README
 
 ## 0.15.0 - 2016-06-03
 
 ### Changed
 
-* Changed: plugin name from "php_phpunit" to "phpunitkit". The plugin was renamed because the last name was rejected by the Package Control channel.
+* plugin name from "php_phpunit" to "phpunitkit". The plugin was renamed because the last name was rejected by the Package Control channel.
   - If you previously installed manually then remove the installation and install via Package Control. Search for phpunitkit.
   - If you prefer to keep your manual installation then rename or move your installation to "phpunitkit".
 
@@ -506,53 +538,53 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* Fixed [#35](https://github.com/gerardroche/sublime-phpunit/issues/35): Cannot run "Run Single Test" with the latest build of Sublime Text (build 3114)
+* [#35](https://github.com/gerardroche/sublime-phpunit/issues/35): Cannot run "Run Single Test" with the latest build of Sublime Text (build 3114)
 
 ## 0.14.0 - 2016-05-15
 
 ### Added
 
-* Added: Now available on Package Control
+* Now available on Package Control
 
 ### Changed
 
-* Changed: Renamed package from "phpunit" to "php_phpunit". This was needed in order to provide the plugin via Package Control. If you are having issues then either remove your existing plugin installation and install via Package Control, making sure to install the plugin by me, PHP PHPUnit (gerardroche), or rename your existing installation to "phpunit".
+* Renamed package from "phpunit" to "php_phpunit". This was needed in order to provide the plugin via Package Control. If you are having issues then either remove your existing plugin installation and install via Package Control, making sure to install the plugin by me, PHP PHPUnit (gerardroche), or rename your existing installation to "phpunit".
 
 ## 0.13.0 - 2016-01-29
 
 ### Added
 
-* Added [#34](https://github.com/gerardroche/sublime-phpunit/issues/34): Option to disable composer support (phpunit.composer). Defaults to true.
+* [#34](https://github.com/gerardroche/sublime-phpunit/issues/34): Option to disable composer support (phpunit.composer). Defaults to true.
 
 ## 0.12.0 - 2016-01-12
 
 ### Changed
 
-* Changed: switch file command caption is now "PHPUnit: Switch Test Case / Class Under Test"
+* switch file command caption is now "PHPUnit: Switch Test Case / Class Under Test"
 
 ## 0.11.0 - 2015-11-13
 
 ### Added
 
-* Added: CHANGELOG link to package settings menu
-* Added: Toggle No Coverage "--no-coverage" command
-* Added: "phpunit.options" setting to allow configuring a default list of options for PHPUnit to use
+* CHANGELOG link to package settings menu
+* Toggle No Coverage "--no-coverage" command
+* "phpunit.options" setting to allow configuring a default list of options for PHPUnit to use
 
 ## 0.10.1 - 2015-09-30
 
 ### Fixed
 
-* Fixed: incorrect file path to settings when opening from the command palette
+* incorrect file path to settings when opening from the command palette
 
 ## 0.10.0 - 2015-09-30
 
 ### Added
 
-* Added: "phpunit.development" setting to enable/disable plugin development utilities
+* "phpunit.development" setting to enable/disable plugin development utilities
 
 ### Changed
 
-* Changed: settings are no longer loaded from a plugin specific settings file i.e. phpunit.sublime-settings
+* settings are no longer loaded from a plugin specific settings file i.e. phpunit.sublime-settings
 
     There is, in my opinion, a bad practice of each and every plugin having its
     own settings file. This plugin no longer does this. All plugin settings are prefixed with the name of the plugin followed by a period i.e. "phpunit.".
@@ -581,119 +613,119 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
     }
     ```
 
-* Changed: "save_all_on_run" now only save files that exist on disk and have dirty buffers
+* "save_all_on_run" now only save files that exist on disk and have dirty buffers
 
     The reason for this change:
 
     When saving a file that doesn't exist on disk Sublime Text prompts with a "Save file" dialog, meanwhile the tests would run in the background anyways. We could prevent the tests from running until the user finishes handling the dialogs. If there is a desire for this please open an issue.
 
-* Changed: renamed setting "phpunit.enable_keymaps" to "phpunit.keymaps"
-* Changed: renamed setting "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
-* Changed: To enable vi keymaps both "phpunit.keymaps" and "phpunit.vi_keymaps" need to be set to true, previously only the vi_keymaps needed to be set to true
+* renamed setting "phpunit.enable_keymaps" to "phpunit.keymaps"
+* renamed setting "phpunit.enable_vi_keymaps" to "phpunit.keymaps"
+* To enable vi keymaps both "phpunit.keymaps" and "phpunit.vi_keymaps" need to be set to true, previously only the vi_keymaps needed to be set to true
 
 ## 0.9.0 - 2015-07-06
 
 ### Added
 
-* Added: "Open HTML Code Coverage in Browser" command #23
-* Added: Switch and put class and test-case side-by-side #8
+* "Open HTML Code Coverage in Browser" command #23
+* Switch and put class and test-case side-by-side #8
 
 ## 0.8.0 - 2015-06-18
 
 ### Added
 
-* Added: Configurable color schemes #7
-* Added: Colour scheme "Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme" #21
-* Added: Colour scheme "Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme" #21
+* Configurable color schemes #7
+* Colour scheme "Packages/phpunit/color-schemes/monokai-extended-seti.hidden-tmTheme" #21
+* Colour scheme "Packages/phpunit/color-schemes/solarized-dark.hidden-tmTheme" #21
 
 ### Fixed
 
-* Fixed: Command palette captions are now capitalised
-* Fixed: Goto next/last failure now matches all files/line-numbers in stack traces
+* Command palette captions are now capitalised
+* Goto next/last failure now matches all files/line-numbers in stack traces
 
 ## 0.7.0 - 2015-06-11
 
 ### Added
 
-* Added: License link to package settings menu
+* License link to package settings menu
 
 ### Removed
 
-* Removed: Several deprecated behaviours
+* Several deprecated behaviours
 
 ## 0.6.0 - 2015-05-27
 
 ### Added
 
-* Added: "PHPUnit: Cancel Test Run" to command palette
-* Added: ST3 Requirements check. Now raises a runtime exception if trying to load in < Sublime Text 3
+* "PHPUnit: Cancel Test Run" to command palette
+* ST3 Requirements check. Now raises a runtime exception if trying to load in < Sublime Text 3
 
 ## 0.5.0 - 2015-05-16
 
 ### Added
 
-* Added: "PHPUnit.." to "Tools" main menu #15 #16
-* Added: "PHPUnit: Show Test Results" command
-* Added: "Open "Preferences: PHPunit Settings - Default" command
-* Added: "Open "Preferences: PHPunit Settings - User" command
-* Added: Running the last test command is now saved per window #19
+* "PHPUnit.." to "Tools" main menu #15 #16
+* "PHPUnit: Show Test Results" command
+* "Open "Preferences: PHPunit Settings - Default" command
+* "Open "Preferences: PHPunit Settings - User" command
+* Running the last test command is now saved per window #19
 
 ### Deprecated
 
-* Deprecated: Per-project settings are now accessed via prefix "phpunit." in project definition settings. The old behaviour is deprecated and will be removed before the 1.0.0 beta releases.
+* Per-project settings are now accessed via prefix "phpunit." in project definition settings. The old behaviour is deprecated and will be removed before the 1.0.0 beta releases.
 
 ### Removed
 
-* Removed: "phpunit" command #31
+* "phpunit" command #31
 
 ### Fixed
 
-* Fixed: Keymaps now display the default `ctrl+...` keymaps in command palette. Previously the Vintage/Vintageous keymaps were displayed.
-* Fixed: error when there is no active window and/or view
-* Fixed: test results not displaying colour when there are risky tests
+* Keymaps now display the default `ctrl+...` keymaps in command palette. Previously the Vintage/Vintageous keymaps were displayed.
+* error when there is no active window and/or view
+* test results not displaying colour when there are risky tests
 
 ## 0.4.0 - 2015-05-03
 
 ### Added
 
-* Added: option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences → Settings - User` menu item. #30
+* option to disable the default keymaps. To disable the keymaps set `"phpunit.enable_keymaps": false` the User Settings. Access this file from `Preferences → Settings - User` menu item. #30
 
 ## 0.3.0 - 2015-02-04
 
 ### Added
 
-* Added: Can now run multiple test methods using a multiple selection #5
-* Added: command palette toggle - report test progress TestDox format #24 #2
-* Added: command palette toggle - report test progress TAP format #24 #28
-* Added: Switching class-under-test/test-case now splits window into two views with both side-by-side *if* the current window only has one group.
-* Added: Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences → Settings - User` menu item.
+* Can now run multiple test methods using a multiple selection #5
+* command palette toggle - report test progress TestDox format #24 #2
+* command palette toggle - report test progress TAP format #24 #28
+* Switching class-under-test/test-case now splits window into two views with both side-by-side *if* the current window only has one group.
+* Vintage/Vintageous keymaps can now be enabled in the preferences. They are disabled by default. To enable set `"phpunit.enable_vi_keymaps": true` in the User Settings. Access this file from `Preferences → Settings - User` menu item.
 
 ### Fixed
 
-* Fixed: Can't switch classes beginning with an underscore #22
-* Fixed: Running single test runs all tests with the same prefix #25
-* Fixed: Some minor test result progress syntax highlighting bugs
+* Can't switch classes beginning with an underscore #22
+* Running single test runs all tests with the same prefix #25
+* Some minor test result progress syntax highlighting bugs
 
 ## 0.2.0 - 2015-01-21
 
 ### Added
 
-* Added: Composer installed PHPUnit support #13
-* Added: Saving all files on run can now be disabled. It can also be set on a per-project basis #12
-* Added: Command Palette commands #17
-* Added: Package Settings menu "Preferences → Package Settings → PHPUnit" #14
-* Added: Example Vintage/Vintageous keymaps in the default key bindings: "Preferences → Package Settings → PHPUnit → Key Bindings - Default" #10
+* Composer installed PHPUnit support #13
+* Saving all files on run can now be disabled. It can also be set on a per-project basis #12
+* Command Palette commands #17
+* Package Settings menu "Preferences → Package Settings → PHPUnit" #14
+* Example Vintage/Vintageous keymaps in the default key bindings: "Preferences → Package Settings → PHPUnit → Key Bindings - Default" #10
 
 ### Changed
 
-* Changed: Debug messages are now disabled by default. To enable debug messages set an environment variable to a non-blank value: `SUBLIME_PHPUNIT_DEBUG=yes`. To disable debug message set the variable to a blank value: `SUBLIME_PHPUNI_DEBUG=`. For example, on Linux Sublime Text can be opened at the Terminal with an exported environment variable: `export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text`. #6
-* Changed: The last test run is now saved in memory for the current session, previously it was save to a file. #11
-* Changed: Many refactorings including test runner commands are now Window commands, previously they were Text commands. There is no need for these commands to be instantiated for every view.
+* Debug messages are now disabled by default. To enable debug messages set an environment variable to a non-blank value: `SUBLIME_PHPUNIT_DEBUG=yes`. To disable debug message set the variable to a blank value: `SUBLIME_PHPUNI_DEBUG=`. For example, on Linux Sublime Text can be opened at the Terminal with an exported environment variable: `export SUBLIME_PHPUNIT_DEBUG=yes; ~/sublime_text_3/sublime_text`. #6
+* The last test run is now saved in memory for the current session, previously it was save to a file. #11
+* Many refactorings including test runner commands are now Window commands, previously they were Text commands. There is no need for these commands to be instantiated for every view.
 
 ### Fixed
 
-* Fixed: Test result progress highlighting was not displayed properly
-* Fixed: Test result failures red background no longer matches trailing whitespace, previously the red background stretched the full width of the screen.
+* Test result progress highlighting was not displayed properly
+* Test result failures red background no longer matches trailing whitespace, previously the red background stretched the full width of the screen.
 
 ### 0.1.0 - 2015-01-07
 
