@@ -28,48 +28,17 @@ import sublime_plugin
 
 from PHPUnitKit.lib import strategy
 from PHPUnitKit.lib.utils import debug_message
+from PHPUnitKit.lib.utils import get_active_view
+from PHPUnitKit.lib.utils import get_last_run
+from PHPUnitKit.lib.utils import get_session
 from PHPUnitKit.lib.utils import get_setting
 from PHPUnitKit.lib.utils import is_debug
+from PHPUnitKit.lib.utils import message
+from PHPUnitKit.lib.utils import set_last_run
+from PHPUnitKit.lib.utils import set_session
 
 
 _PEST_TEST_PATTERN = '^\\s*(it|test)\\(("|\')(.*)("|\')'
-
-_session = {}  # type: dict
-
-
-def message(msg, *args) -> None:
-    if args:
-        msg = msg % args
-
-    msg = 'PHPUnit: ' + msg
-
-    print(msg)
-    status_message(msg)
-
-
-def get_active_view(window):
-    active_view = window.active_view()
-
-    if not active_view:
-        raise ValueError('view not found')
-
-    return active_view
-
-
-def get_session(key: str):
-    return _session.get(key)
-
-
-def set_session(key: str, value) -> None:
-    _session[key] = value
-
-
-def get_last_run():
-    return get_session('last_run')
-
-
-def set_last_run(args: dict):
-    return set_session('last_run', args)
 
 
 def find_phpunit_configuration_file(file_name, folders):

@@ -15,12 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
+from PHPUnitKit.lib.utils import set_last_run
 from PHPUnitKit.plugin import _get_phpunit_options
-from PHPUnitKit.plugin import set_last_run
 from PHPUnitKit.tests import unittest
 
 
-@unittest.mock.patch.dict('PHPUnitKit.plugin._session', {'options': {}}, clear=True)
+@unittest.mock.patch.dict('PHPUnitKit.lib.utils._session', {'options': {}}, clear=True)
 class TestPHPUnitVisit(unittest.ViewTestCase):
 
     def setUp(self):
@@ -52,7 +52,7 @@ class TestPHPUnitVisit(unittest.ViewTestCase):
         open_file.assert_not_called()
 
 
-@unittest.mock.patch.dict('PHPUnitKit.plugin._session', {'options': {}}, clear=True)
+@unittest.mock.patch.dict('PHPUnitKit.lib.utils._session', {'options': {}}, clear=True)
 class TestPHPUnitToggle(unittest.ViewTestCase):
 
     def setUp(self):
@@ -80,7 +80,7 @@ class TestPHPUnitToggle(unittest.ViewTestCase):
         self.run_window_command('phpunit_toggle_option', {'option': 'no-coverage'})
         self.assertEquals({'no-coverage': False}, _get_phpunit_options(self.view))
 
-    @unittest.mock.patch.dict('PHPUnitKit.plugin._session', {'options': {'no-coverage': True}}, clear=True)
+    @unittest.mock.patch.dict('PHPUnitKit.lib.utils._session', {'options': {'no-coverage': True}}, clear=True)
     def test_toggle_boolean_with_session(self):
         self.view.settings().set('phpunit.options', {})
         self.run_window_command('phpunit_toggle_option', {'option': 'no-coverage'})

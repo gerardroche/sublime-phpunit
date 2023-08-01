@@ -19,7 +19,7 @@ from PHPUnitKit.plugin import _get_phpunit_options
 from PHPUnitKit.tests import unittest
 
 
-@unittest.mock.patch.dict('PHPUnitKit.plugin._session', {}, clear=True)
+@unittest.mock.patch.dict('PHPUnitKit.lib.utils._session', {}, clear=True)
 class TestGetPHPUnitOptions(unittest.ViewTestCase):
 
     def setUp(self):
@@ -35,7 +35,7 @@ class TestGetPHPUnitOptions(unittest.ViewTestCase):
         self.view.settings().set('phpunit.options', None)  # type: ignore[arg-type]
         self.assertEquals({}, _get_phpunit_options(self.view))
 
-    @unittest.mock.patch.dict('PHPUnitKit.plugin._session', {'options': {'no-coverage': True}}, clear=True)
+    @unittest.mock.patch.dict('PHPUnitKit.lib.utils._session', {'options': {'no-coverage': True}}, clear=True)
     def test_get_phpunit_options_has_session(self):
         self.assertEquals({'no-coverage': True}, _get_phpunit_options(self.view))
         self.view.settings().set('phpunit.options', {'no-coverage': True})

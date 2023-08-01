@@ -17,6 +17,11 @@
 
 import os
 
+from sublime import status_message
+
+
+_session = {}  # type: dict
+
 
 if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
     def debug_message(msg, *args) -> None:
@@ -39,3 +44,38 @@ else:
 
 def get_setting(view, name: str):
     return view.settings().get('phpunit.%s' % name)
+
+
+def message(msg, *args) -> None:
+    if args:
+        msg = msg % args
+
+    msg = 'PHPUnit: ' + msg
+
+    print(msg)
+    status_message(msg)
+
+
+def get_active_view(window):
+    active_view = window.active_view()
+
+    if not active_view:
+        raise ValueError('view not found')
+
+    return active_view
+
+
+def get_session(key: str):
+    return _session.get(key)
+
+
+def set_session(key: str, value) -> None:
+    _session[key] = value
+
+
+def get_last_run():
+    return get_session('last_run')
+
+
+def set_last_run(args: dict):
+    return set_session('last_run', args)
