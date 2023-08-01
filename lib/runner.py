@@ -92,6 +92,9 @@ class PHPUnit():
 
                 cmd += ['cd {working_dir};']
 
+            if get_setting(self.view, 'docker'):
+                cmd += get_setting(self.view, 'docker_command')
+
             cmd += phpunit_executable
 
             build_cmd_options(options, cmd)
@@ -101,6 +104,9 @@ class PHPUnit():
 
             if get_setting(self.view, 'ssh'):
                 cmd = resolve_path_mapping(self.view, 'ssh_paths', cmd)
+
+            if get_setting(self.view, 'docker'):
+                cmd = resolve_path_mapping(self.view, 'docker_paths', cmd)
 
         except Exception as e:
             status_message('PHPUnit: {}'.format(e))

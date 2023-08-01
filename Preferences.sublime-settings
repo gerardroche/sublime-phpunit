@@ -76,4 +76,17 @@
     // and user home directory ~ placeholder are expanded.
     // Example: {"~/code/project1": "~/project1"}
     "phpunit.ssh_paths": {},
+
+    // Enable Docker.
+    "phpunit.docker": false,
+
+    // The command to use when running tests via Docker.
+    // Example: ["docker", "exec", "-it", "my-container"]
+    "phpunit.docker_command": [],
+
+    // The path map to use when running tests via Docker. The keys are local
+    // paths and the values are the replacement remote paths. Environment
+    // variables and user home directory ~ placeholder are expanded.
+    // Example: {"~/code/project1": "~/project1"}
+    "phpunit.docker_paths": {}
 }
