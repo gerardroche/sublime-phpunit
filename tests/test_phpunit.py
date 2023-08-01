@@ -16,7 +16,7 @@
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
 from PHPUnitKit.lib.utils import set_last_run
-from PHPUnitKit.plugin import _get_phpunit_options
+from PHPUnitKit.lib.utils import _get_phpunit_options
 from PHPUnitKit.tests import unittest
 
 

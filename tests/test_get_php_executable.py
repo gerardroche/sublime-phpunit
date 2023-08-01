@@ -19,7 +19,7 @@ import os
 
 import sublime
 
-from PHPUnitKit.plugin import _get_php_executable
+from PHPUnitKit.lib.utils import _get_php_executable
 from PHPUnitKit.tests import unittest
 
 
@@ -49,7 +49,7 @@ class TestGetPHPExecutable(unittest.ViewTestCase):
                 unittest.fixtures_path('foobar')
             )
 
-    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    @unittest.mock.patch('PHPUnitKit.lib.utils.platform')
     def test_linux_get_from_php_version_file(self, platform):
         platform.return_value = 'linux'
         self.view.settings().set('phpunit.php_versions_path', self.versions_path)
@@ -58,7 +58,7 @@ class TestGetPHPExecutable(unittest.ViewTestCase):
         actual = _get_php_executable(self.view, unittest.fixtures_path('get_php_executable'))
         self.assertEqual(actual, expected)
 
-    @unittest.mock.patch('PHPUnitKit.plugin.platform')
+    @unittest.mock.patch('PHPUnitKit.lib.utils.platform')
     def test_windows_get_from_php_version_file(self, platform):
         platform.return_value = 'windows'
         self.view.settings().set('phpunit.php_versions_path', self.versions_path)

@@ -17,7 +17,7 @@
 
 from PHPUnitKit.tests import unittest
 
-from PHPUnitKit.plugin import build_filter_option
+from PHPUnitKit.lib.utils import build_filter_option
 
 
 class TestBuildFilterOption(unittest.ViewTestCase):

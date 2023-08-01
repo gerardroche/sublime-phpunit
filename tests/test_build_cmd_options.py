@@ -17,7 +17,7 @@
 
 from PHPUnitKit.tests import unittest
 
-from PHPUnitKit.plugin import build_cmd_options
+from PHPUnitKit.lib.utils import build_cmd_options
 
 
 class TestBuildCmdOptions(unittest.TestCase):

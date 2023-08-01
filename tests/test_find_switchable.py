@@ -17,8 +17,8 @@
 
 from PHPUnitKit.tests import unittest
 
-from PHPUnitKit.plugin import refine_switchable_locations
-from PHPUnitKit.plugin import Switchable
+from PHPUnitKit.lib.utils import refine_switchable_locations
+from PHPUnitKit.lib.utils import Switchable
 
 
 class TestSwitchable(unittest.TestCase):
