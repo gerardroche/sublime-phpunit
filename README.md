@@ -64,16 +64,16 @@ Menu → Preferences → Key Bindings
 
 Command                              | Description
 :------                              | :----------
-**PHPUnit:&nbsp;Test&nbsp;Nearest**  | In a test file runs the test nearest to the cursor, otherwise runs the test for the current file.
-**PHPUnit:&nbsp;Test&nbsp;File**     | In a test file runs all tests in the current file, otherwise runs test for the current file.
-**PHPUnit:&nbsp;Test&nbsp;Suite**    | Runs the whole test suite.
+**PHPUnit:&nbsp;Test&nbsp;Nearest**  | Run a test nearest to the cursor. If the current file is not a test file, it runs the tests for current file.
+**PHPUnit:&nbsp;Test&nbsp;File**     | Run tests for the current file.
+**PHPUnit:&nbsp;Test&nbsp;Suite**    | Run test suite of the current file.
 **PHPUnit:&nbsp;Test&nbsp;Last**     | Runs the last test.
 **PHPUnit:&nbsp;Test&nbsp;Switch**   | In a test file opens the file under test, otherwise opens the test file.
-**PHPUnit:&nbsp;Test&nbsp;Visit**    | Visits the test file from which you last run your tests (useful when you're trying to make a test pass, and you dive deep into application code and close your test buffer to make more space, and once you've made it pass you want to go back to the test file to write more tests).
-**PHPUnit:&nbsp;Test&nbsp;Results**  | Opens the exec test output panel.
-**PHPUnit:&nbsp;Test&nbsp;Cancel**   | Cancels any currently running test.
-**PHPUnit:&nbsp;Test&nbsp;Coverage** | Opens code coverage in browser.
-**PHPUnit:&nbsp;Toggle...**             | Toggle PHPUnit options.
+**PHPUnit:&nbsp;Test&nbsp;Visit**    | Open the last run test.
+**PHPUnit:&nbsp;Test&nbsp;Results**  | Opens the test output panel (only applies to "basic" strategy).
+**PHPUnit:&nbsp;Test&nbsp;Cancel**   | Cancel any currently running tests.
+**PHPUnit:&nbsp;Test&nbsp;Coverage** | Opens the code coverage in a browser.
+**PHPUnit:&nbsp;Toggle...**          | Toggle options e.g. PHPUnit CLI options.
 
 ## Key Bindings
 
