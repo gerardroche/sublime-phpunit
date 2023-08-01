@@ -55,4 +55,25 @@
 
     // Execution environment to run tests. Valid values: basic|iterm|kitty
     "phpunit.strategy": "basic",
+
+    // Enable SSH.
+    "phpunit.ssh": false,
+
+    // The options to use when running tests via SSH.
+    // Example: {"-p": "22", "-tt": true}
+    "phpunit.ssh_options": {},
+
+    // The user to use when running tests via SSH.
+    // Example: vagrant
+    "phpunit.ssh_user": null,
+
+    // The host to use when running tests via SSH.
+    // Example: homestead.test
+    "phpunit.ssh_host": null,
+
+    // The path map to use when running tests via SSH. The keys are local paths
+    // and the values are the replacement remote paths. Environment variables
+    // and user home directory ~ placeholder are expanded.
+    // Example: {"~/code/project1": "~/project1"}
+    "phpunit.ssh_paths": {},
 }

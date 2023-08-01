@@ -686,3 +686,43 @@ def resolve_working_dir(view, working_dir) -> str:
         raise ValueError('working directory does not exist or is not a valid directory')
 
     return working_dir
+
+
+def resolve_path_mapping(view, paths: str, command_params: list) -> list:
+    path_mappings = get_setting(view, paths)
+    if not path_mappings:
+        return command_params
+
+    match = _find_matching_path(path_mappings, command_params)
+    if match:
+        command_params = _apply_path_mapping(match, command_params)
+
+    return command_params
+
+
+def _find_matching_path(path_mappings: dict, command_params: list):
+    for local_path, remote_path in path_mappings.items():
+        filtered_local_path = filter_path(local_path)
+        for param in command_params:
+            if isinstance(param, str) and param.startswith(filtered_local_path):
+                return filtered_local_path, remote_path
+
+    return None
+
+
+def _apply_path_mapping(match: tuple, command_params: list) -> list:
+    filtered_local_path, remote_path = match
+
+    def replace_param(param):
+        if not isinstance(param, str):
+            return param
+
+        if filtered_local_path in param:
+            param = param.replace(filtered_local_path, remote_path)
+
+        if '{working_dir}' in param:
+            param = param.replace('{working_dir}', remote_path)
+
+        return param
+
+    return [replace_param(param) for param in command_params]

@@ -39,6 +39,7 @@ from PHPUnitKit.lib.utils import has_test
 from PHPUnitKit.lib.utils import is_debug
 from PHPUnitKit.lib.utils import kill_any_running_tests
 from PHPUnitKit.lib.utils import put_views_side_by_side
+from PHPUnitKit.lib.utils import resolve_path_mapping
 from PHPUnitKit.lib.utils import resolve_working_dir
 from PHPUnitKit.lib.utils import save_views
 from PHPUnitKit.lib.utils import set_last_run
@@ -77,11 +78,29 @@ class PHPUnit():
             elif get_setting(self.view, 'strategy') == 'xterm':
                 cmd += ['xterm', '-hold', '-e']
 
+            if get_setting(self.view, 'ssh'):
+                cmd += ['ssh']
+                for ssh_option, ssh_option_value in get_setting(self.view, 'ssh_options').items():
+                    cmd += [ssh_option]
+                    if isinstance(ssh_option_value, str):
+                        cmd += [ssh_option_value]
+
+                cmd += ['{}@{}'.format(
+                    get_setting(self.view, 'ssh_user'),
+                    get_setting(self.view, 'ssh_host'))
+                ]
+
+                cmd += ['cd {working_dir};']
+
             cmd += phpunit_executable
+
             build_cmd_options(options, cmd)
 
             if file:
                 cmd.append(os.path.relpath(file, working_dir))
+
+            if get_setting(self.view, 'ssh'):
+                cmd = resolve_path_mapping(self.view, 'ssh_paths', cmd)
 
         except Exception as e:
             status_message('PHPUnit: {}'.format(e))
