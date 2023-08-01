@@ -17,7 +17,7 @@
 
 import sublime
 
-from PHPUnitKit.plugin import _create_exec_output_panel
+from PHPUnitKit.lib.strategy import _create_exec_output_panel
 from PHPUnitKit.tests import unittest
 
 

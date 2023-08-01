@@ -20,16 +20,16 @@ from PHPUnitKit.tests import unittest
 
 from sublime import platform
 
-from PHPUnitKit.plugin import exec_file_regex
+from PHPUnitKit.lib.strategy import _exec_file_regex
 
 
 class TestExecFileRegex(unittest.TestCase):
 
     def assertNotMatch(self, test):
-        self.assertFalse(bool(re.match(exec_file_regex(), test)))
+        self.assertFalse(bool(re.match(_exec_file_regex(), test)))
 
     def assertMatchesOne(self, test, expected_path, expected_line_number):
-        res = re.findall(exec_file_regex(), test)
+        res = re.findall(_exec_file_regex(), test)
         self.assertTrue(len(res) == 1)
         self.assertEqual(res[0][0], expected_path)
         self.assertEqual(res[0][1], expected_line_number)

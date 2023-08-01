@@ -15,9 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
+from PHPUnitKit.lib.utils import is_debug
 from PHPUnitKit.tests import unittest
-from PHPUnitKit.plugin import _DEBUG
-from PHPUnitKit.plugin import is_debug
 
 
 class TestIsDebug(unittest.ViewTestCase):
@@ -25,8 +24,6 @@ class TestIsDebug(unittest.ViewTestCase):
     def test_is_debug(self):
         self.view.settings().set('phpunit.debug', False)
         self.view.settings().set('debug', False)
-
-        self.assertEqual(_DEBUG, is_debug(self.view))
 
         self.view.settings().set('phpunit.debug', True)
         self.assertTrue(is_debug(self.view))

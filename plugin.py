@@ -21,37 +21,20 @@ import shutil
 import webbrowser
 
 from sublime import ENCODED_POSITION
-from sublime import cache_path
-from sublime import load_resource
 from sublime import platform
 from sublime import status_message
 from sublime import version
 import sublime_plugin
 
+from PHPUnitKit.lib import strategy
+from PHPUnitKit.lib.utils import debug_message
+from PHPUnitKit.lib.utils import get_setting
+from PHPUnitKit.lib.utils import is_debug
 
-_DEBUG = bool(os.getenv('SUBLIME_PHPUNIT_DEBUG'))
 
 _PEST_TEST_PATTERN = '^\\s*(it|test)\\(("|\')(.*)("|\')'
 
 _session = {}  # type: dict
-
-if _DEBUG:
-    def debug_message(msg, *args) -> None:
-        if args:
-            msg = msg % args
-        print('PHPUnit: ' + msg)
-
-    def is_debug(view) -> bool:
-        return True
-else:
-    def debug_message(msg, *args) -> None:
-        pass
-
-    def is_debug(view) -> bool:
-        if view:
-            return view.settings().get('phpunit.debug')
-
-        return False
 
 
 def message(msg, *args) -> None:
@@ -87,10 +70,6 @@ def get_last_run():
 
 def set_last_run(args: dict):
     return set_session('last_run', args)
-
-
-def get_setting(view, name: str):
-    return view.settings().get('phpunit.%s' % name)
 
 
 def find_phpunit_configuration_file(file_name, folders):
@@ -491,13 +470,6 @@ def put_views_side_by_side(view_a, view_b) -> None:
         window.focus_view(view_b)
 
 
-def exec_file_regex() -> str:
-    if platform() == 'windows':
-        return '((?:[a-zA-Z]\\:)?\\\\[a-zA-Z0-9 \\.\\/\\\\_-]+)(?: on line |\\:)([0-9]+)'
-    else:
-        return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\\:)([0-9]+)'
-
-
 def file_exists_and_is_executable(file: str) -> bool:
     return os.path.isfile(file) and os.access(file, os.X_OK)
 
@@ -656,86 +628,6 @@ def _save_views(window) -> None:
             view.run_command('save')
 
 
-def _create_exec_output_panel(view, env, cmd) -> None:
-    panel = view.window().create_output_panel('exec')
-
-    if is_debug(view):
-        header_text = []
-        if env:
-            header_text.append("env: {}\n".format(env))
-        header_text.append("{}\n\n".format(' '.join(cmd)))
-        panel.run_command('insert', {'characters': ''.join(header_text)})
-
-    panel_settings = panel.settings()
-    panel_settings.set('rulers', [])
-    panel_settings.set('highlight_line', False)
-    panel_settings.set('draw_indent_guides', False)
-    panel_settings.set('draw_white_space', [])
-
-    font_size = get_setting(view, 'font_size')
-    if font_size:
-        panel_settings.set('font_size', int(font_size))
-
-    panel_settings.set('color_scheme', _get_auto_generated_color_scheme(view))
-
-
-def _get_auto_generated_color_scheme(view):
-    """Try to patch color scheme with default test result colors."""
-    color_scheme = view.settings().get('color_scheme')
-
-    # If the color scheme is using the new system then it is good.
-    if color_scheme.endswith('.sublime-color-scheme'):
-        return color_scheme
-
-    try:
-        color_scheme_resource = load_resource(color_scheme)
-
-        # If the color scheme has PHPUnitKit specific rules then it is good.
-        if 'phpunitkit' in color_scheme_resource or 'PHPUnitKit' in color_scheme_resource:
-            return color_scheme
-
-        # If the color scheme has region.*ish rules then it is good.
-        if 'region.greenish' in color_scheme_resource:
-            return color_scheme
-
-        # Try to generate a patched color scheme from the current one with
-        # additional rules for PHPUnit exec output panel color output.
-
-        cs_head, cs_tail = os.path.split(color_scheme)
-        cs_package = os.path.split(cs_head)[1]
-        cs_name = os.path.splitext(cs_tail)[0]
-
-        file_name = cs_package + '__' + cs_name + '.hidden-tmTheme'
-        abs_file = os.path.join(cache_path(), __name__.split('.')[0], 'color-schemes', file_name)
-        rel_file = 'Cache/{}/color-schemes/{}'.format(__name__.split('.')[0], file_name)
-
-        debug_message('auto generating color scheme = %s', rel_file)
-
-        if not os.path.exists(os.path.dirname(abs_file)):
-            os.makedirs(os.path.dirname(abs_file))
-
-        color_scheme_resource_partial = load_resource(
-            'Packages/{}/res/text-ui-result-theme-partial.txt'.format(__name__.split('.')[0]))
-
-        with open(abs_file, 'w', encoding='utf8') as f:
-            f.write(re.sub(
-                '</array>\\s*'
-                '((<!--\\s*)?<key>.*</key>\\s*<string>[^<]*</string>\\s*(-->\\s*)?)*'
-                '</dict>\\s*</plist>\\s*'
-                '$',
-
-                color_scheme_resource_partial + '\\n</array></dict></plist>',
-                color_scheme_resource
-            ))
-
-        return rel_file
-    except Exception as e:
-        print('PHPUnit: an error occurred trying to patch color'
-              ' scheme with PHPUnit test results colors: {}'.format(str(e)))
-
-        return color_scheme
-
-
 def _get_phpunit_options(view, options=None) -> dict:
     if options is None:
         options = {}
@@ -844,30 +736,13 @@ class PHPUnit():
             'options': options
         })
 
-        if get_setting(self.view, 'strategy') in ('iterm', 'kitty', 'xterm'):
-            self.window.run_command('exec', {
-                'env': env,
-                'cmd': cmd,
-                'quiet': not is_debug(self.view),
-                'shell': False,
-                'working_dir': working_dir
-            })
-
-            # Don't display exec output panel.
-            self.window.run_command('hide_panel', {'panel': 'output.exec'})
-        else:
-            self.window.run_command('exec', {
-                'env': env,
-                'cmd': cmd,
-                'file_regex': exec_file_regex(),
-                'quiet': not is_debug(self.view),
-                'shell': False,
-                'syntax': 'Packages/{}/res/text-ui-result.sublime-syntax'.format(__name__.split('.')[0]),
-                'word_wrap': False,
-                'working_dir': working_dir
-            })
-
-            _create_exec_output_panel(self.view, env, cmd)
+        strategy.execute(
+            self.window,
+            self.view,
+            env,
+            cmd,
+            working_dir
+        )
 
     def run_last(self) -> None:
         last_test_args = get_last_run()
