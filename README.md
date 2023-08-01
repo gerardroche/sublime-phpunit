@@ -115,6 +115,7 @@ Menu → Preferences → Settings
 | `phpunit.paratest`        | `boolean`          | `false`          | Use ParaTest to run tests, if it exists.
 | `phpunit.pest`            | `boolean`          | `false`          | Use Pest to run tests, if it exists.
 | `phpunit.font_size`       | `integer`          | Editor default.  | Font size of PHPUnit output.
+| `phpunit.debug`           | `boolean`          | `false`          | Prints test runner debug information.
 
 ### CLI Options
 
@@ -122,14 +123,16 @@ If you want some CLI options to stick around, you can configure them in your set
 
 Menu → Preferences → Settings
 
-```js
-"phpunit.options": {
-    "no-coverage": true,
-    "no-progress": true,
-    "colors=never": true,
-    "order-by=": "defects",
-    "coverage-html": "build/coverage",
-    "d": ["display_errors=1", "xdebug.scream=0"],
+```json
+{
+    "phpunit.options": {
+        "no-coverage": true,
+        "no-progress": true,
+        "colors=never": true,
+        "order-by=": "defects",
+        "coverage-html": "build/coverage",
+        "d": ["display_errors=1", "xdebug.scream=0"],
+    }
 }
 ```
 
@@ -145,178 +148,187 @@ The above options will be passed to PHPUnit as CLI options:
 --coverage-html build/coverage
 ```
 
-**Disabling code coverage by default**
+**Example:** Ignore code coverage reporting configured in the XML configuration file
 
-For instance, you can disable coverage by default and toggle it on when you need it. This will help keep your tests fast.
-
-Menu → Preferences → Settings
-
-```js
-"phpunit.options":
-{
-    "no-coverage": true,
-}
-```
-
-Then toggle coverage on and off from the command palette.
-
-```
-Command Palette → PHPUnit: Toggle --no-coverage
-```
-
-**Stopping on defect by default**
-
-If you want to always pass an option like `--stop-on-defect` to PHPUnit, add it to the options hash in settings.
+This can help keep your tests fast. You can toggle no-coverage from the command palette when you need it.
 
 Menu → Preferences → Settings
 
-```js
-"phpunit.options":
+```json
 {
-    "stop-on-defect": true
+    "phpunit.options": {
+        "no-coverage": true,
+    }
 }
 ```
 
-And/Or toggle it on and off from the command palette when you need it.
-
-```
-Command Palette → PHPUnit: Toggle --stop-on-defect
-```
-
-There are many other command palette toggles. Pretty much any option available in PHPUnit is available as a command palette toggle. If there is any missing, please open an issue and I can add it.
-
-**Disabling progress and output**
-
-If you are migrating from PHPUnit to Pest you may want to disable progress and output to avoid superfluous output.
+**Example:** Stop after first error, failure, warning, or risky test
 
 Menu → Preferences → Settings
 
-```js
-"phpunit.options":
+```json
 {
-    "no-progress": true,
-    "no-output": true,
+    "phpunit.options": {
+        "stop-on-defect": true
+    }
 }
 ```
 
-You can also toggle these from the command palette.
+**Example:** Disable progress and output
 
-```
-Command Palette → PHPUnit: Toggle --no-output
-Command Palette → PHPUnit: Toggle --no-progress
+This is useful if you are migrating from PHPUnit to Pest and want to hide superfluous output.
+
+Menu → Preferences → Settings
+
+```json
+{
+    "phpunit.options": {
+        "no-progress": true,
+        "no-output": true,
+    }
+}
 ```
 
 ### PHPUnit Executable
 
-You can instruct the test runner to use a custom PHPUnit executable. The default is auto discovery.
+The path to the PHPUnit executable to use when running tests. Environment variables and user home directory ~ placeholder are expanded. The executable can be a string or a list of parameters.
 
-Generally you won't need to change this.
+Default: Auto discovery.
+
+**Examples**
 
 Menu → Preferences → Settings
 
-```js
-"phpunit.executable": "vendor/bin/phpunit"
-"phpunit.executable": ["vendor/bin/phpunit"]
-"phpunit.executable": "~/path-to/phpunit"
-"phpunit.executable": ["artisan", "test"]
+```json
+{
+    "phpunit.executable": "vendor/bin/phpunit",
+    "phpunit.executable": "~/path/to/phpunit",
+    "phpunit.executable": ["artisan", "test"]
+}
 ```
 
 ### PHP Executable
 
-You can instruct the test runner to use a custom PHP executable. The default is auto discovery.
+The path to the PHP executable to use when running tests. Environment variables and user home directory ~ placeholder are expanded.
+
+Default: Auto discovery.
+
+**Examples**
+
 
 Menu → Preferences → Settings
 
-```js
-"phpunit.php_executable": "~/.phpenv/versions/7.3.1/bin/php"
+```json
+{
+    "phpunit.php_executable": "~/.phpenv/versions/8.2/bin/php"
+}
 ```
 
-### Autocommands
+### Prepend cmd
+
+You can prepend the runner command with a list of additional parameters.
+
+**Example:** Run tests in your preferred terminal
+
+```json
+{
+    "phpunit.prepend_cmd": [
+         "/usr/bin/terminal",
+         "--hold"
+    ]
+}
+```
+
+### Auto Commands
 
 You can configure the `on_post_save` event to run the "Test File" command when views are saved. This will instruct the runner to automatically run a test every time it is saved.
 
+**Example:** Run Test File on Save
+
 Menu → Preferences → Settings
 
-```js
-"phpunit.on_post_save": [
-    "phpunit_test_file"
-]
+```json
+{
+    "phpunit.on_post_save": [
+        "phpunit_test_file"
+    ]
+}
 ```
 
-### Toggle commands
+### Toggle Commands
 
-You can toggle many PHPUnit cli options from the command palette.
+You can toggle many PHPUnit CLI options from the command palette.
 
-Command Palette → PHPUnit: Toggle
+Command Palette → PHPUnit: Toggle ...
 
-#### Toggle Execution
-
-| Caption                                         | Description
-| :---------------------------------------------- | -----------------------------
-| **PHPUnit: Toggle --process-isolation** | Run each test in a separate PHP process
-| **PHPUnit: Toggle --globals-backup** | Backup and restore `$GLOBALS` for each test
-| **PHPUnit: Toggle --static-backup** | Backup and restore static properties for each test
-| **PHPUnit: Toggle --strict-coverage** | Be strict about code coverage metadata
-| **PHPUnit: Toggle --strict-global-state** | Be strict about changes to global state
-| **PHPUnit: Toggle --disallow-test-output** | Be strict about output during tests
-| **PHPUnit: Toggle --enforce-time-limit** | Enforce time limit based on test size
-| **PHPUnit: Toggle --dont-report-useless-tests** | Do not report tests that do not test anything
-| **PHPUnit: Toggle --stop-on-defect** | Stop after first error, failure, warning, or risky test
-| **PHPUnit: Toggle --stop-on-error** | Stop after first error
-| **PHPUnit: Toggle --stop-on-failure** | Stop after first failure
-| **PHPUnit: Toggle --stop-on-warning** | Stop after first warning
-| **PHPUnit: Toggle --stop-on-risky** | Stop after first risky test
-| **PHPUnit: Toggle --stop-on-deprecation** | Stop after first test that triggered a deprecation
-| **PHPUnit: Toggle --stop-on-notice** | Stop after first test that triggered a notice
-| **PHPUnit: Toggle --stop-on-skipped** | Stop after first skipped test
-| **PHPUnit: Toggle --stop-on-incomplete** | Stop after first incomplete test
-| **PHPUnit: Toggle --fail-on-warning** | Signal failure using shell exit code when a warning was triggered
-| **PHPUnit: Toggle --fail-on-risky** | Signal failure using shell exit code when a test was considered risky
-| **PHPUnit: Toggle --fail-on-deprecation** | Signal failure using shell exit code when a deprecation was triggered
-| **PHPUnit: Toggle --fail-on-notice** | Signal failure using shell exit code when a notice was triggered
-| **PHPUnit: Toggle --fail-on-skipped** | Signal failure using shell exit code when a test was skipped
-| **PHPUnit: Toggle --fail-on-incomplete** | Signal failure using shell exit code when a test was marked incomplete
-| **PHPUnit: Toggle --cache-result** | Write test results to cache file
-| **PHPUnit: Toggle --do-not-cache-result** | Do not write test results to cache file
-| **PHPUnit: Toggle --order-by=default** | Run tests in order: default
-| **PHPUnit: Toggle --order-by=defects** | Run tests in order: defects
-| **PHPUnit: Toggle --order-by=depends** | Run tests in order: depends
-| **PHPUnit: Toggle --order-by=duration** | Run tests in order: duration
-| **PHPUnit: Toggle --order-by=no-depends** | Run tests in order: no-depends
-| **PHPUnit: Toggle --order-by=random** | Run tests in order: random
-| **PHPUnit: Toggle --order-by=reverse** | Run tests in order: reverse
-| **PHPUnit: Toggle --order-by=size** | Run tests in order: size
-
-#### Toggle Reporting
+#### Execution
 
 | Caption                                         | Description
 | :---------------------------------------------- | -----------------------------
-| **PHPUnit: Toggle --no-progress** | Disable output of test execution progress
-| **PHPUnit: Toggle --no-results** | Disable output of test results
-| **PHPUnit: Toggle --no-output** | Disable all output
-| **PHPUnit: Toggle --display-incomplete** | Display details for incomplete tests
-| **PHPUnit: Toggle --display-skipped** | Display details for skipped tests
-| **PHPUnit: Toggle --display-deprecations** | Display details for deprecations triggered by tests
-| **PHPUnit: Toggle --display-errors** | Display details for errors triggered by tests
-| **PHPUnit: Toggle --display-notices** | Display details for notices triggered by tests
-| **PHPUnit: Toggle --display-warnings** | Display details for warnings triggered by tests
-| **PHPUnit: Toggle --reverse-list** | Print defects in reverse order
-| **PHPUnit: Toggle --teamcity** | Replace default progress and result output with TeamCity format
-| **PHPUnit: Toggle --testdox** | Replace default result output with TestDox format
+| PHPUnit: Toggle --process-isolation | Run each test in a separate PHP process
+| PHPUnit: Toggle --globals-backup | Backup and restore `$GLOBALS` for each test
+| PHPUnit: Toggle --static-backup | Backup and restore static properties for each test
+| PHPUnit: Toggle --strict-coverage | Be strict about code coverage metadata
+| PHPUnit: Toggle --strict-global-state | Be strict about changes to global state
+| PHPUnit: Toggle --disallow-test-output | Be strict about output during tests
+| PHPUnit: Toggle --enforce-time-limit | Enforce time limit based on test size
+| PHPUnit: Toggle --dont-report-useless-tests | Do not report tests that do not test anything
+| PHPUnit: Toggle --stop-on-defect | Stop after first error, failure, warning, or risky test
+| PHPUnit: Toggle --stop-on-error | Stop after first error
+| PHPUnit: Toggle --stop-on-failure | Stop after first failure
+| PHPUnit: Toggle --stop-on-warning | Stop after first warning
+| PHPUnit: Toggle --stop-on-risky | Stop after first risky test
+| PHPUnit: Toggle --stop-on-deprecation | Stop after first test that triggered a deprecation
+| PHPUnit: Toggle --stop-on-notice | Stop after first test that triggered a notice
+| PHPUnit: Toggle --stop-on-skipped | Stop after first skipped test
+| PHPUnit: Toggle --stop-on-incomplete | Stop after first incomplete test
+| PHPUnit: Toggle --fail-on-warning | Signal failure using shell exit code when a warning was triggered
+| PHPUnit: Toggle --fail-on-risky | Signal failure using shell exit code when a test was considered risky
+| PHPUnit: Toggle --fail-on-deprecation | Signal failure using shell exit code when a deprecation was triggered
+| PHPUnit: Toggle --fail-on-notice | Signal failure using shell exit code when a notice was triggered
+| PHPUnit: Toggle --fail-on-skipped | Signal failure using shell exit code when a test was skipped
+| PHPUnit: Toggle --fail-on-incomplete | Signal failure using shell exit code when a test was marked incomplete
+| PHPUnit: Toggle --cache-result | Write test results to cache file
+| PHPUnit: Toggle --do-not-cache-result | Do not write test results to cache file
+| PHPUnit: Toggle --order-by=default | Run tests in order: default
+| PHPUnit: Toggle --order-by=defects | Run tests in order: defects
+| PHPUnit: Toggle --order-by=depends | Run tests in order: depends
+| PHPUnit: Toggle --order-by=duration | Run tests in order: duration
+| PHPUnit: Toggle --order-by=no-depends | Run tests in order: no-depends
+| PHPUnit: Toggle --order-by=random | Run tests in order: random
+| PHPUnit: Toggle --order-by=reverse | Run tests in order: reverse
+| PHPUnit: Toggle --order-by=size | Run tests in order: size
 
-#### Toggle Logging
+#### Reporting
 
 | Caption                                         | Description
 | :---------------------------------------------- | -----------------------------
-| **PHPUnit: Toggle --no-logging** | Ignore logging configured in the XML configuration file
+| PHPUnit: Toggle --no-progress | Disable output of test execution progress
+| PHPUnit: Toggle --no-results | Disable output of test results
+| PHPUnit: Toggle --no-output | Disable all output
+| PHPUnit: Toggle --display-incomplete | Display details for incomplete tests
+| PHPUnit: Toggle --display-skipped | Display details for skipped tests
+| PHPUnit: Toggle --display-deprecations | Display details for deprecations triggered by tests
+| PHPUnit: Toggle --display-errors | Display details for errors triggered by tests
+| PHPUnit: Toggle --display-notices | Display details for notices triggered by tests
+| PHPUnit: Toggle --display-warnings | Display details for warnings triggered by tests
+| PHPUnit: Toggle --reverse-list | Print defects in reverse order
+| PHPUnit: Toggle --teamcity | Replace default progress and result output with TeamCity format
+| PHPUnit: Toggle --testdox | Replace default result output with TestDox format
 
-#### Toggle Code Coverage
+#### Logging
 
 | Caption                                         | Description
 | :---------------------------------------------- | -----------------------------
-| **PHPUnit: Toggle --path-coverage** | Report path coverage in addition to line coverage
-| **PHPUnit: Toggle --disable-coverage-ignore** | Disable metadata for ignoring code coverage
-| **PHPUnit: Toggle --no-coverage** | Ignore code coverage reporting configured in the XML configuration file
+| PHPUnit: Toggle --no-logging | Ignore logging configured in the XML configuration file
+
+#### Code Coverage
+
+| Caption                                         | Description
+| :---------------------------------------------- | -----------------------------
+| PHPUnit: Toggle --path-coverage | Report path coverage in addition to line coverage
+| PHPUnit: Toggle --disable-coverage-ignore | Disable metadata for ignoring code coverage
+| PHPUnit: Toggle --no-coverage | Ignore code coverage reporting configured in the XML configuration file
 
 ### Custom Toggle Commands
 
@@ -373,11 +385,13 @@ Menu → Preferences → Key Bindings
 ]
 ```
 
-## NeoVintageous Mappings
+## NeoVintageous mappings
 
 [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) is a Vim emulator for Sublime Text.
 
 Add your preferred mappings to your `.neovintageousrc` file.
+
+**Example**
 
 Command Palette → NeoVintageous: Open .neovinageousrc
 
@@ -388,6 +402,8 @@ nnoremap <leader>a :TestSuite<CR>
 nnoremap <leader>l :TestLast<CR>
 nnoremap <leader>g :TestVisit<CR>
 ```
+
+Don't forget to reload your .neovintageousrc file.
 
 Command Palette → NeoVintageous: Reload .neovinageousrc
 
