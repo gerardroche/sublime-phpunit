@@ -18,7 +18,7 @@
 from sublime import find_resources
 
 from PHPUnitKit.tests import unittest
-from PHPUnitKit.plugin import find_nearest_tests
+from PHPUnitKit.lib.utils import find_nearest_tests
 
 
 def _is_php_syntax_using_php_grammar():

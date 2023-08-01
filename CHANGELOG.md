@@ -6,6 +6,8 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
+* [#99](https://github.com/NeoVintageous/NeoVintageous/issues/99): New support for running tests via Docker (beta)
+* [#118](https://github.com/NeoVintageous/NeoVintageous/issues/118): New support for running tests on a remote server via SSH (beta)
 * [#120](https://github.com/NeoVintageous/NeoVintageous/issues/120): New strategy: `xterm` - Sends test commands to xterm terminal.
 * New Command: Changelog
 

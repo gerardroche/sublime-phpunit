@@ -19,6 +19,8 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run the nearest test
 * Run the last test
 * Run multiple test methods using a multiple cursor
+* Run tests on remote server via SSH
+* Run tests via Docker
 * Auto run test on save
 * Colour output
 * Fast jump to next and previous failure
@@ -116,6 +118,24 @@ Menu → Preferences → Settings
 | `phpunit.pest`            | `boolean`          | `false`          | Use Pest to run tests, if it exists.
 | `phpunit.font_size`       | `integer`          | Editor default.  | Font size of PHPUnit output.
 | `phpunit.debug`           | `boolean`          | `false`          | Prints test runner debug information.
+
+**SSH**
+
+| Setting               | Type          | Default   | Description
+| :-------------------- | :------------ | :-------- | :----------
+| `phpunit.ssh`         | `boolean`     | `false`   | Enable SSH.
+| `phpunit.ssh_options` | `dict`        | `{}`      | The options to use when running tests via SSH. <br>Example: `{"-p": "22", "-tt": true}`.
+| `phpunit.ssh_user`    | `string`      | `null`    | The user to use when running tests via SSH. <br>Example: vagrant
+| `phpunit.ssh_host`    | `string`      | `null`    | The host to use when running tests via SSH. <br>Example: homestead.test
+| `phpunit.ssh_paths`   | `dict`        | `{}`      | The path map to use when running tests via SSH. The keys are local paths and the values are the replacement remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
+
+**Docker**
+
+| Setting               | Type          | Default   | Description
+| :-------------------- | :------------ | :-------- | :----------
+| `phpunit.docker`         | `boolean`  | `false`   | Enable Docker.
+| `phpunit.docker_command` | `list`     | `[]`      | The command to use when running tests via Docker. Example: `["docker", "exec", "-it", "my-container"]`
+| `phpunit.docker_paths`   | `dict`     | `{}`      | The path map to use when running tests via Docker. The keys are local paths and the values are the replacement remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
 
 ### CLI Options
 
@@ -224,18 +244,38 @@ Menu → Preferences → Settings
 }
 ```
 
-### Prepend cmd
+### SSH
 
-You can prepend the runner command with a list of additional parameters.
-
-**Example:** Run tests in your preferred terminal
+**Example:** Run tests via SSH using [Laravel Homestead](https://laravel.com/docs/homestead)
 
 ```json
 {
-    "phpunit.prepend_cmd": [
-         "/usr/bin/terminal",
-         "--hold"
-    ]
+    "phpunit.ssh": true,
+    "phpunit.ssh_options": {
+        "-p": "22",
+        "-tt": true
+    },
+    "phpunit.ssh_user": "vagrant",
+    "phpunit.ssh_host": "homestead.test",
+    "phpunit.ssh_paths": {
+        "~/code/project1": "~/project1",
+        "/home/code/project2": "/home/vagrant/project2",
+    }
+}
+```
+
+### Docker
+
+**Example:** Run tests via [Docker](https://www.docker.com)
+
+```json
+{
+    "phpunit.docker": true,
+    "phpunit.docker_command": ["docker", "exec", "-it", "my-container"],
+    "phpunit.docker_paths": {
+        "~/code/project1": "~/project1",
+        "/home/code/project2": "/home/vagrant/project2",
+    }
 }
 ```
 

@@ -16,7 +16,7 @@
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
 from PHPUnitKit.tests import unittest
-from PHPUnitKit.plugin import find_php_classes
+from PHPUnitKit.lib.utils import find_php_classes
 
 
 class TestFindPHPClasses(unittest.ViewTestCase):

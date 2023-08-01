@@ -18,8 +18,8 @@
 import os
 from PHPUnitKit.tests import unittest
 
-from PHPUnitKit.plugin import find_phpunit_configuration_file
-from PHPUnitKit.plugin import find_phpunit_working_directory
+from PHPUnitKit.lib.utils import find_phpunit_configuration_file
+from PHPUnitKit.lib.utils import find_phpunit_working_directory
 
 
 class TestFinders(unittest.TestCase):

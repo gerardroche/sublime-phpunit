@@ -17,7 +17,7 @@
 
 from PHPUnitKit.tests import unittest
 
-from PHPUnitKit.plugin import is_valid_php_version_file_version
+from PHPUnitKit.lib.utils import is_valid_php_version_file_version
 
 
 class TestIsValidPhpVersionFileVersion(unittest.TestCase):
