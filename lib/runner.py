@@ -22,13 +22,6 @@ from sublime import ENCODED_POSITION
 from sublime import status_message
 
 from PHPUnitKit.lib import strategy
-from PHPUnitKit.lib.utils import _get_osx_term_script_path
-from PHPUnitKit.lib.utils import _get_php_executable
-from PHPUnitKit.lib.utils import _get_phpunit_executable
-from PHPUnitKit.lib.utils import _get_phpunit_options
-from PHPUnitKit.lib.utils import _kill_any_running_tests
-from PHPUnitKit.lib.utils import _resolve_working_dir
-from PHPUnitKit.lib.utils import _save_views
 from PHPUnitKit.lib.utils import build_cmd_options
 from PHPUnitKit.lib.utils import build_filter_option
 from PHPUnitKit.lib.utils import debug_message
@@ -37,10 +30,17 @@ from PHPUnitKit.lib.utils import find_phpunit_working_directory
 from PHPUnitKit.lib.utils import find_switchable
 from PHPUnitKit.lib.utils import get_active_view
 from PHPUnitKit.lib.utils import get_last_run
+from PHPUnitKit.lib.utils import get_osx_term_script_path
+from PHPUnitKit.lib.utils import get_php_executable
+from PHPUnitKit.lib.utils import get_phpunit_executable
+from PHPUnitKit.lib.utils import get_phpunit_options
 from PHPUnitKit.lib.utils import get_setting
 from PHPUnitKit.lib.utils import has_test
 from PHPUnitKit.lib.utils import is_debug
+from PHPUnitKit.lib.utils import kill_any_running_tests
 from PHPUnitKit.lib.utils import put_views_side_by_side
+from PHPUnitKit.lib.utils import resolve_working_dir
+from PHPUnitKit.lib.utils import save_views
 from PHPUnitKit.lib.utils import set_last_run
 from PHPUnitKit.lib.utils import set_session
 
@@ -54,17 +54,17 @@ class PHPUnit():
     def run(self, working_dir=None, file=None, options=None) -> None:
         debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
 
-        _kill_any_running_tests(self.window)
+        kill_any_running_tests(self.window)
 
         env = {}
 
         try:
-            working_dir = _resolve_working_dir(self.view, working_dir)
-            php_executable = _get_php_executable(self.view, working_dir)
+            working_dir = resolve_working_dir(self.view, working_dir)
+            php_executable = get_php_executable(self.view, working_dir)
             if php_executable:
                 env['PATH'] = os.path.dirname(php_executable) + os.pathsep + os.environ['PATH']
-            phpunit_executable = _get_phpunit_executable(self.view, working_dir)
-            options = _get_phpunit_options(self.view, options)
+            phpunit_executable = get_phpunit_executable(self.view, working_dir)
+            options = get_phpunit_options(self.view, options)
 
             cmd = []
             cmd += get_setting(self.view, 'prepend_cmd')
@@ -73,7 +73,7 @@ class PHPUnit():
             if get_setting(self.view, 'strategy') == 'kitty':
                 cmd += ['kitty', '--hold']
             elif get_setting(self.view, 'strategy') == 'iterm':
-                cmd.append(_get_osx_term_script_path())
+                cmd.append(get_osx_term_script_path())
             elif get_setting(self.view, 'strategy') == 'xterm':
                 cmd += ['xterm', '-hold', '-e']
 
@@ -101,7 +101,7 @@ class PHPUnit():
         )
 
         if get_setting(self.view, 'save_all_on_run'):
-            _save_views(self.window)
+            save_views(self.window)
 
         set_last_run({
             'working_dir': working_dir,
@@ -164,7 +164,7 @@ class PHPUnit():
         self.window.run_command('show_panel', {'panel': 'output.exec'})
 
     def cancel(self) -> None:
-        _kill_any_running_tests(self.window)
+        kill_any_running_tests(self.window)
 
     def coverage(self) -> None:
         working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
@@ -196,7 +196,7 @@ class PHPUnit():
         return status_message('PHPUnit: no tests were run so far')
 
     def toggle(self, option: str, value=None) -> None:
-        options = _get_phpunit_options(self.view)
+        options = get_phpunit_options(self.view)
         new_options = options.copy()
 
         if value is None:

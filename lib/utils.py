@@ -558,7 +558,7 @@ def _get_vendor_executable(working_dir: str, name: str) -> str:
     return _get_executable(working_dir, os.path.join('vendor', 'bin', name))
 
 
-def _get_phpunit_executable(view, working_dir: str) -> list:
+def get_phpunit_executable(view, working_dir: str) -> list:
     executable = get_setting(view, 'executable')
     if executable:
         executable = filter_path(executable)
@@ -591,7 +591,7 @@ def _get_phpunit_executable(view, working_dir: str) -> list:
     raise ValueError('phpunit not found')
 
 
-def _get_php_executable(view, working_dir: str):
+def get_php_executable(view, working_dir: str):
     php_versions_path = get_setting(view, 'php_versions_path')
     php_executable = get_setting(view, 'php_executable')
     php_version_file = os.path.join(working_dir, '.php-version')
@@ -627,24 +627,24 @@ def _get_php_executable(view, working_dir: str):
         return php_executable
 
 
-def _kill_any_running_tests(window) -> None:
+def kill_any_running_tests(window) -> None:
     window.run_command('exec', {'kill': True})
 
 
-def _get_osx_term_script_path() -> str:
+def get_osx_term_script_path() -> str:
     return os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         'bin',
         'osx_iterm')
 
 
-def _save_views(window) -> None:
+def save_views(window) -> None:
     for view in window.views():
         if view.is_dirty() and view.file_name():
             view.run_command('save')
 
 
-def _get_phpunit_options(view, options=None) -> dict:
+def get_phpunit_options(view, options=None) -> dict:
     if options is None:
         options = {}
 
@@ -676,7 +676,7 @@ def _get_phpunit_options(view, options=None) -> dict:
     return options
 
 
-def _resolve_working_dir(view, working_dir) -> str:
+def resolve_working_dir(view, working_dir) -> str:
     if not working_dir:
         working_dir = find_phpunit_working_directory(view.file_name(), view.window().folders())
         if not working_dir:
@@ -686,5 +686,3 @@ def _resolve_working_dir(view, working_dir) -> str:
         raise ValueError('working directory does not exist or is not a valid directory')
 
     return working_dir
-
-

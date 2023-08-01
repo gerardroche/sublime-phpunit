@@ -74,7 +74,7 @@ def _create_exec_output_panel(view, env, cmd) -> None:
     if font_size:
         panel_settings.set('font_size', int(font_size))
 
-    panel_settings.set('color_scheme', _get_auto_generated_color_scheme(view))
+    panel_settings.set('color_scheme', _get_color_scheme(view))
 
 
 def _exec_file_regex() -> str:
@@ -84,8 +84,7 @@ def _exec_file_regex() -> str:
         return '(\\/[a-zA-Z0-9 \\.\\/_-]+)(?: on line |\\:)([0-9]+)'
 
 
-def _get_auto_generated_color_scheme(view):
-    """Try to patch color scheme with default test result colors."""
+def _get_color_scheme(view):
     color_scheme = view.settings().get('color_scheme')
 
     # If the color scheme is using the new system then it is good.
