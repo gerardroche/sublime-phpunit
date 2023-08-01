@@ -22,14 +22,14 @@ from PHPUnitKit.lib.runner import PHPUnit
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
 
-    def run(self, **kwargs):
-        PHPUnit(self.window).run(options=kwargs)
+    def run(self, **options):
+        PHPUnit(self.window).run(options=options)
 
 
 class PhpunitTestFileCommand(sublime_plugin.WindowCommand):
 
-    def run(self, **kwargs):
-        PHPUnit(self.window).run_file(options=kwargs)
+    def run(self, **options):
+        PHPUnit(self.window).run_file(options=options)
 
 
 class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
@@ -40,8 +40,8 @@ class PhpunitTestLastCommand(sublime_plugin.WindowCommand):
 
 class PhpunitTestNearestCommand(sublime_plugin.WindowCommand):
 
-    def run(self, **kwargs):
-        PHPUnit(self.window).run_nearest(options=kwargs)
+    def run(self, **options):
+        PHPUnit(self.window).run_nearest(options=options)
 
 
 class PhpunitTestResultsCommand(sublime_plugin.WindowCommand):
