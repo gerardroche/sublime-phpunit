@@ -17,6 +17,7 @@
 
 
 from PHPUnitKit.lib.runner import PHPUnit
+from PHPUnitKit.lib.utils import get_setting
 
 
 class Listener():
@@ -31,6 +32,6 @@ class Listener():
 
         # 'run_test_file' is deprecated since 3.12.4; use 'phpunit_test_file' instead
         for command in ('phpunit_test_file', 'run_test_file'):
-            on_post_save_events = view.settings().get('phpunit.on_post_save')
+            on_post_save_events = get_setting(view, 'on_post_save')
             if on_post_save_events and command in on_post_save_events:
                 PHPUnit(view.window()).run_file()
