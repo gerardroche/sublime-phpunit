@@ -31,6 +31,6 @@ class Listener():
 
         # 'run_test_file' is deprecated since 3.12.4; use 'phpunit_test_file' instead
         for command in ('phpunit_test_file', 'run_test_file'):
-            post_save_commands = view.settings().get('phpunit.on_post_save')
-            if post_save_commands and command in post_save_commands:
+            on_post_save_events = view.settings().get('phpunit.on_post_save')
+            if on_post_save_events and command in on_post_save_events:
                 PHPUnit(view.window()).run_file()
