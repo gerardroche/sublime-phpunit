@@ -19,9 +19,8 @@
     "phpunit.font_size": null,
 
     // Commands to run when a file is saved.
-    "phpunit.on_post_save": [
-        // "phpunit_test_file",
-    ],
+    // Example: ["phpunit_test_file"]
+    "phpunit.on_post_save": [],
 
     // Command-line options to pass to PHPUnit.
     // https://phpunit.de/manual/current/en/textui.html#textui.clioptions
