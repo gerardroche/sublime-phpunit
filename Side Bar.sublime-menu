@@ -1,0 +1,9 @@
+[
+    {
+        "caption": "PHPUnit: Test File",
+        "command": "phpunit_side_bar_test_file",
+        "args": {
+            "files": []
+        }
+    }
+]

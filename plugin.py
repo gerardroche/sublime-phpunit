@@ -85,3 +85,22 @@ class PhpunitListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
         Listener().on_post_save(view)
+
+
+class PhpunitSideBarTestFileCommand(sublime_plugin.WindowCommand):
+
+    def run(self, files):
+        file = self._getTestableFile(files)
+        if file:
+            PHPUnit(self.window).run_file(file)
+        else:
+            PHPUnit(self.window).run_file()
+
+    def is_enabled(self, files):
+        return len(files) == 0 or bool(self._getTestableFile(files))
+
+    def _getTestableFile(self, files):
+        if files and len(files) == 1 and files[0].endswith('.php'):
+            return files[0]
+
+        return None

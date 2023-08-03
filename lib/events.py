@@ -22,7 +22,7 @@ from PHPUnitKit.lib.utils import get_setting
 
 class Listener():
 
-    def on_post_save(self, view):
+    def on_post_save(self, view) -> None:
         file_name = view.file_name()
         if not file_name:
             return

@@ -149,13 +149,16 @@ class PHPUnit():
 
         self.run(**last_test_args)
 
-    def run_file(self, options=None) -> None:
+    def run_file(self, file=None, options=None) -> None:
+        if file is None:
+            file = self.view.file_name()
+
         if options is None:
             options = {}
 
-        file = self.view.file_name()
         if not file:
-            return status_message('PHPUnit: not a test file')
+            status_message('PHPUnit: not a test file')
+            return
 
         if has_test(self.view):
             self.run(file=file, options=options)

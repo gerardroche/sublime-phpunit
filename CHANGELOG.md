@@ -4,6 +4,11 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.17.0 - Unreleased
 
+### Added
+
+ [#121](https://github.com/NeoVintageous/NeoVintageous/issues/121): Run tests from the side bar menu
+ [#122](https://github.com/NeoVintageous/NeoVintageous/issues/122): Run tests from the context menu
+
 ### Removed
 
 * Removed on post save "run_test_file" event, use on post save "phpunit_test_file" event instead.
