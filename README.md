@@ -1,6 +1,6 @@
-<h1 align="center">PHPUnit Kit</h1>
+<h1>PHPUnit Kit</h1>
 
-<p align="center">
+<p>
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
     <a href="https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master"><img alt="AppVeyor CI Status" src="https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true"></a>
     <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK" alt="CodeCov Coverage Status" /></a>
@@ -19,8 +19,8 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run the nearest test
 * Run the last test
 * Run multiple test methods using a multiple cursor
-* Run tests on remote server via SSH
-* Run tests via Docker
+* Run tests on remote server via SSH :new:
+* Run tests via Docker :new:
 * Auto run test on save
 * Colour output
 * Fast jump to next and previous failure
@@ -39,43 +39,73 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
 
+<details>
+ <summary><strong>Table of Contents</strong> (click to expand)</summary>
+
+- [Installation](#installation)
+- [Setup](#setup)
+- [Commands](#commands)
+- [Key Bindings](#key-bindings)
+- [Strategies](#strategies)
+- [Configuring](#configuring)
+  - [CLI Options](#cli-options)
+  - [PHPUnit Executable](#phpunit-executable)
+  - [PHP Executable](#php-executable)
+  - [SSH](#ssh)
+  - [Docker](#docker)
+  - [Auto Commands](#auto-commands)
+  - [Toggle Commands](#toggle-commands)
+  - [Custom Toggle Commands](#custom-toggle-commands)
+- [NeoVintageous mappings](#neovintageous-mappings)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [Credits](#credits)
+- [License](#license)
+
+</details>
+
 ## Installation
 
 Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package Control.
 
 ## Setup
 
-Zero configuration required.
+Optional. Zero configuration required.
 
-Optional. Add your preferred key bindings.
+Add your preferred key bindings.
+
+**Example**
 
 Menu → Preferences → Key Bindings
 
-```js
-{ "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
-{ "keys": ["ctrl+shift+c"], "command": "phpunit_test_cancel" },
-{ "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
-{ "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
-{ "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
-{ "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
-{ "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
-{ "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" },
+```json
+[
+    { "keys": ["ctrl+shift+a"], "command": "phpunit_test_suite" },
+    { "keys": ["ctrl+shift+c"], "command": "phpunit_test_cancel" },
+    { "keys": ["ctrl+shift+f"], "command": "phpunit_test_file" },
+    { "keys": ["ctrl+shift+l"], "command": "phpunit_test_last" },
+    { "keys": ["ctrl+shift+n"], "command": "phpunit_test_nearest" },
+    { "keys": ["ctrl+shift+r"], "command": "phpunit_test_results" },
+    { "keys": ["ctrl+shift+s"], "command": "phpunit_test_switch" },
+    { "keys": ["ctrl+shift+v"], "command": "phpunit_test_visit" }
+]
 ```
 
 ## Commands
 
-Command                              | Description
-:------                              | :----------
-**PHPUnit:&nbsp;Test&nbsp;Nearest**  | Run a test nearest to the cursor. If the current file is not a test file, it runs the tests for current file.
-**PHPUnit:&nbsp;Test&nbsp;File**     | Run tests for the current file.
-**PHPUnit:&nbsp;Test&nbsp;Suite**    | Run test suite of the current file.
-**PHPUnit:&nbsp;Test&nbsp;Last**     | Runs the last test.
-**PHPUnit:&nbsp;Test&nbsp;Switch**   | In a test file opens the file under test, otherwise opens the test file.
-**PHPUnit:&nbsp;Test&nbsp;Visit**    | Open the last run test.
-**PHPUnit:&nbsp;Test&nbsp;Results**  | Opens the test output panel (only applies to "basic" strategy).
-**PHPUnit:&nbsp;Test&nbsp;Cancel**   | Cancel any currently running tests.
-**PHPUnit:&nbsp;Test&nbsp;Coverage** | Opens the code coverage in a browser.
-**PHPUnit:&nbsp;Toggle...**          | Toggle options e.g. PHPUnit CLI options.
+| Command                                       | Description
+| :-------------------------------------------- | :----------
+| **PHPUnit:&nbsp;Test&nbsp;Nearest**           | Run a test nearest to the cursor. If the current file is not a test file, it runs the tests for current file.
+| **PHPUnit:&nbsp;Test&nbsp;File**              | Run tests for the current file.
+| **PHPUnit:&nbsp;Test&nbsp;Suite**             | Run test suite of the current file.
+| **PHPUnit:&nbsp;Test&nbsp;Last**              | Runs the last test.
+| **PHPUnit:&nbsp;Test&nbsp;Switch**            | In a test file opens the file under test, otherwise opens the test file.
+| **PHPUnit:&nbsp;Test&nbsp;Visit**             | Open the last run test.
+| **PHPUnit:&nbsp;Test&nbsp;Results**           | Opens the test output panel (only applies to "basic" strategy).
+| **PHPUnit:&nbsp;Test&nbsp;Cancel**            | Cancel any currently running tests.
+| **PHPUnit:&nbsp;Test&nbsp;Coverage**          | Opens the code coverage in a browser.
+| **PHPUnit:&nbsp;Toggle...**                   | Toggle options e.g. PHPUnit CLI options.
+| **Preferences:&nbsp;PHPUnit&nbsp;Settings**   | Edit settings.
 
 ## Key Bindings
 
@@ -86,10 +116,16 @@ Key         | Description
 
 ## Strategies
 
-PHPUnitKit can run tests using different execution environments called "strategies". To use a specific strategy, assign it to a setting:
+PHPUnitKit can run tests using different execution environments called "strategies".
 
-```js
-"phpunit.strategy": "kitty"
+**Example:** Use the Kitty terminal strategy
+
+Command Palette → Preferences: PHPUnit Settings
+
+```json
+{
+    "phpunit.strategy": "kitty"
+}
 ```
 
 | Strategy              | Identifier    | Description
@@ -101,25 +137,25 @@ PHPUnitKit can run tests using different execution environments called "strategi
 
 ## Configuring
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
-| Setting                   | Type               | Default          | Description
-| :------------------------ | :----------------- | :--------------- | :----------
-| `phpunit.executable`      | `string` or `list` | Auto discovered. | Path to PHPUnit executable.
-| `phpunit.php_executable`  | `string`           | Auto discovered. | Path to PHP executable.
-| `phpunit.options`         | `dict`             | `{}`             | CLI Options to pass to PHPUnit.
-| `phpunit.save_all_on_run` | `boolean`          | `true`           | Save all dirty buffers before running tests.
-| `phpunit.on_post_save`    | `list`             | `[]`             | Auto commands when views are saved.
-| `phpunit.prepend_cmd`     | `list`             | `[]`             | Prepends test runner command.
-| `phpunit.strategy`        | `string`           | `basic`          | Execution environment to run tests.
-| `phpunit.composer`        | `boolean`          | `true`           | Use Composer installed executables, if they exist.
-| `phpunit.artisan`         | `boolean`          | `false`          | Use Artisan to run tests, if it exists.
-| `phpunit.paratest`        | `boolean`          | `false`          | Use ParaTest to run tests, if it exists.
-| `phpunit.pest`            | `boolean`          | `false`          | Use Pest to run tests, if it exists.
-| `phpunit.font_size`       | `integer`          | Editor default.  | Font size of PHPUnit output.
-| `phpunit.debug`           | `boolean`          | `false`          | Prints test runner debug information.
+| Setting                   | Type               | Default              | Description
+| :------------------------ | :----------------- | :------------------- | :----------
+| `phpunit.executable`      | `string`<br>`list` | Auto&nbsp;discovery. | The path to the PHPUnit executable to use when running tests. Environment variables and user home directory ~ placeholder are expanded. The executable can be a string or a list of parameters. <br>Example: `vendor/bin/phpunit`
+| `phpunit.options`         | `dict`             | `{}`                 | Command-line options to pass to PHPUnit. <br>Example: `{"no-coverage": true}`
+| `phpunit.php_executable`  | `string`           | Auto&nbsp;discovery. | The path to the PHP executable to use when running tests. Environment variables and user home directory ~ placeholder are expanded. <br>Example: `~/.phpenv/versions/8.2/bin/php`
+| `phpunit.save_all_on_run` | `boolean`          | `true`               | Save all dirty buffers before running tests.
+| `phpunit.on_post_save`    | `list`             | `[]`                 | Auto commands when views are saved. <br>Example: `["phpunit_test_file"]`
+| `phpunit.debug`           | `boolean`          | `false`              | Prints test runner debug information.
+| `phpunit.prepend_cmd`     | `list`             | `[]`                 | Prepends test runner command.
+| `phpunit.strategy`        | `string`           | `basic`              | Execution environment to run tests.
+| `phpunit.font_size`       | `integer`          | Editor default.      | Font size of PHPUnit output.
+| `phpunit.composer`        | `boolean`          | `true`               | Use Composer installed executables.
+| `phpunit.artisan`         | `boolean`          | `false`              | Use Artisan to run tests.
+| `phpunit.paratest`        | `boolean`          | `false`              | Use ParaTest to run tests.
+| `phpunit.pest`            | `boolean`          | `false`              | Use Pest to run tests.
 
-**SSH**
+**SSH settings** :rocket:
 
 | Setting               | Type          | Default   | Description
 | :-------------------- | :------------ | :-------- | :----------
@@ -129,7 +165,7 @@ Menu → Preferences → Settings
 | `phpunit.ssh_host`    | `string`      | `null`    | The host to use when running tests via SSH. <br>Example: homestead.test
 | `phpunit.ssh_paths`   | `dict`        | `{}`      | The path map to use when running tests via SSH. The keys are local paths and the values are the replacement remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
 
-**Docker**
+**Docker settings** :rocket:
 
 | Setting               | Type          | Default   | Description
 | :-------------------- | :------------ | :-------- | :----------
@@ -141,7 +177,7 @@ Menu → Preferences → Settings
 
 If you want some CLI options to stick around, you can configure them in your settings.
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
@@ -172,7 +208,7 @@ The above options will be passed to PHPUnit as CLI options:
 
 This can help keep your tests fast. You can toggle no-coverage from the command palette when you need it.
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
@@ -184,7 +220,7 @@ Menu → Preferences → Settings
 
 **Example:** Stop after first error, failure, warning, or risky test
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
@@ -198,7 +234,7 @@ Menu → Preferences → Settings
 
 This is useful if you are migrating from PHPUnit to Pest and want to hide superfluous output.
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
@@ -217,7 +253,7 @@ Default: Auto discovery.
 
 **Examples**
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
@@ -236,7 +272,7 @@ Default: Auto discovery.
 **Examples**
 
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
@@ -285,7 +321,7 @@ You can configure the `on_post_save` event to run the "Test File" command when v
 
 **Example:** Run Test File on Save
 
-Menu → Preferences → Settings
+Command Palette → Preferences: PHPUnit Settings
 
 ```json
 {
