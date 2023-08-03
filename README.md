@@ -21,6 +21,8 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run multiple test methods using a multiple cursor
 * Run tests on remote server via SSH :new:
 * Run tests via Docker :new:
+* Run tests via side bar menu :new:
+* Run tests via context menu :new:
 * Auto run test on save
 * Colour output
 * Fast jump to next and previous failure
