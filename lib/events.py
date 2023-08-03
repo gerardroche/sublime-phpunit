@@ -30,8 +30,7 @@ class Listener():
         if not file_name.endswith('.php'):
             return
 
-        # 'run_test_file' is deprecated since 3.12.4; use 'phpunit_test_file' instead
-        for command in ('phpunit_test_file', 'run_test_file'):
-            on_post_save_events = get_setting(view, 'on_post_save')
-            if on_post_save_events and command in on_post_save_events:
+        on_post_save_events = get_setting(view, 'on_post_save')
+        if on_post_save_events:
+            if 'phpunit_test_file' in on_post_save_events:
                 PHPUnit(view.window()).run_file()
