@@ -27,7 +27,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Colour output
 * Fast jump to next and previous failure
 * Fast switch between test and file-under-test
-* Toggle CLI options from the command palette
+* Toggle options from the command palette
 * Fully customized CLI options configuration
 * Support for
     - [Artisan] - Artisan is the command line interface included with Laravel.
