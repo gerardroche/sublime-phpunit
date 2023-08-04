@@ -19,6 +19,7 @@ import sublime_plugin
 
 from PHPUnitKit.lib.events import Listener
 from PHPUnitKit.lib.runner import PHPUnit
+from PHPUnitKit.lib.utils import toggle_on_post_save
 
 
 class PhpunitTestSuiteCommand(sublime_plugin.WindowCommand):
@@ -85,6 +86,17 @@ class PhpunitListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
         Listener().on_post_save(view)
+
+
+class PhpunitToggleCommand(sublime_plugin.WindowCommand):
+
+    def run(self, action):
+        view = self.window.active_view()
+        if not view:
+            return
+
+        if action == 'test_file_on_post_save':
+            toggle_on_post_save(view, 'phpunit_test_file')
 
 
 class PhpunitSideBarTestFileCommand(sublime_plugin.WindowCommand):

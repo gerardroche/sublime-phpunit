@@ -10,6 +10,8 @@
     { "caption": "PHPUnit: Test Switch",    "command": "phpunit_test_switch" },
     { "caption": "PHPUnit: Test Visit",     "command": "phpunit_test_visit" },
 
+    { "caption": "PHPUnit: Toggle Run Test On Save", "command": "phpunit_toggle", "args": { "action": "test_file_on_post_save" } },
+
     { "caption": "PHPUnit: Toggle --cache-result",              "command": "phpunit_toggle_option", "args": { "option": "cache-result" } },
     { "caption": "PHPUnit: Toggle --debug",                     "command": "phpunit_toggle_option", "args": { "option": "debug" } },
     { "caption": "PHPUnit: Toggle --disable-coverage-ignore",   "command": "phpunit_toggle_option", "args": { "option": "disable-coverage-ignore" } },

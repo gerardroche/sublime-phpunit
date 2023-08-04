@@ -726,3 +726,21 @@ def _apply_path_mapping(match: tuple, command_params: list) -> list:
         return param
 
     return [replace_param(param) for param in command_params]
+
+
+def toggle_on_post_save(view, item: str) -> None:
+    on_post_save = view.settings().get('phpunit.on_post_save')
+    if not isinstance(on_post_save, list):
+        on_post_save = []
+
+    try:
+        on_post_save.remove(item)
+    except ValueError:
+        on_post_save.append(item)
+
+    # If the new value is the same as the user's default then erase the
+    # value from the current and let it fallback to the default. This
+    # helps prevent confusion when the user modifies their default.
+    view.settings().erase('phpunit.on_post_save')
+    if on_post_save != view.settings().get('phpunit.on_post_save'):
+        view.settings().set('phpunit.on_post_save', on_post_save)

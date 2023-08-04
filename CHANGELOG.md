@@ -2,6 +2,10 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.18.0 - Unreleased
+
+ [#125](https://github.com/NeoVintageous/NeoVintageous/issues/125): New "Toggle Run Test On Save" command palette
+
 ## 3.17.1 - 2023-08-04
 
  [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): Allow "external" strategy for custom strategies using `prepend_cmd`
