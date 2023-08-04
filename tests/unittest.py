@@ -16,6 +16,8 @@
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import sys
+
 from unittest import TestCase
 from unittest import mock  # noqa: F401
 from unittest import skipIf  # noqa: F401
@@ -50,3 +52,11 @@ class ViewTestCase(TestCase):
 
     def fixture(self, text) -> None:
         self.view.run_command('phpunit_test_setup_fixture', {'text': text})
+
+    def assertMockNotCalled(self, mock_obj) -> None:
+        # https://docs.python.org/3/library/unittest.mock.html
+        # Polyfill for a new mock method added in version 3.5.
+        if sys.version_info >= (3, 5):  # pragma: no cover
+            mock_obj.assert_not_called()
+        else:
+            self.assertEqual(mock_obj.call_count, 0)

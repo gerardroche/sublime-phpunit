@@ -17,8 +17,9 @@
 
 import sublime
 
-from PHPUnitKit.lib.strategy import _create_exec_output_panel
 from PHPUnitKit.tests import unittest
+
+from PHPUnitKit.lib.strategy import _create_exec_output_panel
 
 
 class TestCreateExecOutputPanel(unittest.ViewTestCase):

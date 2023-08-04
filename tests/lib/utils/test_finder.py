@@ -16,6 +16,7 @@
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+
 from PHPUnitKit.tests import unittest
 
 from PHPUnitKit.lib.utils import find_phpunit_configuration_file

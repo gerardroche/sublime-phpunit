@@ -15,8 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
-from PHPUnitKit.lib.utils import get_phpunit_options
 from PHPUnitKit.tests import unittest
+
+from PHPUnitKit.lib.utils import get_phpunit_options
 
 
 @unittest.mock.patch.dict('PHPUnitKit.lib.utils._session', {}, clear=True)

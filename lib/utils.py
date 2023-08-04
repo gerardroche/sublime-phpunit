@@ -44,7 +44,7 @@ else:
 
     def is_debug(view) -> bool:
         if view:
-            return view.settings().get('phpunit.debug')
+            return get_setting(view, 'debug')
 
         return False
 

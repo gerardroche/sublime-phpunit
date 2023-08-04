@@ -1,0 +1,22 @@
+[
+    {
+        "caption": "PHPUnit: Test File",
+        "command": "phpunit_test_file"
+    },
+    {
+        "caption": "PHPUnit: Test Suite",
+        "command": "phpunit_test_suite"
+    },
+    {
+        "caption": "PHPUnit: Test Nearest",
+        "command": "phpunit_test_nearest"
+    },
+    {
+        "caption": "PHPUnit: Test Last",
+        "command": "phpunit_test_last"
+    },
+    {
+        "caption": "PHPUnit: Test Switch",
+        "command": "phpunit_test_switch"
+    }
+]

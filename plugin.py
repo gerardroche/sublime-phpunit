@@ -17,6 +17,7 @@
 
 import sublime_plugin
 
+from PHPUnitKit.lib.events import Listener
 from PHPUnitKit.lib.runner import PHPUnit
 
 
@@ -80,18 +81,26 @@ class PhpunitTestCoverageCommand(sublime_plugin.WindowCommand):
         PHPUnit(self.window).coverage()
 
 
-class PhpunitEvents(sublime_plugin.EventListener):
+class PhpunitListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
-        file_name = view.file_name()
-        if not file_name:
-            return
+        Listener().on_post_save(view)
 
-        if not file_name.endswith('.php'):
-            return
 
-        post_save_commands = view.settings().get('phpunit.on_post_save')
-        # 'run_test_file' is deprecated since 3.12.4; use 'phpunit_test_file' instead
-        for command in ('phpunit_test_file', 'run_test_file'):
-            if command in post_save_commands:
-                PHPUnit(view.window()).run_file()
+class PhpunitSideBarTestFileCommand(sublime_plugin.WindowCommand):
+
+    def run(self, files):
+        file = self._getTestableFile(files)
+        if file:
+            PHPUnit(self.window).run_file(file)
+        else:
+            PHPUnit(self.window).run_file()
+
+    def is_enabled(self, files):
+        return len(files) == 0 or bool(self._getTestableFile(files))
+
+    def _getTestableFile(self, files):
+        if files and len(files) == 1 and files[0].endswith('.php'):
+            return files[0]
+
+        return None
