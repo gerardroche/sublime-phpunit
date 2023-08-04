@@ -19,8 +19,9 @@ import os
 
 import sublime
 
-from PHPUnitKit.lib.utils import get_phpunit_executable
 from PHPUnitKit.tests import unittest
+
+from PHPUnitKit.lib.utils import get_phpunit_executable
 
 
 class TestGetPHPUnitExecutable(unittest.ViewTestCase):

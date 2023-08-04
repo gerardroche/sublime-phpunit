@@ -19,6 +19,7 @@ from sublime_plugin import TextCommand
 
 
 class PhpunitTestSetupFixtureCommand(TextCommand):
+
     def run(self, edit, text):
 
         # This fixes an issue where an exception is thrown when  reloading the

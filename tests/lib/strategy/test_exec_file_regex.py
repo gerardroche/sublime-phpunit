@@ -16,9 +16,10 @@
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
-from PHPUnitKit.tests import unittest
 
 from sublime import platform
+
+from PHPUnitKit.tests import unittest
 
 from PHPUnitKit.lib.strategy import _exec_file_regex
 

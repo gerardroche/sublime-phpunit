@@ -15,11 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with PHPUnitKit.  If not, see <https://www.gnu.org/licenses/>.
 
+import os
+import sys
+
 from unittest import TestCase
 from unittest import mock  # noqa: F401
 from unittest import skipIf  # noqa: F401
-import os
-import sys
 
 from sublime import find_resources
 from sublime import active_window

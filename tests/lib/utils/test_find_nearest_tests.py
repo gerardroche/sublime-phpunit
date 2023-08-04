@@ -18,6 +18,7 @@
 from sublime import find_resources
 
 from PHPUnitKit.tests import unittest
+
 from PHPUnitKit.lib.utils import find_nearest_tests
 
 
