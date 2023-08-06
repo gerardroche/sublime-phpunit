@@ -28,7 +28,7 @@ from PHPUnitKit.lib.utils import is_debug
 
 
 def execute(window, view, env: dict, cmd: list, working_dir: str) -> None:
-    if get_setting(view, 'strategy') in ('external', 'iterm', 'kitty', 'xterm'):
+    if get_setting(view, 'strategy') in ('cmd', 'external', 'iterm', 'kitty', 'powershell', 'xterm'):
         window.run_command('exec', {
             'env': env,
             'cmd': cmd,

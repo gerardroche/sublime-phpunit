@@ -28,6 +28,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Fast jump to next and previous failure
 * Fast switch between test and file-under-test
 * Toggle options from the command palette
+* Toggle run test on save :new:
 * Fully customized CLI options configuration
 * Support for
     - [Artisan] - Artisan is the command line interface included with Laravel.
@@ -36,7 +37,9 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
     - [Kitty] - Kitt is a fast, feature-rich, cross-platform, GPU based terminal.
     - [ParaTest] - ParaTest adds parallel testing support in PHPUnit.
     - [Pest] - Pest is a testing framework with a focus on simplicity.
-    - [xterm] - A terminal emulator for the X Window System.
+    - [xterm] - A terminal emulator for the X Window System. :new:
+    - [cmd] - A command-line interpreter for Windows. :new:
+    - [PowerShell] - A cross-platform command-line shell. :new:
 - Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
@@ -95,19 +98,20 @@ Menu → Preferences → Key Bindings
 
 ## Commands
 
-| Command                                       | Description
-| :-------------------------------------------- | :----------
-| **PHPUnit:&nbsp;Test&nbsp;Nearest**           | Run a test nearest to the cursor. If the current file is not a test file, it runs the tests for current file.
-| **PHPUnit:&nbsp;Test&nbsp;File**              | Run tests for the current file.
-| **PHPUnit:&nbsp;Test&nbsp;Suite**             | Run test suite of the current file.
-| **PHPUnit:&nbsp;Test&nbsp;Last**              | Runs the last test.
-| **PHPUnit:&nbsp;Test&nbsp;Switch**            | In a test file opens the file under test, otherwise opens the test file.
-| **PHPUnit:&nbsp;Test&nbsp;Visit**             | Open the last run test.
-| **PHPUnit:&nbsp;Test&nbsp;Results**           | Opens the test output panel (only applies to "basic" strategy).
-| **PHPUnit:&nbsp;Test&nbsp;Cancel**            | Cancel any currently running tests.
-| **PHPUnit:&nbsp;Test&nbsp;Coverage**          | Opens the code coverage in a browser.
-| **PHPUnit:&nbsp;Toggle...**                   | Toggle options e.g. PHPUnit CLI options.
-| **Preferences:&nbsp;PHPUnit&nbsp;Settings**   | Edit settings.
+| Command                                                       | Description
+| :-------------------------------------------------------------| :----------
+| **PHPUnit:&nbsp;Test&nbsp;Nearest**                           | Run a test nearest to the cursor. If the current file is not a test file, it runs the tests for current file.
+| **PHPUnit:&nbsp;Test&nbsp;File**                              | Run tests for the current file.
+| **PHPUnit:&nbsp;Test&nbsp;Suite**                             | Run test suite of the current file.
+| **PHPUnit:&nbsp;Test&nbsp;Last**                              | Runs the last test.
+| **PHPUnit:&nbsp;Test&nbsp;Switch**                            | In a test file opens the file under test, otherwise opens the test file.
+| **PHPUnit:&nbsp;Test&nbsp;Visit**                             | Open the last run test.
+| **PHPUnit:&nbsp;Test&nbsp;Results**                           | Opens the test output panel (only applies to "basic" strategy).
+| **PHPUnit:&nbsp;Test&nbsp;Cancel**                            | Cancel any currently running tests.
+| **PHPUnit:&nbsp;Test&nbsp;Coverage**                          | Opens the code coverage in a browser.
+| **PHPUnit:&nbsp;Toggle&nbsp;Run&nbsp;Test&nbsp;On&nbsp;Save** | Toggle to quickly turn the Test File auto-command on and off.
+| **PHPUnit:&nbsp;Toggle...**                                   | Toggle options e.g. PHPUnit CLI options.
+| **Preferences:&nbsp;PHPUnit&nbsp;Settings**                   | Edit settings.
 
 ## Key Bindings
 
@@ -135,7 +139,9 @@ Command Palette → Preferences: PHPUnit Settings
 | **Basic** (default)   | `basic`       | Sends test commands to Sublime Text exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
-| **[xterm]**           | `xterm`       | Sends test commands to xterm terminal.
+| **[xterm]**           | `xterm`       | Sends test commands to xterm terminal. :new:
+| **[cmd]**             | `cmd`         | Sends test commands to cmd.exe terminal. :new:
+| **[PowerShell]**      | `powershell`  | Sends test commands to PowerShell command shell. :new:
 
 ## Configuring
 
@@ -467,23 +473,19 @@ Menu → Preferences → Key Bindings
 
 [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) is a Vim emulator for Sublime Text.
 
-Add your preferred mappings to your `.neovintageousrc` file.
+1. Open the Command Palette: `Command Palette → NeoVintageous: Open neovintageous file`.
+2. Add your preferred mappings.
 
-**Example**
+   **Example**
 
-Command Palette → NeoVintageous: Open .neovinageousrc
-
-```vim
-nnoremap <leader>t :TestNearest<CR>
-nnoremap <leader>T :TestFile<CR>
-nnoremap <leader>a :TestSuite<CR>
-nnoremap <leader>l :TestLast<CR>
-nnoremap <leader>g :TestVisit<CR>
-```
-
-Don't forget to reload your .neovintageousrc file.
-
-Command Palette → NeoVintageous: Reload .neovinageousrc
+   ```vim
+   nnoremap <leader>t :TestNearest<CR>
+   nnoremap <leader>T :TestFile<CR>
+   nnoremap <leader>a :TestSuite<CR>
+   nnoremap <leader>l :TestLast<CR>
+   nnoremap <leader>g :TestVisit<CR>
+   ```
+3. To apply the changes, reload the neovintageousrc from the Command Palette: `Command Palette → NeoVintageous: Reload neovintageous file`.
 
 ## Contributing
 
@@ -506,5 +508,7 @@ Released under the [GPL-3.0-or-later License](LICENSE).
 [Kitty]: https://github.com/kovidgoyal/kitty
 [ParaTest]: https://github.com/paratestphp/paratest
 [Pest]: https://pestphp.com
+[PowerShell]: https://learn.microsoft.com/en-us/powershell/
+[cmd]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [iTerm2]: https://iterm2.com
 [xterm]: https://invisible-island.net/xterm/

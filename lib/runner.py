@@ -75,8 +75,12 @@ class PHPUnit():
                 cmd += ['kitty', '--hold']
             elif get_setting(self.view, 'strategy') == 'iterm':
                 cmd.append(get_osx_term_script_path())
+            elif get_setting(self.view, 'strategy') == 'powershell':
+                cmd += ['powershell', '-Command']
             elif get_setting(self.view, 'strategy') == 'xterm':
                 cmd += ['xterm', '-hold', '-e']
+            elif get_setting(self.view, 'strategy') == 'cmd':
+                cmd += ['cmd.exe', '/c']
 
             if get_setting(self.view, 'ssh'):
                 cmd += ['ssh']
@@ -145,7 +149,8 @@ class PHPUnit():
     def run_last(self) -> None:
         last_test_args = get_last_run()
         if not last_test_args:
-            return status_message('PHPUnit: no tests were run so far')
+            status_message('PHPUnit: no tests were run so far')
+            return
 
         self.run(**last_test_args)
 
@@ -172,7 +177,8 @@ class PHPUnit():
     def run_nearest(self, options) -> None:
         file = self.view.file_name()
         if not file:
-            return status_message('PHPUnit: not a test file')
+            status_message('PHPUnit: not a test file')
+            return
 
         if has_test(self.view):
             if 'filter' not in options:
@@ -197,11 +203,13 @@ class PHPUnit():
     def coverage(self) -> None:
         working_dir = find_phpunit_working_directory(self.view.file_name(), self.window.folders())
         if not working_dir:
-            return status_message('PHPUnit: could not find a PHPUnit working directory')
+            status_message('PHPUnit: could not find a PHPUnit working directory')
+            return
 
         coverage_html_index_html_file = os.path.join(working_dir, 'build/coverage/index.html')
         if not os.path.exists(coverage_html_index_html_file):
-            return status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
+            status_message('PHPUnit: could not find PHPUnit HTML code coverage %s' % coverage_html_index_html_file)  # noqa: E501
+            return
 
         webbrowser.open_new_tab('file://' + coverage_html_index_html_file)
 
@@ -221,7 +229,7 @@ class PHPUnit():
                     if os.path.isfile(file):
                         return self.window.open_file(file)
 
-        return status_message('PHPUnit: no tests were run so far')
+        status_message('PHPUnit: no tests were run so far')
 
     def toggle(self, option: str, value=None) -> None:
         options = get_phpunit_options(self.view)
