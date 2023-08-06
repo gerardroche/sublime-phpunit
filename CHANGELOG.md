@@ -4,19 +4,20 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.18.0 - Unreleased
 
- [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): New "cmd" strategy to run tests in cmd.exe terminal (Windows)
- [#125](https://github.com/NeoVintageous/NeoVintageous/issues/125): New "Toggle Run Test On Save" command palette
+* [#126](https://github.com/NeoVintageous/NeoVintageous/issues/126): New "powershell" strategy to run tests in the PowerShell command-line shell (Windows)
+* [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): New "cmd" strategy to run tests in the cmd.exe command-line (Windows)
+* [#125](https://github.com/NeoVintageous/NeoVintageous/issues/125): New "Toggle Run Test On Save" command palette
 
 ## 3.17.1 - 2023-08-04
 
- [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): Allow "external" strategy for custom strategies using `prepend_cmd`
+* [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): Allow "external" strategy for custom strategies using `prepend_cmd`
 
 ## 3.17.0 - 2023-08-04
 
 ### Added
 
- [#121](https://github.com/NeoVintageous/NeoVintageous/issues/121): Run tests from the side bar menu
- [#122](https://github.com/NeoVintageous/NeoVintageous/issues/122): Run tests from the context menu
+* [#121](https://github.com/NeoVintageous/NeoVintageous/issues/121): Run tests from the side bar menu
+* [#122](https://github.com/NeoVintageous/NeoVintageous/issues/122): Run tests from the context menu
 
 ### Removed
 

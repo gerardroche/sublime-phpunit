@@ -39,6 +39,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
     - [Pest] - Pest is a testing framework with a focus on simplicity.
     - [xterm] - A terminal emulator for the X Window System. :new:
     - [cmd] - A command-line interpreter for Windows. :new:
+    - [PowerShell] - A cross-platform command-line shell. :new:
 - Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
@@ -140,6 +141,7 @@ Command Palette → Preferences: PHPUnit Settings
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
 | **[xterm]**           | `xterm`       | Sends test commands to xterm terminal. :new:
 | **[cmd]**             | `cmd`         | Sends test commands to cmd.exe terminal. :new:
+| **[PowerShell]**      | `powershell`  | Sends test commands to PowerShell command shell. :new:
 
 ## Configuring
 
@@ -506,6 +508,7 @@ Released under the [GPL-3.0-or-later License](LICENSE).
 [Kitty]: https://github.com/kovidgoyal/kitty
 [ParaTest]: https://github.com/paratestphp/paratest
 [Pest]: https://pestphp.com
+[PowerShell]: https://learn.microsoft.com/en-us/powershell/
+[cmd]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [iTerm2]: https://iterm2.com
 [xterm]: https://invisible-island.net/xterm/
-[cmd]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd

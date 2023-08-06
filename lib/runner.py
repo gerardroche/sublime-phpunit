@@ -75,6 +75,8 @@ class PHPUnit():
                 cmd += ['kitty', '--hold']
             elif get_setting(self.view, 'strategy') == 'iterm':
                 cmd.append(get_osx_term_script_path())
+            elif get_setting(self.view, 'strategy') == 'powershell':
+                cmd += ['powershell', '-Command']
             elif get_setting(self.view, 'strategy') == 'xterm':
                 cmd += ['xterm', '-hold', '-e']
             elif get_setting(self.view, 'strategy') == 'cmd':
