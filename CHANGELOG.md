@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.18.0 - Unreleased
+## 3.18.0 - 2023-08-06
 
 * [#126](https://github.com/NeoVintageous/NeoVintageous/issues/126): New "powershell" strategy to run tests in the PowerShell command-line shell (Windows)
 * [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): New "cmd" strategy to run tests in the cmd.exe command-line (Windows)
