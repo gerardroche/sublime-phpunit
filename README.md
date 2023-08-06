@@ -138,8 +138,8 @@ Command Palette → Preferences: PHPUnit Settings
 | **Basic** (default)   | `basic`       | Sends test commands to Sublime Text exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
-| **[xterm]**           | `xterm`       | Sends test commands to xterm terminal.
-| **[cmd]**             | `cmd`         | Sends test commands to cmd.exe terminal.
+| **[xterm]**           | `xterm`       | Sends test commands to xterm terminal. :new:
+| **[cmd]**             | `cmd`         | Sends test commands to cmd.exe terminal. :new:
 
 ## Configuring
 
@@ -471,23 +471,19 @@ Menu → Preferences → Key Bindings
 
 [NeoVintageous](https://github.com/NeoVintageous/NeoVintageous) is a Vim emulator for Sublime Text.
 
-Add your preferred mappings to your `.neovintageousrc` file.
+1. Open the Command Palette: `Command Palette → NeoVintageous: Open neovintageous file`.
+2. Add your preferred mappings.
 
-**Example**
+   **Example**
 
-Command Palette → NeoVintageous: Open .neovinageousrc
-
-```vim
-nnoremap <leader>t :TestNearest<CR>
-nnoremap <leader>T :TestFile<CR>
-nnoremap <leader>a :TestSuite<CR>
-nnoremap <leader>l :TestLast<CR>
-nnoremap <leader>g :TestVisit<CR>
-```
-
-Don't forget to reload your .neovintageousrc file.
-
-Command Palette → NeoVintageous: Reload .neovinageousrc
+   ```vim
+   nnoremap <leader>t :TestNearest<CR>
+   nnoremap <leader>T :TestFile<CR>
+   nnoremap <leader>a :TestSuite<CR>
+   nnoremap <leader>l :TestLast<CR>
+   nnoremap <leader>g :TestVisit<CR>
+   ```
+3. To apply the changes, reload the neovintageousrc from the Command Palette: `Command Palette → NeoVintageous: Reload neovintageous file`.
 
 ## Contributing
 
