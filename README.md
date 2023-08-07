@@ -71,17 +71,41 @@ Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023
 
 ## Installation
 
-Install [PHPUnitKit](https://packagecontrol.io/packages/PHPUnitKit) via Package Control.
+**Method 1: Using Package Control**
+
+1. Open Sublime Text.
+2. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS) to open the Command Palette.
+3. Type "Package Control: Install Package" and press `Enter`.
+4. In the input field, type "PHPUnitKit" and select it from the list of available packages.
+
+**Method 2: Manual Installation**
+
+1. Visit the [PHPUnitKit GitHub repository](https://github.com/gerardroche/sublime-phpunit).
+2. Click on the "Code" button and select "Download ZIP."
+3. Extract the downloaded ZIP file.
+4. Open Sublime Text and go to `Preferences -> Browse Packages...` to open the Packages folder.
+5. Copy the "PHPUnitKit" folder from the extracted ZIP and paste it into the Packages folder.
+
+**Method 3: Manual Git Repository Installation**
+
+1. Open a terminal or command prompt.
+2. Navigate to the Sublime Text Packages directory:
+    - On Windows: `%APPDATA%\Sublime Text\Packages`
+    - On macOS: `~/Library/Application Support/Sublime Text/Packages`
+    - On Linux: `~/.config/sublime-text/Packages`
+3. Clone the plugin repository directly into the Packages directory using Git:
+   ```
+   git clone https://github.com/gerardroche/sublime-phpunit.git
+   ```
 
 ## Setup
 
-Optional. Zero configuration required.
+(Optional. Zero configuration required.)
 
-Add your preferred key bindings.
+To add your preferred key bindings, follow these steps:
 
-**Example**
-
-Menu → Preferences → Key Bindings
+1. Open the Sublime Text menu: `Command Palette → Preferences: Key Bindings`.
+2. Add the following key bindings to the configuration file:
 
 ```json
 [
@@ -341,133 +365,121 @@ Command Palette → Preferences: PHPUnit Settings
 
 ### Toggle Commands
 
-You can toggle many PHPUnit CLI options from the command palette.
-
-Command Palette → PHPUnit: Toggle ...
+You can toggle many PHPUnit CLI options from the command palette by prefixing the command with "PHPUnit: Toggle."
 
 #### Execution
 
-| Caption                                         | Description
-| :---------------------------------------------- | -----------------------------
-| PHPUnit: Toggle --process-isolation | Run each test in a separate PHP process
-| PHPUnit: Toggle --globals-backup | Backup and restore `$GLOBALS` for each test
-| PHPUnit: Toggle --static-backup | Backup and restore static properties for each test
-| PHPUnit: Toggle --strict-coverage | Be strict about code coverage metadata
-| PHPUnit: Toggle --strict-global-state | Be strict about changes to global state
-| PHPUnit: Toggle --disallow-test-output | Be strict about output during tests
-| PHPUnit: Toggle --enforce-time-limit | Enforce time limit based on test size
-| PHPUnit: Toggle --dont-report-useless-tests | Do not report tests that do not test anything
-| PHPUnit: Toggle --stop-on-defect | Stop after first error, failure, warning, or risky test
-| PHPUnit: Toggle --stop-on-error | Stop after first error
-| PHPUnit: Toggle --stop-on-failure | Stop after first failure
-| PHPUnit: Toggle --stop-on-warning | Stop after first warning
-| PHPUnit: Toggle --stop-on-risky | Stop after first risky test
-| PHPUnit: Toggle --stop-on-deprecation | Stop after first test that triggered a deprecation
-| PHPUnit: Toggle --stop-on-notice | Stop after first test that triggered a notice
-| PHPUnit: Toggle --stop-on-skipped | Stop after first skipped test
-| PHPUnit: Toggle --stop-on-incomplete | Stop after first incomplete test
-| PHPUnit: Toggle --fail-on-warning | Signal failure using shell exit code when a warning was triggered
-| PHPUnit: Toggle --fail-on-risky | Signal failure using shell exit code when a test was considered risky
-| PHPUnit: Toggle --fail-on-deprecation | Signal failure using shell exit code when a deprecation was triggered
-| PHPUnit: Toggle --fail-on-notice | Signal failure using shell exit code when a notice was triggered
-| PHPUnit: Toggle --fail-on-skipped | Signal failure using shell exit code when a test was skipped
-| PHPUnit: Toggle --fail-on-incomplete | Signal failure using shell exit code when a test was marked incomplete
-| PHPUnit: Toggle --cache-result | Write test results to cache file
-| PHPUnit: Toggle --do-not-cache-result | Do not write test results to cache file
-| PHPUnit: Toggle --order-by=default | Run tests in order: default
-| PHPUnit: Toggle --order-by=defects | Run tests in order: defects
-| PHPUnit: Toggle --order-by=depends | Run tests in order: depends
-| PHPUnit: Toggle --order-by=duration | Run tests in order: duration
-| PHPUnit: Toggle --order-by=no-depends | Run tests in order: no-depends
-| PHPUnit: Toggle --order-by=random | Run tests in order: random
-| PHPUnit: Toggle --order-by=reverse | Run tests in order: reverse
-| PHPUnit: Toggle --order-by=size | Run tests in order: size
+- PHPUnit: Toggle --process-isolation: Run each test in a separate PHP process.
+- PHPUnit: Toggle --globals-backup: Backup and restore $GLOBALS for each test.
+- PHPUnit: Toggle --static-backup: Backup and restore static properties for each test.
+- PHPUnit: Toggle --strict-coverage: Be strict about code coverage metadata.
+- PHPUnit: Toggle --strict-global-state: Be strict about changes to global state.
+- PHPUnit: Toggle --disallow-test-output: Be strict about output during tests.
+- PHPUnit: Toggle --enforce-time-limit: Enforce time limit based on test size.
+- PHPUnit: Toggle --dont-report-useless-tests: Do not report tests that do not test anything.
+- PHPUnit: Toggle --stop-on-defect: Stop after the first error, failure, warning, or risky test.
+- PHPUnit: Toggle --stop-on-error: Stop after the first error.
+- PHPUnit: Toggle --stop-on-failure: Stop after the first failure.
+- PHPUnit: Toggle --stop-on-warning: Stop after the first warning.
+- PHPUnit: Toggle --stop-on-risky: Stop after the first risky test.
+- PHPUnit: Toggle --stop-on-deprecation: Stop after the first test that triggered a deprecation.
+- PHPUnit: Toggle --stop-on-notice: Stop after the first test that triggered a notice.
+- PHPUnit: Toggle --stop-on-skipped: Stop after the first skipped test.
+- PHPUnit: Toggle --stop-on-incomplete: Stop after the first incomplete test.
+- PHPUnit: Toggle --fail-on-warning: Signal failure using the shell exit code when a warning was triggered.
+- PHPUnit: Toggle --fail-on-risky: Signal failure using the shell exit code when a test was considered risky.
+- PHPUnit: Toggle --fail-on-deprecation: Signal failure using the shell exit code when a deprecation was triggered.
+- PHPUnit: Toggle --fail-on-notice: Signal failure using the shell exit code when a notice was triggered.
+- PHPUnit: Toggle --fail-on-skipped: Signal failure using the shell exit code when a test was skipped.
+- PHPUnit: Toggle --fail-on-incomplete: Signal failure using the shell exit code when a test was marked incomplete.
+- PHPUnit: Toggle --cache-result: Write test results to the cache file.
+- PHPUnit: Toggle --do-not-cache-result: Do not write test results to the cache file.
+- PHPUnit: Toggle --order-by=default: Run tests in order: default.
+- PHPUnit: Toggle --order-by=defects: Run tests in order: defects.
+- PHPUnit: Toggle --order-by=depends: Run tests in order: depends.
+- PHPUnit: Toggle --order-by=duration: Run tests in order: duration.
+- PHPUnit: Toggle --order-by=no-depends: Run tests in order: no-depends.
+- PHPUnit: Toggle --order-by=random: Run tests in order: random.
+- PHPUnit: Toggle --order-by=reverse: Run tests in order: reverse.
+- PHPUnit: Toggle --order-by=size: Run tests in order: size.
 
 #### Reporting
 
-| Caption                                         | Description
-| :---------------------------------------------- | -----------------------------
-| PHPUnit: Toggle --no-progress | Disable output of test execution progress
-| PHPUnit: Toggle --no-results | Disable output of test results
-| PHPUnit: Toggle --no-output | Disable all output
-| PHPUnit: Toggle --display-incomplete | Display details for incomplete tests
-| PHPUnit: Toggle --display-skipped | Display details for skipped tests
-| PHPUnit: Toggle --display-deprecations | Display details for deprecations triggered by tests
-| PHPUnit: Toggle --display-errors | Display details for errors triggered by tests
-| PHPUnit: Toggle --display-notices | Display details for notices triggered by tests
-| PHPUnit: Toggle --display-warnings | Display details for warnings triggered by tests
-| PHPUnit: Toggle --reverse-list | Print defects in reverse order
-| PHPUnit: Toggle --teamcity | Replace default progress and result output with TeamCity format
-| PHPUnit: Toggle --testdox | Replace default result output with TestDox format
+- PHPUnit: Toggle --no-progress: Disable output of test execution progress.
+- PHPUnit: Toggle --no-results: Disable output of test results.
+- PHPUnit: Toggle --no-output: Disable all output.
+- PHPUnit: Toggle --display-incomplete: Display details for incomplete tests.
+- PHPUnit: Toggle --display-skipped: Display details for skipped tests.
+- PHPUnit: Toggle --display-deprecations: Display details for deprecations triggered by tests.
+- PHPUnit: Toggle --display-errors: Display details for errors triggered by tests.
+- PHPUnit: Toggle --display-notices: Display details for notices triggered by tests.
+- PHPUnit: Toggle --display-warnings: Display details for warnings triggered by tests.
+- PHPUnit: Toggle --reverse-list: Print defects in reverse order.
+- PHPUnit: Toggle --teamcity: Replace default progress and result output with TeamCity format.
+- PHPUnit: Toggle --testdox: Replace default result output with TestDox format.
 
 #### Logging
 
-| Caption                                         | Description
-| :---------------------------------------------- | -----------------------------
-| PHPUnit: Toggle --no-logging | Ignore logging configured in the XML configuration file
+- PHPUnit: Toggle --no-logging: Ignore logging configured in the XML configuration file.
 
 #### Code Coverage
 
-| Caption                                         | Description
-| :---------------------------------------------- | -----------------------------
-| PHPUnit: Toggle --path-coverage | Report path coverage in addition to line coverage
-| PHPUnit: Toggle --disable-coverage-ignore | Disable metadata for ignoring code coverage
-| PHPUnit: Toggle --no-coverage | Ignore code coverage reporting configured in the XML configuration file
+- PHPUnit: Toggle --path-coverage: Report path coverage in addition to line coverage.
+- PHPUnit: Toggle --disable-coverage-ignore: Disable metadata for ignoring code coverage.
+- PHPUnit: Toggle --no-coverage: Ignore code coverage reporting configured in the XML configuration file.
 
 ### Custom Toggle Commands
 
-You can create your own toggle commands.
-
-The `phpunit_toggle_option` command accepts the following arguments:
+You can create your own toggle commands. The `phpunit_toggle_option` command accepts the following arguments:
 
 Argument |  Type
 :------- | :-----
-`option` |  `string`
-`value`  |  `boolean`, `string` (optional)
+`option` |  String
+`value`  |  Boolean (default) or String
 
-If `{value}` is not provided the option is assumed to be boolean.
+**Example:** Custom toggle commands
 
-**Example Commands**
+1. Open Sublime Text and go to `Preferences -> Browse Packages...` to open the Packages folder.
+2. Create a file named "User/Default.sublime-commands"
+3. Add the following commands to the configuration file:
 
-Find your User directory via Menu → Browse Packages.
+   ```json
+   [
+       {
+           "caption": "PHPUnit: Toggle --no-coverage",
+           "command": "phpunit_toggle_option",
+           "args": {
+               "option": "no-coverage"
+           }
+       },
+       {
+           "caption": "PHPUnit: Toggle --order-by=depends,defects",
+           "command": "phpunit_toggle_option",
+           "args": {
+               "option": "order-by=",
+               "value": "depends,defects"
+           }
+       }
+   ]
+   ```
 
-> User/Default.sublime-commands
 
-```json
-[
-    {
-        "caption": "PHPUnit: Toggle --no-coverage",
-        "command": "phpunit_toggle_option",
-        "args": {
-            "option": "no-coverage"
-        }
-    },
-    {
-        "caption": "PHPUnit: Toggle --order-by=depends,defects",
-        "command": "phpunit_toggle_option",
-        "args": {
-            "option": "order-by=",
-            "value": "depends,defects"
-        }
-    }
-]
-```
+**Example:** Custom key binding to toggle coverage reporting generation
 
-**Example Key Binding**
+1. Open the Command Palette: `Command Palette → Preferences: Key Bindings`.
+2. Add the following key binding to the configuration file:
 
-Menu → Preferences → Key Bindings
-
-```json
-[
-    {
-        "keys": ["ctrl+n"],
-        "command": "phpunit_toggle_option",
-        "args": {
-            "option": "no-coverage"
-        }
-    },
-]
-```
+   ```json
+   [
+       {
+           "keys": ["ctrl+n"],
+           "command": "phpunit_toggle_option",
+           "args": {
+               "option": "no-coverage"
+           }
+       },
+   ]
+   ```
 
 ## NeoVintageous mappings
 

@@ -30,23 +30,17 @@ _PEST_TEST_PATTERN = '^\\s*(it|test)\\(("|\')(.*)("|\')'
 _session = {}  # type: dict
 
 
-if bool(os.getenv('SUBLIME_PHPUNIT_DEBUG')):
-    def debug_message(msg, *args) -> None:
-        if args:
-            msg = msg % args
-        print('PHPUnit: ' + msg)
+def debug_message(msg, *args) -> None:
+    if args:
+        msg = msg % args
+    print('PHPUnit: ' + msg)
 
-    def is_debug(view) -> bool:
-        return True
-else:
-    def debug_message(msg, *args) -> None:
-        pass
 
-    def is_debug(view) -> bool:
-        if view:
-            return get_setting(view, 'debug')
+def is_debug(view) -> bool:
+    if view:
+        return get_setting(view, 'debug')
 
-        return False
+    return False
 
 
 def get_setting(view, name: str):

@@ -4,11 +4,15 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ## 3.18.0 - 2023-08-06
 
+### Added
+
 * [#126](https://github.com/NeoVintageous/NeoVintageous/issues/126): New "powershell" strategy to run tests in the PowerShell command-line shell (Windows)
 * [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): New "cmd" strategy to run tests in the cmd.exe command-line (Windows)
 * [#125](https://github.com/NeoVintageous/NeoVintageous/issues/125): New "Toggle Run Test On Save" command palette
 
 ## 3.17.1 - 2023-08-04
+
+### Fixed
 
 * [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): Allow "external" strategy for custom strategies using `prepend_cmd`
 
