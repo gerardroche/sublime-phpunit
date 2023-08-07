@@ -40,7 +40,7 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
     - [xterm] - A terminal emulator for the X Window System. :new:
     - [cmd] - A command-line interpreter for Windows. :new:
     - [PowerShell] - A cross-platform command-line shell. :new:
-- Zero configuration required
+* Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
 
