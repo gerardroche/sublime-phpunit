@@ -95,7 +95,7 @@ Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023
     - On Linux: `~/.config/sublime-text/Packages`
 3. Clone the plugin repository directly into the Packages directory using Git:
    ```
-   git clone https://github.com/gerardroche/sublime-phpunit.git
+   git clone https://github.com/gerardroche/sublime-phpunit.git PHPUnitKit
    ```
 
 ## Setup
