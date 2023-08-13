@@ -52,8 +52,15 @@
     // Save all dirty buffers before running tests.
     "phpunit.save_all_on_run": true,
 
-    // Execution environment to run tests. Valid values: basic|iterm|kitty
-    "phpunit.strategy": "basic",
+    // Choose the desired execution environment for running tests.
+    // Options include:
+    // - sublime
+    // - iterm
+    // - kitty
+    // - xterm
+    // - cmd
+    // - powershell
+    "phpunit.strategy": "sublime",
 
     // Enable SSH.
     "phpunit.ssh": false,

@@ -47,10 +47,10 @@ class TestGetPHPUnitOptions(unittest.ViewTestCase):
         self.assertEquals({'no-coverage': True, 'no-progress': False}, get_phpunit_options(self.view))
 
     def test_artisan_should_never_enable_colors(self):
-        self.view.settings().set('phpunit.strategy', 'basic')
+        self.view.settings().set('phpunit.strategy', 'sublime')
         self.view.settings().set('phpunit.artisan', True)
         self.assertEquals({'colors=never': True}, get_phpunit_options(self.view))
-        self.view.settings().set('phpunit.strategy', 'basic')
+        self.view.settings().set('phpunit.strategy', 'sublime')
 
     def test_pest_and_artisan_only_disable_colors_for_the_basic_strategy(self):
         self.view.settings().set('phpunit.strategy', 'iterm')

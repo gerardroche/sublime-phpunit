@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.18.1 - Unreleased
+
+### Deprecated
+
+* The deprecated strategy `basic` should be replaced with `sublime`.
+
 ## 3.18.0 - 2023-08-06
 
 ### Added

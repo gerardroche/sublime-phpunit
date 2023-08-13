@@ -160,7 +160,7 @@ Command Palette → Preferences: PHPUnit Settings
 
 | Strategy              | Identifier    | Description
 | :------:              | :--------:    | :----------
-| **Basic** (default)   | `basic`       | Sends test commands to Sublime Text exec output panel.
+| **Sublime** (default) | `sublime`     | Sends test commands to Sublime Text exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
 | **[xterm]**           | `xterm`       | Sends test commands to xterm terminal. :new:
@@ -180,7 +180,7 @@ Command Palette → Preferences: PHPUnit Settings
 | `phpunit.on_post_save`    | `list`             | `[]`                 | Auto commands when views are saved. <br>Example: `["phpunit_test_file"]`
 | `phpunit.debug`           | `boolean`          | `false`              | Prints test runner debug information.
 | `phpunit.prepend_cmd`     | `list`             | `[]`                 | Prepends test runner command.
-| `phpunit.strategy`        | `string`           | `basic`              | Execution environment to run tests.
+| `phpunit.strategy`        | `string`           | `sublime`            | Execution environment to run tests.
 | `phpunit.font_size`       | `integer`          | Editor default.      | Font size of PHPUnit output.
 | `phpunit.composer`        | `boolean`          | `true`               | Use Composer installed executables.
 | `phpunit.artisan`         | `boolean`          | `false`              | Use Artisan to run tests.
