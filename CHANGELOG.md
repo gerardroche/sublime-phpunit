@@ -29,16 +29,16 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * [#121](https://github.com/gerardroche/sublime-phpunit/issues/121): Run tests from the side bar menu
 * [#122](https://github.com/gerardroche/sublime-phpunit/issues/122): Run tests from the context menu
 
-### Removed
+### Deprecated
 
-* Removed on post save "run_test_file" event, use on post save "phpunit_test_file" event instead.
+* The deprecated on-post-save "run_test_file" event, use on-post-save "phpunit_test_file" event instead.
 
 ## 3.16.0 - 2023-08-02
 
 ### Added
 
-* [#99](https://github.com/gerardroche/sublime-phpunit/issues/99): New support for running tests via Docker (beta)
-* [#118](https://github.com/gerardroche/sublime-phpunit/issues/118): New support for running tests on a remote server via SSH (beta)
+* [#99](https://github.com/gerardroche/sublime-phpunit/issues/99): New support for running tests via Docker
+* [#118](https://github.com/gerardroche/sublime-phpunit/issues/118): New support for running tests on a remote server via SSH
 * [#120](https://github.com/gerardroche/sublime-phpunit/issues/120): New strategy: `xterm` - Sends test commands to xterm terminal.
 * New Command: Changelog
 
@@ -136,7 +136,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 ### Fixed
 
 * [#113](https://github.com/gerardroche/sublime-phpunit/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
-* [#112](https://github.com/gerardroche/sublime-phpunit/issues/112): Don't show build panel when using stategies like Kitty
+* [#112](https://github.com/gerardroche/sublime-phpunit/issues/112): Don't show build panel when using strategies like Kitty
 
 ## 3.11.2 - 2023-04-15
 
