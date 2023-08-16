@@ -6,22 +6,22 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* [#126](https://github.com/NeoVintageous/NeoVintageous/issues/126): New "powershell" strategy to run tests in the PowerShell command-line shell (Windows)
-* [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): New "cmd" strategy to run tests in the cmd.exe command-line (Windows)
-* [#125](https://github.com/NeoVintageous/NeoVintageous/issues/125): New "Toggle Run Test On Save" command palette
+* [#126](https://github.com/gerardroche/sublime-phpunit/issues/126): New "powershell" strategy to run tests in the PowerShell command-line shell (Windows)
+* [#92](https://github.com/gerardroche/sublime-phpunit/issues/92): New "cmd" strategy to run tests in the cmd.exe command-line (Windows)
+* [#125](https://github.com/gerardroche/sublime-phpunit/issues/125): New "Toggle Run Test On Save" command palette
 
 ## 3.17.1 - 2023-08-04
 
 ### Fixed
 
-* [#92](https://github.com/NeoVintageous/NeoVintageous/issues/92): Allow "external" strategy for custom strategies using `prepend_cmd`
+* [#92](https://github.com/gerardroche/sublime-phpunit/issues/92): Allow "external" strategy for custom strategies using `prepend_cmd`
 
 ## 3.17.0 - 2023-08-04
 
 ### Added
 
-* [#121](https://github.com/NeoVintageous/NeoVintageous/issues/121): Run tests from the side bar menu
-* [#122](https://github.com/NeoVintageous/NeoVintageous/issues/122): Run tests from the context menu
+* [#121](https://github.com/gerardroche/sublime-phpunit/issues/121): Run tests from the side bar menu
+* [#122](https://github.com/gerardroche/sublime-phpunit/issues/122): Run tests from the context menu
 
 ### Removed
 
@@ -31,9 +31,9 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Added
 
-* [#99](https://github.com/NeoVintageous/NeoVintageous/issues/99): New support for running tests via Docker (beta)
-* [#118](https://github.com/NeoVintageous/NeoVintageous/issues/118): New support for running tests on a remote server via SSH (beta)
-* [#120](https://github.com/NeoVintageous/NeoVintageous/issues/120): New strategy: `xterm` - Sends test commands to xterm terminal.
+* [#99](https://github.com/gerardroche/sublime-phpunit/issues/99): New support for running tests via Docker (beta)
+* [#118](https://github.com/gerardroche/sublime-phpunit/issues/118): New support for running tests on a remote server via SSH (beta)
+* [#120](https://github.com/gerardroche/sublime-phpunit/issues/120): New strategy: `xterm` - Sends test commands to xterm terminal.
 * New Command: Changelog
 
 ## 3.15.0 - 2023-07-24
@@ -94,88 +94,88 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Changed
 
-* [#83](https://github.com/NeoVintageous/NeoVintageous/issues/83): Autocommand test file on save renamed `phpunit_test_file` to `run_test_file`
+* [#83](https://github.com/gerardroche/sublime-phpunit/issues/83): Autocommand test file on save renamed `phpunit_test_file` to `run_test_file`
 
 ## 3.12.3 - 2023-04-19
 
 ### Fixed
 
-* [#115](https://github.com/NeoVintageous/NeoVintageous/issues/115): Test nearest, tests whole pest file
+* [#115](https://github.com/gerardroche/sublime-phpunit/issues/115): Test nearest, tests whole pest file
 
 ## 3.12.2 - 2023-04-18
 
 ### Fixed
 
-* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Some Pest exec output colors not correct
-* [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Some Artisan exec output colors not correct
+* [#103](https://github.com/gerardroche/sublime-phpunit/issues/103): Some Pest exec output colors not correct
+* [#102](https://github.com/gerardroche/sublime-phpunit/issues/102): Some Artisan exec output colors not correct
 
 ## 3.12.1 - 2023-04-17
 
 ### Fixed
 
-* [#114](https://github.com/NeoVintageous/NeoVintageous/issues/114): Test nearest and file is missing for Pest
+* [#114](https://github.com/gerardroche/sublime-phpunit/issues/114): Test nearest and file is missing for Pest
 
 ## 3.12.0 - 2023-04-16
 
 ### Added
 
-* [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Support for PHPUnit output font size: `phpunit.font_size`
-* [#111](https://github.com/NeoVintageous/NeoVintageous/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
-* [#110](https://github.com/NeoVintageous/NeoVintageous/issues/110): View settings side-by-side
+* [#69](https://github.com/gerardroche/sublime-phpunit/issues/69): Support for PHPUnit output font size: `phpunit.font_size`
+* [#111](https://github.com/gerardroche/sublime-phpunit/issues/111): Support for [ParaTest](https://github.com/paratestphp/paratest)
+* [#110](https://github.com/gerardroche/sublime-phpunit/issues/110): View settings side-by-side
 
 ### Changed
 
-* [#69](https://github.com/NeoVintageous/NeoVintageous/issues/69): Renamed setting `phpunit.text_ui_result_font_size` to `phpunit.font_size`
+* [#69](https://github.com/gerardroche/sublime-phpunit/issues/69): Renamed setting `phpunit.text_ui_result_font_size` to `phpunit.font_size`
 
 ### Fixed
 
-* [#113](https://github.com/NeoVintageous/NeoVintageous/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
-* [#112](https://github.com/NeoVintageous/NeoVintageous/issues/112): Don't show build panel when using stategies like Kitty
+* [#113](https://github.com/gerardroche/sublime-phpunit/issues/113): Color is missing in strategies like Kitty for Artisan and Pest test runners
+* [#112](https://github.com/gerardroche/sublime-phpunit/issues/112): Don't show build panel when using stategies like Kitty
 
 ## 3.11.2 - 2023-04-15
 
 ### Fixed
 
-* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Build output syntax
+* [#103](https://github.com/gerardroche/sublime-phpunit/issues/103): Build output syntax
 
 ## 3.11.1 - 2023-04-15
 
 ### Fixed
 
-* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/104): Artisan and Pest color output
+* [#103](https://github.com/gerardroche/sublime-phpunit/issues/104): Artisan and Pest color output
 
 ## 3.11.0 - 2023-04-15
 
-* [#104](https://github.com/NeoVintageous/NeoVintageous/issues/104): [Kitty](https://github.com/kovidgoyal/kitty) execution strategy
+* [#104](https://github.com/gerardroche/sublime-phpunit/issues/104): [Kitty](https://github.com/kovidgoyal/kitty) execution strategy
 
 ## 3.10.1 - 2023-04-13
 
 ### Fixed
 
-* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Only use the Artisan runner if enabled and it exists
-* [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Only use the Pest runner if enabled and it exists
+* [#103](https://github.com/gerardroche/sublime-phpunit/issues/103): Only use the Artisan runner if enabled and it exists
+* [#102](https://github.com/gerardroche/sublime-phpunit/issues/102): Only use the Pest runner if enabled and it exists
 
 ## 3.10.0 - 2023-04-13
 
 ### Added
 
-* [#102](https://github.com/NeoVintageous/NeoVintageous/issues/102): Support for Artisan: `artisan test`
+* [#102](https://github.com/gerardroche/sublime-phpunit/issues/102): Support for Artisan: `artisan test`
 
 ## 3.9.0 - 2023-04-13
 
 ### Added
 
-* [#103](https://github.com/NeoVintageous/NeoVintageous/issues/103): Support for Pest
+* [#103](https://github.com/gerardroche/sublime-phpunit/issues/103): Support for Pest
 
 ### Changed
 
-* [#109](https://github.com/NeoVintageous/NeoVintageous/issues/109): env and cmd information in now only displayed in debug mode
+* [#109](https://github.com/gerardroche/sublime-phpunit/issues/109): env and cmd information in now only displayed in debug mode
 
 ## 3.8.0 - 2023-04-09
 
 ### Added
 
-* [#108](https://github.com/NeoVintageous/NeoVintageous/issues/108): Allow `phpunit.executable` to be set as `list`
+* [#108](https://github.com/gerardroche/sublime-phpunit/issues/108): Allow `phpunit.executable` to be set as `list`
 * [#107](https://github.com/gerardroche/sublime-phpunit/issues/107): Support PHPUnit 10 dist file name `phpunit.dist.xml`
 
 ## 3.7.0 - 2023-04-07
