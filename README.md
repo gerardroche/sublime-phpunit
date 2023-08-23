@@ -1,15 +1,15 @@
-<h1>PHPUnit Kit</h1>
+<h1>Welcome to PHPUnit Kit</h1>
 
 <p>
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
     <a href="https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master"><img alt="AppVeyor CI Status" src="https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true"></a>
-    <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK" alt="CodeCov Coverage Status" /></a>
-    <a href="https://packagecontrol.io/packages/PHPUnitKit"><img alt="Downloads" src="https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg"></a>
+    <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img alt="CodeCov Coverage Status" src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK"></a>
+    <a href="https://packagecontrol.io/packages/PHPUnitKit"><img alt="Download Count" src="https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg"></a>
 </p>
 
-PHPUnit support for [Sublime Text](https://sublimetext.com).
+Enhance your coding experience with seamless PHPUnit integration for [Sublime Text](https://sublimetext.com).
 
-<img src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585" alt="PHPUnitKit">
+<img alt="PHPUnitKit in Action" src="https://raw.githubusercontent.com/gerardroche/sublime-phpunit/master/screenshot.png" width="585">
 
 ## Features
 
@@ -18,23 +18,23 @@ PHPUnit support for [Sublime Text](https://sublimetext.com).
 * Run the test suite
 * Run the nearest test
 * Run the last test
-* Run multiple test methods using a multiple cursor
-* Run tests on remote server via SSH :new:
+* Run multiple test methods using multiple cursors
+* Run tests on a remote server via SSH :new:
 * Run tests via Docker :new:
-* Run tests via side bar menu :new:
-* Run tests via context menu :new:
-* Auto run test on save
-* Colour output
-* Fast jump to next and previous failure
-* Fast switch between test and file-under-test
+* Run tests via the sidebar menu :new:
+* Run tests via the context menu :new:
+* Auto-run tests on save
+* Color output
+* Quickly jump to the next and previous failures
+* Quickly switch between the test and the file-under-test
 * Toggle options from the command palette
-* Toggle run test on save :new:
+* Toggle running tests on save :new:
 * Fully customized CLI options configuration
-* Support for
-    - [Artisan] - Artisan is the command line interface included with Laravel.
+* Support for:
+    - [Artisan] - Artisan is the command-line interface included with Laravel.
     - [Composer] - Composer is a Dependency Manager for PHP.
     - [iTerm2] - iTerm2 brings the terminal into the modern age.
-    - [Kitty] - Kitt is a fast, feature-rich, cross-platform, GPU based terminal.
+    - [Kitty] - Kitty is a fast, feature-rich, cross-platform, GPU-based terminal.
     - [ParaTest] - ParaTest adds parallel testing support in PHPUnit.
     - [Pest] - Pest is a testing framework with a focus on simplicity.
     - [xterm] - A terminal emulator for the X Window System. :new:
@@ -52,7 +52,7 @@ Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023
 - [Commands](#commands)
 - [Key Bindings](#key-bindings)
 - [Strategies](#strategies)
-- [Configuring](#configuring)
+- [Configuration](#configuration)
   - [CLI Options](#cli-options)
   - [PHPUnit Executable](#phpunit-executable)
   - [PHP Executable](#php-executable)
@@ -100,12 +100,12 @@ Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023
 
 ## Setup
 
-(Optional. Zero configuration required.)
+(Optional: Zero configuration required.)
 
-To add your preferred key bindings, follow these steps:
+To add your preferred keybindings, follow these steps:
 
 1. Open the Sublime Text menu: `Command Palette → Preferences: Key Bindings`.
-2. Add the following key bindings to the configuration file:
+2. Add the following keybindings to the configuration file:
 
 ```json
 [
@@ -124,35 +124,38 @@ To add your preferred key bindings, follow these steps:
 
 | Command                                          | Description
 | :----------------------------------------------- | :----------
-| **PHPUnit:&nbsp;Test&nbsp;Nearest**              | Execute the test closest to the cursor. If the current file isn't a designated test file, it runs tests for the current file.
-| **PHPUnit:&nbsp;Test&nbsp;File**                 | Run tests for the currently open file. If it's not a test file, it runs tests for the current file.
-| **PHPUnit:&nbsp;Test&nbsp;Suite**                | Run the test suite associated with the current file.
-| **PHPUnit:&nbsp;Test&nbsp;Last**                 | Run the most recently executed test.
-| **PHPUnit:&nbsp;Test&nbsp;Switch**               | In a test file, open the file under test; otherwise, open the corresponding test file.
-| **PHPUnit:&nbsp;Test&nbsp;Visit**                | Quickly access the last run test.
-| **PHPUnit:&nbsp;Test&nbsp;Results**              | Open the test output panel (applies to "sublime" strategy).
-| **PHPUnit:&nbsp;Test&nbsp;Cancel**               | Halt any ongoing test executions.
-| **PHPUnit:&nbsp;Test&nbsp;Coverage**             | View code coverage using your default browser.
-| **PHPUnit:&nbsp;Toggle&nbsp;Run&nbsp;Test&nbsp;On&nbsp;Save** | Toggle the Test File auto-command on/off.
-| **PHPUnit:&nbsp;Toggle...**                      | Toggle options such as PHPUnit CLI settings.
-| **Preferences:&nbsp;PHPUnit&nbsp;Settings**      | Open the settings editor.
+| **PHPUnit:&nbsp;Test&nbsp;Nearest**              | Executes the test closest to the cursor. If the current file isn't a designated test file, it runs tests for the current file.
+| **PHPUnit:&nbsp;Test&nbsp;File**                 | Runs tests for the currently open file. If it's not a test file, it runs tests for the current file.
+| **PHPUnit:&nbsp;Test&nbsp;Suite**                | Runs the test suite associated with the current file.
+| **PHPUnit:&nbsp;Test&nbsp;Last**                 | Runs the most recently executed test.
+| **PHPUnit:&nbsp;Test&nbsp;Switch**               | In a test file, opens the file under test; otherwise, opens the corresponding test file.
+| **PHPUnit:&nbsp;Test&nbsp;Visit**                | Quickly accesses the last run test.
+| **PHPUnit:&nbsp;Test&nbsp;Results**              | Opens the test output panel (applies to "sublime" strategy).
+| **PHPUnit:&nbsp;Test&nbsp;Cancel**               | Halts any ongoing test executions.
+| **PHPUnit:&nbsp;Test&nbsp;Coverage**             | Views code coverage using your default browser.
+| **PHPUnit:&nbsp;Toggle&nbsp;Run&nbsp;Test&nbsp;On&nbsp;Save** | Toggles the Test File auto-command on/off.
+| **PHPUnit:&nbsp;Toggle...**                      | Toggles options such as PHPUnit CLI settings.
+| **Preferences:&nbsp;PHPUnit&nbsp;Settings**      | Opens the settings editor.
 
 Enhance your testing workflow with these commands for efficient testing directly from Sublime Text.
 
 ## Key Bindings
 
-Key         | Description
-:---        | :----------
-`F4`        | Jump to next failure
-`Shift+F4`  | Jump to previous failure
+| Key        | Description
+| :--------- | :----------
+| `F4`       | Jump to the next failure
+| `Shift+F4` | Jump to the previous failure
 
 ## Strategies
 
-PHPUnitKit can run tests using different execution environments called "strategies".
+PHPUnitKit can run tests using different execution environments known as "strategies".
 
-**Example:** Use the Kitty terminal strategy
+**Example:** Using the Kitty Terminal Strategy
 
-Command Palette → Preferences: PHPUnit Settings
+To set this strategy:
+
+1. Open the Command Palette: `Preferences: PHPUnit Settings`
+2. Add the following to your settings:
 
 ```json
 {
@@ -160,52 +163,68 @@ Command Palette → Preferences: PHPUnit Settings
 }
 ```
 
+Available strategies and their identifiers:
+
 | Strategy              | Identifier    | Description
 | :------:              | :--------:    | :----------
-| **Sublime** (default) | `sublime`     | Sends test commands to Sublime Text exec output panel.
+| **Sublime** (default) | `sublime`     | Sends test commands to Sublime Text's exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
-| **[Kitty]**           | `kitty`       | Sends test commands to Kitty terminal.
-| **[xterm]**           | `xterm`       | Sends test commands to xterm terminal. :new:
-| **[cmd]**             | `cmd`         | Sends test commands to cmd.exe terminal. :new:
-| **[PowerShell]**      | `powershell`  | Sends test commands to PowerShell command shell. :new:
+| **[Kitty]**           | `kitty`       | Sends test commands to the Kitty terminal.
+| **[xterm]**           | `xterm`       | Sends test commands to the xterm terminal. :new:
+| **[cmd]**             | `cmd`         | Sends test commands to the cmd.exe terminal. :new:
+| **[PowerShell]**      | `powershell`  | Sends test commands to the PowerShell command shell. :new:
 
-## Configuring
+## Configuration
 
-Command Palette → Preferences: PHPUnit Settings
+To configure PHPUnitKit, follow these steps:
+
+1. Open the Command Palette: `Preferences: PHPUnit Settings`
+
+Available settings and their details:
 
 | Setting                   | Type               | Default              | Description
 | :------------------------ | :----------------- | :------------------- | :----------
-| `phpunit.executable`      | `string`<br>`list` | Auto&nbsp;discovery. | The path to the PHPUnit executable to use when running tests. Environment variables and user home directory ~ placeholder are expanded. The executable can be a string or a list of parameters. <br>Example: `vendor/bin/phpunit`
-| `phpunit.options`         | `dict`             | `{}`                 | Command-line options to pass to PHPUnit. <br>Example: `{"no-coverage": true}`
-| `phpunit.php_executable`  | `string`           | Auto&nbsp;discovery. | The path to the PHP executable to use when running tests. Environment variables and user home directory ~ placeholder are expanded. <br>Example: `~/.phpenv/versions/8.2/bin/php`
-| `phpunit.save_all_on_run` | `boolean`          | `true`               | Save all dirty buffers before running tests.
-| `phpunit.on_post_save`    | `list`             | `[]`                 | Auto commands when views are saved. <br>Example: `["phpunit_test_file"]`
-| `phpunit.debug`           | `boolean`          | `false`              | Prints test runner debug information.
-| `phpunit.prepend_cmd`     | `list`             | `[]`                 | Prepends test runner command.
-| `phpunit.strategy`        | `string`           | `sublime`            | Execution environment to run tests.
-| `phpunit.font_size`       | `integer`          | Editor default.      | Font size of PHPUnit output.
-| `phpunit.composer`        | `boolean`          | `true`               | Use Composer installed executables.
-| `phpunit.artisan`         | `boolean`          | `false`              | Use Artisan to run tests.
-| `phpunit.paratest`        | `boolean`          | `false`              | Use ParaTest to run tests.
-| `phpunit.pest`            | `boolean`          | `false`              | Use Pest to run tests.
+| `phpunit.executable`      | `string` or `list` | Auto-discovery      | Path to the PHPUnit executable for running tests. Environment variables and user home directory ~ placeholder are expanded. The executable can be a string or a list of parameters. Example: `vendor/bin/phpunit`
+| `phpunit.options`         | `dict`             | `{}`                 | Command-line options to pass to PHPUnit. Example: `{"no-coverage": true}`
+| `phpunit.php_executable`  | `string`           | Auto-discovery      | Path to the PHP executable for running tests. Environment variables and user home directory ~ placeholder are expanded. Example: `~/.phpenv/versions/8.2/bin/php`
+| `phpunit.save_all_on_run` | `boolean`          | `true`               | Automatically saves all unsaved buffers before running tests.
+| `phpunit.on_post_save`    | `list`             | `[]`                 | Auto commands to execute when views are saved. Example: `["phpunit_test_file"]`
+| `phpunit.debug`           | `boolean`          | `false`              | Prints debug information about the test runner.
+| `phpunit.prepend_cmd`     | `list`             | `[]`                 | Prepends custom commands to the test runner.
+| `phpunit.strategy`        | `string`           | `sublime`            | The execution environment used for running tests.
+| `phpunit.font_size`       | `integer`          | Editor default       | Font size of PHPUnit's output.
+| `phpunit.composer`        | `boolean`          | `true`               | Uses Composer-installed executables.
+| `phpunit.artisan`         | `boolean`          | `false`              | Uses Artisan to run tests.
+| `phpunit.paratest`        | `boolean`          | `false`              | Uses ParaTest to run tests.
+| `phpunit.pest`            | `boolean`          | `false`              | Uses Pest to run tests.
 
-**SSH settings** :rocket:
+These settings allow you to customize PHPUnitKit according to your preferences and requirements.
 
-| Setting               | Type          | Default   | Description
-| :-------------------- | :------------ | :-------- | :----------
-| `phpunit.ssh`         | `boolean`     | `false`   | Enable SSH.
-| `phpunit.ssh_options` | `dict`        | `{}`      | Options for running tests via SSH. <br>Example: `{"-p": "22", "-tt": true}`.
-| `phpunit.ssh_user`    | `string`      | `null`    | User for running tests via SSH. <br>Example: vagrant
-| `phpunit.ssh_host`    | `string`      | `null`    | Host for running tests via SSH. <br>Example: homestead.test
-| `phpunit.ssh_paths`   | `dict`        | `{}`      | Path map for running tests via SSH. Keys: local paths, Values: replacement remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
+**SSH Settings** :rocket:
 
-**Docker settings** :rocket:
+Configure SSH settings for running tests remotely:
 
 | Setting               | Type          | Default   | Description
 | :-------------------- | :------------ | :-------- | :----------
-| `phpunit.docker`         | `boolean`  | `false`   | Enable Docker.
+| `phpunit.ssh`         | `boolean`     | `false`   | Enable SSH for remote testing.
+| `phpunit.ssh_options` | `dict`        | `{}`      | Options for running tests via SSH. Example: `{"-p": "22", "-tt": true}`.
+| `phpunit.ssh_user`    | `string`      | `null`    | User for running tests via SSH. Example: `vagrant`
+| `phpunit.ssh_host`    | `string`      | `null`    | Host for running tests via SSH. Example: `homestead.test`
+| `phpunit.ssh_paths`   | `dict`        | `{}`      | Path mapping for running tests via SSH. Keys: local paths, Values: corresponding remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
+
+Use these settings to configure PHPUnitKit's SSH options for seamless remote testing.
+
+**Docker Settings** :rocket:
+
+Configure Docker settings for running tests within containers:
+
+| Setting               | Type          | Default   | Description
+| :-------------------- | :------------ | :-------- | :----------
+| `phpunit.docker`         | `boolean`  | `false`   | Enable Docker for testing.
 | `phpunit.docker_command` | `list`     | `[]`      | Command to use when running tests via Docker. Example: `["docker", "exec", "-it", "my-container"]`
-| `phpunit.docker_paths`   | `dict`     | `{}`      | Path map for running tests via Docker. Keys: local paths, Values: replacement remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
+| `phpunit.docker_paths`   | `dict`     | `{}`      | Path mapping for running tests via Docker. Keys: local paths, Values: corresponding remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
+
+Utilize these settings to configure PHPUnitKit for streamlined testing within Docker containers.
 
 ### CLI Options
 
@@ -304,7 +323,6 @@ The path to the PHP executable to use when running tests. Environment variables 
 Default: Auto discovery.
 
 **Examples**
-
 
 Command Palette → Preferences: PHPUnit Settings
 
