@@ -19,6 +19,7 @@ import os
 import re
 import shutil
 
+from sublime import active_window
 from sublime import platform
 from sublime import status_message
 from sublime import version
@@ -31,6 +32,17 @@ _session = {}  # type: dict
 
 
 def debug_message(msg, *args) -> None:
+    window = active_window()
+    if not window:
+        return
+
+    view = window.active_view()
+    if not view:
+        return
+
+    if not is_debug(view):
+        return
+
     if args:
         msg = msg % args
     print('PHPUnit: ' + msg)

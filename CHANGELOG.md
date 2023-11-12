@@ -2,10 +2,11 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.18.2 - Unreleased
+## 3.18.2 - 2023-11-12
 
 ### Fixed
 
+- Fix debug mode should be disabled by default
 - Fix result output footer edge-cases
 
 ## 3.18.1 - 2023-08-16
