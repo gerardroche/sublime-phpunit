@@ -128,6 +128,13 @@ Tests: 81, Assertions: 81, Deprecations: 4.
 #<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
+OK, but there were issues!
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+Tests: 2, Assertions: 2, Risky: 2.
+#<- region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
+
 OK, but some tests were skipped!
 # ^ region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 Tests: 31, Assertions: 41, Skipped: 6.

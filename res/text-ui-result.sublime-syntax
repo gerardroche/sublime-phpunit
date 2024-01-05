@@ -91,7 +91,7 @@ contexts:
     - match: '^{{cc}}OK, but incomplete, skipped, or risky tests\!{{cc}}$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
 
-    - match: '^{{cc}}OK, but (?:there are issues|some tests were skipped)\!{{cc}}$'
+    - match: '^{{cc}}OK, but (?:there (?:are|were) issues|some tests were skipped)\!{{cc}}$'
       scope: region.orangish phpunitkit test.footer.ok-but-incomplete-skipped-or-risky.phpunit-result
       push:
         - match: '^{{cc}}Tests\: \d+, Assertions\: \d+(?:, (?:Deprecations|Errors|Failures|Warnings|Notices|Skipped|Incomplete|Risky)\: \d+)+\.{{cc}}$'

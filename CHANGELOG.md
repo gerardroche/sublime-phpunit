@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.18.3 - Unreleased
+
+### Fixed
+
+- Syntax fixes
+
 ## 3.18.2 - 2023-11-12
 
 ### Fixed
