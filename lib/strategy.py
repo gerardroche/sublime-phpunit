@@ -17,6 +17,7 @@
 
 import os
 import re
+import shlex
 
 from sublime import cache_path
 from sublime import load_resource
@@ -28,7 +29,7 @@ from PHPUnitKit.lib.utils import is_debug
 
 
 def execute(window, view, env: dict, cmd: list, working_dir: str) -> None:
-    if get_setting(view, 'strategy') in ('cmd', 'external', 'iterm', 'kitty', 'powershell', 'xterm'):
+    if get_setting(view, 'strategy') in ('cmd', 'external', 'iterm', 'kitty', 'powershell', 'tmux', 'xterm'):
         window.run_command('exec', {
             'env': env,
             'cmd': cmd,
@@ -138,3 +139,31 @@ def _get_color_scheme(view):
               ' scheme with PHPUnit test results colors: {}'.format(str(e)))
 
         return color_scheme
+
+
+def build_tmux_cmd(view, working_dir: str, cmd: list) -> list:
+    tmux_target = get_setting(view, 'tmux_target')
+
+    # Try make initial cmd relative to working directory to reduce length.
+    if cmd[0].startswith(working_dir):
+        cmd = [os.path.relpath(cmd[0], working_dir)] + cmd[1:]
+
+    key_cmds = []
+
+    # Clear the terminal screen.
+    if get_setting(view, 'tmux_clear'):
+        clear_cmd = ['clear']
+        if get_setting(view, 'tmux_clear_scrollback'):
+            clear_cmd.append('-x')
+        key_cmds.append(shlex.join(clear_cmd))
+
+    # Switch to the working directory.
+    key_cmds.append(shlex.join(['cd', working_dir]))
+
+    # The test command.
+    key_cmds.append(shlex.join(cmd))
+
+    # Run inside a subshell to avoid changing the current working directory.
+    keys = '({})\n'.format(' && '.join(key_cmds))
+
+    return ['tmux', 'send-keys', '-t', tmux_target, keys]

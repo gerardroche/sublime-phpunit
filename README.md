@@ -40,6 +40,7 @@ Enhance your coding experience with seamless PHPUnit integration for [Sublime Te
     - [xterm] - A terminal emulator for the X Window System.
     - [cmd] - A command-line interpreter for Windows.
     - [PowerShell] - A cross-platform command-line shell.
+    - [Tmux] - A terminal multiplexer. :new:
 * Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
@@ -58,6 +59,7 @@ Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023
   - [PHP Executable](#php-executable)
   - [SSH](#ssh)
   - [Docker](#docker)
+  - [Tmux](#tmux)
   - [Auto Commands](#auto-commands)
   - [Toggle Commands](#toggle-commands)
   - [Custom Toggle Commands](#custom-toggle-commands)
@@ -150,17 +152,13 @@ Enhance your testing workflow with these commands for efficient testing directly
 
 PHPUnitKit can run tests using different execution environments known as "strategies".
 
-**Example:** Using the Kitty Terminal Strategy
-
-To set this strategy:
+**Example:** Using the Tmux Strategy
 
 1. Open the Command Palette: `Preferences: PHPUnit Settings`
 2. Add the following to your settings:
 
-```json
-{
-    "phpunit.strategy": "kitty"
-}
+```
+"phpunit.strategy": "tmux"
 ```
 
 Available strategies and their identifiers:
@@ -173,6 +171,7 @@ Available strategies and their identifiers:
 | **[xterm]**           | `xterm`       | Sends test commands to the xterm terminal.
 | **[cmd]**             | `cmd`         | Sends test commands to the cmd.exe terminal.
 | **[PowerShell]**      | `powershell`  | Sends test commands to the PowerShell command shell.
+| **[Tmux]**            | `tmux`        | Sends test commands to the Tmux terminal multiplexer. :new:
 
 ## Configuration
 
@@ -184,9 +183,9 @@ Available settings and their details:
 
 | Setting                   | Type               | Default              | Description
 | :------------------------ | :----------------- | :------------------- | :----------
-| `phpunit.executable`      | `string` or `list` | Auto-discovery      | Path to the PHPUnit executable for running tests. Environment variables and user home directory ~ placeholder are expanded. The executable can be a string or a list of parameters. Example: `vendor/bin/phpunit`
+| `phpunit.executable`      | `string` or `list` | Auto-discovery       | Path to the PHPUnit executable for running tests. Environment variables and user home directory ~ placeholder are expanded. The executable can be a string or a list of parameters. Example: `vendor/bin/phpunit`
 | `phpunit.options`         | `dict`             | `{}`                 | Command-line options to pass to PHPUnit. Example: `{"no-coverage": true}`
-| `phpunit.php_executable`  | `string`           | Auto-discovery      | Path to the PHP executable for running tests. Environment variables and user home directory ~ placeholder are expanded. Example: `~/.phpenv/versions/8.2/bin/php`
+| `phpunit.php_executable`  | `string`           | Auto-discovery       | Path to the PHP executable for running tests. Environment variables and user home directory ~ placeholder are expanded. Example: `~/.phpenv/versions/8.2/bin/php`
 | `phpunit.save_all_on_run` | `boolean`          | `true`               | Automatically saves all unsaved buffers before running tests.
 | `phpunit.on_post_save`    | `list`             | `[]`                 | Auto commands to execute when views are saved. Example: `["phpunit_test_file"]`
 | `phpunit.debug`           | `boolean`          | `false`              | Prints debug information about the test runner.
@@ -198,9 +197,7 @@ Available settings and their details:
 | `phpunit.paratest`        | `boolean`          | `false`              | Uses ParaTest to run tests.
 | `phpunit.pest`            | `boolean`          | `false`              | Uses Pest to run tests.
 
-These settings allow you to customize PHPUnitKit according to your preferences and requirements.
-
-**SSH Settings** :rocket:
+**SSH Settings**
 
 Configure SSH settings for running tests remotely:
 
@@ -212,9 +209,7 @@ Configure SSH settings for running tests remotely:
 | `phpunit.ssh_host`    | `string`      | `null`    | Host for running tests via SSH. Example: `homestead.test`
 | `phpunit.ssh_paths`   | `dict`        | `{}`      | Path mapping for running tests via SSH. Keys: local paths, Values: corresponding remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
 
-Use these settings to configure PHPUnitKit's SSH options for seamless remote testing.
-
-**Docker Settings** :rocket:
+**Docker Settings**
 
 Configure Docker settings for running tests within containers:
 
@@ -224,7 +219,15 @@ Configure Docker settings for running tests within containers:
 | `phpunit.docker_command` | `list`     | `[]`      | Command to use when running tests via Docker. Example: `["docker", "exec", "-it", "my-container"]`
 | `phpunit.docker_paths`   | `dict`     | `{}`      | Path mapping for running tests via Docker. Keys: local paths, Values: corresponding remote paths. Environment variables and user home directory ~ placeholder are expanded. Example: `{"~/code/project1": "~/project1"}`
 
-Utilize these settings to configure PHPUnitKit for streamlined testing within Docker containers.
+**Tmux Settings** :new:
+
+Configure Tmux settings for running tests in a tmux pane:
+
+| Setting                           | Type          | Default   | Description
+| :-------------------------------- | :------------ | :-------- | :----------
+| `phpunit.tmux_clear`              | `bool`        | `true`    | Clear the terminal screen before running tests.
+| `phpunit.tmux_clear_scrollback`   | `bool`        | `false`   | Clear the terminal's scrollback buffer using the extended "E3" capability.
+| `phpunit.tmux_target`             | `string`      | `:.`      | Specify the session, window, and pane which should be used to run tests. <br><br>Format: `{session}:{window}.{pane}` <br><br>The default means the current pane. <br><br>For example, `:{start}.{top}` would mean the current session, lowest-numbered window, top pane. <br><br>See [Tmux documentation](http://man.openbsd.org/OpenBSD-current/man1/tmux.1#COMMANDS) for target usage.
 
 ### CLI Options
 
@@ -367,6 +370,32 @@ Command Palette → Preferences: PHPUnit Settings
 }
 ```
 
+### Tmux :new:
+
+**Example:** Run tests in a Tmux pane.
+
+```json
+{
+    "phpunit.strategy": "tmux",
+    "phpunit.options": { "colors": true, "no-coverage": true }
+}
+```
+
+Tip: Use the **`no-coverage`** option with the Command Palette **PHPUnit: Toggle --no-coverage** to turn code coverage on and off for quicker test runs when you just don't need the code coverage report.
+
+**Example:** Run tests in current session, lowest-numbered window, and top pane
+
+```json
+{
+    "phpunit.strategy": "tmux",
+    "phpunit.tmux_target": ":{start}.{top}"
+}
+```
+
+The target accepts the format `{target-session}:{target-window}.{target-pane}`. The default is `:.`, which means the current pane.
+
+See [Tmux documentation](http://man.openbsd.org/OpenBSD-current/man1/tmux.1#COMMANDS) for more details on the target usage.
+
 ### Auto Commands
 
 You can configure the `on_post_save` event to run the "Test File" command when views are saved. This will instruct the runner to automatically run a test every time it is saved.
@@ -488,6 +517,7 @@ Released under the [GPL-3.0-or-later License](LICENSE).
 [ParaTest]: https://github.com/paratestphp/paratest
 [Pest]: https://pestphp.com
 [PowerShell]: https://learn.microsoft.com/en-us/powershell/
+[Tmux]: https://github.com/tmux/tmux/wiki
 [cmd]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [iTerm2]: https://iterm2.com
 [xterm]: https://invisible-island.net/xterm/

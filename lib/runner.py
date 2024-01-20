@@ -138,13 +138,10 @@ class PHPUnit():
             'options': options
         })
 
-        strategy.execute(
-            self.window,
-            self.view,
-            env,
-            cmd,
-            working_dir
-        )
+        if get_setting(self.view, 'strategy') == 'tmux':
+            cmd = strategy.build_tmux_cmd(self.view, working_dir, cmd)
+
+        strategy.execute(self.window, self.view, env, cmd, working_dir)
 
     def run_last(self) -> None:
         last_test_args = get_last_run()

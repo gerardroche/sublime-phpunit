@@ -94,5 +94,23 @@
     // paths and the values are the replacement remote paths. Environment
     // variables and user home directory ~ placeholder are expanded.
     // Example: {"~/code/project1": "~/project1"}
-    "phpunit.docker_paths": {}
+    "phpunit.docker_paths": {},
+
+    // Clear the terminal screen before running tests.
+    "phpunit.tmux_clear": true,
+
+    // Clear the terminal's scrollback buffer using the extended "E3" capability.
+    "phpunit.tmux_clear_scrollback": true,
+
+    // Specify the session, window, and pane which should be used to run tests.
+    //
+    // Format: `{session}:{window}.{pane}`
+    //
+    // The default means the current pane.
+    //
+    // For example, ":{start}.{top}", would mean the current session,
+    // lowest-numbered window, top pane.
+    //
+    // See http://man.openbsd.org/OpenBSD-current/man1/tmux.1#COMMANDS
+    "phpunit.tmux_target": ":."
 }
