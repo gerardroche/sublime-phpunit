@@ -19,16 +19,16 @@ Enhance your coding experience with seamless PHPUnit integration for [Sublime Te
 * Run the nearest test
 * Run the last test
 * Run multiple test methods using multiple cursors
-* Run tests on a remote server via SSH :new:
-* Run tests via Docker :new:
-* Run tests via the sidebar menu :new:
-* Run tests via the context menu :new:
+* Run tests on a remote server via SSH
+* Run tests via Docker
+* Run tests via the sidebar menu
+* Run tests via the context menu
 * Auto-run tests on save
 * Color output
 * Quickly jump to the next and previous failures
 * Quickly switch between the test and the file-under-test
 * Toggle options from the command palette
-* Toggle running tests on save :new:
+* Toggle running tests on save
 * Fully customized CLI options configuration
 * Support for:
     - [Artisan] - Artisan is the command-line interface included with Laravel.
@@ -37,9 +37,9 @@ Enhance your coding experience with seamless PHPUnit integration for [Sublime Te
     - [Kitty] - Kitty is a fast, feature-rich, cross-platform, GPU-based terminal.
     - [ParaTest] - ParaTest adds parallel testing support in PHPUnit.
     - [Pest] - Pest is a testing framework with a focus on simplicity.
-    - [xterm] - A terminal emulator for the X Window System. :new:
-    - [cmd] - A command-line interpreter for Windows. :new:
-    - [PowerShell] - A cross-platform command-line shell. :new:
+    - [xterm] - A terminal emulator for the X Window System.
+    - [cmd] - A command-line interpreter for Windows.
+    - [PowerShell] - A cross-platform command-line shell.
 * Zero configuration required
 
 Read [Running PHPUnit Tests from Sublime Text](https://blog.gerardroche.com/2023/05/05/running-phpunit-tests-within-sublime-text/) for a quick introduction.
@@ -170,9 +170,9 @@ Available strategies and their identifiers:
 | **Sublime** (default) | `sublime`     | Sends test commands to Sublime Text's exec output panel.
 | **iTerm2.app**        | `iterm`       | Sends test commands to `iTerm2 >= 2.9` (useful in MacVim GUI).
 | **[Kitty]**           | `kitty`       | Sends test commands to the Kitty terminal.
-| **[xterm]**           | `xterm`       | Sends test commands to the xterm terminal. :new:
-| **[cmd]**             | `cmd`         | Sends test commands to the cmd.exe terminal. :new:
-| **[PowerShell]**      | `powershell`  | Sends test commands to the PowerShell command shell. :new:
+| **[xterm]**           | `xterm`       | Sends test commands to the xterm terminal.
+| **[cmd]**             | `cmd`         | Sends test commands to the cmd.exe terminal.
+| **[PowerShell]**      | `powershell`  | Sends test commands to the PowerShell command shell.
 
 ## Configuration
 
