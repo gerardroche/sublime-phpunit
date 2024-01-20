@@ -387,66 +387,13 @@ Command Palette → Preferences: PHPUnit Settings
 
 You can toggle many PHPUnit CLI options from the command palette by prefixing the command with "PHPUnit: Toggle."
 
-#### Execution
+**Example**
 
-- PHPUnit: Toggle --process-isolation: Run each test in a separate PHP process.
-- PHPUnit: Toggle --globals-backup: Backup and restore $GLOBALS for each test.
-- PHPUnit: Toggle --static-backup: Backup and restore static properties for each test.
-- PHPUnit: Toggle --strict-coverage: Be strict about code coverage metadata.
-- PHPUnit: Toggle --strict-global-state: Be strict about changes to global state.
-- PHPUnit: Toggle --disallow-test-output: Be strict about output during tests.
-- PHPUnit: Toggle --enforce-time-limit: Enforce time limit based on test size.
-- PHPUnit: Toggle --dont-report-useless-tests: Do not report tests that do not test anything.
-- PHPUnit: Toggle --stop-on-defect: Stop after the first error, failure, warning, or risky test.
-- PHPUnit: Toggle --stop-on-error: Stop after the first error.
-- PHPUnit: Toggle --stop-on-failure: Stop after the first failure.
-- PHPUnit: Toggle --stop-on-warning: Stop after the first warning.
-- PHPUnit: Toggle --stop-on-risky: Stop after the first risky test.
-- PHPUnit: Toggle --stop-on-deprecation: Stop after the first test that triggered a deprecation.
-- PHPUnit: Toggle --stop-on-notice: Stop after the first test that triggered a notice.
-- PHPUnit: Toggle --stop-on-skipped: Stop after the first skipped test.
-- PHPUnit: Toggle --stop-on-incomplete: Stop after the first incomplete test.
-- PHPUnit: Toggle --fail-on-warning: Signal failure using the shell exit code when a warning was triggered.
-- PHPUnit: Toggle --fail-on-risky: Signal failure using the shell exit code when a test was considered risky.
-- PHPUnit: Toggle --fail-on-deprecation: Signal failure using the shell exit code when a deprecation was triggered.
-- PHPUnit: Toggle --fail-on-notice: Signal failure using the shell exit code when a notice was triggered.
-- PHPUnit: Toggle --fail-on-skipped: Signal failure using the shell exit code when a test was skipped.
-- PHPUnit: Toggle --fail-on-incomplete: Signal failure using the shell exit code when a test was marked incomplete.
-- PHPUnit: Toggle --cache-result: Write test results to the cache file.
-- PHPUnit: Toggle --do-not-cache-result: Do not write test results to the cache file.
-- PHPUnit: Toggle --order-by=default: Run tests in order: default.
-- PHPUnit: Toggle --order-by=defects: Run tests in order: defects.
-- PHPUnit: Toggle --order-by=depends: Run tests in order: depends.
-- PHPUnit: Toggle --order-by=duration: Run tests in order: duration.
-- PHPUnit: Toggle --order-by=no-depends: Run tests in order: no-depends.
-- PHPUnit: Toggle --order-by=random: Run tests in order: random.
-- PHPUnit: Toggle --order-by=reverse: Run tests in order: reverse.
-- PHPUnit: Toggle --order-by=size: Run tests in order: size.
-
-#### Reporting
-
-- PHPUnit: Toggle --no-progress: Disable output of test execution progress.
-- PHPUnit: Toggle --no-results: Disable output of test results.
-- PHPUnit: Toggle --no-output: Disable all output.
-- PHPUnit: Toggle --display-incomplete: Display details for incomplete tests.
-- PHPUnit: Toggle --display-skipped: Display details for skipped tests.
 - PHPUnit: Toggle --display-deprecations: Display details for deprecations triggered by tests.
-- PHPUnit: Toggle --display-errors: Display details for errors triggered by tests.
-- PHPUnit: Toggle --display-notices: Display details for notices triggered by tests.
-- PHPUnit: Toggle --display-warnings: Display details for warnings triggered by tests.
-- PHPUnit: Toggle --reverse-list: Print defects in reverse order.
-- PHPUnit: Toggle --teamcity: Replace default progress and result output with TeamCity format.
-- PHPUnit: Toggle --testdox: Replace default result output with TestDox format.
-
-#### Logging
-
-- PHPUnit: Toggle --no-logging: Ignore logging configured in the XML configuration file.
-
-#### Code Coverage
-
-- PHPUnit: Toggle --path-coverage: Report path coverage in addition to line coverage.
-- PHPUnit: Toggle --disable-coverage-ignore: Disable metadata for ignoring code coverage.
+- PHPUnit: Toggle --fail-on-risky: Signal failure using the shell exit code when a test was considered risky.
 - PHPUnit: Toggle --no-coverage: Ignore code coverage reporting configured in the XML configuration file.
+- PHPUnit: Toggle --stop-on-defect: Stop after the first error, failure, warning, or risky test.
+- PHPUnit: Toggle --testdox: Replace default result output with TestDox format.
 
 ### Custom Toggle Commands
 
