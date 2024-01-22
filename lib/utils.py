@@ -18,9 +18,6 @@
 import os
 import re
 import shutil
-import subprocess
-import sys
-import traceback
 
 from sublime import active_window
 from sublime import platform
@@ -753,76 +750,3 @@ def toggle_on_post_save(view, item: str) -> None:
     view.settings().erase('phpunit.on_post_save')
     if on_post_save != view.settings().get('phpunit.on_post_save'):
         view.settings().set('phpunit.on_post_save', on_post_save)
-
-
-def _get_default_shell() -> str:
-    if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
-        return os.environ.get('SHELL', 'sh')
-    elif sys.platform.startswith('win'):
-        return 'cmd.exe'
-    else:
-        return ''
-
-
-if sys.platform.startswith('win'):
-    try:
-        import ctypes
-    except ImportError:
-        traceback.print_exc()
-        ctypes = None
-
-    def _get_startup_info():
-        # Hide the child process window.
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-
-        return startupinfo
-
-    def _get_encoding() -> str:
-        return str(ctypes.windll.kernel32.GetOEMCP())
-
-    def _shell_filter_newlines(text: str):
-        return text.replace('\r\n', '\n')
-
-    def _shell_decode(res):
-        return _shell_filter_newlines(res.decode(_get_encoding()))
-
-    def _shell_read(view, cmd: str) -> str:
-        p = subprocess.Popen([_get_default_shell(), '/c', cmd],
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE,
-                             startupinfo=_get_startup_info())
-        out, err = p.communicate()
-
-        if out:
-            return _shell_decode(out)
-
-        if err:
-            return _shell_decode(err)
-
-        return ''
-
-else:
-    def _shell_read(view, cmd: str) -> str:
-        p = subprocess.Popen([_get_default_shell(), '-c', cmd],
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE)
-
-        out, err = p.communicate()
-
-        if out:
-            return out.decode('utf-8').strip()
-
-        if err:
-            return err.decode('utf-8').strip()
-
-        return ''
-
-
-def shell_read(view, cmd: str) -> str:
-    try:
-        return _shell_read(view, cmd)
-    except Exception:
-        traceback.print_exc()
-
-    return ''
