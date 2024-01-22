@@ -2,13 +2,11 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.19.0
+## 3.19.0 - Unreleased
 
 ### Added
 
-- Tmux strategy - Runs test commands in a tmux pane [#119](https://github.com/gerardroche/sublime-phpunit/issues/119)
-
-## 3.18.3 - Unreleased
+- Tmux strategy - Runs test in a tmux pane [#119](https://github.com/gerardroche/sublime-phpunit/issues/119)
 
 ### Fixed
 
