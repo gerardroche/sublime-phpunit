@@ -99,8 +99,9 @@
     // Clear the terminal screen before running tests.
     "phpunit.tmux_clear": true,
 
-    // Clear the terminal's scrollback buffer using the extended "E3" capability.
-    "phpunit.tmux_clear_scrollback": false,
+    // Clear the terminal's scrollback buffer or do not attempt to clear it
+    // using the extended "E3" capability.
+    "phpunit.tmux_clear_scrollback": true,
 
     // Specify the session, window, and pane which should be used to run tests.
     //

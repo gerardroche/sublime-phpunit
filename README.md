@@ -226,7 +226,7 @@ Configure Tmux settings for running tests in a tmux pane:
 | Setting                           | Type          | Default   | Description
 | :-------------------------------- | :------------ | :-------- | :----------
 | `phpunit.tmux_clear`              | `bool`        | `true`    | Clear the terminal screen before running tests.
-| `phpunit.tmux_clear_scrollback`   | `bool`        | `false`   | Clear the terminal's scrollback buffer using the extended "E3" capability.
+| `phpunit.tmux_clear_scrollback`   | `bool`        | `true`    | Clear the terminal's scrollback buffer or do not attempt to clear it using the extended "E3" capability.
 | `phpunit.tmux_target`             | `string`      | `:.`      | Specify the session, window, and pane which should be used to run tests. <br><br>Format: `{session}:{window}.{pane}` <br><br>The default means the current pane. <br><br>For example, `:{start}.{top}` would mean the current session, lowest-numbered window, top pane. <br><br>See [Tmux documentation](http://man.openbsd.org/OpenBSD-current/man1/tmux.1#COMMANDS) for target usage.
 
 ### CLI Options

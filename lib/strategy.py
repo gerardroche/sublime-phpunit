@@ -153,7 +153,7 @@ def build_tmux_cmd(view, working_dir: str, cmd: list) -> list:
     # Clear the terminal screen.
     if get_setting(view, 'tmux_clear'):
         clear_cmd = ['clear']
-        if get_setting(view, 'tmux_clear_scrollback'):
+        if not get_setting(view, 'tmux_clear_scrollback'):
             clear_cmd.append('-x')
         key_cmds.append(shlex.join(clear_cmd))
 
