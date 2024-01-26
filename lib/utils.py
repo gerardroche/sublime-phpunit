@@ -407,20 +407,20 @@ def _find_switchable_in_lookup_symbols(file, lookup_symbols: list) -> tuple:
     if not file:
         return lookup_symbols, False
 
-    switchable_files, is_test = _get_switchable_files(file)
+    switchable_targets, switchable_targets_are_tests = _get_switchable_targets(file)
 
-    debug_message('switchable_files=%s', switchable_files)
+    debug_message('switchable_targets=%s', switchable_targets)
 
     # print('->', file)
     # print('  switchables:')
-    # for f in switchable_files:
+    # for f in switchable_targets:
     #     print('  ', f)
     # print('  lookup symbols:')
     # for lookup_symbol in lookup_symbols:
     #     print('  ', lookup_symbol[0], lookup_symbol[1])
 
     matched_switchables = []
-    for switchable_file in switchable_files:
+    for switchable_file in switchable_targets:
         for lookup_symbol in lookup_symbols:
             if lookup_symbol[0] == switchable_file:
                 matched_switchables.append(lookup_symbol)
@@ -431,21 +431,21 @@ def _find_switchable_in_lookup_symbols(file, lookup_symbols: list) -> tuple:
     if len(lookup_symbols) > 1:
         common_prefix = os.path.commonprefix([loc[0] for loc in lookup_symbols])
         if common_prefix != '/':
-            switchable_files = [file.replace(common_prefix, '') for file in switchable_files]
+            switchable_targets = [file.replace(common_prefix, '') for file in switchable_targets]
 
     for location in lookup_symbols:
         loc_file = location[0]
-        if not is_test:
+        if not switchable_targets_are_tests:
             loc_file = re.sub('\\/[tT]ests\\/([uU]nit\\/)?', '/', loc_file)
 
-        for file in switchable_files:
+        for file in switchable_targets:
             if loc_file.endswith(file):
                 return [location], True
 
     return lookup_symbols, False
 
 
-def _get_switchable_files(file: str) -> tuple:
+def _get_switchable_targets(file: str) -> tuple:
     switchable_files = []
 
     if file.endswith('Test.php'):
