@@ -112,23 +112,20 @@ class TestRefineSwitchableLocations(unittest.TestCase):
 
     def test_match3(self):
         expected = ('/a/b/c/app/xxx/X.php', 'c/app/xxx/X.php', (60, 13))
-        actual = _find_switchable_in_lookup_symbols(
-            '/a/b/c/tests/Unit/app/xxx/XTest.php',
-            [
-                expected,
-                ('/a/b/c/app/xxx/X.php', 'c/app/xxx/X.php', (60, 13)),
-                ('/a/b/c/vendor/Foobar.php', 'c/vendor/Foobar.php', (4, 31)),
-                ('/a/b/c/vendor/x/y/src/E/X.php', 'c/vendor/x/y/src/E/X.php', (33, 7)),
-                ('/a/b/c/vendor/x/y/Goutte/X.php', 'c/vendor/x/y/Goutte/X.php', (30, 7)),
-                ('/a/b/c/vendor/x/y/src/X.php', 'c/vendor/x/y/src/X.php', (25, 7)),
-                ('/a/b/c/vendor/x/y/src/X.php', 'c/vendor/x/y/src/X.php', (7, 7)),
-                ('/a/b/c/vendor/x/y/src/B/X.php', 'c/vendor/x/y/src/B/X.php', (9, 7)),
-                ('/a/b/c/vendor/x/y/src/X.php', 'c/vendor/x/y/src/X.php', (41, 7)),
-                ('/a/b/c/vendor/x/y/lib/D/X.php', 'c/vendor/x/y/lib/D/X.php', (20, 7)),
-                ('/a/b/c/vendor/x/y/lib/X.php', 'c/vendor/x/y/lib/X.php', (44, 7)),
-                ('/a/b/c/vendor/x/y/X.php', 'c/vendor/x/y/X.php', (29, 16)),
-                ('/a/b/c/vendor/x/y/X.php', 'c/vendor/x/y/X.php', (31, 7))
-            ])
+        actual = _find_switchable_in_lookup_symbols('/a/b/c/tests/Unit/app/xxx/XTest.php', [
+            expected,
+            ('/a/b/c/vendor/Foobar.php', 'c/vendor/Foobar.php', (4, 31)),
+            ('/a/b/c/vendor/x/y/src/E/X.php', 'c/vendor/x/y/src/E/X.php', (33, 7)),
+            ('/a/b/c/vendor/x/y/Goutte/X.php', 'c/vendor/x/y/Goutte/X.php', (30, 7)),
+            ('/a/b/c/vendor/x/y/src/X.php', 'c/vendor/x/y/src/X.php', (25, 7)),
+            ('/a/b/c/vendor/x/y/src/X.php', 'c/vendor/x/y/src/X.php', (7, 7)),
+            ('/a/b/c/vendor/x/y/src/B/X.php', 'c/vendor/x/y/src/B/X.php', (9, 7)),
+            ('/a/b/c/vendor/x/y/src/X.php', 'c/vendor/x/y/src/X.php', (41, 7)),
+            ('/a/b/c/vendor/x/y/lib/D/X.php', 'c/vendor/x/y/lib/D/X.php', (20, 7)),
+            ('/a/b/c/vendor/x/y/lib/X.php', 'c/vendor/x/y/lib/X.php', (44, 7)),
+            ('/a/b/c/vendor/x/y/X.php', 'c/vendor/x/y/X.php', (29, 16)),
+            ('/a/b/c/vendor/x/y/X.php', 'c/vendor/x/y/X.php', (31, 7))
+        ])
 
         self.assertEqual(actual, ([expected], True))
 

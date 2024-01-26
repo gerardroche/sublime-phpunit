@@ -408,19 +408,25 @@ def _find_switchable_in_lookup_symbols(file, lookup_symbols: list) -> tuple:
         return lookup_symbols, False
 
     switchable_files, is_test = _get_switchable_files(file)
+
     debug_message('switchable_files=%s', switchable_files)
 
     # print('->', file)
+    # print('  switchables:')
     # for f in switchable_files:
-    #     print('=>', f)
-    # print('')
+    #     print('  ', f)
+    # print('  lookup symbols:')
     # for lookup_symbol in lookup_symbols:
-    #     print('=>', lookup_symbol[0], lookup_symbol[1])
+    #     print('  ', lookup_symbol[0], lookup_symbol[1])
 
+    matched_switchables = []
     for switchable_file in switchable_files:
         for lookup_symbol in lookup_symbols:
             if lookup_symbol[0] == switchable_file:
-                return [lookup_symbol], True
+                matched_switchables.append(lookup_symbol)
+
+    if matched_switchables:
+        return (matched_switchables, True if len(matched_switchables) == 1 else False)
 
     if len(lookup_symbols) > 1:
         common_prefix = os.path.commonprefix([loc[0] for loc in lookup_symbols])
