@@ -342,126 +342,157 @@ class Switchable:
         return file + encoded_postion
 
 
-def find_switchable(view, on_select=None):
-    # Args:
-    #   view (View)
-    #   on_select (callable)
-    #
-    # Returns:
-    #   void
-    window = view.window()
-
-    if on_select is None:
-        raise ValueError('a callable is required')
-
-    file = view.file_name()
-    debug_message('switch: %s', file)
-
-    classes = find_php_classes(view, with_namespace=True)
-    if len(classes) == 0:
-        return message('could not find a test case or class under test for %s', file)
-
-    debug_message('found %s class in switch: %s', len(classes), classes)
-
+def _get_switchable_lookup_symbols(window, classes: list) -> list:
     locations = []  # type: list
     for _class in classes:
-        class_name = _class['class']
-
-        if class_name[-4:] == 'Test':
-            symbol = class_name[:-4]
+        if _class['class'][-4:] == 'Test':
+            symbol = _class['class'][:-4]
         else:
-            symbol = class_name + 'Test'
+            symbol = _class['class'] + 'Test'
 
-        symbol_locations = window.lookup_symbol_in_index(symbol)
-        locations += symbol_locations
+        locations += window.lookup_symbol_in_index(symbol)
 
-    debug_message('found %s possible locations to switch to: %s', len(locations), locations)
+    locations = _unique_lookup_symbols(locations)
 
-    def unique_locations(locations):
-        locs = []
-        seen = set()  # type: set
-        for location in locations:
-            if location[0] not in seen:
-                seen.add(location[0])
-                locs.append(location)
+    return locations
 
-        return locs
 
-    locations = unique_locations(locations)
+def find_switchable(view, on_select) -> None:
+    window = view.window()
 
-    if len(locations) == 0:
-        if has_test(view):
-            return message('could not find class under test for %s', file)
-        else:
-            return message('could not find test case for %s', file)
+    classes = find_php_classes(view, with_namespace=True)
+    debug_message('found %s class(s): %s in %s', len(classes), classes, view.file_name() if view.file_name() else view)
 
-    def _on_select(index):
-        if index == -1:
-            return
+    if not len(classes):
+        message('Could not find a class in %s', view.file_name() if view.file_name() else view)
+        return
 
-        switchable = Switchable(locations[index])
+    lookup_symbols = _get_switchable_lookup_symbols(window, classes)
+    debug_message('found %s lookup symbol(s): %s', len(lookup_symbols), lookup_symbols)
 
-        if on_select is not None:
-            on_select(switchable)
+    if not len(lookup_symbols):
+        message('Could not find a switchable for %s', view.file_name() if view.file_name() else view)
+        return
 
-    if len(locations) == 1:
+    def _on_select(index: int) -> None:
+        if index >= 0:
+            on_select(Switchable(lookup_symbols[index]))
+
+    if len(lookup_symbols) == 1:
+        _on_select(0)
+        return
+
+    lookup_symbols, is_exact = _find_switchable_in_lookup_symbols(view.file_name(), lookup_symbols)
+
+    debug_message('found %d lookup symbol(s): %s', len(lookup_symbols), lookup_symbols)
+
+    if is_exact and len(lookup_symbols) == 1:
         return _on_select(0)
 
-    locations, is_exact = refine_switchable_locations(locations=locations, file=file)
-
-    debug_message('is_exact=%s', is_exact)
-    debug_message('locations(%s)=%s', len(locations), locations)
-
-    if is_exact and len(locations) == 1:
-        return _on_select(0)
-
-    window.show_quick_panel(['{}:{}'.format(loc[1], loc[2][0]) for loc in locations], _on_select)
+    window.show_quick_panel(['{}:{}'.format(loc[1], loc[2][0]) for loc in lookup_symbols], _on_select)
 
 
-def refine_switchable_locations(locations, file):
-    debug_message('refine location')
-    if not file:
-        return locations, False
-
-    debug_message('file=%s', file)
-    debug_message('locations=%s', locations)
-
-    files = []
-    if file.endswith('Test.php'):
-        file_is_test_case = True
-        file = file.replace('Test.php', '.php')
-        files.append(re.sub('(\\/)?[tT]ests\\/([uU]nit\\/)?', '/', file))
-        files.append(re.sub('(\\/)?[tT]ests\\/', '/src/', file))
-        files.append(re.sub('(\\/)?[tT]ests\\/Unit/', '/app/', file))
-        files.append(re.sub('(\\/)?[tT]ests\\/Integration/', '/app/', file))
-    else:
-        file_is_test_case = False
-        file = file.replace('.php', 'Test.php')
-        files.append(file)
-        files.append(re.sub('(\\/)?app\\/', '/tests/', file))
-        files.append(re.sub('(\\/)?app\\/', '/tests/Unit/', file))
-        files.append(re.sub('(\\/)?app\\/', '/tests/Integration/', file))
-        files.append(re.sub('(\\/)?src\\/', '/', file))
-        files.append(re.sub('(\\/)?src\\/', '/test/', file))
-
-    files = list(set(files))
-    debug_message('files=%s', files)
-
-    if len(locations) > 1:
-        common_prefix = os.path.commonprefix([loc[0] for loc in locations])
-        if common_prefix != '/':
-            files = [file.replace(common_prefix, '') for file in files]
-
+def _unique_lookup_symbols(locations: list) -> list:
+    locs = []
+    seen = set()  # type: set
     for location in locations:
+        if location[0] not in seen:
+            seen.add(location[0])
+            locs.append(location)
+
+    return locs
+
+
+def _find_switchable_in_lookup_symbols(file, lookup_symbols: list) -> tuple:
+    if not file:
+        return lookup_symbols, False
+
+    switchable_files, is_test = _get_switchable_files(file)
+    debug_message('switchable_files=%s', switchable_files)
+
+    # print('->', file)
+    # for f in switchable_files:
+    #     print('=>', f)
+    # print('')
+    # for lookup_symbol in lookup_symbols:
+    #     print('=>', lookup_symbol[0], lookup_symbol[1])
+
+    for switchable_file in switchable_files:
+        for lookup_symbol in lookup_symbols:
+            if lookup_symbol[0] == switchable_file:
+                return [lookup_symbol], True
+
+    if len(lookup_symbols) > 1:
+        common_prefix = os.path.commonprefix([loc[0] for loc in lookup_symbols])
+        if common_prefix != '/':
+            switchable_files = [file.replace(common_prefix, '') for file in switchable_files]
+
+    for location in lookup_symbols:
         loc_file = location[0]
-        if not file_is_test_case:
+        if not is_test:
             loc_file = re.sub('\\/[tT]ests\\/([uU]nit\\/)?', '/', loc_file)
 
-        for file in files:
+        for file in switchable_files:
             if loc_file.endswith(file):
                 return [location], True
 
-    return locations, False
+    return lookup_symbols, False
+
+
+def _get_switchable_files(file: str) -> tuple:
+    switchable_files = []
+
+    if file.endswith('Test.php'):
+        is_test = True
+        file = file.replace('Test.php', '.php')
+
+        switchable_file = re.sub('(\\/)?[tT]ests\\/([uU]nit\\/)?', '/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('(\\/)?[tT]ests\\/Unit/', '/app/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('(\\/)?[tT]ests\\/Integration/', '/app/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('(\\/)?[tT]ests\\/', '/src/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+
+    else:
+        is_test = False
+        file = file.replace('.php', 'Test.php')
+
+        # app/
+        switchable_file = re.sub('app\\/(?!.*app\\/)', 'tests/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('app\\/(?!.*app\\/)', 'tests/Unit/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('app\\/(?!.*app\\/)', 'tests/Integration/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('app\\/(?!.*app\\/)', '', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('app\\/(?!.*app\\/)', 'test/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+
+        # src/
+        switchable_file = re.sub('(\\/)?src\\/', '/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+        switchable_file = re.sub('(\\/)?src\\/', '/test/', file, count=1)
+        if switchable_file not in switchable_files:
+            switchable_files.append(switchable_file)
+
+    # 1:1
+    if file not in switchable_files:
+        switchable_files.append(file)
+
+    return switchable_files, is_test
 
 
 def put_views_side_by_side(view_a, view_b) -> None:

@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.19.2 - Unreleased
+
+### Fixed
+
+- Edge-case switchable misses
+
 ## 3.19.1 - 2024-01-23
 
 ### Fixed
