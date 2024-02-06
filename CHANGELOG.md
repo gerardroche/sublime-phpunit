@@ -2,11 +2,11 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 3.19.2 - Unreleased
+## 3.19.2 - 2024-02-06
 
 ### Fixed
 
-- Edge-case switchable misses
+- `PHPUnit: Test Switch` ("switchables") doesn't work in some cases
 
 ## 3.19.1 - 2024-01-23
 
