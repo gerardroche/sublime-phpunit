@@ -59,6 +59,13 @@ def get_setting(view, name: str):
     return view.settings().get('phpunit.%s' % name)
 
 
+def debug_settings(view) -> None:
+    if int(version()) >= 4078 and is_debug(view):
+        for key, val in view.settings().to_dict().items():
+            if key.startswith('phpunit.'):
+                debug_message('setting %s = %s', key, val)
+
+
 def message(msg, *args) -> None:
     if args:
         msg = msg % args
@@ -659,6 +666,8 @@ def get_php_executable(view, working_dir: str):
 
         if not file_exists_and_is_executable(php_executable):
             raise ValueError("php executable '%s' is not an executable file" % php_executable)
+
+        debug_message('using php executable version found in %s', php_version_file)
 
         return php_executable
 

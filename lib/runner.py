@@ -25,6 +25,7 @@ from PHPUnitKit.lib import strategy
 from PHPUnitKit.lib.utils import build_cmd_options
 from PHPUnitKit.lib.utils import build_filter_option
 from PHPUnitKit.lib.utils import debug_message
+from PHPUnitKit.lib.utils import debug_settings
 from PHPUnitKit.lib.utils import find_nearest_tests
 from PHPUnitKit.lib.utils import find_phpunit_working_directory
 from PHPUnitKit.lib.utils import find_switchable
@@ -54,6 +55,7 @@ class PHPUnit():
 
     def run(self, working_dir=None, file=None, options=None) -> None:
         debug_message('run working_dir=%s, file=%s, options=%s', working_dir, file, options)
+        debug_settings(self.view)
 
         kill_any_running_tests(self.window)
 
@@ -120,7 +122,7 @@ class PHPUnit():
             return
 
         debug_message(
-            '*** Configuration ***\n  working dir: %s\n  php: %s\n  phpunit: %s\n  options: %s\n  env: %s\n  cmd: %s',
+            'working dir: %s\n  php executable: %s\n  phpunit executable: %s\n  options: %s\n  env: %s\n  cmd: %s',
             working_dir,
             php_executable,
             phpunit_executable,
