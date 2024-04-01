@@ -70,7 +70,11 @@ class PHPUnit():
             options = get_phpunit_options(self.view, options)
 
             cmd = []
-            cmd += get_setting(self.view, 'prepend_cmd')
+
+            try:
+                cmd += get_setting(self.view, 'prepend_cmd')
+            except TypeError:
+                pass
 
             # Strategy
             if get_setting(self.view, 'strategy') == 'kitty':

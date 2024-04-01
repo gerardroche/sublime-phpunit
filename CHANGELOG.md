@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.19.3 - Unreleased
+
+### Fixed
+
+- Fix ''NoneType' object is not iterable'
+
 ## 3.19.2 - 2024-02-06
 
 ### Fixed
