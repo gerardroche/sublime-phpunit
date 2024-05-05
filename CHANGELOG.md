@@ -463,7 +463,6 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* .travis.yml is not needed in release package
 * All status messages should be prefixed with "PHPUnit: "
 * No status messages in some edge cases
 
