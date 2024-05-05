@@ -2,7 +2,6 @@
 
 <p>
     <a href="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml"><img alt="GitHub CI Status" src="https://github.com/gerardroche/sublime-phpunit/actions/workflows/ci.yml/badge.svg?branch=master"></a>
-    <a href="https://ci.appveyor.com/project/gerardroche/sublime-phpunit/branch/master"><img alt="AppVeyor CI Status" src="https://ci.appveyor.com/api/projects/status/wknvpma8qgjlqh1q/branch/master?svg=true"></a>
     <a href="https://codecov.io/gh/gerardroche/sublime-phpunit"><img alt="CodeCov Coverage Status" src="https://codecov.io/gh/gerardroche/sublime-phpunit/branch/master/graph/badge.svg?token=rnB0MiBXlK"></a>
     <a href="https://packagecontrol.io/packages/PHPUnitKit"><img alt="Download Count" src="https://img.shields.io/packagecontrol/dt/PHPUnitKit.svg"></a>
 </p>
