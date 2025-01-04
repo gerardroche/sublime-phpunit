@@ -685,8 +685,7 @@ def kill_any_running_tests(window) -> None:
 
 def get_osx_term_script_path() -> str:
     return os.path.join(
-        os.path.dirname(os.path.realpath(__file__)),
-        '../',
+        os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
         'bin',
         'osx_iterm')
 
