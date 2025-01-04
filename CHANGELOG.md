@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.19.4 - 2025-01-04
+
+### Fixed
+
+- Fix path to the osx_iterm executable [#130](https://github.com/gerardroche/sublime-phpunit/pull/130) @devinfd
+
 ## 3.19.3 - 2024-04-01
 
 ### Fixed
